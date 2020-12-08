@@ -2,7 +2,6 @@ const { Router } = require('express');
 // import all routers;
 const productRouter = require('./product.js');
 
-
 const router = Router();
 
 // load each router on a route

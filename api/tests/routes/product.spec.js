@@ -6,19 +6,19 @@ const { Product, conn } = require('../../src/db.js');
 
 const agent = session(app);
 const product = {
-  name: 'producto',
+	name: 'producto',
 };
 
 describe('PRODUCT routes', () => {
-  before(() => conn.authenticate()
-  .catch((err) => {
-    console.error('Unable to connect to the database:', err);
-  }));
-  beforeEach(() => Product.sync({ force: true })
-    .then(() => Product.create(product)));
-  describe('GET /products', () => {
-    it('should get 200', () => 
-      agent.get('/products/').expect(200)
-    );
-  });
+	before(() =>
+		conn.authenticate().catch((err) => {
+			console.error('Unable to connect to the database:', err);
+		})
+	);
+	beforeEach(() =>
+		Product.sync({ force: true }).then(() => Product.create(product))
+	);
+	describe('GET /products', () => {
+		it('should get 200', () => agent.get('/products/').expect(200));
+	});
 });
