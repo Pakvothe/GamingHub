@@ -32,20 +32,8 @@ $ git pull
 ### Identación
 
 -  Antes de pushear cualquier cambio asegurarse de que el codigo este identado con el estandar elegido por el grupo.
-
-> Para identar el código vamos a usar el plugin **'Prettier'** con las siguientes configuraciones:
-
-```sh
-	"prettier.useTabs": true,
-	"prettier.tabWidth": 3,
-	"noSemi": true,
-	"prettier.singleQuote": true
-	"printWidth": 80,
-	"trailingComma": "none",
-	"jsxBracketSameLine": false,
-```
-
-> 'En VSCode se puede configurar todo esto desde las configuraciones del plugin, o se puede crear un archivo a parte con estos comandos'.
+-  Tab = 4 espacios.
+-  Comillas simples en todo lugar menos en los textos.
 
 ### Scaffolding
 
