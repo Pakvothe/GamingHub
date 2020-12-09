@@ -13,12 +13,12 @@ module.exports = (sequelize) => {
             type: D.INTEGER,
             allowNull: false
         },
-        description: {
-            type: D.STRING,
+        description_es: {
+            type: D.TEXT,
             allowNull: false
         },
         description_en: {
-            type: D.STRING,
+            type: D.TEXT,
             allowNull: false
         },
         price: {

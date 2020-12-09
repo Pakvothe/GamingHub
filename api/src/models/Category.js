@@ -3,7 +3,7 @@ const D = DataTypes;
 
 module.exports = (sequelize) => {
     sequelize.define('category', {
-        name: {
+        name_es: {
             type: D.STRING,
             unique: true,
             allowNull: false,
