@@ -26,6 +26,23 @@ server.post('/category', (req, res) => {
         })
 })
 
+server.delete('/category/:catId', (req, res) => {
+    const { catId } = req.params;
+    var category = {};
+    Category.findOne({
+        where: { id: catId }
+    })
+        .then(data => {
+            category = data;
+            return Category.destroy({
+                where: { id: catId }
+            })
+        })
+        .then(() => {
+            res.json(category)
+        })
+})
+
 server.post('/:prodId/category/:catId', (req, res) => {
     let { prodId, catId } = req.params;
     let prod = Product.findOne({
