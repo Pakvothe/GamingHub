@@ -1,3 +1,7 @@
+:root {
+	--clr-primary: #9b5df7;
+}
+
 * {
 	margin: 0;
 	padding: 0;
