@@ -1,4 +1,5 @@
 const server = require('express').Router();
+const { Op } = require('sequelize');
 const { Product, Category } = require('../db.js');
 
 server.get('/', (req, res, next) => {
@@ -24,6 +25,22 @@ server.post('/category', (req, res) => {
                 message: err
             })
         })
+})
+
+server.get('/category/:catName', (req, res) => {
+    let { catName } = req.params
+    Product.findAll({
+        include: [{
+            model: Category,
+            where: {
+                [Op.or]: [
+                    { name_en: catName },
+                    { name_es: catName }
+                ]
+            }
+        }]
+    })
+    .then(data => res.json(data))
 })
 
 server.delete('/category/:catId', (req, res) => {
