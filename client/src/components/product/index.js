@@ -1,9 +1,21 @@
-import React from "react";
+import React, {useState} from "react";
 import {MainBox, GameDetail} from "../styles/styled_product.js";
 import StarRatings from "react-star-ratings";
-import {COLOR_PRIMARY} from "./../../constants/colors";
+
+const CLR_PRIMARY = getComputedStyle(document.documentElement)
+.getPropertyValue('--clr-primary');
 
 const Product = p => {
+  const [quantity, setQuantity] = useState(1);
+
+  function handleQuantityChange(amount) {
+    // Amount equals +1 or -1 
+    const newValue = quantity + amount;
+    if (newValue <= p.stock && newValue >= 1 && newValue <= 99) {
+      setQuantity((prev) => prev + amount);
+    }
+  }
+
   return (
     <MainBox>
       <GameDetail>
@@ -11,38 +23,40 @@ const Product = p => {
           <img src={p.images[0]} alt={`${p.name} image`} />
         </div>
         <div className="game__info">
-          <h1 className="game__title">{p.name}</h1>
-          <ul className="game__categories">
-            {p.categories["es"].map(category => (
-              <li className="game__category">{category}</li>
-            ))}
-          </ul>
-          <div>
-            <span className="game__price">${p.price}</span>
-            <span>
-              <StarRatings
-                rating={p.score}
-                starRatedColor={COLOR_PRIMARY}
-                starDimension="30px"
-                starSpacing="3px"
-              />
-            </span>
-            <span>{p.score}</span>
+          <div className="">
+            <ul className="game__categories">
+              {p.categories["es"].map(category => (
+                <li className="game__category">{category}</li>
+                ))}
+            </ul>
+            <h1 className="game__title">{p.name}</h1>
+            <div className="game__container-price-score">
+              <span className="game__price">${p.price}</span>
+              <span className="game__star-container">
+                <StarRatings
+                  rating={p.score}
+                  starRatedColor={CLR_PRIMARY}
+                  starDimension="30px"
+                  starSpacing="3px"
+                />
+              </span>
+            </div>
           </div>
           <p>{p.description["es"]}</p>
-          <div>
-            <span>Cantidad a comprar</span>
-            <button>-</button>
-            <span>1 unidad</span>
-            <button>+</button>
-          </div>
+          <div className="game__buy-stock-info">
+            <span style={{marginRight: "10px"}}>Cantidad a comprar</span>
+            <button className="game__quantitybutton" onClick={()=>handleQuantityChange(-1)}>-</button>
+            <span className="game__quantityvalue">{quantity} </span>
+            <button className="game__quantitybutton"onClick={()=>handleQuantityChange(1)}>+</button>
+            <span style={{marginLeft: "10px"}}>{quantity > 1 ? "unidades" : "unidad"}</span>
           <p>Stock: {p.stock}</p>
-          <div>
-            <div>
-              <button>Comprar ahora</button>
-              <button>Agregar al carrito</button>
+          </div>
+          <div className="game__purchase-container">
+            <div className="game__buy-buttons-container">
+              <button className="game__buy-now-button">Comprar ahora</button>
+              <button className="game__add-to-cart-button">Agregar al carrito</button>
             </div>
-            {/* <img src="https://d31dn7nfpuwjnm.cloudfront.net/images/valoraciones/0033/3717/Que_tarjetas_acepta_Mercado_Pago.jpg?1552322626" alt="Medios de Pago" /> */}
+            <img className="game__payment-methods-icons" src="https://d31dn7nfpuwjnm.cloudfront.net/images/valoraciones/0033/3717/Que_tarjetas_acepta_Mercado_Pago.jpg?1552322626" alt="Medios de Pago" />
           </div>
         </div>
       </GameDetail>
