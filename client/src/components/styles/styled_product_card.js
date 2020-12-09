@@ -57,13 +57,11 @@ export const ProductCardStyled = styled.article`
 	.card__title {
 		font-size: 1.2em;
 		color: #9b5df7;
-	}
 
-	@supports (background-clip: text) {
-		.card__title {
-			color: transparent;
-			background: linear-gradient(-90deg, #5630e4, #9b5df7);
-			background-clip: text;
+		@supports (-webkit-background-clip: text)  {
+		color: transparent;
+		background: linear-gradient(-90deg, #5630e4, #9b5df7);
+		-webkit-background-clip: text;
 		}
 	}
 
