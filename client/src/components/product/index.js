@@ -1,9 +1,7 @@
-import React, {useState} from "react";
-import {MainBox, GameDetail} from "../styles/styled_product.js";
+import React, { useState } from "react";
+import { MainBox, GameDetail } from "../styles/styled_product.js";
 import StarRatings from "react-star-ratings";
-
-const CLR_PRIMARY = getComputedStyle(document.documentElement)
-.getPropertyValue('--clr-primary');
+import { CLR_PRIMARY } from '../../utils/constants.js';
 
 const Product = p => {
   const [quantity, setQuantity] = useState(1);
@@ -27,7 +25,7 @@ const Product = p => {
             <ul className="game__categories">
               {p.categories["es"].map(category => (
                 <li className="game__category">{category}</li>
-                ))}
+              ))}
             </ul>
             <h1 className="game__title">{p.name}</h1>
             <div className="game__container-price-score">
@@ -44,12 +42,12 @@ const Product = p => {
           </div>
           <p>{p.description["es"]}</p>
           <div className="game__buy-stock-info">
-            <span style={{marginRight: "10px"}}>Cantidad a comprar</span>
-            <button className="game__quantitybutton" onClick={()=>handleQuantityChange(-1)}>-</button>
+            <span style={{ marginRight: "10px" }}>Cantidad a comprar</span>
+            <button className="game__quantitybutton" onClick={() => handleQuantityChange(-1)}>-</button>
             <span className="game__quantityvalue">{quantity} </span>
-            <button className="game__quantitybutton"onClick={()=>handleQuantityChange(1)}>+</button>
-            <span style={{marginLeft: "10px"}}>{quantity > 1 ? "unidades" : "unidad"}</span>
-          <p>Stock: {p.stock}</p>
+            <button className="game__quantitybutton" onClick={() => handleQuantityChange(1)}>+</button>
+            <span style={{ marginLeft: "10px" }}>{quantity > 1 ? "unidades" : "unidad"}</span>
+            <p>Stock: {p.stock}</p>
           </div>
           <div className="game__purchase-container">
             <div className="game__buy-buttons-container">
