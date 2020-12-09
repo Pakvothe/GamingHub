@@ -18,6 +18,12 @@ server.post('/category', (req, res) => {
                 data
             })
         })
+        .catch((err) => {
+            res.status(400).json({
+                status: 'Bad Request',
+                message: err
+            })
+        })
 })
 
 server.post('/:prodId/category/:catId', (req, res) => {
