@@ -2,12 +2,65 @@ const server = require('express').Router();
 const { Product, Category } = require('../db.js');
 
 server.get('/', (req, res, next) => {
-	Product.findAll()
-		.then((products) => {
-			res.send(products);
-		})
-		.catch(next);
+    Product.findAll()
+        .then((products) => {
+            res.send(products);
+        })
+        .catch(next);
 });
+
+server.post('/category', (req, res) => {
+    const { name_es, name_en } = req.body
+    Category.create({ name_en, name_es })
+        .then((data) => {
+            res.status(201).json({
+                message: 'OK',
+                data
+            })
+        })
+        .catch((err) => {
+            res.status(400).json({
+                status: 'Bad Request',
+                message: err
+            })
+        })
+})
+
+server.put('/category/:catId', (req, res) => {
+    let { catId } = req.params;
+    let { name_es, name_en } = req.body;
+    Category.update({
+        name_es,
+        name_en
+    }, {
+        where: { id: catId },
+        returning: true
+    })
+    .then(data => {
+        data = data[1][0]
+        res.status(200).json({
+            message: "Categoría editada exitosamente",
+            data
+        })
+    })
+})
+
+server.delete('/category/:catId', (req, res) => {
+    const { catId } = req.params;
+    var category = {};
+    Category.findOne({
+        where: { id: catId }
+    })
+        .then(data => {
+            category = data;
+            return Category.destroy({
+                where: { id: catId }
+            })
+        })
+        .then(() => {
+            res.json(category)
+        })
+})
 
 server.post('/:prodId/category/:catId', (req, res) => {
     let { prodId, catId } = req.params;
@@ -18,10 +71,10 @@ server.post('/:prodId/category/:catId', (req, res) => {
         where: { id: catId }
     })
     Promise.all([prod, cat])
-    .then(([prod, cat]) => {
-        prod.addCategories(cat)
-        res.status(201).json({ message: "Producto asociado exitosamente con la categoría" })
-    })
+        .then(([prod, cat]) => {
+            prod.addCategories(cat)
+            res.status(201).json({ message: "Producto asociado exitosamente con la categoría" })
+        })
 })
 
 server.delete('/:prodId/category/:catId', (req, res) => {
@@ -33,10 +86,10 @@ server.delete('/:prodId/category/:catId', (req, res) => {
         where: { id: catId }
     })
     Promise.all([prod, cat])
-    .then(([prod, cat]) => {
-        prod.removeCategories(cat)
-        res.status(200).json({ message: "Categoría eliminada" })
-    })
+        .then(([prod, cat]) => {
+            prod.removeCategories(cat)
+            res.status(200).json({ message: "Categoría eliminada" })
+        })
 })
 
 module.exports = server;

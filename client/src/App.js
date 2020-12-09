@@ -1,12 +1,15 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Product from './components/product';
-
+import { Route } from 'react-router-dom';
+import SearchBar from './components/search_bar';
+import ProductCard from './components/product_card';
 
 function App() {
 	return (
-		<Product />
+		<>
+			<Route path="/testing/search-bar" component={SearchBar} />
+			<Route path="/testing/product-card" component={ProductCard} />
+		</>
 	);
 }
 
