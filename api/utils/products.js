@@ -200,3 +200,5 @@ const products = [
 		is_active: true
 	}
 ];
+
+module.exports = products;

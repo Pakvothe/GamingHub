@@ -48,4 +48,4 @@ $ git pull
 -  Utilizar nombres **descriptivos** para las variables.
 -  No usar tildes ni caracteres especiales.
 -  **Comentar** el código de forma descriptiva y concisa con la menor cantidad de palabras posible, ya que todos vamos a tener que leer los comentarios de los otros.
--  **Comentar** el código de forma descriptiva y concisa con la menor cantidad de palabras posible, ya que todos vamos a tener que leer los comentarios de los otros.
+- **Nombres de clases**: van en metodologia BEM.

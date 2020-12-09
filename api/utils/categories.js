@@ -39,4 +39,6 @@ const categories = [
         name_en: 'Racing',
         name_es: 'Carreras',
     },
-]
+];
+
+module.exports = categories;
