@@ -21,5 +21,12 @@ module.exports = (sequelize) => {
                 len: [2, 25]
             }
         }
+    }, {
+        hooks: {
+            beforeValidate: (category) => {
+                category.name_en = category.name_en.toLowerCase();
+                category.name_es = category.name_es.toLowerCase();
+            }
+        }
     })
 }

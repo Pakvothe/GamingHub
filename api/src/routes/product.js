@@ -29,6 +29,7 @@ server.post('/category', (req, res) => {
 
 server.get('/category/:catName', (req, res) => {
     let { catName } = req.params
+    catName = catName.toLowerCase();
     Product.findAll({
         include: [{
             model: Category,
