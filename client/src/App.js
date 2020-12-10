@@ -7,9 +7,9 @@ import AdminProductContainer from './components/admin_product_page/admin_product
 function App() {
 	return (
 		<>
-			<Route path='/testing/search-bar' component={ SearchBar } />
-			<Route path='/testing/product-card' component={ ProductCard } />
-			<Route path='/testing/admin' component={ AdminProductContainer } />
+			<Route path='/testing/search-bar' component={SearchBar} />
+			<Route path='/testing/product-card' component={ProductCard} />
+			<Route path='/testing/admin' component={AdminProductContainer} />
 		</>
 	);
 }
