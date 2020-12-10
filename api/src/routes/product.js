@@ -1,4 +1,5 @@
 const server = require('express').Router();
+const { Op } = require('sequelize');
 const { Product, Category } = require('../db.js');
 
 server.get('/', (req, res, next) => {
@@ -26,6 +27,23 @@ server.post('/category', (req, res) => {
         })
 })
 
+server.get('/category/:catName', (req, res) => {
+    let { catName } = req.params
+    catName = catName.toLowerCase();
+    Product.findAll({
+        include: [{
+            model: Category,
+            where: {
+                [Op.or]: [
+                    { name_en: catName },
+                    { name_es: catName }
+                ]
+            }
+        }]
+    })
+        .then(data => res.json(data))
+})
+
 server.put('/category/:catId', (req, res) => {
     let { catId } = req.params;
     let { name_es, name_en } = req.body;
@@ -36,13 +54,13 @@ server.put('/category/:catId', (req, res) => {
         where: { id: catId },
         returning: true
     })
-    .then(data => {
-        data = data[1][0]
-        res.status(200).json({
-            message: "Categoría editada exitosamente",
-            data
+        .then(data => {
+            data = data[1][0]
+            res.status(200).json({
+                message: "Categoría editada exitosamente",
+                data
+            })
         })
-    })
 })
 
 server.delete('/category/:catId', (req, res) => {
