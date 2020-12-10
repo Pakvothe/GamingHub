@@ -45,10 +45,9 @@ server.post('/category', (req, res) => {
 				data
 			})
 		})
-		.catch((err) => {
+		.catch(() => {
 			res.status(400).json({
-				status: 'Bad Request',
-				message: err
+				message: 'Bad Request'
 			})
 		})
 })
@@ -83,7 +82,7 @@ server.put('/category/:catId', (req, res) => {
 		.then(data => {
 			data = data[1][0]
 			res.status(200).json({
-				message: "Categoría editada exitosamente",
+				message: "Category edited successfuly.",
 				data
 			})
 		})
@@ -117,7 +116,7 @@ server.post('/:prodId/category/:catId', (req, res) => {
 	Promise.all([prod, cat])
 		.then(([prod, cat]) => {
 			prod.addCategories(cat)
-			res.status(201).json({ message: "Producto asociado exitosamente con la categoría" })
+			res.status(201).json({ message: "Product associated with category successfully." })
 		})
 })
 
@@ -132,8 +131,27 @@ server.delete('/:prodId/category/:catId', (req, res) => {
 	Promise.all([prod, cat])
 		.then(([prod, cat]) => {
 			prod.removeCategories(cat)
-			res.status(200).json({ message: "Categoría eliminada" })
+			res.status(200).json({ message: "Category deleted." })
 		})
+})
+
+server.delete('/:id', (req, res) => {
+	const prodId = req.params.id;
+	Product.destroy({
+		where: {
+			id: prodId
+		}
+	}).then(data => {
+		if (!data) {
+			res.status(404).json({ message: 'Product not found.' })
+		} else {
+			res.status(200).json({ message: 'Product deleted.' })
+		}
+	}).catch(() => {
+		res.status(500).json({
+			message: 'Internal server error',
+		})
+	});
 })
 
 module.exports = server;
