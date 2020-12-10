@@ -1,6 +1,7 @@
 const server = require('express').Router();
 const { Op } = require('sequelize');
 const { Product, Category } = require('../db.js');
+//----------"/products"--------------
 
 server.get('/', (req, res, next) => {
 	Product.findAll()
@@ -9,6 +10,31 @@ server.get('/', (req, res, next) => {
 		})
 		.catch(next);
 });
+
+server.get('/search', (req, res) => {
+	const { query } = req.query;
+	if (query) {
+		Product.findAll({
+			where: {
+				[Op.or]: [
+					{ name: { [Op.iLike]: `%${query}%` } },
+					{ description_es: { [Op.iLike]: `%${query}%` } },
+					{ description_en: { [Op.iLike]: `%${query}%` } }
+				]
+			}
+		})
+			.then((products) => {
+				res.status(200).json(products);
+			})
+			.catch(err => {
+				console.log(err);
+				res.status(500).json({ message: 'Internal server error', })
+			})
+
+	} else {
+		res.status(400).json({ message: "Query is empty" });
+	}
+})
 
 server.post('/category', (req, res) => {
 	const { name_es, name_en } = req.body
