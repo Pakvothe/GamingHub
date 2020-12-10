@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {connect} from 'react-redux';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import ProductForm from '../admin_product_form/';
 import SearchBar from '../admin_search_bar/'
 
