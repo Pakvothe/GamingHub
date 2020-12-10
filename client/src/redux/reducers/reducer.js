@@ -1,5 +1,9 @@
-import { CHANGE_LANGUAGE } from './../constants';
-const initialState = { language: localStorage.getItem('language') || 'es' }
+import { CHANGE_LANGUAGE, ADD_PRODUCT, EDIT_PRODUCT, DELETE_PRODUCT } from '../constants.js';
+
+const initialState = {
+	language: localStorage.getItem('language') || 'es',
+	products: []
+}
 
 const Reducer = (state = initialState, action) => {
 	switch (action.type) {
@@ -8,7 +12,18 @@ const Reducer = (state = initialState, action) => {
 				...state,
 				language: action.payload
 			}
+		case ADD_PRODUCT:
+			return {
+				...state,
+				products: [
+					...state.products,
+					action.payload
+				]
+			}
+		case EDIT_PRODUCT:
+			return {
 
+			}
 		default: return state;
 	}
 }
