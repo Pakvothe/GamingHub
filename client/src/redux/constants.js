@@ -1,1 +1,7 @@
-export const CHANGE_LANGUAGE = 'CHANGE_LANGUAGE'
+//Global actions =>
+export const CHANGE_LANGUAGE = 'CHANGE_LANGUAGE';
+
+//Product actions =>
+export const ADD_PRODUCT = 'ADD_PRODUCT';
+export const EDIT_PRODUCT = 'EDIT_PRODUCT';
+export const DELETE_PRODUCT = 'DELETE_PRODUCT';
