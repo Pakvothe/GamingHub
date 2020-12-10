@@ -11,6 +11,37 @@ server.get('/', (req, res, next) => {
 		.catch(next);
 });
 
+server.post('/', (req, res) => {
+	const {
+		name,
+		description_es,
+		description_en,
+		price,
+		is_active
+	} = req.body
+	if (name && description_en && description_es && price && is_active) {
+		Product.create({
+			name,
+			description_es,
+			description_en,
+			price,
+			is_active,
+			stock: 0, //may be subject to change
+			sales: 0  //may be subject to change
+		})
+			.then((product) => {
+				res.status(201).json(product);
+			})
+			.catch(() =>
+				res.status(500).json({ message: "Internal server error" })
+			)
+	} else {
+		res.status(400).json({ message: "Bad Request" })
+	}
+
+
+})
+
 server.get('/search', (req, res) => {
 	const { query } = req.query;
 	if (query) {
