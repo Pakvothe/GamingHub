@@ -36,6 +36,37 @@ server.get('/search', (req, res) => {
 	}
 })
 
+server.put('/:id', (req, res) => {
+	const { id } = req.params;
+	const {
+		name,
+		description_es,
+		description_en,
+		price,
+		is_active
+	} = req.body
+	Product.update({
+		name,
+		description_es,
+		description_en,
+		price,
+		is_active
+	}, {
+		where: { id },
+		returning: true
+	})
+		.then(data => {
+			if (!data[0]) {
+				res.status(400).json({ message: 'Bad request' })
+			} else {
+				res.status(200).json(data[1][0])
+			}
+		})
+		.catch(() => {
+			res.status(500).json({ message: 'Internal server error' })
+		})
+})
+
 server.post('/category', (req, res) => {
 	const { name_es, name_en } = req.body
 	Category.create({ name_en, name_es })
