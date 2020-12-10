@@ -27,14 +27,16 @@ server.post('/', (req, res) => {
 			price,
 			is_active,
 			stock: 0, //may be subject to change
-			sales: 0  //may be subject to change
+			sales: 0,  //may be subject to change
+			score: 0
 		})
 			.then((product) => {
 				res.status(201).json(product);
 			})
-			.catch(() =>
+			.catch((err) => {
+				console.log(err);
 				res.status(500).json({ message: "Internal server error" })
-			)
+			})
 	} else {
 		res.status(400).json({ message: "Bad Request" })
 	}
