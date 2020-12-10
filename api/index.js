@@ -50,21 +50,21 @@ const utilsCat = require("./utils/categories");
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
-    server.listen(PORT, () => {
-        console.log(`%s listening at ${PORT}`); // eslint-disable-line no-console
-    });
-    const promiseProd = Product.bulkCreate(utilsProd)
-    const promiseCat = Category.bulkCreate(utilsCat)
-    Promise.all([promiseProd, promiseCat])
-        .then(([prod, cat]) => {
-            prod[0].addCategories(cat[4])
-            prod[1].addCategories(cat[3])
-            prod[2].addCategories([cat[1], cat[4]])
-            prod[3].addCategories(cat[5])
-            prod[4].addCategories(cat[5])
-            console.log("Datos cargados exitosamente");
-        })
-        .catch((err) => {
-            console.error(err);
-        })
+	server.listen(PORT, () => {
+		console.log(`%s listening at ${PORT}`); // eslint-disable-line no-console
+	});
+	const promiseProd = Product.bulkCreate(utilsProd)
+	const promiseCat = Category.bulkCreate(utilsCat)
+	Promise.all([promiseProd, promiseCat])
+		.then(([prod, cat]) => {
+			prod[0].addCategories(cat[4])
+			prod[1].addCategories(cat[3])
+			prod[2].addCategories([cat[1], cat[4]])
+			prod[3].addCategories(cat[5])
+			prod[4].addCategories(cat[5])
+			console.log("Datos cargados exitosamente");
+		})
+		.catch((err) => {
+			console.error(err);
+		})
 });

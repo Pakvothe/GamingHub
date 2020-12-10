@@ -8,34 +8,34 @@ module.exports = (sequelize) => {
 		name: {
 			type: D.STRING,
 			allowNull: false,
-        },
-        stock: {
-            type: D.INTEGER,
-            allowNull: false
-        },
-        description_es: {
-            type: D.TEXT,
-            allowNull: false
-        },
-        description_en: {
-            type: D.TEXT,
-            allowNull: false
-        },
-        price: {
-            type: D.INTEGER,
-            allowNull: false
-        },
-        score: {
-            type: D.REAL,
-            allowNull: false
-        },
-        sales: {
-            type: D.INTEGER,
-            allowNull: false
-        },
-        is_active: {
-            type: D.BOOLEAN,
-            allowNull: false
-        }
+		},
+		stock: {
+			type: D.INTEGER,
+			allowNull: false
+		},
+		description_es: {
+			type: D.TEXT,
+			allowNull: false
+		},
+		description_en: {
+			type: D.TEXT,
+			allowNull: false
+		},
+		price: {
+			type: D.INTEGER,
+			allowNull: false
+		},
+		score: {
+			type: D.REAL,
+			allowNull: false
+		},
+		sales: {
+			type: D.INTEGER,
+			allowNull: false
+		},
+		is_active: {
+			type: D.BOOLEAN,
+			allowNull: false
+		}
 	});
 };
