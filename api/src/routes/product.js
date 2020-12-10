@@ -40,7 +40,26 @@ server.get('/category/:catName', (req, res) => {
             }
         }]
     })
-    .then(data => res.json(data))
+        .then(data => res.json(data))
+})
+
+server.put('/category/:catId', (req, res) => {
+    let { catId } = req.params;
+    let { name_es, name_en } = req.body;
+    Category.update({
+        name_es,
+        name_en
+    }, {
+        where: { id: catId },
+        returning: true
+    })
+        .then(data => {
+            data = data[1][0]
+            res.status(200).json({
+                message: "Categoría editada exitosamente",
+                data
+            })
+        })
 })
 
 server.delete('/category/:catId', (req, res) => {
