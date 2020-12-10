@@ -1,6 +1,6 @@
 import { CHANGE_LANGUAGE } from './../constants';
 
-export const setLanguage = (payload) => {
+export const changeLanguage = (payload) => {
 	return {
 		type: CHANGE_LANGUAGE,
 		payload
