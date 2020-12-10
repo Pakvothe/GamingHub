@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {Route} from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import SearchBar from './components/search_bar';
 import ProductCard from './components/product_card';
 import AdminProductContainer from './components/admin_product_page/admin_product_container'

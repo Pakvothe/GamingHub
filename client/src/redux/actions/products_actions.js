@@ -1,4 +1,4 @@
-import {ADD_PRODUCT, DELETE_PRODUCT, EDIT_PRODUCT} from '../constants.js ';
+import { ADD_PRODUCT, DELETE_PRODUCT, EDIT_PRODUCT } from '../constants.js ';
 
 
 //esperar respuesta de la db (?)

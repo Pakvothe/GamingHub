@@ -1,4 +1,4 @@
-import {CHANGE_LANGUAGE, ADD_PRODUCT, EDIT_PRODUCT, DELETE_PRODUCT} from '../constants.js';
+import { CHANGE_LANGUAGE, ADD_PRODUCT, EDIT_PRODUCT, DELETE_PRODUCT } from '../constants.js';
 
 const initialState = {
 	language: localStorage.getItem('language') || 'es',

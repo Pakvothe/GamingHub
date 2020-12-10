@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import strings from './strings';
-import {FormSearchBar} from '../../styles/styled_search_bar';
+import { FormSearchBar } from '../../styles/styled_search_bar';
 import loupe from '../../../assets/img/loupe.svg';
 
-const SearchBar = ({propFunction}) => {
+const SearchBar = ({ propFunction }) => {
 	const [inputText, setInputText] = useState('');
 
 	const handleChange = (evt) => {
