@@ -183,6 +183,42 @@ server.delete('/:id', (req, res) => {
 			message: 'Internal server error',
 		})
 	});
-})
+});
+
+server.get('/:id', (req, res) => {
+	const prodId = req.params.id;
+	if (!Number.isInteger(+prodId)) {
+		return res.status(404).json({
+			message: 'Bad Request'
+		});
+	};
+
+	Product.findOne({
+		where: { id: prodId },
+		include: [{
+			model: Category,
+			through: { attributes: [] }
+		}]
+	})
+		.then(prod => {
+			if (!prod) {
+				return res.status(404).json({ message: 'Product not found.' });
+			} else {
+				prod = prod.get();
+				const obj = {
+					...prod,
+					categories: prod.categories.map(cat => ({
+						...cat.dataValues
+					}))
+				};
+				res.json(obj);
+			}
+		})
+		.catch(() => {
+			res.status(500).json({
+				message: 'Internal server error',
+			});
+		});
+});
 
 module.exports = server;
