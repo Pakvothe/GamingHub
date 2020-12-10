@@ -5,7 +5,7 @@ import SearchBar from '../admin_search_bar/';
 
 const AdminProductContainer = (p) => {
 	const dispatch = useDispatch();
-	const products = useSelector((state) => state.products)
+	const products = useSelector((state) => state.products);
 	const [state, setState] = useState({
 		show_form: false,
 		show_products: false
@@ -15,8 +15,7 @@ const AdminProductContainer = (p) => {
 		setState({
 			show_form: true,
 			show_products: false
-		}
-		)
+		})
 	};
 
 	const handleProduct = () => {
@@ -35,8 +34,16 @@ const AdminProductContainer = (p) => {
 				<button onClick={handleProduct}>Mostrar Todos</button>
 				<button onClick={handleForm}>Agregar Producto</button>
 			</div>
-			{
-				showForm ? (<ProductForm />) : showProducts ? (<p>{p.products[0].name}</p>) : null
+			{ showForm && (<ProductForm />)}
+			{ showProducts && p.products.map(prod => (
+				<>
+					<p>{prod.name}</p>
+					<p>{prod.stock}</p>
+					<p>{prod.description_es}</p>
+					<p>{prod.description_en}</p>
+					<p>{prod.price}</p>
+				</>
+			))
 			}
 		</div>
 	);
