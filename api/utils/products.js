@@ -12,6 +12,21 @@ const products = [
 			{
 				url: 'https://elamigosedition.com/uploads/posts/2019-05/1557844033_final-fantasy-vii-cover-download.jpg'
 			}
+		],
+		serials: [
+			{
+				serial: '349U2TUT4H6HGGJ2CHUK'
+			}, {
+				serial: 'U97GTCE6SRSET1DDERFM'
+			}, {
+				serial: 'DAKF77DLELHU7P4A1DDX'
+			}, {
+				serial: 'F9TZ9P6KGFLPO742WP21'
+			}, {
+				serial: 'SAF0SK6CO4R4NPJELNRK'
+			}, {
+				serial: 'NT690HYGTF9JUT4I98A3'
+			},
 		]
 	},
 	{
@@ -26,6 +41,15 @@ const products = [
 		images: [
 			{
 				url: 'https://gamesland.com.pe/wp-content/uploads/2020/10/FIFA21ChampionsEdition-PS4_3401053f-d041-4a74-8b3d-e9117418c357_grande.jpg'
+			}
+		],
+		serials: [
+			{
+				serial: '629U7XLT5H6SCGJ2CENZ'
+			}, {
+				serial: 'F9TZ9P6IGFSME742WP21'
+			}, {
+				serial: 'L67GTCE6TRDFT1DXWVCM'
 			}
 		]
 	},
@@ -45,6 +69,23 @@ const products = [
 			{
 				url: 'https://as.com/meristation/imagenes/2020/10/04/header_image/875065311601806430.jpg'
 			}
+		],
+		serials: [
+			{
+				serial: 'D91GMT5X1JDW7YG1GHIS'
+			}, {
+				serial: 'I23LZH5C2IQYWRTRZ2BO'
+			}, {
+				serial: '8XJTJZTWESCIQNV9ZR2C4'
+			}, {
+				serial: 'PAQ34MHDIA1DZUUH4DB8'
+			}, {
+				serial: '4CSYW3ZMWWPRRLKWMRAB'
+			}, {
+				serial: 'DDLFRJKN5KB4DE3H2WYO'
+			}, {
+				serial: '9RVIIF3W586FAYVWPTFD'
+			}
 		]
 	},
 	{
@@ -60,6 +101,11 @@ const products = [
 			{
 				url: 'https://images.g2a.com/newlayout/323x433/1x1x0/ebeb8989e737/5e3ab6057e696c11f20eb312'
 			}
+		],
+		serials: [
+			{
+				serial: 'XONF7PMUOLHU7P4D1QQX'
+			}
 		]
 	},
 	{
@@ -74,6 +120,15 @@ const products = [
 		images: [
 			{
 				url: 'https://images.g2a.com/newlayout/323x433/1x1x0/95e6403a1f21/5a13d9edae653a1a2f2f5ba2'
+			}
+		],
+		serials: [
+			{
+				serial: 'N0Z90KJTTW7TZO4I27A1'
+			}, {
+				serial: 'CJA0SK6CO4R4NPJEKNRK'
+			}, {
+				serial: 'M7CQ2VARGXQFYGZURKG0'
 			}
 		]
 	},
