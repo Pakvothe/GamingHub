@@ -7,6 +7,7 @@ module.exports = (sequelize) => {
 		url: {
 			type: D.STRING,
 			allowNull: false,
+			unique: true,
 			validate: {
 				isUrl: true
 			}
