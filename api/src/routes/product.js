@@ -1,10 +1,14 @@
 const server = require('express').Router();
 const { Op } = require('sequelize');
-const { Product, Category } = require('../db.js');
+const { Product, Category, Image } = require('../db.js');
 //----------"/products"--------------
 
 server.get('/', (req, res, next) => {
-	Product.findAll()
+	Product.findAll({
+		include: [{
+			model: Image,
+		}]
+	})
 		.then((products) => {
 			res.send(products);
 		})
@@ -52,7 +56,10 @@ server.get('/search', (req, res) => {
 					{ description_es: { [Op.iLike]: `%${query}%` } },
 					{ description_en: { [Op.iLike]: `%${query}%` } }
 				]
-			}
+			},
+			include: [{
+				model: Image,
+			}]
 		})
 			.then((products) => {
 				res.status(200).json(products);
@@ -118,15 +125,19 @@ server.get('/category/:catName', (req, res) => {
 	let { catName } = req.params
 	catName = catName.toLowerCase();
 	Product.findAll({
-		include: [{
-			model: Category,
-			where: {
-				[Op.or]: [
-					{ name_en: catName },
-					{ name_es: catName }
-				]
+		include: [
+			{
+				model: Category,
+				where: {
+					[Op.or]: [
+						{ name_en: catName },
+						{ name_es: catName }
+					]
+				}
+			}, {
+				model: Image
 			}
-		}]
+		]
 	})
 		.then(data => res.json(data))
 })
@@ -219,17 +230,21 @@ server.delete('/:id', (req, res) => {
 server.get('/:id', (req, res) => {
 	const prodId = req.params.id;
 	if (!Number.isInteger(+prodId)) {
-		return res.status(404).json({
+		return res.status(400).json({
 			message: 'Bad Request'
 		});
 	};
 
 	Product.findOne({
 		where: { id: prodId },
-		include: [{
-			model: Category,
-			through: { attributes: [] }
-		}]
+		include: [
+			{
+				model: Category,
+				through: { attributes: [] }
+			}, {
+				model: Image
+			}
+		]
 	})
 		.then(prod => {
 			if (!prod) {

@@ -12,7 +12,7 @@ const Product = p => {
 
 	useEffect(() => {
 		dispatch(getProduct(id));
-	}, []);
+	}, [id, dispatch]);
 
 	return (
 		<MainBox>

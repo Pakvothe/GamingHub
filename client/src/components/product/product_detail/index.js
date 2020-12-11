@@ -3,10 +3,21 @@ import { GameDetail } from '../../styles/styled_product';
 import StarRatings from "react-star-ratings";
 import { CLR_PRIMARY } from '../../../utils/constants.js';
 import { useSelector } from 'react-redux';
+import { IMAGE_NOT_FOUND } from '../../../utils/constants';
 
 export const ProductDetail = ({ product }) => {
 	const [quantity, setQuantity] = useState(1);
 	const language = useSelector(state => state.language);
+	const [currentImg, setCurrentImg] = useState(0);
+
+	function handleImage() {
+		console.log("en")
+		if (currentImg >= product.images.length - 1) {
+			setCurrentImg(0);
+		} else {
+			setCurrentImg(prev => prev + 1)
+		}
+	};
 
 	function handleQuantityChange(amount) {
 		// Amount equals +1 or -1 
@@ -19,13 +30,14 @@ export const ProductDetail = ({ product }) => {
 	return (
 		<GameDetail>
 			<div className="game__img">
-				{/* <img src={product.images[0]} alt={`${product.name} image`} /> */}
+				<img src={product.images[currentImg] ? product.images[currentImg].url
+					: IMAGE_NOT_FOUND} onClick={handleImage} alt={`${product.name}`} />
 			</div>
 			<div className="game__info">
 				<div className="">
 					<ul className="game__categories">
 						{product.categories.map(category => (
-							<li key={category.id} className="game__category">{category[`name_${language}`]}</li>
+							<li key={category.id} className="game__category">{category[`name_${language}`].toUpperCase()}</li>
 						))}
 					</ul>
 					<h1 className="game__title">{product.name}</h1>
