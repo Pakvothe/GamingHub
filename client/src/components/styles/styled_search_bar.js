@@ -1,34 +1,47 @@
 import styled from 'styled-components';
 
 export const FormSearchBar = styled.form`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-bottom: 1em;
-    
+	background: var(--clr-white);
+	border: 2px solid var(--clr-primary); 
+	border-radius: 99em;
+	min-width: 200px;
+	max-width: 400px;
+	display: flex;
+	justify-content: space-between;
+	padding: 0 .7em;
+
+	&:hover, &:focus-within  {
+		box-shadow: inset 0 0 7px rgba(0,0,0,.15);
+	}
+
     button {
-        width: 10%;
-        background-color: white;
-        border: 2px solid #9a5cf6;
-        border-left: none;
-        border-radius: 0 10px 10px 0;
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
+		width: 15px;
+		background: transparent;    
+		border: none;
+		margin-left: .5em;
+		transition: transform .2s cubic-bezier(.25,.1,.75,2);
+		transform-origin: center;
+		text-align: right;
+
+		&:hover, &:focus {
+			filter: brightness(75%);
+			transform: rotateZ(15deg);
+		}
+
+		img {
+			height: 15px;
+    	}
     }
-    button img{
-        height: 20px;
-        padding-right: 5px;
-    }
+
     input {
-        width:90%;
-        height: 20px;
-        padding-left: 5px;
-        background-color: white;
-        border: 2px solid #9a5cf6;
-        border-right: none;
-        border-radius: 10px 0 0 10px;
-    }
+		background: transparent;
+		border: none;
+		font-family: Poppins, sans-serif;
+		font-size: 12px;
+		padding: .3em 0;
+		width: 90%;
+	}
+	
     button:focus, input:focus{
         outline: none;
     }

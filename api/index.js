@@ -44,27 +44,35 @@ require('dotenv').config();
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 const { PORT } = process.env;
-const { Product, Category } = require('./src/db.js');
+const { Product, Category, Image } = require('./src/db.js');
 const utilsProd = require("./utils/products");
 const utilsCat = require("./utils/categories");
+const utilsImg = require("./utils/images");
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
 	server.listen(PORT, () => {
 		console.log(`%s listening at ${PORT}`); // eslint-disable-line no-console
 	});
-	const promiseProd = Product.bulkCreate(utilsProd)
-	const promiseCat = Category.bulkCreate(utilsCat)
-	Promise.all([promiseProd, promiseCat])
-		.then(([prod, cat]) => {
-			prod[0].addCategories(cat[4])
-			prod[1].addCategories(cat[3])
-			prod[2].addCategories([cat[1], cat[4]])
-			prod[3].addCategories(cat[5])
-			prod[4].addCategories(cat[5])
+	const promiseProd = Product.bulkCreate(utilsProd);
+	const promiseCat = Category.bulkCreate(utilsCat);
+	const promiseImg = Image.bulkCreate(utilsImg);
+	Promise.all([promiseProd, promiseCat, promiseImg])
+		.then(([prod, cat, img]) => {
+			prod[0].addCategories(cat[4]);
+			prod[1].addCategories(cat[3]);
+			prod[2].addCategories([cat[1], cat[4]]);
+			prod[3].addCategories(cat[5]);
+			prod[4].addCategories(cat[5]);
+			prod[0].addImage(img[0]);
+			prod[1].addImage(img[1]);
+			prod[2].addImage(img[2]);
+			prod[2].addImage(img[3]);
+			prod[3].addImage(img[4]);
+			prod[4].addImage(img[5]);
 			console.log("Datos cargados exitosamente");
 		})
 		.catch((err) => {
 			console.error(err);
-		})
+		});
 });
