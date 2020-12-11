@@ -1,26 +1,53 @@
 import styled from 'styled-components';
-import { AdminBarLogic } from '../admin_page/admin_side_bar/SideBarLogic';
+import { AdminBarLogic } from '../admin_page/admin_side_bar';
 
 export const SideBarContainer = styled.div`
-	transform: translatex(${props => props}px);
-	width: ${props => props.pWidth}px;
-	min-height: ${props => props.pHeight}px;
-	height: 100% !important;
+	position: absolute;
+	color: var(--clr-white);
+	background-color: var(--clr-primary);
 	display: flex;
-	flex-direction: column;
-	border-right: 1px solid;
+	width: ${props => props.pWidth}px;
+	height: 100% ;
+	min-height: ${props => props.pHeight}px;
+	border-right: none;
 	border-radius: 0;
 	border-color: rgba(64, 194, 133, 0.693);
-	background-color: rgb(255, 255, 255);
 	transition: 0.8s ease;
+	transform: translatex(${props => props}px);
 	transform: translatex(${props => props.value}px);
-	width: ${props => props.pWidth}px;
-	min-height:  ${props => props.pHeight}px;
-	background-color: var(--clr-primary);
+	`
+export const ItemBox = styled.div`	
+	position: relative;
+	align-items: flex-start;
+	justify-content: space-evenly;
+	color: var(--clr-white);
+	flex-direction: column;
+	padding: 0 auto;
+	
+	h1{
+		margin: 0.5em 0.5em 0 0.5em;
+	}
+	h2{
+		margin: 0.5em;
+	}
 `
-
 
 export const SideBarButton = styled.button`
-	transform: translate( ${props => props.pWidth}px, 20vh);
-`
+	position: relative;
+	color: var(--clr-white);
+	background: transparent;    
+    border: none;
+	transform: translate( ${props => props.pWidth}px,10px);
+	text-align: right;
+	
+	&:hover, &:focus {
+		filter: brightness(75%);
+		outline: none;
+  		box-shadow: none;
+		}
 
+	img {
+		stroke: var(--clr-primary);
+		height: 2em;
+	}
+`
