@@ -25,6 +25,10 @@ export const GameDetail = styled.section`
       border-radius: 4%;
       border: 3px solid var(--clr-primary);
     }
+
+    &:hover{
+      cursor: pointer;
+    }
   }
 
   .game__info {
