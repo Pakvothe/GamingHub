@@ -5,6 +5,7 @@ import SearchBar from './components/search_bar';
 import ProductCard from './components/product_card';
 import AdminProductContainer from './components/admin_product_page/admin_product_container';
 import Product from './components/product';
+import Catalog from './components/catalog';
 
 function App() {
 	return (
@@ -13,6 +14,7 @@ function App() {
 			<Route path='/testing/product-card' component={ProductCard} />
 			<Route path='/testing/admin' component={AdminProductContainer} />
 			<Route path='/products/:id' component={Product} />
+			<Route path='/testing/catalog' component={Catalog} />
 		</>
 	);
 }
