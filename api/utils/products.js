@@ -30,7 +30,7 @@ const products = [
 		is_active: true
 	},
 	{
-		name: 'Age of Empires II: Edicion Definitiva',
+		name: 'Age of Empires II: Definitive Edition',
 		stock: 41,
 		description_es: 'Age of Empires II: Definitive Edition para PC es el relanzamiento del clásico de estrategia en tiempo real en su vigésimo aniversario. El juego conserva todo el encanto y la popularidad del original, pero lo combina con veinte años de mejoras en el mundo de los juegos: gráficos de alta definición, jugabilidad y visuales mejorados y cuatro nuevas civilizaciones, así como una nueva campaña para un jugador llamada The Last Khans.',
 		description_en: 'Age of Empires II: Definitive Edition for PC is the re-release of the real-time strategy classic on its 20th anniversary. The game retains all the charm and popularity of the original, but combines it with twenty years of improvements in the gaming world: high definition graphics, improved gameplay and visuals and four new civilizations, as well as a new single-player campaign called The last kans.',
@@ -40,7 +40,7 @@ const products = [
 		is_active: true
 	},
 	{
-		name: 'Human Fall Flat',
+		name: 'Human: Fall Flat',
 		stock: 849,
 		description_es: 'Human: Fall Flat para PC es un juego de puzles de plataforma perfecto para los que tienen un sentido del humor estrafalario y un don para ver las cosas desde otra perspectiva. Cuenta con animaciones cómicas, a pesar de que los puzles pueden llegar a ser muy complicados, y pasarás horas riendo de las payasadas de tu personaje o maldiciendo mientras intentas resolver el puzle en turno.',
 		description_en: 'Human: Fall Flat for PC is a platform puzzle game that is perfect for those with a quirky sense of humour and a knack for seeing things a little differently. The animations are comedic even as the puzzles can be fiendish and you will spend hours alternately chuckling at your character’s antics or cursing as you try to work out how to solve the current puzzle.',
