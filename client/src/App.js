@@ -15,7 +15,6 @@ function App() {
 			<Route path='/testing/admin' component={AdminProductContainer} />
 			<Route path='/products/:id' component={Product} />
 			<Route path='/products/' component={Catalog} />
-
 		</>
 	);
 }
