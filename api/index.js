@@ -44,7 +44,7 @@ require('dotenv').config();
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 const { PORT } = process.env;
-const { Product, Category, Image } = require('./src/db.js');
+const { Product, Category, Image, Serial } = require('./src/db.js');
 const utilsProd = require("./utils/products");
 const utilsCat = require("./utils/categories");
 
@@ -53,8 +53,9 @@ conn.sync({ force: true }).then(() => {
 	server.listen(PORT, () => {
 		console.log(`%s listening at ${PORT}`); // eslint-disable-line no-console
 	});
-	const promiseProd = Product.bulkCreate(utilsProd, { include: [Image] });
+	const promiseProd = Product.bulkCreate(utilsProd, { hooks: true, include: [Image, Serial] });
 	const promiseCat = Category.bulkCreate(utilsCat);
+
 	Promise.all([promiseProd, promiseCat])
 		.then(([prod, cat]) => {
 			prod[0].addCategories(cat[4]);

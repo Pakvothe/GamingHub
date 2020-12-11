@@ -22,7 +22,7 @@ module.exports = (sequelize) => {
 			allowNull: false
 		},
 		price: {
-			type: D.INTEGER,
+			type: D.REAL,
 			allowNull: false
 		},
 		score: {
