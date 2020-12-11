@@ -21,7 +21,7 @@ const SearchBar = ({ propFunction }) => {
 		<FormSearchBar onSubmit={handleSubmit}>
 			<input onChange={handleChange} type="text" placeholder={strings["es"].placeholder} />
 			<button>
-				<img src={loupe} />
+				<img src={loupe} alt="" />
 			</button>
 		</FormSearchBar>
 	)

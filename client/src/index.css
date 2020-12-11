@@ -1,5 +1,14 @@
 :root {
 	--clr-primary: #9b5df7;
+	--clr-primary-2: #763FC7;
+	--clr-secondary: #5630E4;
+	--clr-secondary-2: #4424B9;
+	--clr-white: #F5F4F8;
+	--clr-middle: #7E7E7E;
+	--clr-dark: #1B1A1F;
+	--clr-warning: #F6DB2D;
+	--clr-error: #D53051;
+	--clr-success: #97DA3F;
 }
 
 * {
@@ -8,9 +17,14 @@
 	box-sizing: border-box;
 }
 
+h1, h2, h3, h4, h5, h6, button {
+	font-family: Poppins, sans-serif;
+	line-height: 1;
+}
+
 body {
 	margin: 0;
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+	font-family: Raleway, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
