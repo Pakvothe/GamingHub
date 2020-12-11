@@ -8,7 +8,7 @@ export const AdminBarLogic = ({ width, height }) => {
 		if (xPosition < 0) {
 			setX(0);
 		} else {
-			setX(-width);
+			setX(-width + 50);
 		}
 	};
 

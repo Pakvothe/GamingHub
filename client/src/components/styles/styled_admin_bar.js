@@ -2,24 +2,17 @@ import styled from 'styled-components';
 import { AdminBarLogic } from '../admin_page/admin_side_bar';
 
 export const SideBarContainer = styled.div`
-	position: absolute;
+	position: relative;
 	color: var(--clr-white);
 	background-color: var(--clr-primary);
-	display: flex;
 	width: ${props => props.pWidth}px;
-	height: 100% ;
-	min-height: ${props => props.pHeight}px;
-	border-right: none;
-	border-radius: 0;
-	border-color: rgba(64, 194, 133, 0.693);
+	height: 100vh ;
 	transition: 0.8s ease;
 	transform: translatex(${props => props}px);
 	transform: translatex(${props => props.value}px);
+	
 	`
 export const ItemBox = styled.div`	
-	position: relative;
-	align-items: flex-start;
-	justify-content: space-evenly;
 	color: var(--clr-white);
 	flex-direction: column;
 	padding: 0 auto;
@@ -33,17 +26,14 @@ export const ItemBox = styled.div`
 `
 
 export const SideBarButton = styled.button`
-	position: relative;
-	color: var(--clr-white);
+	position: absolute;
+	right: 10px;
 	background: transparent;    
-    border: none;
-	transform: translate( ${props => props.pWidth}px,10px);
-	text-align: right;
+	border: none;
+	outline: 0;	
 	
-	&:hover, &:focus {
-		filter: brightness(75%);
-		outline: none;
-  		box-shadow: none;
+	&:active {
+		transform: translateZ(180deg);
 		}
 
 	img {
