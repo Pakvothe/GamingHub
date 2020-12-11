@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import strings from './strings';
-import { CategoryFormStyled } from "../../styles/styled_category_form";
+import { CategoryFormStyled } from "../../styles/styled_admin_category_form";
 
 const AdminCategoryForm = () => {
 	const [input, setInput] = useState({
@@ -10,6 +10,7 @@ const AdminCategoryForm = () => {
 		name_en: ''
 	})
 
+	const language = useSelector(state => state.language)
 	// const dispatch = useDispatch();
 
 	const handleChange = (e) => {
@@ -25,18 +26,18 @@ const AdminCategoryForm = () => {
 		// dispatch(addCategory(input))
 	}
 	return (
-		<CategoryFormStyled onSubmit={handleSubmit} method="POST">
+		<CategoryFormStyled onSubmit={handleSubmit} method="POST" autoComplete="off">
 			<div>
 				<label>
-					{strings["es"].name_en}:
-				<input type='text' name='name_es' onChange={handleChange} required />
+					{strings[language].name_en}:
+					<input type='text' name='name_es' onChange={handleChange} required />
 				</label>
 				<label>
-					{strings["es"].name_es}:
-				<input type='text' name='name_en' onChange={handleChange} required />
+					{strings[language].name_es}:
+					<input type='text' name='name_en' onChange={handleChange} required />
 				</label>
 			</div>
-			<button type="submit">Enviar</button>
+			<button type="submit">{strings[language].button}</button>
 		</CategoryFormStyled>
 	);
 };
