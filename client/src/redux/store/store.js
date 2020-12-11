@@ -5,8 +5,10 @@ import thunk from 'redux-thunk';
 const store = createStore(
 	Reducer,
 	compose
-		(window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-			applyMiddleware(thunk))
+		(
+			applyMiddleware(thunk),
+			window.devToolsExtension ? window.devToolsExtension() : f => f
+		)
 );
 
 export default store;
