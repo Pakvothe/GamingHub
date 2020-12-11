@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import SVG from 'react-inlinesvg';
 import { AdminBarLogic } from '../admin_page/admin_side_bar';
 
 export const SideBarContainer = styled.div`
@@ -40,4 +41,8 @@ export const SideBarButton = styled.button`
 		stroke: var(--clr-primary);
 		height: 2em;
 	}
+`
+
+export const StyledSVG = styled(SVG)`
+	fill: red;
 `

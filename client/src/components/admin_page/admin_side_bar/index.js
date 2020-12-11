@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { SideBarContainer, SideBarButton, ItemBox } from '../../styles/styled_admin_bar';
+import { SideBarContainer, SideBarButton, ItemBox, StyledSVG } from '../../styles/styled_admin_bar';
 
 export const AdminBarLogic = ({ width, height }) => {
 	const [xPosition, setX] = useState(-width);
@@ -15,14 +15,14 @@ export const AdminBarLogic = ({ width, height }) => {
 	useEffect(() => {
 		setX(0);
 	}, []);
-
+	//<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNOC4xMjIgMjRsLTQuMTIyLTQgOC04LTgtOCA0LjEyMi00IDExLjg3OCAxMnoiLz48L3N2Zz4=" />
 	return (
 		<>
 			<SideBarContainer value={xPosition} pWidth={width} pHeight={height}>
 				<ItemBox >
 					<h1>GameHub</h1>
 					<SideBarButton onClick={() => toggleMenu()} pWidth={width}>
-						<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNOC4xMjIgMjRsLTQuMTIyLTQgOC04LTgtOCA0LjEyMi00IDExLjg3OCAxMnoiLz48L3N2Zz4=" />
+						<StyledSVG src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNOC4xMjIgMjRsLTQuMTIyLTQgOC04LTgtOCA0LjEyMi00IDExLjg3OCAxMnoiLz48L3N2Zz4=" />
 					</SideBarButton>
 					<br />
 					<h2>Productos</h2>
