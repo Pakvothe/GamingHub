@@ -16,6 +16,7 @@ export const SideBarContainer = styled.div`
 	transform: translatex(${props => props.value}px);
 	width: ${props => props.pWidth}px;
 	min-height:  ${props => props.pHeight}px;
+	background-color: var(--clr-primary);
 `
 
 
