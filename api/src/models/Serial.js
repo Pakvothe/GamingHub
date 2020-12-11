@@ -4,15 +4,15 @@ const D = DataTypes;
 module.exports = (sequelize) => {
 	// defino el modelo
 	const updateStock = (serial) => {
-		sequelize.models.Product.findAndCountAll({
+		sequelize.models.Product.count({
 			include: [{
 				model: sequelize.models.Serial,
 				where: {
 					productId: serial.productId
 				}
 			}]
-		}).then(result => {
-			sequelize.models.Product.update({ stock: result.count }, {
+		}).then(count => {
+			sequelize.models.Product.update({ stock: count }, {
 				where: {
 					id: serial.productId
 				}
