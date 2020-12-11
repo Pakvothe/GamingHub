@@ -7,7 +7,12 @@ const products = [
 		price: 52.38,
 		score: 5,
 		sales: 370,
-		is_active: true
+		is_active: true,
+		images: [
+			{
+				url: 'https://elamigosedition.com/uploads/posts/2019-05/1557844033_final-fantasy-vii-cover-download.jpg'
+			}
+		]
 	},
 	{
 		name: 'FIFA 21',
@@ -17,7 +22,12 @@ const products = [
 		price: 40.72,
 		score: 4.3,
 		sales: 432,
-		is_active: true
+		is_active: true,
+		images: [
+			{
+				url: 'https://gamesland.com.pe/wp-content/uploads/2020/10/FIFA21ChampionsEdition-PS4_3401053f-d041-4a74-8b3d-e9117418c357_grande.jpg'
+			}
+		]
 	},
 	{
 		name: 'Cyberpunk 2077',
@@ -27,7 +37,15 @@ const products = [
 		price: 56.81,
 		score: 4.2,
 		sales: 300,
-		is_active: true
+		is_active: true,
+		images: [
+			{
+				url: 'https://www.alfabetajuega.com/wp-content/uploads/2020/09/cyberpunk-2077-1.jpg'
+			},
+			{
+				url: 'https://as.com/meristation/imagenes/2020/10/04/header_image/875065311601806430.jpg'
+			}
+		]
 	},
 	{
 		name: 'Age of Empires II: Definitive Edition',
@@ -37,7 +55,12 @@ const products = [
 		price: 9.74,
 		score: 4.5,
 		sales: 432,
-		is_active: true
+		is_active: true,
+		images: [
+			{
+				url: 'https://images.g2a.com/newlayout/323x433/1x1x0/ebeb8989e737/5e3ab6057e696c11f20eb312'
+			}
+		]
 	},
 	{
 		name: 'Human: Fall Flat',
@@ -47,7 +70,12 @@ const products = [
 		price: 3.19,
 		score: 4.2,
 		sales: 15,
-		is_active: true
+		is_active: true,
+		images: [
+			{
+				url: 'https://images.g2a.com/newlayout/323x433/1x1x0/95e6403a1f21/5a13d9edae653a1a2f2f5ba2'
+			}
+		]
 	},
 	{
 		name: 'Dead by Daylight',
@@ -57,7 +85,12 @@ const products = [
 		price: 6.42,
 		score: 4.0,
 		sales: 40,
-		is_active: true
+		is_active: true,
+		images: [
+			{
+				url: 'https://cdn-products.eneba.com/resized-products/PPOqVG3kxWxx-D0e3NCIrXK2uNedzePrBuhNSZkzNU4_350x200_1x-0.jpeg'
+			}
+		]
 	},
 	{
 		name: 'Grand Theft Auto V',
