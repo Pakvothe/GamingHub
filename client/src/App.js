@@ -16,7 +16,6 @@ function App() {
 			<Route path='/testing/admin' component={AdminProductContainer} />
 			<Route path='/testing/admin-bar' component={AdminSideBar} />
 			<Route path='/products/:id' component={Product} />
-			<Route path='/testing/catalog' component={Catalog} />
 			<Route path='/products/' component={Catalog} />
 			<Route path='/testing/category-form' component={AdminCategoryForm} />
 		</>
