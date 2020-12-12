@@ -1,5 +1,20 @@
 import axios from 'axios';
-import { ADD_PRODUCT, DELETE_PRODUCT, EDIT_PRODUCT, LOADING_PRODUCT, GET_PRODUCT, GET_PRODUCT_ERROR, GET_PRODUCTS, LOADING, ERROR } from './../constants';
+import {
+	ADD_PRODUCT,
+	DELETE_PRODUCT,
+	EDIT_PRODUCT,
+	LOADING_PRODUCT,
+	GET_PRODUCT,
+	GET_PRODUCT_ERROR,
+	GET_PRODUCTS,
+	GET_FILTER_PRODUCTS,
+	LOADING,
+	ERROR,
+	LOADING_FILTER_PRODUCTS,
+	LOADING_PRODUCTS,
+	GET_FILTER_PRODUCTS_ERROR,
+	GET_PRODUCTS_ERROR
+} from './../constants';
 
 const { REACT_APP_API_URL } = process.env;
 
@@ -61,9 +76,27 @@ export const getProduct = (payload) => {
 	}
 }
 
+export const getFilterProducts = (payload) => {
+	return function (dispatch) {
+		dispatch({ type: LOADING_FILTER_PRODUCTS });
+		return axios.get(`${REACT_APP_API_URL}/products/category/${payload}`)
+			.then(products => {
+				dispatch({
+					type: GET_FILTER_PRODUCTS,
+					payload: products.data
+				})
+			})
+			.catch(err => {
+				dispatch({
+					type: GET_FILTER_PRODUCTS_ERROR
+				})
+			})
+	}
+}
+
 export const getProducts = () => {
 	return function (dispatch) {
-		dispatch({ type: LOADING });
+		dispatch({ type: LOADING_PRODUCTS });
 		return axios.get(`${REACT_APP_API_URL}/products`)
 			.then(product => {
 				dispatch({
@@ -73,7 +106,7 @@ export const getProducts = () => {
 			})
 			.catch(err => {
 				dispatch({
-					type: ERROR
+					type: GET_PRODUCTS_ERROR
 				})
 			})
 	}

@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getProduct } from '../../redux/actions/products_actions';
 
 const Product = p => {
-	const { isLoading, product, error } = useSelector(state => state.productDetail);
+	const { isLoading, product, error } = useSelector(state => state.productsReducer.productDetail);
 	const dispatch = useDispatch();
 	const { id } = useParams();
 

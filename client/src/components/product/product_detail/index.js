@@ -7,7 +7,7 @@ import { IMAGE_NOT_FOUND } from '../../../utils/constants';
 
 export const ProductDetail = ({ product }) => {
 	const [quantity, setQuantity] = useState(1);
-	const language = useSelector(state => state.language);
+	const language = useSelector(state => state.globalReducer.language);
 	const [currentImg, setCurrentImg] = useState(0);
 
 	function handleImage() {

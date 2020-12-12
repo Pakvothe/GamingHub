@@ -105,6 +105,17 @@ server.put('/:id', (req, res) => {
 		})
 })
 
+
+server.get('/categories', (req, res) => {
+	Category.findAll()
+		.then((categories) => {
+			res.json(categories);
+		})
+		.catch(err => {
+			res.status(500).json({ message: 'Internal server error', })
+		});
+});
+
 server.post('/category', (req, res) => {
 	const { name_es, name_en } = req.body
 	Category.create({ name_en, name_es })

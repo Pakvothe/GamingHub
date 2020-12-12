@@ -10,7 +10,7 @@ const AdminCategoryForm = () => {
 		name_en: ''
 	})
 
-	const language = useSelector(state => state.language)
+	const language = useSelector(state => state.globalReducer.language)
 	// const dispatch = useDispatch();
 
 	const handleChange = (e) => {

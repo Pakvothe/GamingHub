@@ -12,3 +12,5 @@ export const CatalogStyled = styled.div`
 		align-items: center;	
 	}
 `;
+export const SelectStyled = styled.select`
+`;

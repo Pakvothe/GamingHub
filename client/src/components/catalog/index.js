@@ -1,25 +1,67 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getProducts } from '../../redux/actions/products_actions';
+import { getFilterProducts, getProducts } from '../../redux/actions/products_actions';
+import { getCategories } from '../../redux/actions/categories_actions';
 import ProductCard from '../product_card'
-import { CatalogStyled } from './../styles/styled_catalog';
+import { CatalogStyled, SelectStyled } from './../styles/styled_catalog';
 
 const Catalog = (p) => {
-	const products = useSelector(state => state.products);
-	const isLoading = useSelector(state => state.isLoading);
-	const error = useSelector(state => state.error);
+
+
+	const [filter, setFilter] = useState(false);
+
+	const language = useSelector(state => state.globalReducer.language);
+	const products = useSelector(state => state.productsReducer.products.productList);
+	const productsFilter = useSelector(state => state.productsReducer.productsFilter.productList);
+	const categories = useSelector(state => state.categoriesReducer);
+	const loadingProducts = useSelector(state => state.productsReducer.products.isLoading);
+	const errorProducts = useSelector(state => state.productsReducer.products.error);
 
 	const dispatch = useDispatch();
 	useEffect(() => {
-		dispatch(getProducts())
+		if (!products.length) {
+			dispatch(getProducts())
+		}
+		dispatch(getCategories());
 	}, [])
 
+	let options;
+	if (categories.length > 0) {
+		options = categories.reduce((acc, category) => {
+			acc.push({ value: category.id, label: category['name_' + language] })
+			return acc;
+		}, [])
+	}
+
+	const handleChange = (e) => {
+		if (e.target.value === 'todos') {
+			return setFilter(false)
+		}
+		setFilter(true)
+		dispatch(getFilterProducts(e.target.value))
+	}
+
 	return (
-		<CatalogStyled>
-			{isLoading && <h1>Loading...</h1>}
-			{!isLoading && !!Object.keys(products).length && products.map(card => <ProductCard game={card} key={card.id} />)}
-			{error && <h1 style={{ margin: "20px", textAlign: "center" }}>No hay productos para mostrar</h1>}
-		</CatalogStyled>
+		<>
+			<label>
+				<span>Filtrar por categoria</span>
+				<SelectStyled onChange={handleChange}>
+					<option value="todos">Todos</option>
+					{options && options.map(category => (
+						<option key={category.value} value={category.label}>{category.label}</option>
+					))}
+				</SelectStyled>
+			</label>
+			<CatalogStyled>
+				{loadingProducts && <h1>Loading...</h1>}
+				{!loadingProducts &&
+					(filter && productsFilter.map(card => <ProductCard game={card} key={card.id} />))
+					||
+					!!Object.keys(products).length && products.map(card => <ProductCard game={card} key={card.id} />)
+				}
+				{errorProducts && <h1 style={{ margin: "20px", textAlign: "center" }}>No hay productos para mostrar</h1>}
+			</CatalogStyled>
+		</>
 	);
 }
 
