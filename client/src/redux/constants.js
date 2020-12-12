@@ -1,7 +1,10 @@
 //Global actions =>
 export const CHANGE_LANGUAGE = 'CHANGE_LANGUAGE';
+export const ERROR = 'ERROR';
+export const LOADING = 'LOADING';
 
 //Product actions =>
+export const GET_PRODUCTS = 'GET_PRODUCTS';
 export const ADD_PRODUCT = 'ADD_PRODUCT';
 export const EDIT_PRODUCT = 'EDIT_PRODUCT';
 export const DELETE_PRODUCT = 'DELETE_PRODUCT';

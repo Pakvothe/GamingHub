@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADD_PRODUCT, DELETE_PRODUCT, EDIT_PRODUCT, LOADING_PRODUCT, GET_PRODUCT, GET_PRODUCT_ERROR } from './../constants';
+import { ADD_PRODUCT, DELETE_PRODUCT, EDIT_PRODUCT, LOADING_PRODUCT, GET_PRODUCT, GET_PRODUCT_ERROR, GET_PRODUCTS, LOADING, ERROR } from './../constants';
 
 const { REACT_APP_API_URL } = process.env;
 
@@ -56,6 +56,24 @@ export const getProduct = (payload) => {
 			.catch(err => {
 				dispatch({
 					type: GET_PRODUCT_ERROR
+				})
+			})
+	}
+}
+
+export const getProducts = () => {
+	return function (dispatch) {
+		dispatch({ type: LOADING });
+		return axios.get(`${REACT_APP_API_URL}/products`)
+			.then(product => {
+				dispatch({
+					type: GET_PRODUCTS,
+					payload: product.data
+				})
+			})
+			.catch(err => {
+				dispatch({
+					type: ERROR
 				})
 			})
 	}

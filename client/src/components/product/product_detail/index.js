@@ -11,7 +11,6 @@ export const ProductDetail = ({ product }) => {
 	const [currentImg, setCurrentImg] = useState(0);
 
 	function handleImage() {
-		console.log("en")
 		if (currentImg >= product.images.length - 1) {
 			setCurrentImg(0);
 		} else {

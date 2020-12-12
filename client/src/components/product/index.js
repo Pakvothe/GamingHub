@@ -18,7 +18,7 @@ const Product = p => {
 		<MainBox>
 			{isLoading && <h1>Loading...</h1>}
 			{!isLoading && !!Object.keys(product).length && <ProductDetail product={product} />}
-			{error && <h1 style={{ margin: "20px", textAlign: "center" }}>Producto no existe</h1>}
+			{error && <h1 style={{ margin: "20px", textAlign: "center" }}>El producto no existe</h1>}
 		</MainBox >
 	);
 };
