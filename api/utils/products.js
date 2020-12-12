@@ -27,6 +27,12 @@ const products = [
 			}, {
 				serial: 'NT690HYGTF9JUT4I98A3'
 			},
+		],
+		catArray: [
+			{
+				name_en: 'rpg',
+				name_es: 'rpg',
+			}
 		]
 	},
 	{
@@ -50,6 +56,16 @@ const products = [
 				serial: 'F9TZ9P6IGFSME742WP21'
 			}, {
 				serial: 'L67GTCE6TRDFT1DXWVCM'
+			}
+		],
+		catArray: [
+			{
+				name_en: 'sports',
+				name_es: 'deportes',
+			},
+			{
+				name_en: 'simulation',
+				name_es: 'simulacion',
 			}
 		]
 	},
@@ -88,6 +104,12 @@ const products = [
 			}, {
 				serial: '9RVIIF3W586FAYVWPTFD'
 			}
+		],
+		catArray: [
+			{
+				name_en: 'action',
+				name_es: 'accion',
+			}
 		]
 	},
 	{
@@ -107,6 +129,12 @@ const products = [
 		serials: [
 			{
 				serial: 'XONF7PMUOLHU7P4D1QQX'
+			}
+		],
+		catArray: [
+			{
+				name_en: 'strategy',
+				name_es: 'estrategia',
 			}
 		]
 	},
@@ -132,6 +160,12 @@ const products = [
 			}, {
 				serial: 'M7CQ2VARGXQFYGZURKG0'
 			}
+		],
+		catArray: [
+			{
+				name_en: 'adventure',
+				name_es: 'aventura',
+			}
 		]
 	},
 	{
@@ -147,6 +181,21 @@ const products = [
 			{
 				url: 'https://cdn-products.eneba.com/resized-products/PPOqVG3kxWxx-D0e3NCIrXK2uNedzePrBuhNSZkzNU4_350x200_1x-0.jpeg'
 			}
+		],
+		serials: [
+			{
+				serial: 'N0Z90KJYTW7TZO4I27A1'
+			}, {
+				serial: 'CJA0SK6904R4NPJEKNRK'
+			}, {
+				serial: 'M7GH2VARGXQFYGZURKG0'
+			}
+		],
+		catArray: [
+			{
+				name_en: 'action',
+				name_es: 'accion',
+			}
 		]
 	},
 	{
@@ -157,7 +206,30 @@ const products = [
 		price: 12.32,
 		score: 4,
 		sales: 3323,
-		is_active: true
+		is_active: true,
+		images: [
+			{
+				url: 'https://www.rockstargames.com/V/img/global/order/mobile-cover.jpg'
+			}, {
+				url: 'https://xombitgames.com/wp-content/blogs.dir/27/files/2013/08/GTA-V-big.jpg'
+			}
+		],
+		serials: [
+			{
+				serial: 'N0Z90KJYTW7TZO4I89A1'
+			}, {
+				serial: 'GJA0GK6904R4NPJEKNRK'
+			}, {
+				serial: 'M7GH2VARGXQFYGZUR123'
+			}
+		],
+		catArray: [
+			{
+				name_en: 'action',
+				name_es: 'accion',
+			}
+		]
+
 	},
 	{
 		name: 'Minecraft',
