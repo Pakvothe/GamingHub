@@ -13,7 +13,7 @@ const Catalog = (p) => {
 	const language = useSelector(state => state.globalReducer.language);
 	const products = useSelector(state => state.productsReducer.products.productList);
 	const productsFilter = useSelector(state => state.productsReducer.productsFilter.productList);
-	const categories = useSelector(state => state.categoriesReducer);
+	const categories = useSelector(state => state.categoriesReducer.categoryList);
 	const loadingProducts = useSelector(state => state.productsReducer.products.isLoading);
 	const errorProducts = useSelector(state => state.productsReducer.products.error);
 

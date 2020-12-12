@@ -66,7 +66,6 @@ server.post('/', (req, res) => {
 				})
 			})
 			.catch((err) => {
-				console.log(err);
 				res.status(500).json({ message: "Internal server error" })
 			})
 	} else {
@@ -93,7 +92,6 @@ server.get('/search', (req, res) => {
 				res.status(200).json(products);
 			})
 			.catch(err => {
-				console.log(err);
 				res.status(500).json({ message: 'Internal server error', })
 			})
 
@@ -145,23 +143,21 @@ server.get('/categories', (req, res) => {
 			res.json(categories);
 		})
 		.catch(err => {
-			res.status(500).json({ message: 'Internal server error', })
+			res.status(500).json({ message: 'Internal server error' })
 		});
 });
 
 server.post('/category', (req, res) => {
 	const { name_es, name_en } = req.body
+	if (!name_es && !name_en) {
+		return res.status(400).json({ message: 'Bad Request' })
+	}
 	Category.create({ name_en, name_es })
 		.then((data) => {
-			res.status(201).json({
-				message: 'OK',
-				data
-			})
+			res.status(201).json(data)
 		})
 		.catch(() => {
-			res.status(400).json({
-				message: 'Bad Request'
-			})
+			res.status(500).json({ message: 'Internal server error' })
 		})
 })
 

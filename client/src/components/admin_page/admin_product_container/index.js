@@ -7,7 +7,7 @@ import SearchBar from '../admin_search_bar/';
 const AdminProductContainer = (p) => {
 	const dispatch = useDispatch();
 	const products = useSelector((state) => state.products);
-	const categories = useSelector((state) => state.categoriesReducer);
+	const categories = useSelector((state) => state.categoriesReducer.categoryList);
 	const [state, setState] = useState({
 		show_form: false,
 		show_products: false

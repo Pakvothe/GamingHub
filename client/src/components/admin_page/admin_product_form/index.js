@@ -39,7 +39,6 @@ const AdminProductForm = ({ categories }) => {
 	}
 	const handleSubmit = (ev) => {
 		ev.preventDefault();
-		console.log(input);
 		dispatch(addProduct(input))
 	}
 
