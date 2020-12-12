@@ -67,7 +67,7 @@ const AdminProductForm = ({ categories }) => {
 				<input type='checkbox' value={input.is_active} onChange={handleInput} name='is_active' />
 				Activo
 			</label>
-			<span class="form__categorias">Categorías:</span>
+			<span className="form__categorias">Categorías:</span>
 			<ul>
 				{
 					categories.map((cat, i) => {
