@@ -107,7 +107,11 @@ server.put('/:id', (req, res) => {
 
 
 server.get('/categories', (req, res) => {
-	Category.findAll()
+	Category.findAll({
+		order: [
+			['name_es', 'ASC']
+		],
+	})
 		.then((categories) => {
 			res.json(categories);
 		})
