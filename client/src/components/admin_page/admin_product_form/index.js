@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { addProduct } from '../../../redux/actions/products_actions'
+
 import AdminProductFormStyled from '../../styles/styled_admin_product_form'
 
+
 const AdminProductForm = ({ categories }) => {
+
+	const dispatch = useDispatch();
+
 	let [input, setInput] = useState({
 		name: '',
 		description_es: '',
@@ -11,12 +17,8 @@ const AdminProductForm = ({ categories }) => {
 		price: 1,
 		img: '',
 		is_active: true,
-		categories: categories.map(cat => {
-			cat.checked = false
-			return cat
-		})
+		categories: {}
 	})
-	const dispatch = useDispatch();
 
 	const handleInput = (ev) => {
 		setInput({
@@ -25,17 +27,19 @@ const AdminProductForm = ({ categories }) => {
 		})
 	}
 
-	const handleCategories = (ev) => {
-		input.categories.map(cat => {
-			if (cat.name_es === ev.target.name) {
-				cat.checked = !cat.checked
+	const handleCategories = (event) => {
+		event.persist();
+		setInput((prevState) => ({
+			...prevState,
+			categories: {
+				...prevState.categories,
+				[event.target.value]: !prevState.categories[event.target.value]
 			}
-			return cat
-		})
+		}))
 	}
-
 	const handleSubmit = (ev) => {
 		ev.preventDefault();
+		console.log(input);
 		dispatch(addProduct(input))
 	}
 
@@ -70,11 +74,11 @@ const AdminProductForm = ({ categories }) => {
 			<span className="form__categorias">Categorías:</span>
 			<ul>
 				{
-					categories.map((cat, i) => {
+					categories.map(cat => {
 						return (
-							<li key={cat.name_es}>
+							<li key={cat.id}>
 								<label>
-									<input type='checkbox' name={cat.name_es} value={i} onChange={handleCategories} />
+									<input type='checkbox' name={cat.name_es} value={cat.id} onChange={handleCategories} />
 									{cat.name_es}
 								</label>
 							</li>
@@ -87,49 +91,49 @@ const AdminProductForm = ({ categories }) => {
 	);
 };
 
-AdminProductForm.defaultProps = {
-	categories: [
-		{
-			name_en: 'fps',
-			name_es: 'fps',
-		},
-		{
-			name_en: 'action',
-			name_es: 'accion',
-		},
-		{
-			name_en: 'simulation',
-			name_es: 'simulacion',
-		},
-		{
-			name_en: 'sports',
-			name_es: 'deportes',
-		},
-		{
-			name_en: 'rpg',
-			name_es: 'rpg',
-		},
-		{
-			name_en: 'strategy',
-			name_es: 'estrategia',
-		},
-		{
-			name_en: 'platformer',
-			name_es: 'plataforma',
-		},
-		{
-			name_en: 'adventure',
-			name_es: 'aventura',
-		},
-		{
-			name_en: 'arcade',
-			name_es: 'arcade',
-		},
-		{
-			name_en: 'racing',
-			name_es: 'carreras',
-		},
-	]
-}
+// AdminProductForm.defaultProps = {
+// 	categories: [
+// 		{
+// 			name_en: 'fps',
+// 			name_es: 'fps',
+// 		},
+// 		{
+// 			name_en: 'action',
+// 			name_es: 'accion',
+// 		},
+// 		{
+// 			name_en: 'simulation',
+// 			name_es: 'simulacion',
+// 		},
+// 		{
+// 			name_en: 'sports',
+// 			name_es: 'deportes',
+// 		},
+// 		{
+// 			name_en: 'rpg',
+// 			name_es: 'rpg',
+// 		},
+// 		{
+// 			name_en: 'strategy',
+// 			name_es: 'estrategia',
+// 		},
+// 		{
+// 			name_en: 'platformer',
+// 			name_es: 'plataforma',
+// 		},
+// 		{
+// 			name_en: 'adventure',
+// 			name_es: 'aventura',
+// 		},
+// 		{
+// 			name_en: 'arcade',
+// 			name_es: 'arcade',
+// 		},
+// 		{
+// 			name_en: 'racing',
+// 			name_es: 'carreras',
+// 		},
+// 	]
+// }
 
 export default AdminProductForm;

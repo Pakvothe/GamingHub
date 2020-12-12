@@ -1,15 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { getCategories } from '../../../redux/actions/categories_actions';
 import ProductForm from '../admin_product_form/';
 import SearchBar from '../admin_search_bar/';
 
 const AdminProductContainer = (p) => {
 	const dispatch = useDispatch();
 	const products = useSelector((state) => state.products);
+	const categories = useSelector((state) => state.categoriesReducer);
 	const [state, setState] = useState({
 		show_form: false,
 		show_products: false
 	});
+
+	useEffect(() => {
+		dispatch(getCategories())
+	}, [])
 
 	const handleForm = () => {
 		setState({
@@ -34,7 +40,7 @@ const AdminProductContainer = (p) => {
 				<button onClick={handleProduct}>Mostrar Todos</button>
 				<button onClick={handleForm}>Agregar Producto</button>
 			</div>
-			{ showForm && (<ProductForm />)}
+			{ showForm && categories && (<ProductForm categories={categories} />)}
 			{ showProducts &&
 				<>
 					<table>
