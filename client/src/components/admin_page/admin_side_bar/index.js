@@ -1,41 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { SideBarContainer, SideBarButton, ItemBox, StyledSVG } from '../../styles/styled_admin_bar';
+import { SideBarContainer, SideBarButton, StyledSVG } from '../../styles/styled_admin_bar';
 
-export const AdminBarLogic = ({ width, height }) => {
-	const [xPosition, setX] = useState(-width);
+export const AdminBarLogic = () => {
+	const [buttonToggle, setButtonToggle] = useState(true);
 
 	const toggleMenu = () => {
-		if (xPosition < 0) {
-			setX(0);
-		} else {
-			setX(-width + 50);
-		}
+		setButtonToggle((prev) => !prev)
 	};
 
-	useEffect(() => {
-		setX(0);
-	}, []);
-	//<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNOC4xMjIgMjRsLTQuMTIyLTQgOC04LTgtOCA0LjEyMi00IDExLjg3OCAxMnoiLz48L3N2Zz4=" />
 	return (
 		<>
-			<SideBarContainer value={xPosition} pWidth={width} pHeight={height}>
-				<ItemBox >
-					<h1>GameHub</h1>
-					<SideBarButton onClick={() => toggleMenu()} pWidth={width}>
-						<StyledSVG src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNOC4xMjIgMjRsLTQuMTIyLTQgOC04LTgtOCA0LjEyMi00IDExLjg3OCAxMnoiLz48L3N2Zz4=" />
-					</SideBarButton>
-					<br />
-					<h2>Productos</h2>
-					<h2>Categorias</h2>
-					<h2>Ordenes</h2>
-					<h2>Usuarios</h2>
-				</ItemBox>
+			<SideBarContainer className={buttonToggle && 'toggle'} >
+				<h1>GameHub</h1>
+				<SideBarButton onClick={() => toggleMenu()} className={buttonToggle && 'toggle'}>
+					<StyledSVG src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNOC4xMjIgMjRsLTQuMTIyLTQgOC04LTgtOCA0LjEyMi00IDExLjg3OCAxMnoiLz48L3N2Zz4=" />
+				</SideBarButton>
+				<ul>
+					<li><a href="#">Productos</a></li>
+					<li><a href="#">Categorias</a></li>
+					<li><a href="#">Ordenes</a></li>
+					<li><a href="#">Usuarios</a></li>
+				</ul>
 			</SideBarContainer>
 		</>
 	);
-};
-
-AdminBarLogic.defaultProps = {
-	width: 300,
-	height: "100vh"
 };

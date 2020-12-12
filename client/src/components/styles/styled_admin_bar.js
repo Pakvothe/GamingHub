@@ -6,43 +6,63 @@ export const SideBarContainer = styled.div`
 	position: relative;
 	color: var(--clr-white);
 	background-color: var(--clr-primary);
-	width: ${props => props.pWidth}px;
+	width: 300px;
 	height: 100vh ;
 	transition: 0.8s ease;
-	transform: translatex(${props => props}px);
-	transform: translatex(${props => props.value}px);
-	
-	`
-export const ItemBox = styled.div`	
-	color: var(--clr-white);
-	flex-direction: column;
-	padding: 0 auto;
-	
+	transform: translatex(-250px);
+	padding: 2em 0;
+
 	h1{
-		margin: 0.5em 0.5em 0 0.5em;
+		margin-left: 2rem;
 	}
-	h2{
-		margin: 0.5em;
+	 
+	&.toggle{
+		transform: translatex(0px);
+	}
+	@media (max-width: 500px){
+		width: 100vw;
+		transform: translatex(0px);
+		&.toggle{
+		transform: translatex(calc(-100vw + 50px));
+		}
+	}
+
+	ul {
+		list-style: none;
+		margin-top: 2em;
+		
+		a{
+			display:block;
+			color: currentColor;
+			text-decoration: none;
+			padding: 1em 2em;
+			transition: background-color .258910s ease;
+
+			&:hover{
+				background-color: var(--clr-primary-2);
+				transition: none;
+			}
+		}
 	}
 `
 
 export const SideBarButton = styled.button`
 	position: absolute;
-	right: 10px;
+	top: 2.6em;
+	right: 13px;
 	background: transparent;    
 	border: none;
 	outline: 0;	
+	transform: rotateZ(0);
+	transition: transform .75s cubic-bezier(.25,.1,.75,1.5);
 	
-	&:active {
-		transform: translateZ(180deg);
+	&.toggle {
+		transform: rotateZ(180deg);
 		}
 
-	img {
-		stroke: var(--clr-primary);
-		height: 2em;
-	}
 `
 
 export const StyledSVG = styled(SVG)`
-	fill: red;
+	fill: var(--clr-white);
+	height: 2em;
 `
