@@ -21,3 +21,5 @@ export const GET_PRODUCT_ERROR = 'GET_PRODUCT_ERROR';
 
 //Category actions =>
 export const GET_CATEGORIES = 'GET_CATEGORIES';
+export const ADD_CATEGORY = 'ADD_CATEGORY';
+export const GET_ERROR_CATEGORY = 'GET_ERROR_CATEGORY';
