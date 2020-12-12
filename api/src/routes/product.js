@@ -21,9 +21,23 @@ server.post('/', (req, res) => {
 		description_es,
 		description_en,
 		price,
+		img,
+		categories,
 		is_active
 	} = req.body
 	if (name && description_en && description_es && price && is_active) {
+
+		//Filtro las categorias que vienen en true y las coloco en un array
+		let newCategories = [];
+		if (!!Object.keys(categories).length) {
+			for (cat in categories) {
+				if (categories[cat] === true) {
+					newCategories.push(cat)
+				}
+			}
+		}
+
+		let product;
 		Product.create({
 			name,
 			description_es,
@@ -34,8 +48,22 @@ server.post('/', (req, res) => {
 			sales: 0,  //may be subject to change
 			score: 0
 		})
-			.then((product) => {
-				res.status(201).json(product);
+			.then((data) => {
+				product = data;
+				return Category.findAll({
+					where: {
+						id: newCategories
+					}
+				})
+			})
+			.then((categories) => {
+				categories.forEach(category => {
+					product.addCategories(category); //Creo la relacion de la categoria con el producto recien creado
+				})
+				return Image.create({  // Le agrego la imagen al producto
+					url: img,
+					productId: product.id
+				})
 			})
 			.catch((err) => {
 				console.log(err);
@@ -83,6 +111,7 @@ server.put('/:id', (req, res) => {
 		price,
 		is_active
 	} = req.body
+
 	Product.update({
 		name,
 		description_es,
@@ -107,7 +136,11 @@ server.put('/:id', (req, res) => {
 
 
 server.get('/categories', (req, res) => {
-	Category.findAll()
+	Category.findAll({
+		order: [
+			['name_es', 'ASC']
+		],
+	})
 		.then((categories) => {
 			res.json(categories);
 		})
