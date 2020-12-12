@@ -68,6 +68,8 @@ const products = [
 			},
 			{
 				url: 'https://as.com/meristation/imagenes/2020/10/04/header_image/875065311601806430.jpg'
+			}, {
+				url: 'https://i.blogs.es/11f141/20196101150632_1/450_1000.jpeg'
 			}
 		],
 		serials: [

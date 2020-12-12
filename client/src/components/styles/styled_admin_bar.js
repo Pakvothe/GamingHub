@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import SVG from 'react-inlinesvg';
-import { AdminBarLogic } from '../admin_page/admin_side_bar';
 
 export const SideBarContainer = styled.div`
 	position: relative;
@@ -59,7 +58,6 @@ export const SideBarButton = styled.button`
 	&.toggle {
 		transform: rotateZ(180deg);
 		}
-
 `
 
 export const StyledSVG = styled(SVG)`

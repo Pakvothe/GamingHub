@@ -33,7 +33,7 @@ export const ProductCardStyled = styled.article`
 
 	.card__imgContainer {
 		width: 100%;
-		height: 50%;
+		height: 70%;
 	}
 
 	.card__img {

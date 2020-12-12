@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { SideBarContainer, SideBarButton, StyledSVG } from '../../styles/styled_admin_bar';
 
-export const AdminBarLogic = () => {
+const AdminSideBar = () => {
 	const [buttonToggle, setButtonToggle] = useState(true);
 
 	const toggleMenu = () => {
@@ -25,3 +25,5 @@ export const AdminBarLogic = () => {
 		</>
 	);
 };
+
+export default AdminSideBar;
