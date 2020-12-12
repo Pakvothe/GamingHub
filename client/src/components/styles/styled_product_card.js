@@ -33,7 +33,7 @@ export const ProductCardStyled = styled.article`
 
 	.card__imgContainer {
 		width: 100%;
-		height: 70%;
+		height: 50%;
 	}
 
 	.card__img {
@@ -52,12 +52,13 @@ export const ProductCardStyled = styled.article`
 	.card__content {
 		padding: 0.5em 1em;
 		height: 50%;
+		position: relative;
 	}
 
 	.card__title {
 		font-size: 1.2em;
 		color: #9b5df7;
-
+		font-weight: 900;
 		@supports (-webkit-background-clip: text)  {
 		color: transparent;
 		background: linear-gradient(-90deg, #5630e4, #9b5df7);
@@ -111,5 +112,20 @@ export const ProductCardStyled = styled.article`
 		width: 100%;
 		height: 100%;
 	}
+
+	.card__button {
+		display: block;
+		position: absolute;
+		bottom: 1em;
+		left: 50%;
+		transform: translateX(-50%);
+		color: white;
+		background-color: var(--clr-primary);
+		width: 160px;
+		padding: 6px;
+		border-radius: 20px;
+		border: 2px solid var(--clr-primary);
+    }
+
 `;
 

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import SVG from 'react-inlinesvg';
 
 export const SideBarContainer = styled.div`
+	display: inline-block;
 	position: relative;
 	color: var(--clr-white);
 	background-color: var(--clr-primary);
@@ -12,7 +13,19 @@ export const SideBarContainer = styled.div`
 	padding: 2em 0;
 
 	h1{
+		font-weight: 400;
+		text-transform: uppercase;
 		margin-left: 2rem;
+		span{
+			font-weight: 900;
+		}
+		a{
+			text-decoration: none;
+			color:inherit;
+			&:hover {
+				color: var(--clr-dark);
+			}
+		}
 	}
 	 
 	&.toggle{
@@ -46,6 +59,7 @@ export const SideBarContainer = styled.div`
 `
 
 export const SideBarButton = styled.button`
+	display:none;
 	position: absolute;
 	top: 2.6em;
 	right: 13px;
@@ -58,6 +72,10 @@ export const SideBarButton = styled.button`
 	&.toggle {
 		transform: rotateZ(180deg);
 		}
+
+	@media screen and (max-width: 500px){
+		display: inline;
+	}
 `
 
 export const StyledSVG = styled(SVG)`
