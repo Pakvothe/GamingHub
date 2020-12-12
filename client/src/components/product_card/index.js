@@ -1,22 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ProductCardStyled } from '../styles/styled_product_card';
+import { IMAGE_NOT_FOUND } from '../../utils/constants';
 
-const ProductCard = (props) => {
-	const p = props.data;
+const ProductCard = ({ game }) => {
 	return (
 		<ProductCardStyled>
-			<Link to={`/products/${p.id}`} className="card__link">Clic para ver al producto</Link>
+			<Link to={`/products/${game.id}`} className="card__link">Clic para ver al producto</Link>
 			<div className="card__imgContainer">
-				<img className="card__img" src={p.image} alt={p.name} />
+				<img className="card__img" src={game.images[0] ? game.images[0].url : IMAGE_NOT_FOUND} alt={game.name} />
 			</div>
 			<div className="card__content">
 				<h3 className="card__title">
 					{
-						p.name.length > 33 ? p.name.substring(0, 30) + '...' : (p.name)
+						game.name.length > 33 ? game.name.substring(0, 30) + '...' : (game.name)
 					}
 				</h3>
-				<p className="card__price">$ {p.price}</p>
+				<p className="card__price">$ {game.price}</p>
 				<button className="card__button">Agregar al carrito</button>
 			</div>
 		</ProductCardStyled>)

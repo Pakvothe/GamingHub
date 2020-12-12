@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getProduct } from '../../redux/actions/products_actions';
 
 const Product = p => {
-	const { isLoading, product, error } = useSelector(state => state.productDetail);
+	const { isLoading, product, error } = useSelector(state => state.productsReducer.productDetail);
 	const dispatch = useDispatch();
 	const { id } = useParams();
 
@@ -18,7 +18,7 @@ const Product = p => {
 		<MainBox>
 			{isLoading && <h1>Loading...</h1>}
 			{!isLoading && !!Object.keys(product).length && <ProductDetail product={product} />}
-			{error && <h1 style={{ margin: "20px", textAlign: "center" }}>Producto no existe</h1>}
+			{error && <h1 style={{ margin: "20px", textAlign: "center" }}>El producto no existe</h1>}
 		</MainBox >
 	);
 };
