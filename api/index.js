@@ -53,21 +53,17 @@ conn.sync({ force: true }).then(() => {
 	server.listen(PORT, () => {
 		console.log(`%s listening at ${PORT}`); // eslint-disable-line no-console
 	});
-	const promiseProd = Product.bulkCreate(utilsProd, { hooks: true, include: [Image, Serial] });
-	const promiseCat = Category.bulkCreate(utilsCat);
 
-	Promise.all([promiseProd, promiseCat])
-		.then(([prod, cat]) => {
+	Product.bulkCreate(utilsProd, { hooks: true, include: [Image, Serial] })
+		.then(prod => {
 			prod.map((instance, i) => {
-				if (utilsProd[i].catArray) {
-					utilsProd[i].catArray.map(catToAdd => {
-						Category.findOrCreate({
-							where: catToAdd
-						}).then(catCreatedOrFound => {
-							instance.addCategories(catCreatedOrFound[0])
-						}).catch(err => console.log(err));
-					});
-				};
+				utilsProd[i].catArray.map(catToAdd => {
+					Category.findOrCreate({
+						where: catToAdd
+					}).then(catCreatedOrFound => {
+						instance.addCategories(catCreatedOrFound[0])
+					}).catch(err => console.log(err));
+				});
 			})
 			console.log("Datos cargados exitosamente");
 		})
