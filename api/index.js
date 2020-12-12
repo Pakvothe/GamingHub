@@ -58,11 +58,17 @@ conn.sync({ force: true }).then(() => {
 
 	Promise.all([promiseProd, promiseCat])
 		.then(([prod, cat]) => {
-			prod[0].addCategories(cat[4]);
-			prod[1].addCategories(cat[3]);
-			prod[2].addCategories([cat[1], cat[4]]);
-			prod[3].addCategories(cat[5]);
-			prod[4].addCategories(cat[5]);
+			prod.map((instance, i) => {
+				if (utilsProd[i].catArray) {
+					utilsProd[i].catArray.map(catToAdd => {
+						Category.findOrCreate({
+							where: catToAdd
+						}).then(catCreatedOrFound => {
+							instance.addCategories(catCreatedOrFound[0])
+						}).catch(err => console.log(err));
+					});
+				};
+			})
 			console.log("Datos cargados exitosamente");
 		})
 		.catch((err) => {
