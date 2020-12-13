@@ -8,10 +8,10 @@ function AdminRoutes() {
 	return (
 		<>
 			<AdminSideBar />
-			<div style={{ display: "inline-block" }}>
+			<main className="admin-main-container">
 				<Route path='/admin/products' component={AdminProductContainer} />
 				<Route path='/admin/categories' component={AdminCategoryForm} />
-			</div>
+			</main>
 		</>
 	);
 }

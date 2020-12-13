@@ -7,36 +7,38 @@ const NavbarStyled = styled.nav`
 	padding: 2rem 2rem;
 	background-color: var(--clr-dark);
 	color:var(--clr-white);
-	h1{
+
+	h1 {
 		color:inherit;
 		text-transform: uppercase;
 		font-weight: 400;
-		span{
+
+		span {
 			color:var(--clr-primary);
 			font-weight: 900;
 		}
 	}
-	form{
+
+	form {
 		margin: 0 40px;
 		flex-basis: 400px;
 		flex-shrink: 1;
 	}
+
 	a {
 		display: inline-block;
 		color: inherit;
 		text-decoration: none;
-		&:hover {
-			color: var(--clr-primary);
-		}
+
+		&:hover { color: var(--clr-primary); }
 	}
-	@media screen and (max-width: 500px){
+
+	@media screen and (max-width: 600px) {
 		flex-direction: column;
-		/* justify-content: center;
-		align-items: center; */
-		a{
-			margin-left: 0;
-		}
-		form{
+
+		a { margin-left: 0; }
+
+		form {
 			flex-basis: 0;
 			margin: 2em 0;
 		}

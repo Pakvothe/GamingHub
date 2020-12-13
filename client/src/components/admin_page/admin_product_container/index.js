@@ -9,7 +9,7 @@ const AdminProductContainer = (p) => {
 	const products = useSelector((state) => state.products);
 	const categories = useSelector((state) => state.categoriesReducer.categoryList);
 	const [state, setState] = useState({
-		show_form: false,
+		show_form: true, // Después poner false por defecto
 		show_products: false
 	});
 
@@ -34,45 +34,43 @@ const AdminProductContainer = (p) => {
 	const showForm = state.show_form;
 	const showProducts = state.show_products;
 	return (
-		<div>
-			<SearchBar />
-			<div>
+		<>
+			{/* <SearchBar /> */}
+			{/* <div>
 				<button onClick={handleProduct}>Mostrar Todos</button>
 				<button onClick={handleForm}>Agregar Producto</button>
-			</div>
+			</div> */}
 			{ showForm && categories && (<ProductForm categories={categories} />)}
 			{ showProducts &&
-				<>
-					<table>
-						<thead>
-							<tr>
-								<td>ID</td>
-								<td>Título</td>
-								<td>Stock</td>
-								<td>Visible</td>
-								<td></td>
+				<table>
+					<thead>
+						<tr>
+							<td>ID</td>
+							<td>Título</td>
+							<td>Stock</td>
+							<td>Visible</td>
+							<td></td>
+						</tr>
+					</thead>
+					<tbody>
+						{p.products.map(prod => (
+							<tr key={prod.id}>
+								<td>{prod.id}</td>
+								<td>{prod.name}</td>
+								<td>{prod.stock}</td>
+								<td><input type="checkbox" checked={prod.is_active} /></td>
+								<td>
+									<ul>
+										<li><button>Editar</button></li>
+										<li><button>Eliminar</button></li>
+									</ul>
+								</td>
 							</tr>
-						</thead>
-						<tbody>
-							{p.products.map(prod => (
-								<tr key={prod.id}>
-									<td>{prod.id}</td>
-									<td>{prod.name}</td>
-									<td>{prod.stock}</td>
-									<td><input type="checkbox" checked={prod.is_active} /></td>
-									<td>
-										<ul>
-											<li><button>Editar</button></li>
-											<li><button>Eliminar</button></li>
-										</ul>
-									</td>
-								</tr>
-							))}
-						</tbody>
-					</table>
-				</>
+						))}
+					</tbody>
+				</table>
 			}
-		</div>
+		</>
 	);
 };
 

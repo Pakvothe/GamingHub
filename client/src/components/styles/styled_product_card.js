@@ -12,7 +12,6 @@ export const ProductCardStyled = styled.article`
 	color: var(--clr-black);
 	position: relative;
 	transition: all 0.1s ease-in-out;
-	margin: 0 0.5rem 1rem;
 	height: 400px;
 
 	&:hover,
@@ -113,18 +112,11 @@ export const ProductCardStyled = styled.article`
 		height: 100%;
 	}
 
-	.card__button {
-		display: block;
+	button {
 		position: absolute;
 		bottom: 1em;
 		left: 50%;
-		transform: translateX(-50%);
-		color: white;
-		background-color: var(--clr-primary);
-		width: 160px;
-		padding: 6px;
-		border-radius: 20px;
-		border: 2px solid var(--clr-primary);
+		transform: translateX(-50%)
     }
 
 `;

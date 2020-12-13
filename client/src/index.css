@@ -20,15 +20,46 @@
 h1, h2, h3, h4, h5, h6, button {
 	font-family: Poppins, sans-serif;
 	line-height: 1;
+	font-weight: 900;
 }
 
 body {
-	margin: 0;
 	font-family: Raleway, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
 
-code {
-	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+.main-container {
+	width: 80%;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 2em 0;
+}
+
+.admin-main-container {
+	margin-left: 300px;
+	padding: 2em 3em;
+}
+
+@media (max-width: 700px) {
+	.admin-main-container {
+		margin-left: 50px;
+	}	
+}
+
+.label-select {
+	margin-bottom: 3em;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.admin-h1 {
+	text-transform: uppercase;
+	font-size: 2em;
+	font-weight: 700;
+	color: var(--clr-primary-2);
+	padding-bottom: .5em;
+	margin-bottom: .7em;
+	border-bottom: 1px solid #CCC;
 }

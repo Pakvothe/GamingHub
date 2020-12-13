@@ -8,8 +8,10 @@ function HomeRoutes() {
 	return (
 		<>
 			<Navbar />
-			<Route path='/products/:id' component={Product} />
-			<Route exact path='/' component={Catalog} />
+			<main className="main-container">
+				<Route path='/products/:id' component={Product} />
+				<Route exact path='/' component={Catalog} />
+			</main>
 		</>
 	);
 }
