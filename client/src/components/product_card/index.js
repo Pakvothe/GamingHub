@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ProductCardStyled } from '../styles/styled_product_card';
+import { Btn } from '../styles/styled_global'
 import { IMAGE_NOT_FOUND } from '../../utils/constants';
 
 const ProductCard = ({ game }) => {
@@ -17,7 +18,7 @@ const ProductCard = ({ game }) => {
 					}
 				</h3>
 				<p className="card__price">$ {game.price}</p>
-				<button className="card__button">Agregar al carrito</button>
+				<Btn className="btn-ppal">Agregar al carrito</Btn>
 			</div>
 		</ProductCardStyled>)
 };

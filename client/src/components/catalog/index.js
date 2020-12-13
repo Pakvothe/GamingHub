@@ -43,12 +43,12 @@ const Catalog = (p) => {
 
 	return (
 		<>
-			<label>
-				<span>Filtrar por categoria</span>
+			<label className="label-select">
+				<span>Filtrar por categoria:</span>
 				<SelectStyled onChange={handleChange}>
-					<option value="todos">Todos</option>
+					<option value="todos">TODOS</option>
 					{options && options.map(category => (
-						<option key={category.value} value={category.label}>{category.label}</option>
+						<option key={category.value} value={category.label}>{category.label.toUpperCase()}</option>
 					))}
 				</SelectStyled>
 			</label>
