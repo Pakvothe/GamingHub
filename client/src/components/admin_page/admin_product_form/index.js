@@ -41,6 +41,15 @@ const AdminProductForm = ({ categories }) => {
 	const handleSubmit = (ev) => {
 		ev.preventDefault();
 		dispatch(addProduct(input))
+		setInput({
+			name: '',
+			description_es: '',
+			description_en: '',
+			price: 1,
+			img: '',
+			is_active: true,
+			categories: {}
+		})
 	}
 
 	return (

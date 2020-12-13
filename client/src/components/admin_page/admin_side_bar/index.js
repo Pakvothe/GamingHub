@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+
 import { SideBarContainer, SideBarButton, StyledSVG } from '../../styles/styled_admin_sidebar';
+import logo from '../../../assets/img/logo.svg'
+import arrowLeft from '../../../assets/img/arrow-left.svg'
 
 const AdminSideBar = () => {
 	const [buttonToggle, setButtonToggle] = useState(true);
@@ -11,10 +14,14 @@ const AdminSideBar = () => {
 
 	return (
 		<>
-			<SideBarContainer className={buttonToggle && 'toggle'} >
-				<h1><Link to="/">Game<span>Hub</span></Link></h1>
+			<SideBarContainer className={buttonToggle && 'toggle'}>
+				<div>
+					<Link to="/" className="logo-link">
+						<StyledSVG src={logo} />
+					</Link>
+				</div>
 				<SideBarButton onClick={() => toggleMenu()} className={buttonToggle && 'toggle'}>
-					<StyledSVG src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNOC4xMjIgMjRsLTQuMTIyLTQgOC04LTgtOCA0LjEyMi00IDExLjg3OCAxMnoiLz48L3N2Zz4=" />
+					<StyledSVG src={arrowLeft} />
 				</SideBarButton>
 				<ul>
 					<li><Link to="/admin/products">Productos</Link></li>

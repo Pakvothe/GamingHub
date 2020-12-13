@@ -1,16 +1,15 @@
 import React from 'react';
 import SearchBar from '../search_bar';
-import NavbarStyled from '../styles/styled_navbar';
+import { NavbarStyled, StyledSVG } from '../styles/styled_navbar';
 import { Link } from 'react-router-dom';
+import logoDual from '../../assets/img/logo-dual.svg'
 
 const Navbar = () => {
 	return (
 		<NavbarStyled>
-			<h1>
-				<Link to='/'>
-					Gaming<span>HUB</span>
-				</Link>
-			</h1>
+			<Link to='/'>
+				<StyledSVG src={logoDual} />
+			</Link>
 			<SearchBar />
 			<Link to='/admin/products'>
 				Admin

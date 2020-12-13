@@ -39,7 +39,7 @@ export const Btn = styled.button`
 
 	&.btn-img {
 		position: relative;
-		padding-right: 4em;
+		padding: 1em 4em 1em 1.2em;
 	}
 
 	&.btn-img svg {

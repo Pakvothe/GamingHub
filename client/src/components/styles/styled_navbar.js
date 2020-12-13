@@ -1,6 +1,8 @@
 import styled from 'styled-components';
+import SVG from 'react-inlinesvg';
 
-const NavbarStyled = styled.nav`
+
+export const NavbarStyled = styled.nav`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -8,15 +10,8 @@ const NavbarStyled = styled.nav`
 	background-color: var(--clr-dark);
 	color:var(--clr-white);
 
-	h1 {
-		color:inherit;
-		text-transform: uppercase;
-		font-weight: 400;
-
-		span {
-			color:var(--clr-primary);
-			font-weight: 900;
-		}
+	svg {
+		fill: currentColor;
 	}
 
 	form {
@@ -45,4 +40,6 @@ const NavbarStyled = styled.nav`
 	}
 `
 
-export default NavbarStyled;
+export const StyledSVG = styled(SVG)`
+`
+

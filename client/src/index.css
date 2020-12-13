@@ -11,6 +11,11 @@
 	--clr-success: #97DA3F;
 }
 
+::selection {
+	background-color: var(--clr-primary);
+	color: var(--clr-white);
+}
+
 * {
 	margin: 0;
 	padding: 0;
@@ -24,6 +29,7 @@ h1, h2, h3, h4, h5, h6, button {
 }
 
 body {
+	background-color: var(--clr-white);
 	font-family: Raleway, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -33,7 +39,12 @@ body {
 	width: 80%;
 	max-width: 1200px;
 	margin: 0 auto;
-	padding: 2em 0;
+	padding: 2em 0 3em;
+}
+
+.main-title {
+	text-align: center;
+	margin-bottom: 1em;
 }
 
 .admin-main-container {
