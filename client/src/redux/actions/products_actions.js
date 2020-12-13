@@ -27,7 +27,7 @@ export const addProduct = (payload) => {
 				dispatch(
 					{
 						type: ADD_PRODUCT,
-						payload: product
+						payload: product.data
 					}
 				)
 			})
