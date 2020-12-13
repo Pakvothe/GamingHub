@@ -165,6 +165,9 @@ server.get('/category/:catName', (req, res) => {
 	let { catName } = req.params
 	catName = catName.toLowerCase();
 	Product.findAll({
+		order: [
+			[Image, 'id', 'ASC']
+		],
 		include: [
 			{
 				model: Category,
@@ -179,7 +182,10 @@ server.get('/category/:catName', (req, res) => {
 			}
 		]
 	})
-		.then(data => res.json(data))
+		.then(data => {
+			console.log(data[0].images)
+			res.json(data)
+		})
 })
 
 server.put('/category/:catId', (req, res) => {

@@ -10,7 +10,7 @@ const products = [
 		is_active: true,
 		images: [
 			{
-				url: 'https://www.previewsworld.com/SiteImage/MainImage/STL162511.jpg'
+				url: 'https://images.goodgam.es/WKE-gd3lr40/enlarge:1/plain/covers/17-final-fantasy-vii-remake-cover.jpg'
 			},
 			{
 				url: 'https://images-na.ssl-images-amazon.com/images/I/71vXOkjuRZL.jpg'
@@ -83,7 +83,7 @@ const products = [
 		is_active: true,
 		images: [
 			{
-				url: 'https://as.com/meristation/imagenes/2019/06/15/game_cover/563864361560584670.jpg'
+				url: 'https://s1.gaming-cdn.com/images/products/840/orig/cyberpunk-2077-cover.jpg'
 			}, {
 				url: 'https://www.latercera.com/resizer/7JKi_UKjTHZMPlp2tHq4lHEzkEQ=/380x570/smart/www.latercera.com/resizer/zdNSDatPS4ZmzyRK6rRshb2qC3Y=/cloudfront-us-east-1.images.arcpublishing.com/copesa/NQYR57OX5ZANRIL6SNIZVNLXSA.jpg'
 			}, {
