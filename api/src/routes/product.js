@@ -183,7 +183,6 @@ server.get('/category/:catName', (req, res) => {
 		]
 	})
 		.then(data => {
-			console.log(data[0].images)
 			res.json(data)
 		})
 })
