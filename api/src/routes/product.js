@@ -65,6 +65,15 @@ server.post('/', (req, res) => {
 					productId: product.id
 				})
 			})
+			.then(() => {
+				return Product.findOne({
+					where: { id: product.id },
+					include: { model: Image }
+				})
+			})
+			.then((data) => {
+				res.status(201).json(data);
+			})
 			.catch((err) => {
 				res.status(500).json({ message: "Internal server error" })
 			})
