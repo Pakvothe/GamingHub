@@ -13,19 +13,19 @@ export const SideBarContainer = styled.div`
 	transform: translatex(-250px);
 	padding: 2em 0;
 
-	h1{
-		font-weight: 400;
-		text-transform: uppercase;
-		margin-left: 2rem;
-		span{
-			font-weight: 900;
+	svg  { fill: currentColor }
+
+	div { text-align: center; }
+	
+	.logo-link {
+		color: currentColor;
+		
+		&:hover {
+			color: var(--clr-dark);
 		}
-		a{
-			text-decoration: none;
-			color:inherit;
-			&:hover {
-				color: var(--clr-dark);
-			}
+		
+		svg {
+			height: 1.5em;
 		}
 	}
 	 
@@ -62,15 +62,21 @@ export const SideBarContainer = styled.div`
 `
 
 export const SideBarButton = styled.button`
+	color: var(--clr-white);
 	display:none;
 	position: absolute;
-	top: 2.6em;
-	right: 13px;
+	top: 1.2em;
+	right: 0;
 	background: transparent;    
 	border: none;
 	outline: 0;	
 	transform: rotateZ(0);
 	transition: transform .75s cubic-bezier(.25,.1,.75,1.5);
+
+	svg {
+		height: 50px;
+		width: 50px;
+	}
 	
 	&.toggle {
 		transform: rotateZ(180deg);
@@ -82,6 +88,4 @@ export const SideBarButton = styled.button`
 `
 
 export const StyledSVG = styled(SVG)`
-	fill: var(--clr-white);
-	height: 2em;
 `

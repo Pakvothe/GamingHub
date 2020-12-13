@@ -43,6 +43,7 @@ const Catalog = (p) => {
 
 	return (
 		<>
+			<h1 className="main-title">Encontrá el juego que buscás:</h1>
 			<label className="label-select">
 				<span>Filtrar por categoria:</span>
 				<SelectStyled onChange={handleChange}>
