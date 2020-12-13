@@ -165,6 +165,9 @@ server.get('/category/:catName', (req, res) => {
 	let { catName } = req.params
 	catName = catName.toLowerCase();
 	Product.findAll({
+		order: [
+			[Image, 'id', 'ASC']
+		],
 		include: [
 			{
 				model: Category,
