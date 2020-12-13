@@ -182,9 +182,7 @@ server.get('/category/:catName', (req, res) => {
 			}
 		]
 	})
-		.then(data => {
-			res.json(data)
-		})
+		.then(data => res.json(data))
 })
 
 server.put('/category/:catId', (req, res) => {
