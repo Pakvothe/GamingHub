@@ -1,28 +1,73 @@
-//                       _oo0oo_
-//                      o8888888o
-//                      88" . "88
-//                      (| -_- |)
-//                      0\  =  /0
-//                    ___/`---'\___
-//                  .' \\|     |// '.
-//                 / \\|||  :  |||// \
-//                / _||||| -:- |||||- \
-//               |   | \\\  -  /// |   |
-//               | \_|  ''\---/''  |_/ |
-//               \  .-\__  '-'  ___/-. /
-//             ___'. .'  /--.--\  `. .'___
-//          ."" '<  `.___\_<|>_/___.' >' "".
-//         | | :  `- \`.;`\ _ /`;.`/ - ` : | |
-//         \  \ `_.   \_ __\ /__ _/   .-` /  /
-//     =====`-.____`.___ \_____/___.-`___.-'=====
-//                       `=---='
-//     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~             
+//                             `-/osssso+/:.                                    
+//                           `-+hNNmdddhhyysoso+:-`                               
+//                       `osydddhhdddhdhyssyooooooo/-`                            
+//    `              .   oyosyyhhhyhddhyyyhyyy++ooooo+/-`                         
+//    :.`          `..`+yhdsossyyyhhhddydhhhhNy/++yoooooo+-`                      
+//    .--`        `-.`.yMMMNmhhhhyssyyhyhhdddmdyhhdo+oosssso:`                    
+//    `.-.       .--. .ymMMNosdomo+shyddhmNNNddmddooossyyyssso/.                  
+//     `...`````...`  `++yo:-:/-+:/ssssddNMmdmm+::/+ohhhhyyyssoo/`                
+//       `..```..```   `.`` ./+/::/ssydMNmdmms/oshs/+ysymdhhyyssso.               
+//      .....``.....         `./+:oyhNmddNNy::hmdho/sdm//ymmdhyysss:              
+//      ``` ```````             .-//odmNMd/-+hNyyy/+yMNds:/+:oyhhyss/             
+//           ``````            `.:ohyMMMy:-oosdddyosmMNms/os. `.:oyyy-            
+//         `----:--://+so/-:+ohmNNMymMmy/:+hoymNNNydMNyys/+y+     `:os`           
+//       `-/+d+-oshmNNMMMMNMMMMMMMMmhdysossdmmmNmmymNhssy/++o       `.            
+//     .sysdmm+/..:oydmNNNMMNNNNMMMMNNmmmNmmhyhNms++yho+so/+o`                    
+//    .s+smNo:-`     `..--::-..:dmdddMMNmhhyyymmo::+syo+s+oso/                    
+//      /yss-                   ..:hNMNmddhyshMmhhmd+y/os+ssso                    
+//      `                       `+dMMMNmddhysohMMMddhhssoys/so                    
+//                              `-oNNmNNNmdyso+dNMNhssssyyyooo                    
+//                          `.-/oyhmhdhdhhyyy/../MMhysosyyysyo                    
+//                    ``.-/oydmNmddhhyyhyo++/:  `yMmhysoyysys/                    
+//                `./osdmNMNmddmmdhyyhyso+o/:   .mMdmyshsyyy.                    
+//                .+hmNMMMNddmNMmhhhmyhysoss+.    +MNddddhyso                     
+//                  .+hMNdhmMMMNhhdNdhhyssoy+`     sNNNmmNds-                     
+//                 .+dMMdmNMMMMdhdMNydhysso:`      `+mNNNNmo                      
+//                 +MMMMMMMNNmNmdMMmydhyys/          .sNNdo.                      
+//                 `yNMMMMNhshNNNNNdddyso/-            -yd.                       
+//                  `-/dMMNNNNh+++++o/.`                 .                        
+//                     `mMmmds+/+ossoo.                                           
+//                     .mNdhooohNdhdhys:.`                                        
+//                  `.+mddNs:::Nmdhhhhysys.                                       
+//                  +mMMNyho/:+dNMdddddyyy.                                       
+//         ```      `hNmmhysoo+omhNNdmmyso`                                       
+//        ohmds:`  `oNMNhhdho++/. /NNmhoo/                                        
+//       /MMMMMMy.`mMNMNmddyo+/+. oNMMdsso                                        
+//       :NMMMMMMmhmMhmhyhy+.``  `mMMmyyy`                                        
+//        +NMMMMMMMNNddysss`      :hmyyo.                                         
+//         -sNMMMMdhdhhhy/-         ```                                           
+//           `:dMMmyyyy+`                                                         
+//             `/syhs/.                                                      
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~             
+require('dotenv').config();
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
+const { PORT } = process.env;
+const { Product, Category, Image, Serial } = require('./src/db.js');
+const utilsProd = require("./utils/products");
+const utilsCat = require("./utils/categories");
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
-  server.listen(3000, () => {
-    console.log('%s listening at 3000'); // eslint-disable-line no-console
-  });
+	server.listen(PORT, () => {
+		console.log(`%s listening at ${PORT}`); // eslint-disable-line no-console
+	});
+
+	Product.bulkCreate(utilsProd, { hooks: true, include: [Image, Serial] })
+		.then(prod => {
+			prod.map((instance, i) => {
+				utilsProd[i].catArray.map(catToAdd => {
+					Category.findOrCreate({
+						where: catToAdd
+					}).then(catCreatedOrFound => {
+						instance.addCategories(catCreatedOrFound[0])
+					}).catch(err => console.log(err));
+				});
+			})
+			console.log("Datos cargados exitosamente");
+		})
+		.catch((err) => {
+			console.error(err);
+		});
 });

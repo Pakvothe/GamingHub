@@ -1,0 +1,25 @@
+//Global actions =>
+export const CHANGE_LANGUAGE = 'CHANGE_LANGUAGE';
+export const ERROR = 'ERROR';
+export const LOADING = 'LOADING';
+
+//Product actions =>
+export const GET_PRODUCTS = 'GET_PRODUCTS';
+export const GET_PRODUCTS_ERROR = 'GET_PRODUCTS_ERROR';
+export const LOADING_PRODUCTS = 'LOADING_PRODUCTS';
+
+export const GET_FILTER_PRODUCTS = 'GET_FILTER_PRODUCTS';
+export const GET_FILTER_PRODUCTS_ERROR = 'GET_FILTER_PRODUCTS_ERROR';
+export const LOADING_FILTER_PRODUCTS = 'LOADING_FILTER_PRODUCTS';
+
+export const ADD_PRODUCT = 'ADD_PRODUCT';
+export const EDIT_PRODUCT = 'EDIT_PRODUCT';
+export const DELETE_PRODUCT = 'DELETE_PRODUCT';
+export const LOADING_PRODUCT = 'LOADING_PRODUCT';
+export const GET_PRODUCT = 'GET_PRODUCT';
+export const GET_PRODUCT_ERROR = 'GET_PRODUCT_ERROR';
+
+//Category actions =>
+export const GET_CATEGORIES = 'GET_CATEGORIES';
+export const ADD_CATEGORY = 'ADD_CATEGORY';
+export const GET_ERROR_CATEGORY = 'GET_ERROR_CATEGORY';
