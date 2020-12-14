@@ -52,9 +52,17 @@ export const deleteProduct = (payload) => { //payload = product.id
 }
 
 export const editProduct = (payload) => {
-	return {
-		type: EDIT_PRODUCT,
-		payload
+	return function (dispatch) {
+		return axios.put(`${REACT_APP_API_URL}/products/${payload.id}`, payload)
+			.then((product) => {
+				dispatch(
+					{
+						type: EDIT_PRODUCT,
+						payload: product.data
+					}
+				)
+			})
+			.catch() //check errors
 	}
 }
 

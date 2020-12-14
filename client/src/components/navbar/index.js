@@ -11,7 +11,7 @@ const Navbar = () => {
 				<StyledSVG src={logoDual} />
 			</Link>
 			<SearchBar />
-			<Link to='/admin/products'>
+			<Link to='/admin'>
 				Admin
 			</Link>
 		</NavbarStyled>
