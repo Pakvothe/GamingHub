@@ -16,8 +16,7 @@ module.exports = (sequelize) => {
 			unique: true,
 			allowNull: false,
 			validate: {
-				isNumeric: true,
-				options: { no_symbols: true }
+				isInt: true
 			}
 		}
 	})
