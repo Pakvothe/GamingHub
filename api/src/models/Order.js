@@ -16,10 +16,9 @@ module.exports = (sequelize) => {
 			unique: true,
 			allowNull: false,
 			validate: {
-				isDecimal: true
+				isNumeric: true
 			}
 		},
-
 		state: {
 			type: D.ENUM('created', 'processing', 'completed', 'canceled'),
 			unique: true,
