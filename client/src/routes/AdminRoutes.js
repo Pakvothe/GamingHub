@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import AdminSideBar from '../components/admin_page/admin_side_bar';
-import AdminProductContainer from '../components/admin_page/admin_product_container';
+import AdminProductList from '../components/admin_page/admin_product_list';
 import AdminCategoryForm from '../components/admin_page/admin_category_form';
 import AdminProductForm from './../components/admin_page/admin_product_form/index';
 import { useEffect } from 'react';
@@ -23,7 +23,9 @@ function AdminRoutes() {
 		<>
 			<AdminSideBar />
 			<main className="admin-main-container">
-				<Route exact path='/admin' component={AdminProductContainer} />
+				<Route exact path='/admin'>
+					<AdminProductList products={products} />
+				</Route>
 				<Route exact path='/admin/product'>
 					<AdminProductForm categories={categories} />
 				</Route>

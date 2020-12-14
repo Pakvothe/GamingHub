@@ -52,7 +52,7 @@ body {
 	padding: 2em 3em;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 800px) {
 	.admin-main-container {
 		margin-left: 50px;
 	}	
