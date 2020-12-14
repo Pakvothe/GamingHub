@@ -50,8 +50,15 @@ const productsReducer = (state = initialState, action) => {
 				...state,
 				products: {
 					...state.products,
-					productList: state.products.productList.map((prod) =>
-						action.payload.id === prod.id ? action.payload : prod)
+					productList: state.products.productList.map((prod) => {
+						if (action.payload.id === prod.id) {
+							prod = {
+								...prod,
+								...action.payload,
+							}
+						}
+						return prod;
+					})
 				}
 			}
 		case DELETE_PRODUCT:
