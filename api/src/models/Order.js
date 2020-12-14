@@ -3,13 +3,6 @@ const D = DataTypes;
 
 module.exports = (sequelize) => {
 	sequelize.define('order', {
-		user_id: {
-			type: D.INTEGER,
-			allowNull: false,
-			validate: {
-				isInt: true
-			}
-		},
 		email: {
 			type: D.STRING,
 			unique: true,
