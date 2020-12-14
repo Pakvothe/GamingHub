@@ -24,7 +24,7 @@ const AdminSideBar = () => {
 					<StyledSVG src={arrowLeft} />
 				</SideBarButton>
 				<ul>
-					<li><Link to="/admin/products">Productos</Link></li>
+					<li><Link to="/admin">Productos</Link></li>
 					<li><Link to="/admin/categories">Categorias</Link></li>
 					<li><Link to="#">Ordenes</Link></li>
 					<li><Link to="#">Usuarios</Link></li>

@@ -45,8 +45,14 @@ const productsReducer = (state = initialState, action) => {
 				}
 			}
 		case EDIT_PRODUCT:
+			console.log(action.payload);
 			return {
-
+				...state,
+				products: {
+					...state.products,
+					productList: state.products.productList.map((prod) =>
+						action.payload.id === prod.id ? action.payload : prod)
+				}
 			}
 		case DELETE_PRODUCT:
 			return {
