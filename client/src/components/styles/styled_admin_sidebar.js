@@ -33,7 +33,7 @@ export const SideBarContainer = styled.div`
 		transform: translatex(0px);
 	}
 
-	@media (max-width: 700px){
+	@media (max-width: 800px){
 		width: 100vw;
 		transform: translatex(0px);
 
@@ -82,7 +82,7 @@ export const SideBarButton = styled.button`
 		transform: rotateZ(180deg);
 		}
 
-	@media screen and (max-width: 700px){
+	@media screen and (max-width: 800px){
 		display: inline;
 	}
 `
