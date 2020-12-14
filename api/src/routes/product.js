@@ -5,9 +5,15 @@ const { Product, Category, Image } = require('../db.js');
 
 server.get('/', (req, res, next) => {
 	Product.findAll({
-		include: [{
-			model: Image,
-		}]
+		include: [
+			{
+				model: Image,
+			}
+		],
+		order: [
+			['id', 'ASC'],
+			[Image, 'id', 'ASC']
+		]
 	})
 		.then((products) => {
 			res.send(products);
@@ -116,9 +122,22 @@ server.put('/:id', (req, res) => {
 		description_es,
 		description_en,
 		price,
+		img,
+		categories,
 		is_active
-	} = req.body
+	} = req.body;
 
+	let newCategories = [];
+
+	if (!!Object.keys(categories).length) {
+		for (cat in categories) {
+			if (categories[cat] === true) {
+				newCategories.push(cat);
+			}
+		}
+	}
+
+	let product;
 	Product.update({
 		name,
 		description_es,
@@ -131,13 +150,75 @@ server.put('/:id', (req, res) => {
 	})
 		.then(data => {
 			if (!data[0]) {
-				res.status(400).json({ message: 'Bad request' })
+				throw new Error('error 400')
 			} else {
-				res.status(200).json(data[1][0])
+				product = data[1][0];
+				return Product.findOne({
+					where: {
+						id: product.id
+					},
+					include: [
+						{
+							model: Category
+						},
+						{
+							model: Image
+						}
+					]
+				})
 			}
 		})
-		.catch(() => {
-			res.status(500).json({ message: 'Internal server error' })
+		.then(data => {
+			product = data;
+			return Category.findAll({
+				where: {
+					id: newCategories
+				}
+			})
+		})
+		.then((catToAdd) => {
+			product.categories.forEach(category => {
+				product.removeCategories(category)
+			})
+			catToAdd.forEach((category) => {
+				product.addCategories(category);
+			})
+		})
+		.then(() => {
+			return Image.destroy({
+				where: {
+					productId: product.id
+				}
+			})
+		})
+		.then(() => {
+			return Image.create({
+				url: img,
+				productId: product.id
+			})
+		})
+		.then(() => {
+			return Product.findOne({
+				where: {
+					id: product.id
+				},
+				include: [
+					{
+						model: Image
+					}
+				]
+			}
+			)
+		})
+		.then((data) => {
+			res.status(200).json(data)
+		})
+		.catch((err) => {
+			console.log(err);
+			if (err.message.includes('error 400')) {
+				return res.status(400).json({ message: 'Bad request' })
+			}
+			return res.status(500).json({ message: 'Internal server error' })
 		})
 })
 
