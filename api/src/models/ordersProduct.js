@@ -4,7 +4,7 @@ const D = DataTypes;
 module.exports = (sequelize) => {
 	sequelize.define('orders_products', {
 		unit_price: {
-			type: D.INTEGER,
+			type: D.REAL,
 			unique: true,
 			allowNull: false,
 			validate: {
