@@ -22,6 +22,7 @@ const AdminProductList = ({ orders }) => {
 					{orders && orders.map(order => (
 						<tr key={order.id}>
 							{/* <td>{order.user}</td> */}
+							<td>{order.id}</td>
 							<td>{order.email}</td>
 							<td>{order.total_amount}</td>
 							<td>{order.state}</td>

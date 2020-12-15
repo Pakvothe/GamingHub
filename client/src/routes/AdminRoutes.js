@@ -16,6 +16,7 @@ function AdminRoutes() {
 	const dispatch = useDispatch();
 	const products = useSelector((state) => state.productsReducer.products.productList);
 	const categories = useSelector((state) => state.categoriesReducer.categoryList);
+	const orders = useSelector((state) => state.ordersReducer.orders.list);
 
 	useEffect(() => {
 		dispatch(getProducts());
@@ -50,7 +51,7 @@ function AdminRoutes() {
 				</Route>
 
 				<Route exact path='/admin/orders'>
-					<AdminOrderList />
+					<AdminOrderList orders={orders} />
 				</Route>
 
 				<Route exact path='/admin/order/:id'>
