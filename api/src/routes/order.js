@@ -17,4 +17,22 @@ server.get('/', (req, res) => {
 		})
 });
 
+server.get('/:orderId', (req, res) => {
+	const { orderId } = req.params
+
+	Order.findOne({
+		where: {
+			id: orderId
+		}
+	})
+		.then((orders) => {
+			if (orders) {
+				res.status(200).send(orders);
+			}
+			res.status(404).send({ message: "Not Found" });
+		})
+		.catch((err) => {
+			res.status(500).json({ message: "Internal server error" });
+		})
+})
 module.exports = server;
