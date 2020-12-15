@@ -13,9 +13,7 @@ server.get('/', (req, res) => {
 			res.status(200).send(users);
 		})
 		.catch((err) => {
-			res.status(500).json({
-				message: "Internal server error"
-			});
+			res.status(500).json({ message: "Internal server error" });
 		})
 });
 
