@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import SearchBar from '../search_bar';
 import { Link } from 'react-router-dom';
 import { NavbarStyled, StyledSVG } from '../styles/styled_navbar';
+import SearchBar from '../search_bar';
+import CartSideBar from '../cart_sidebar';
 
 /* --- Logos --- */
 import logoDual from '../../assets/img/logo-dual.svg'
@@ -17,6 +18,13 @@ const Navbar = () => {
 
 	const dispatch = useDispatch();
 	const language = useSelector(state => state.globalReducer.language);
+
+	//cart modal ->
+	const [showBar, setShowBar] = useState(false);
+	const toggleModal = () => {
+		setShowBar(!showBar)
+	}
+	// <-
 
 	const handleClick = (e) => {
 		dispatch(changeLanguage(e.target.id))
@@ -47,10 +55,11 @@ const Navbar = () => {
 						</Link>
 					</li>
 					<li>
-						<Link to='/admin'>
+						<Link onClick={toggleModal}>
 							<StyledSVG src={cart} />
 							<span>{strings[language].cart}</span>
 						</Link>
+						<CartSideBar show={showBar} closeCallback={toggleModal} />
 					</li>
 				</ul>
 			</NavbarStyled>

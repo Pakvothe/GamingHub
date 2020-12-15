@@ -2,7 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import Product from '../components/product';
 import Catalog from '../components/catalog';
-import Navbar from '../components/navbar'
+import Navbar from '../components/navbar';
 
 function HomeRoutes() {
 	return (
