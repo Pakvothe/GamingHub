@@ -44,7 +44,8 @@ require('dotenv').config();
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 const { PORT } = process.env;
-const { Product, Category, Image, Serial, User } = require('./src/db.js');
+const { Product, Category, Image, Serial, User, Order, Orders_products } = require('./src/db.js');
+const all = require('./src/db.js');
 const utilsProd = require("./utils/products");
 const utilsUser = require("./utils/users");
 const utilsCat = require("./utils/categories");
@@ -75,4 +76,43 @@ conn.sync({ force: true }).then(() => {
 		.then(() => {
 			console.log("Usuarios cargados exitosamente")
 		})
+
+	Order.create({
+		email: 'fran@gmail.com',
+		total_amount: 12,
+		state: 'created',
+		payment_method: 'mp',
+		userId: 1
+	})
+	Orders_products.create({
+		productId: 1,
+		orderId: 1,
+		unit_price: 52.38,
+		quantity: 2
+	})
+	Orders_products.create({
+		productId: 2,
+		orderId: 1,
+		unit_price: 40.72,
+		quantity: 1
+	})
+	Order.create({
+		email: 'fran@gmail.com',
+		total_amount: 2233,
+		state: 'created',
+		payment_method: 'mp',
+		userId: 1
+	})
+	Orders_products.create({
+		productId: 1,
+		orderId: 2,
+		unit_price: 52.38,
+		quantity: 2
+	})
+	Orders_products.create({
+		productId: 2,
+		orderId: 2,
+		unit_price: 40.72,
+		quantity: 1
+	})
 });
