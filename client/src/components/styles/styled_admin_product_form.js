@@ -2,11 +2,13 @@ import styled from 'styled-components';
 
 const AdminProductFormStyled = styled.form`
 	font-size: 13px;
-	display: flex;
 
-	@media (max-width: 1050px) {
-		display: block;
-	}
+	.flex-form-container {
+		display: flex;
+
+		@media (max-width: 1050px) {
+			display: block;
+		}
 
 	& > div + div  {
 		margin-left: 3em;
@@ -58,6 +60,7 @@ const AdminProductFormStyled = styled.form`
 		}
 
 		button:last-child { margin-top: 2em; }
+	}
 `
 
 export default AdminProductFormStyled

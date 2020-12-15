@@ -12,6 +12,7 @@ export const SideBarContainer = styled.div`
 	transition: 0.8s ease;
 	transform: translatex(-250px);
 	padding: 2em 0;
+	z-index: 99;
 
 	svg  { fill: currentColor }
 
@@ -72,6 +73,7 @@ export const SideBarButton = styled.button`
 	outline: 0;	
 	transform: rotateZ(0);
 	transition: transform .75s cubic-bezier(.25,.1,.75,1.5);
+	cursor: pointer;
 
 	svg {
 		height: 50px;
