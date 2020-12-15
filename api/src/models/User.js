@@ -3,7 +3,12 @@ const D = DataTypes;
 const bcrypt = require("bcrypt");
 
 module.exports = (sequelize) => {
-	sequelize.define('user', {
+	const hashPassword = async (user) => {
+		const salt = await bcrypt.genSalt(10);
+		user.password = await bcrypt.hash(user.password, salt)
+		user.save();
+	};
+	const User = sequelize.define('user', {
 		first_name: {
 			type: D.STRING,
 			allowNull: false
@@ -39,22 +44,9 @@ module.exports = (sequelize) => {
 		}
 	}, {
 		hooks: {
-			beforeCreate: async (user) => {
-				const salt = await bcrypt.genSalt(10);
-				user.password = await bcrypt.hash(user.password, salt)
-				user.save();
-
-			},
-			beforeBulkCreate: (users) => users.map(async user => {
-				const salt = await bcrypt.genSalt(10);
-				user.password = await bcrypt.hash(user.password, salt)
-				user.save();
-			})
-		},
-		instanceMethods: {
-			validPassword(password) {
-				return bcrypt.compare(password, this.password);
-			}
+			beforeCreate: hashPassword,
+			afterUpdate: hashPassword,
+			beforeBulkCreate: (users) => users.map(hashPassword)
 		}
 	})
 }
