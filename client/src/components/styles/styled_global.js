@@ -1,4 +1,7 @@
 import styled from 'styled-components';
+import arrow from '../../assets/img/arrow-down.svg';
+import checkboxUnchecked from '../../assets/img/checkbox-unchecked-purple.svg'
+import checkboxChecked from '../../assets/img/checkbox-checked-purple.svg'
 
 export const Btn = styled.button`
 	font-weight: 900;
@@ -134,5 +137,174 @@ export const DataTable = styled.table`
 		td ul { flex-direction: column; }
 
 		td button { margin: .5em 0; }
+	}
+`
+
+export const FormStyled = styled.form`
+
+	.flex-form-container {
+		display: flex;
+
+		@media (max-width: 1050px) {
+			display: block;
+		}
+
+		& > div + div  {
+			margin-left: 3em;
+
+			@media (max-width: 1050px) {
+				margin: 1.5em 0 0;
+			}
+		}
+	}
+		label {
+			display: block;
+			position: relative;
+			width: 400px;
+		
+			& > span:not(.no-shadow) {
+				position: absolute;
+				left: 1em;
+				top: -.5em;
+				padding: 0 .5em;
+				font-weight: 900;
+				font-size: .9em;
+				background: var(--clr-white);
+			}
+
+			& > input,
+			& > textarea {
+				font: inherit;
+				font-size: .8em;
+				padding: 1em;
+				border: 3px solid var(--clr-primary);
+				border-radius: .4em;
+				background: var(--clr-white);
+				width: 100%;
+				transition: box-shadow .2s ease;
+				outline: none;
+			}
+
+			& > textarea {
+				line-height: 1.6;
+			}
+
+			&:not(.no-shadow)::after {
+				content: '';
+				position: absolute;
+				top: 5px;
+				bottom: -5px;
+				left: 5px;
+				width: 100%;
+				border-radius: .4em;
+				background: var(--clr-primary);
+				opacity: 0.15;
+				transition: opacity .2s ease;
+				z-index: -1;
+			}
+
+			&:focus-within::after {
+				opacity: 1;
+			}
+		}
+
+		label + label { margin-top: 2em; }
+		
+		input, textarea {
+			width: 300px;
+			display: block;
+			border: 0;
+			font: inherit;
+			padding: .5em;
+			border: 3px solid var(--clr-primary);
+			border-radius: .3em;
+			margin-top: .3em;
+
+			&:focus {
+				border-color: var(--clr-primary-2);
+			}
+		}
+
+		textarea { height: 150px; }
+
+		input[type=checkbox] {
+			width: auto;
+			display: inline;
+			margin: 0 1em 1em 0;
+		}
+
+		ul {
+			list-style: none;
+			text-transform: capitalize;
+			margin-top: 1em;
+			width: 300px;
+			columns: 2;
+			column-fill: balance-all;
+
+			li {
+				padding: .5em 0;
+			}
+		}
+
+		.form__categorias {
+			display: inline-block;
+			font-size: 1.5em;
+			margin-top: 1em;
+		}
+
+		button:last-child { margin-top: 2em; }
+
+		select {
+			font-family: inherit;
+			font-size: 0.7em;
+			border: 3px solid var(--clr-primary);
+			border-radius: .5em;
+			width: 200px;
+			padding: .5em 3em .5em .7em;
+			-moz-appearance: none;
+			-webkit-appearance: none;
+			appearance: none;
+			background: url(${arrow}) 95% center no-repeat;
+			background-size: 1.5em;
+			margin-left: 1em;
+			text-transform: uppercase;
+
+			&::-ms-expand {
+				display: none;
+			}
+
+			&:hover, &:focus {
+				outline: 0;
+				border-color: var(--clr-primary-2);
+				box-shadow: 0 0 10px rgba(0,0,0,.15);
+			}
+		}
+
+`
+
+export const CheckboxLabel = styled.label`
+	&.check {
+
+		span { padding-left: 1.5em; }
+
+		input[type="checkbox"] {
+			vertical-align: middle;
+			opacity: 0;
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+		}
+
+		&::after {
+			content: '';
+			background: url(${props => props.checked ? checkboxChecked : checkboxUnchecked}) center no-repeat;
+			background-size: 100%;
+			display: block;
+			width: 20px;
+			height: 20px;
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+		}
 	}
 `

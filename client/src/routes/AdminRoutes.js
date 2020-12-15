@@ -4,6 +4,7 @@ import AdminSideBar from '../components/admin_page/admin_side_bar';
 import AdminProductList from '../components/admin_page/admin_product_list';
 import AdminCategoryForm from '../components/admin_page/admin_category_form';
 import AdminProductForm from './../components/admin_page/admin_product_form/index';
+import AdminUserForm from './../components/admin_page/admin_user_form/index';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getProducts } from '../redux/actions/products_actions';
@@ -26,13 +27,24 @@ function AdminRoutes() {
 				<Route exact path='/admin'>
 					<AdminProductList products={products} />
 				</Route>
+
 				<Route exact path='/admin/product'>
 					<AdminProductForm categories={categories} />
 				</Route>
+
 				<Route exact path='/admin/product/:id'>
 					<AdminProductForm categories={categories} />
 				</Route>
+
 				<Route exact path='/admin/categories' component={AdminCategoryForm} />
+
+				<Route exact path='/admin/user'>
+					<AdminUserForm />
+				</Route>
+
+				<Route exact path='/admin/user/:id'>
+					<AdminUserForm />
+				</Route>
 			</main>
 		</>
 	);
