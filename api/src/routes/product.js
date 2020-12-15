@@ -120,7 +120,6 @@ server.put('/:id/active', (req, res) => {
 		where: { id }
 	})
 		.then(product => {
-			product.is_active
 			return Product.update({
 				is_active: !product.is_active
 			}, {
@@ -150,7 +149,6 @@ server.put('/:id/active', (req, res) => {
 		})
 		.then(product => res.status(200).json(product))
 		.catch(err => {
-			console.log(err);
 			res.status(500).json({ message: 'Internal server error' })
 		})
 })
