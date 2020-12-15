@@ -400,7 +400,7 @@ server.delete('/:id', (req, res) => {
 
 server.get('/:id', (req, res) => {
 	const prodId = req.params.id;
-	if (!Number.isInteger(+prodId)) {
+	if (!+prodId) {
 		return res.status(400).json({
 			message: 'Bad Request'
 		});
@@ -421,14 +421,7 @@ server.get('/:id', (req, res) => {
 			if (!prod) {
 				return res.status(404).json({ message: 'Product not found.' });
 			} else {
-				prod = prod.get();
-				const obj = {
-					...prod,
-					categories: prod.categories.map(cat => ({
-						...cat.dataValues
-					}))
-				};
-				res.json(obj);
+				return res.json(prod);
 			}
 		})
 		.catch(() => {

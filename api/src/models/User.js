@@ -49,4 +49,7 @@ module.exports = (sequelize) => {
 			beforeBulkCreate: (users) => users.map(hashPassword)
 		}
 	})
+	User.prototype.validPassword = function (password) {
+		return bcrypt.compare(password.toString(), this.password);
+	}
 }
