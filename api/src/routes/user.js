@@ -74,7 +74,11 @@ server.get('/:id/orders', (req, res) => {
 		include: [
 			{
 				model: Product,
-				through: { attributes: [] }
+				through: {
+					attributes: [
+						'unit_price', 'quantity'
+					]
+				}
 			}
 		]
 	})
