@@ -400,7 +400,7 @@ server.delete('/:id', (req, res) => {
 
 server.get('/:id', (req, res) => {
 	const prodId = req.params.id;
-	if (!Number.isInteger(+prodId)) {
+	if (!+prodId) {
 		return res.status(400).json({
 			message: 'Bad Request'
 		});

@@ -1,6 +1,6 @@
 const server = require('express').Router();
 const { Op } = require('sequelize');
-const { User } = require('../db.js');
+const { User, Order, Product } = require('../db.js');
 //----------"/users"--------------
 
 server.get('/', (req, res) => {
@@ -61,4 +61,29 @@ server.delete('/:userId', (req, res) => {
 			res.status(500).json({ message: "Internal server error" });
 		})
 })
+
+
+server.get('/:id/orders', (req, res) => {
+	const { id } = req.params;
+	if (!+id) res.status(400).json({ message: "Bad Request" });
+
+	Order.findAll({
+		where: {
+			userId: id
+		},
+		include: [
+			{
+				model: Product,
+				through: { attributes: [] }
+			}
+		]
+	})
+		.then(orders => {
+			return res.json(orders);
+		})
+		.catch(() => {
+			res.status(500).json({ message: "Internal server error" })
+		});
+});
+
 module.exports = server; 
