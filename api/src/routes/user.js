@@ -34,4 +34,31 @@ server.put('/:id', (req, res) => {
 		})
 });
 
+server.delete('/:userId', (req, res) => {
+	const { userId } = req.params;
+	var user = {};
+
+	User.findOne({
+		where: {
+			id: userId
+		}
+	})
+		.then(data => {
+			user = data;
+			return User.destroy({
+				where: {
+					id: userId
+				}
+			})
+		})
+		.then((data) => {
+			if (data === 0) {
+				res.status(404).json({ message: "Bad request" })
+			}
+			res.json(user)
+		})
+		.catch((err) => {
+			res.status(500).json({ message: "Internal server error" });
+		})
+})
 module.exports = server; 
