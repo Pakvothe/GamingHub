@@ -44,8 +44,9 @@ require('dotenv').config();
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 const { PORT } = process.env;
-const { Product, Category, Image, Serial } = require('./src/db.js');
+const { Product, Category, Image, Serial, User } = require('./src/db.js');
 const utilsProd = require("./utils/products");
+const utilsUser = require("./utils/users");
 const utilsCat = require("./utils/categories");
 
 // Syncing all the models at once.
@@ -65,9 +66,13 @@ conn.sync({ force: true }).then(() => {
 					}).catch(err => console.log(err));
 				});
 			})
-			console.log("Datos cargados exitosamente");
+			console.log('Productos cargados exitosamente');
 		})
 		.catch((err) => {
 			console.error(err);
 		});
+	User.bulkCreate(utilsUser, { hooks: true })
+		.then(() => {
+			console.log("Usuarios cargados exitosamente")
+		})
 });
