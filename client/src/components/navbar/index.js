@@ -55,10 +55,10 @@ const Navbar = () => {
 						</Link>
 					</li>
 					<li>
-						<Link onClick={toggleModal}>
+						<span onClick={toggleModal} style={{ cursor: 'pointer' }}>
 							<StyledSVG src={cart} />
 							<span>{strings[language].cart}</span>
-						</Link>
+						</span>
 						<CartSideBar show={showBar} closeCallback={toggleModal} />
 					</li>
 				</ul>

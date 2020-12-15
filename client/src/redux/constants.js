@@ -17,6 +17,7 @@ export const EDIT_PRODUCT = 'EDIT_PRODUCT';
 export const DELETE_PRODUCT = 'DELETE_PRODUCT';
 export const LOADING_PRODUCT = 'LOADING_PRODUCT';
 export const GET_PRODUCT = 'GET_PRODUCT';
+export const TOGGLE_ACTIVE_PRODUCT = 'TOGGLE_ACTIVE_PRODUCT';
 export const GET_PRODUCT_ERROR = 'GET_PRODUCT_ERROR';
 
 //Category actions =>

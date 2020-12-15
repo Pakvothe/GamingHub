@@ -62,9 +62,9 @@ const Catalog = () => {
 			<CatalogStyled>
 				{loadingProducts && <h1>Loading...</h1>}
 				{!loadingProducts &&
-					(filter && productsFilter.map(card => <ProductCard game={card} key={card.id} />))
+					(filter && productsFilter.map(product => <ProductCard game={product} key={product.id} />))
 					||
-					!!Object.keys(products).length && products.map(card => <ProductCard game={card} key={card.id} />)
+					!!Object.keys(products).length && products.map(product => product.is_active ? <ProductCard game={product} key={product.id} /> : null)
 				}
 				{errorProducts && <h1 style={{ margin: "20px", textAlign: "center" }}>No hay productos para mostrar</h1>}
 			</CatalogStyled>
