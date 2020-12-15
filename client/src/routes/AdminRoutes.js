@@ -5,10 +5,12 @@ import AdminProductList from '../components/admin_page/admin_product_list';
 import AdminCategoryForm from '../components/admin_page/admin_category_form';
 import AdminProductForm from './../components/admin_page/admin_product_form/index';
 import AdminUserForm from './../components/admin_page/admin_user_form/index';
+import AdminOrderList from './../components/admin_page/admin_order_list';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getProducts } from '../redux/actions/products_actions';
 import { getCategories } from './../redux/actions/categories_actions';
+import { getOrders } from '../redux/actions/orders_actions';
 
 function AdminRoutes() {
 	const dispatch = useDispatch();
@@ -18,6 +20,7 @@ function AdminRoutes() {
 	useEffect(() => {
 		dispatch(getProducts());
 		dispatch(getCategories());
+		dispatch(getOrders());
 	}, []);
 
 	return (
@@ -44,6 +47,14 @@ function AdminRoutes() {
 
 				<Route exact path='/admin/user/:id'>
 					<AdminUserForm />
+				</Route>
+
+				<Route exact path='/admin/orders'>
+					<AdminOrderList />
+				</Route>
+
+				<Route exact path='/admin/order/:id'>
+					{/* <AdminOrderDetail /> */}
 				</Route>
 			</main>
 		</>

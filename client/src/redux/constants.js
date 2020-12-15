@@ -24,3 +24,8 @@ export const GET_PRODUCT_ERROR = 'GET_PRODUCT_ERROR';
 export const GET_CATEGORIES = 'GET_CATEGORIES';
 export const ADD_CATEGORY = 'ADD_CATEGORY';
 export const GET_ERROR_CATEGORY = 'GET_ERROR_CATEGORY';
+
+//Order actions =>
+export const GET_ORDERS = 'GET_ORDERS';
+export const ORDERS_ERROR = 'ORDERS_ERROR';
+export const LOADING_ORDERS = 'LOADING_ORDERS';
