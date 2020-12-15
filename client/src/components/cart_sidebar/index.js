@@ -16,7 +16,7 @@ const CartSideBar = ({ order, show, closeCallback }) => {
 				{order.map(purchase => {
 					subtotal = purchase.price + subtotal;
 					return (
-						<article>
+						<article key={purchase.id}>
 							<div className='article__img'>
 								<img src={purchase.images[0].url} />
 							</div>

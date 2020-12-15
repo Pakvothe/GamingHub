@@ -13,7 +13,8 @@ import {
 	LOADING_FILTER_PRODUCTS,
 	LOADING_PRODUCTS,
 	GET_FILTER_PRODUCTS_ERROR,
-	GET_PRODUCTS_ERROR
+	GET_PRODUCTS_ERROR,
+	TOGGLE_ACTIVE_PRODUCT
 } from './../constants';
 
 const { REACT_APP_API_URL } = process.env;
@@ -58,6 +59,21 @@ export const editProduct = (payload) => {
 				dispatch(
 					{
 						type: EDIT_PRODUCT,
+						payload: product.data
+					}
+				)
+			})
+			.catch() //check errors
+	}
+}
+
+export const toggleActiveProduct = (payload) => {
+	return function (dispatch) {
+		return axios.put(`${REACT_APP_API_URL}/products/${payload}/active`, payload)
+			.then((product) => {
+				dispatch(
+					{
+						type: TOGGLE_ACTIVE_PRODUCT,
 						payload: product.data
 					}
 				)

@@ -1,7 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteProduct } from '../../../redux/actions/products_actions';
-import SearchBar from '../admin_search_bar';
+import { deleteProduct, toggleActiveProduct } from '../../../redux/actions/products_actions';
 import { Btn, DataTable } from '../../styles/styled_global';
 import { Link } from 'react-router-dom';
 
@@ -9,9 +8,14 @@ const AdminProductList = ({ products }) => {
 	const dispatch = useDispatch();
 
 	const handleDelete = (id) => {
-		console.log(id);
 		dispatch(deleteProduct(id));
 		alert('Product deleted.');
+	}
+
+	const handleInput = (ev) => {
+		console.log(ev.target.name);
+		ev.persist();
+		dispatch(toggleActiveProduct(ev.target.name))
 	}
 
 	return (
@@ -34,7 +38,17 @@ const AdminProductList = ({ products }) => {
 							<td>{prod.id}</td>
 							<td>{prod.name}</td>
 							<td>{prod.stock}</td>
-							<td><input type="checkbox" checked={prod.is_active} /></td>
+							{/* <td>
+								<CheckboxLabel className="no-shadow check" checked={input.is_active[prod.id]}>
+									<input
+										type='checkbox'
+										value={input.is_active[prod.id]}
+										onChange={handleInput}
+										name='is_active'
+									/>
+								</CheckboxLabel>
+							</td> */}
+							<td><input type="checkbox" checked={prod.is_active} onChange={handleInput} name={prod.id} /></td>
 							<td>
 								<ul>
 									<li><Link to={`/admin/product/${prod.id}`}><button>Editar</button></Link></li>
