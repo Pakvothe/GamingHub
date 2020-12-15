@@ -114,6 +114,46 @@ server.get('/search', (req, res) => {
 		res.status(400).json({ message: "Query is empty" });
 	}
 })
+server.put('/:id/active', (req, res) => {
+	const { id } = req.params;
+	Product.findOne({
+		where: { id }
+	})
+		.then(product => {
+			product.is_active
+			return Product.update({
+				is_active: !product.is_active
+			}, {
+				where: { id },
+				returning: true
+			})
+		})
+		.then(data => {
+			if (!data[0]) {
+				throw new Error('error 400')
+			} else {
+				product = data[1][0];
+				return Product.findOne({
+					where: {
+						id: product.id
+					},
+					include: [
+						{
+							model: Category
+						},
+						{
+							model: Image
+						}
+					]
+				})
+			}
+		})
+		.then(product => res.status(200).json(product))
+		.catch(err => {
+			console.log(err);
+			res.status(500).json({ message: 'Internal server error' })
+		})
+})
 
 server.put('/:id', (req, res) => {
 	const { id } = req.params;
