@@ -421,14 +421,7 @@ server.get('/:id', (req, res) => {
 			if (!prod) {
 				return res.status(404).json({ message: 'Product not found.' });
 			} else {
-				prod = prod.get();
-				const obj = {
-					...prod,
-					categories: prod.categories.map(cat => ({
-						...cat.dataValues
-					}))
-				};
-				res.json(obj);
+				return res.json(prod);
 			}
 		})
 		.catch(() => {
