@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { addProduct, getProduct } from '../../../redux/actions/products_actions'
 
-import AdminProductFormStyled from '../../styles/styled_admin_product_form'
-import { Btn } from '../../styles/styled_global'
+import { Btn, CheckboxLabel, FormStyled } from '../../styles/styled_global'
 import { Redirect, useParams } from 'react-router-dom';
 import { editProduct } from './../../../redux/actions/products_actions';
 
@@ -53,19 +52,27 @@ const AdminProductForm = ({ categories }) => {
 	}, [product]);
 
 	const handleInput = (ev) => {
-		setInput({
-			...input,
-			[ev.target.name]: ev.target.value
-		})
+		ev.persist();
+		if (ev.target.name === 'is_active') {
+			setInput(prevState => ({
+				...prevState,
+				is_active: !prevState.is_active
+			}))
+		} else {
+			setInput(prevState => ({
+				...prevState,
+				[ev.target.name]: ev.target.value
+			}))
+		}
 	}
 
-	const handleCategories = (event) => {
-		event.persist();
-		setInput((prevState) => ({
+	const handleCategories = (ev) => {
+		ev.persist();
+		setInput(prevState => ({
 			...prevState,
 			categories: {
 				...prevState.categories,
-				[event.target.value]: !prevState.categories[event.target.value]
+				[ev.target.value]: !prevState.categories[ev.target.value]
 			}
 		}))
 	}
@@ -84,65 +91,68 @@ const AdminProductForm = ({ categories }) => {
 	return (
 		<>
 			<h1 className="admin-h1">{opciones}</h1>
-			<AdminProductFormStyled method='post' onSubmit={handleSubmit} autoComplete="off">
-				<div>
-					<label>
-						Nombre:
-				<input type='text' name='name' value={input.name} onChange={handleInput} required />
-					</label>
-					<label>
-						Descripción en español:
-				<textarea type='text' name='description_es' value={input.description_es} onChange={handleInput} required>
-						</textarea>
-					</label>
-					<label>
-						Descripción en inglés:
-				<textarea type='text' name='description_en' value={input.description_en} onChange={handleInput} required>
-						</textarea>
-					</label>
-				</div>
-				<div>
+			<FormStyled method='post' onSubmit={handleSubmit} autoComplete="off">
+				<div className="flex-form-container">
+					<div>
+						<label>
+							<span>Nombre:</span>
+							<input type='text' name='name' value={input.name} onChange={handleInput} required />
+						</label>
+						<label>
+							<span>Descripción en español:</span>
+							<textarea type='text' name='description_es' value={input.description_es} onChange={handleInput} required>
+							</textarea>
+						</label>
+						<label>
+							<span>Descripción en inglés:</span>
+							<textarea type='text' name='description_en' value={input.description_en} onChange={handleInput} required>
+							</textarea>
+						</label>
+					</div>
+					<div>
 
-					<label>
-						Precio:
-				<input type='number' step='0.01' name='price' value={input.price} onChange={handleInput} required />
-					</label>
-					<label>
-						Imagen:
-				<input type='url' placeholder="http://..." name='img' value={input.img} onChange={handleInput} required />
-					</label>
-					<label>
-						<input
-							type='checkbox'
-							value={input.is_active}
-							onChange={handleInput}
-							name='is_active'
-						/>
-				Activo
-			</label>
-					<span className="form__categorias">Categorías:</span>
-					<ul>
-						{
-							categories.map(cat => {
-								return (
-									<li key={cat.id}>
-										<label>
-											<input checked={input.categories[cat.id] ? 'true' : ''}
-												type='checkbox'
-												name={cat.name_es}
-												value={cat.id}
-												onChange={handleCategories}
-											/>
-											{cat.name_es}
-										</label>
-									</li>
-								)
-							})
-						}
-					</ul>
-					<Btn type='submit' className="btn-ppal">{opciones}</Btn>
+						<label>
+							<span>Precio:</span>
+							<input type='number' step='0.01' name='price' value={input.price} onChange={handleInput} required />
+						</label>
+						<label>
+							<span>Imagen:</span>
+							<input type='url' placeholder="http://..." name='img' value={input.img} onChange={handleInput} required />
+						</label>
+						<CheckboxLabel className="no-shadow check" checked={input.is_active}>
+							<input
+								type='checkbox'
+								value={input.is_active}
+								onChange={handleInput}
+								name='is_active'
+							/>
+							<span className="no-shadow">Activo</span>
+						</CheckboxLabel>
+						<span className="form__categorias">Categorías:</span>
+						<ul>
+							{
+								categories.map(cat => {
+									return (
+										<li key={cat.id}>
+											<CheckboxLabel className="no-shadow check" checked={input.categories[cat.id]}>
+												<input
+													type='checkbox'
+													name={cat.name_es}
+													value={cat.id}
+													onChange={handleCategories}
+												/>
+												<span className="no-shadow">{cat.name_es}</span>
+
+											</CheckboxLabel>
+										</li>
+									)
+								})
+							}
+						</ul>
+						<Btn type='submit' className="btn-ppal">{opciones}</Btn>
+					</div>
 				</div>
-			</AdminProductFormStyled>
+			</FormStyled>
 		</>
 
 	);

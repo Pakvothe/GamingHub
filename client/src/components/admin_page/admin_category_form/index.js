@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import strings from './strings';
-import { CategoryFormStyled } from "../../styles/styled_admin_category_form";
+import { FormStyled } from "../../styles/styled_global";
 import { addCategory } from '../../../redux/actions/categories_actions';
 import { Btn } from '../../styles/styled_global'
 
@@ -27,20 +27,18 @@ const AdminCategoryForm = () => {
 	}
 	return (
 		<>
-			<h1 className="admin-h1">Agregar categoría:</h1>
-			<CategoryFormStyled onSubmit={handleSubmit} method="POST" autoComplete="off">
-				<div>
-					<label>
-						{strings[language].name_es}:
+			<h1 className="admin-h1">Agregar categoría</h1>
+			<FormStyled onSubmit={handleSubmit} method="POST" autoComplete="off">
+				<label>
+					<span>{strings[language].name_es}:</span>
 					<input type='text' name='name_es' onChange={handleChange} required />
-					</label>
-					<label>
-						{strings[language].name_en}:
+				</label>
+				<label>
+					<span>{strings[language].name_en}:</span>
 					<input type='text' name='name_en' onChange={handleChange} required />
-					</label>
-				</div>
+				</label>
 				<Btn type='submit' className="btn-ppal">{strings[language].button}</Btn>
-			</CategoryFormStyled>
+			</FormStyled>
 		</>
 	);
 };
