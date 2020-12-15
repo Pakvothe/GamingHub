@@ -26,7 +26,7 @@ const AdminSideBar = () => {
 				<ul>
 					<li><Link to="/admin">Productos</Link></li>
 					<li><Link to="/admin/categories">Categorias</Link></li>
-					<li><Link to="#">Ordenes</Link></li>
+					<li><Link to="/admin/orders">Ordenes</Link></li>
 					<li><Link to="/admin/user">Usuarios</Link></li>
 				</ul>
 			</SideBarContainer>
