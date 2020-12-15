@@ -3,7 +3,7 @@ const D = DataTypes;
 const bcrypt = require("bcrypt");
 
 module.exports = (sequelize) => {
-	sequelize.define('user', {
+	const User = sequelize.define('user', {
 		first_name: {
 			type: D.STRING,
 			allowNull: false
@@ -50,11 +50,9 @@ module.exports = (sequelize) => {
 				user.password = await bcrypt.hash(user.password, salt)
 				user.save();
 			})
-		},
-		instanceMethods: {
-			validPassword(password) {
-				return bcrypt.compare(password, this.password);
-			}
 		}
 	})
+	User.prototype.validPassword = function (password) {
+		return bcrypt.compare(password.toString(), this.password);
+	}
 }
