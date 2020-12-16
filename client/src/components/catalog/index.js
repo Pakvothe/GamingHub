@@ -63,7 +63,7 @@ const Catalog = () => {
 			<CatalogStyled>
 				{loadingProducts && <h1>{strings[language].loading}</h1>}
 				{!loadingProducts &&
-					(filter && productsFilter.map(product => <ProductCard game={product} key={product.id} />))
+					(filter && productsFilter.map(product => <ProductCard language={language} game={product} key={product.id} />))
 					||
 					!!Object.keys(products).length && products.map(product => {
 						return product.is_active ? <ProductCard language={language} game={product} key={product.id} /> : null
