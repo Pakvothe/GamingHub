@@ -45,10 +45,9 @@ const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 const { PORT } = process.env;
 const { Product, Category, Image, Serial, User, Order, Orders_products } = require('./src/db.js');
-const all = require('./src/db.js');
 const utilsProd = require("./utils/products");
+const utilsOrder = require("./utils/orders");
 const utilsUser = require("./utils/users");
-const utilsCat = require("./utils/categories");
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
@@ -75,44 +74,30 @@ conn.sync({ force: true }).then(() => {
 	User.bulkCreate(utilsUser, { hooks: true })
 		.then(() => {
 			console.log("Usuarios cargados exitosamente")
+			return Order.bulkCreate(utilsOrder)
 		})
-
-	Order.create({
-		email: 'fran@gmail.com',
-		total_amount: 12,
-		state: 'created',
-		payment_method: 'mp',
-		userId: 1
-	})
-	Orders_products.create({
-		productId: 1,
-		orderId: 1,
-		unit_price: 52.38,
-		quantity: 2
-	})
-	Orders_products.create({
-		productId: 2,
-		orderId: 1,
-		unit_price: 40.72,
-		quantity: 1
-	})
-	Order.create({
-		email: 'fran@gmail.com',
-		total_amount: 2233,
-		state: 'created',
-		payment_method: 'mp',
-		userId: 1
-	})
-	Orders_products.create({
-		productId: 1,
-		orderId: 2,
-		unit_price: 52.38,
-		quantity: 2
-	})
-	Orders_products.create({
-		productId: 2,
-		orderId: 2,
-		unit_price: 40.72,
-		quantity: 1
-	})
+		.then(() => {
+			Orders_products.create({
+				productId: 1,
+				orderId: 1,
+				unit_price: 52.38,
+				quantity: 2
+			})
+			Orders_products.create({
+				productId: 1,
+				orderId: 2,
+				unit_price: 52.38,
+				quantity: 2
+			})
+			Orders_products.create({
+				productId: 2,
+				orderId: 2,
+				unit_price: 40.72,
+				quantity: 1
+			})
+			console.log('Ordenes cargadas exitosamente')
+		})
+		.catch(err => {
+			console.log(err);
+		})
 });
