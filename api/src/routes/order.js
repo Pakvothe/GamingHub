@@ -1,7 +1,39 @@
 const server = require('express').Router();
 const { Op } = require('sequelize');
-const { Order, Product, User } = require('../db.js');
+const { Order, Product, Orders_products } = require('../db.js');
 //----------"/orders"--------------
+
+server.post('/', async (req, res) => {
+	const order = req.body;
+	const { products } = order;
+	delete order.products;
+	//	trabajo para el front?
+	// let total = products.reduce((acc, prod) => acc + (prod.price * prod.quantity), 0);
+	// order.total_amount = total;
+
+	Order.create(order)
+		.then(createdOrder => {
+			let formattedProducts = products.map(prod => {
+				return {
+					productId: prod.id,
+					orderId: createdOrder.id,
+					unit_price: prod.price,
+					quantity: prod.quantity
+				}
+			});
+			return Orders_products.bulkCreate(formattedProducts)
+		})
+		.then(() => Order.findOne({
+			where: { id: createdOrder.id },
+			include: [
+				{ model: Product }
+			]
+		}))
+		.then(updatedOrder => res.json(updatedOrder))
+		.catch(() => {
+			res.status(500).json({ message: "Internal server error" })
+		})
+});
 
 server.get('/', (req, res) => {
 	Order.findAll({
