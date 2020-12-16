@@ -15,7 +15,6 @@ const AdminProductList = ({ orders }) => {
 						<td>Total</td>
 						<td>Estado</td>
 						<td>Metodo de Pago</td>
-						<td></td>
 					</tr>
 				</thead>
 				<tbody>

@@ -3,6 +3,7 @@ import { StyledSidebarCart, StyledSVG, StyledCloseBtn } from '../styles/styled_s
 import { Btn } from '../styles/styled_global';
 import CloseButton from '../../assets/img/close-filled-purple.svg';
 import BigCloseButton from '../../assets/img/close-transparent.svg';
+import Mini from '../product_card/mini';
 
 const CartSideBar = ({ order, show, closeCallback }) => {
 	let subtotal = 0;
@@ -16,16 +17,7 @@ const CartSideBar = ({ order, show, closeCallback }) => {
 				{order.map(purchase => {
 					subtotal = purchase.price + subtotal;
 					return (
-						<article key={purchase.id}>
-							<div className='article__img'>
-								<img src={purchase.images[0].url} />
-							</div>
-							<div className='article__info'>
-								<p className='article__name'>{purchase.name}</p>
-								<p>${purchase.price}</p>
-							</div>
-							<button className='delete__product'><StyledSVG src={CloseButton} /></button>
-						</article>
+						<Mini productDetail={purchase} key={purchase.id} />
 					)
 				})}
 				<hr />
