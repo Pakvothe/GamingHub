@@ -1,34 +1,49 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux';
+import { useParams, Redirect } from 'react-router-dom'
+
+import { getUser, editUser, addUser } from '../../../redux/actions/users_actions';
+
 import { Btn } from '../../styles/styled_global'
 import { FormStyled, CheckboxLabel } from '../../styles/styled_global'
 
-const AdminUserForm = function ({ user }) {
+const AdminUserForm = function () {
 	const { id } = useParams();
+	const dispatch = useDispatch()
+	const user = useSelector(state => state.usersReducer.user.info);
 
 	let [input, setInput] = useState({
-		user: '',
+		username: '',
 		password: '',
 		email: '',
-		name: '',
-		lastName: '',
-		language: '',
-		isAdmin: false,
+		first_name: '',
+		last_name: '',
+		language: 'es',
+		is_admin: false,
 	})
+	let [toUsers, setToUsers] = useState(false)
 
 	useEffect(() => {
-		if (id) {
-			setInput(user)
-		}
+		if (id) dispatch(getUser(id))
 	}, [])
+
+	useEffect(() => {
+		if (Object.keys(user).length > 0 && id) {
+			console.log(user)
+			setInput({
+				...user,
+				password: ''
+			})
+		}
+	}, [user])
 
 
 	const handleChange = (ev) => {
 		ev.persist()
-		if (ev.target.name === 'isAdmin') {
+		if (ev.target.name === 'is_admin') {
 			setInput(prevState => ({
 				...prevState,
-				isAdmin: !prevState.isAdmin
+				is_admin: !prevState.is_admin
 			}))
 		} else {
 			setInput(prevState => ({
@@ -40,17 +55,20 @@ const AdminUserForm = function ({ user }) {
 
 	const handleSubmit = (ev) => {
 		ev.preventDefault();
-		console.log(input)
-		// id ? dispatch(editUser(input)) : dispatch(addUser(input));
+		id ? dispatch(editUser(input)) : dispatch(addUser(input));
+		setToUsers(true)
 	}
+
+	if (toUsers) return <Redirect to="/admin/users" />
 
 	return (
 		<>
-			<h1 className="admin-h1">Agregar usuario</h1>
-			<FormStyled action="post" onSubmit={handleSubmit} autoComplete="off">
+			<h1 className="admin-h1">{id ? 'Editar usuario' : 'Agregar usuario'}</h1>
+			<FormStyled onSubmit={handleSubmit} autoComplete="off">
+
 				<label>
 					<span>Username:</span>
-					<input type="text" value={input.user} name="user" onChange={handleChange} />
+					<input type="text" value={input.username} name="username" onChange={handleChange} />
 				</label>
 				<label>
 					<span>Password:</span>
@@ -62,11 +80,11 @@ const AdminUserForm = function ({ user }) {
 				</label>
 				<label>
 					<span>Nombre:</span>
-					<input type="text" value={input.name} name="name" onChange={handleChange} />
+					<input type="text" value={input.first_name} name="first_name" onChange={handleChange} />
 				</label>
 				<label>
 					<span>Apellido:</span>
-					<input type="text" value={input.lastName} name="lastName" onChange={handleChange} />
+					<input type="text" value={input.last_name} name="last_name" onChange={handleChange} />
 				</label>
 				<label className="no-shadow">
 					Idioma:
@@ -76,26 +94,17 @@ const AdminUserForm = function ({ user }) {
 					</select>
 				</label>
 
-				<CheckboxLabel className="no-shadow check" checked={input.isAdmin}>
-					<input type="checkbox" checked={input.isAdmin} value={input.isAdmin} name="isAdmin" onChange={handleChange} />
+				<CheckboxLabel className="no-shadow check" checked={input.is_admin}>
+					<input type="checkbox" checked={input.is_admin} value={input.is_admin} name="is_admin" onChange={handleChange} />
 					<span className="no-shadow">Admin</span>
 				</CheckboxLabel>
-				<Btn type="submit" className="btn-ppal">Agregar usuario</Btn>
+
+				<Btn type="submit" className="btn-ppal">
+					{id ? 'Editar usuario' : 'Agregar usuario'}
+				</Btn>
 			</FormStyled>
 		</>
 	)
-}
-
-AdminUserForm.defaultProps = {
-	user: {
-		user: 'Emiliano',
-		password: '1234',
-		email: 'emi@mail.com',
-		name: 'Emiliano',
-		lastName: 'Alfonso',
-		language: 'es',
-		isAdmin: true
-	}
 }
 
 export default AdminUserForm;
