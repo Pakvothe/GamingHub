@@ -29,3 +29,14 @@ export const GET_ERROR_CATEGORY = 'GET_ERROR_CATEGORY';
 export const GET_ORDERS = 'GET_ORDERS';
 export const ORDERS_ERROR = 'ORDERS_ERROR';
 export const LOADING_ORDERS = 'LOADING_ORDERS';
+
+//User actions =>
+export const ADD_USER = 'ADD_USER';
+export const GET_USER = 'GET_USER';
+export const EDIT_USER = 'EDIT_USER';
+export const USER_ERROR = 'USER_ERROR';
+export const LOADING_USER = 'LOADING_USER';
+export const GET_USERS = 'GET_USERS';
+export const DELETE_USER = 'DELETE_USER';
+export const USERS_ERROR = 'USERS_ERROR';
+export const LOADING_USERS = 'LOADING_USERS';

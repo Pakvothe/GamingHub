@@ -3,10 +3,10 @@ const D = DataTypes;
 const bcrypt = require("bcrypt");
 
 module.exports = (sequelize) => {
-	const hashPassword = async (user) => {
+	const hashPassword = async (user, save) => {
 		const salt = await bcrypt.genSalt(10);
 		user.password = await bcrypt.hash(user.password, salt)
-		user.save();
+		if (save) user.save();
 	};
 	const User = sequelize.define('user', {
 		first_name: {
@@ -45,8 +45,8 @@ module.exports = (sequelize) => {
 	}, {
 		hooks: {
 			beforeCreate: hashPassword,
-			afterUpdate: hashPassword,
-			beforeBulkCreate: (users) => users.map(hashPassword)
+			beforeUpdate: hashPassword,
+			beforeBulkCreate: (users) => users.map((user) => hashPassword(user, "save"))
 		}
 	})
 	User.prototype.validPassword = function (password) {

@@ -6,22 +6,52 @@ const { User, Order, Product } = require('../db.js');
 server.get('/', (req, res) => {
 	User.findAll()
 		.then((users) => {
-			res.status(200).send(users);
+			res.status(200).json(users);
 		})
 		.catch((err) => {
 			res.status(500).json({ message: "Internal server error" });
 		})
 });
 
+server.get('/:id', (req, res) => {
+	const { id } = req.params
+	User.findByPk(id)
+		.then(foundUser => {
+			if (!foundUser) {
+				return res.status(404).json({ message: "User not found" });
+			}
+			return res.status(200).json(foundUser)
+		})
+		.catch(err => {
+			return res.status(500).json({ message: "Internal server error" });
+		})
+})
+
+server.post('/', (req, res) => {
+	const newUser = req.body;
+	User.create(newUser)
+		.then(user => {
+			return res.status(200).json(user)
+		})
+		.catch(err => {
+			return res.status(500).json({ message: "Internal server error" });
+		})
+})
+
 server.put('/:id', (req, res) => {
 	const { id } = req.params;
 	const toUpdate = req.body;
+	if (!toUpdate.password) {
+		delete toUpdate.password
+	}
+	// Hashear el password porque no funciona
+
 	User.findByPk(id)
 		.then((foundUser) => {
 			if (!foundUser) {
 				return res.status(404).json({ message: "User not found" });
 			}
-			return foundUser.update(toUpdate);
+			return foundUser.update(toUpdate, { hooks: true });
 		})
 		.then(updatedUser => {
 			return res.json(updatedUser)

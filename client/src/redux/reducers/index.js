@@ -3,10 +3,12 @@ import categoriesReducer from './categoriesReducer'
 import productsReducer from './productsReducer'
 import ordersReducer from './ordersReducer'
 import globalReducer from './globalReducer'
+import usersReducer from './usersReducer'
 
 export default combineReducers({
 	globalReducer,
 	categoriesReducer,
 	productsReducer,
-	ordersReducer
+	ordersReducer,
+	usersReducer
 })
