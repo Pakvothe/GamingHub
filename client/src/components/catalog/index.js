@@ -4,6 +4,7 @@ import { getFilterProducts, getProducts } from '../../redux/actions/products_act
 import { getCategories } from '../../redux/actions/categories_actions';
 import ProductCard from '../product_card'
 import { CatalogStyled, SelectStyled } from './../styles/styled_catalog';
+import strings from './strings';
 
 const Catalog = () => {
 
@@ -49,24 +50,26 @@ const Catalog = () => {
 
 	return (
 		<>
-			<h1 className="main-title">Encontrá el juego que buscás:</h1>
+			<h1 className="main-title">{strings[language].main_header}</h1>
 			<label className="label-select">
-				<span>Filtrar por categoria:</span>
+				<span>{strings[language].filter_category}</span>
 				<SelectStyled onChange={handleChange}>
-					<option value="todos">TODOS</option>
+					<option value="todos">{strings[language].all}</option>
 					{options && options.map(category => (
 						<option key={category.value} value={category.label}>{category.label.toUpperCase()}</option>
 					))}
 				</SelectStyled>
 			</label>
 			<CatalogStyled>
-				{loadingProducts && <h1>Loading...</h1>}
+				{loadingProducts && <h1>{strings[language].loading}</h1>}
 				{!loadingProducts &&
 					(filter && productsFilter.map(product => <ProductCard game={product} key={product.id} />))
 					||
-					!!Object.keys(products).length && products.map(product => product.is_active ? <ProductCard game={product} key={product.id} /> : null)
+					!!Object.keys(products).length && products.map(product => {
+						return product.is_active ? <ProductCard language={language} game={product} key={product.id} /> : null
+					})
 				}
-				{errorProducts && <h1 style={{ margin: "20px", textAlign: "center" }}>No hay productos para mostrar</h1>}
+				{errorProducts && <h1 style={{ margin: "20px", textAlign: "center" }}>{strings[language].no_products}</h1>}
 			</CatalogStyled>
 		</>
 	);

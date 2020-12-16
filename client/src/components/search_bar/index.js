@@ -3,7 +3,7 @@ import strings from './strings';
 import { FormSearchBar } from '../styles/styled_search_bar';
 import loupe from '../../assets/img/loupe.svg';
 
-const SearchBar = ({ propFunction }) => {
+const SearchBar = ({ propFunction, language }) => {
 	const [inputText, setInputText] = useState('');
 
 	const handleChange = (evt) => {
@@ -19,7 +19,7 @@ const SearchBar = ({ propFunction }) => {
 
 	return (
 		<FormSearchBar onSubmit={handleSubmit}>
-			<input onChange={handleChange} type="text" placeholder={strings["es"].placeholder} />
+			<input onChange={handleChange} type="text" placeholder={strings[language].placeholder} />
 			<button>
 				<img src={loupe} alt="" />
 			</button>
