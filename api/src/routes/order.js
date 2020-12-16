@@ -54,4 +54,24 @@ server.get('/:orderId', (req, res) => {
 		})
 })
 
+server.put('/:id', (req, res) => {
+	const { id } = req.params;
+	const orderToUpdate = req.body;
+	if (!+id) return res.status(400).json({ message: "Bad Request" });
+
+	Order.findByPk(id)
+		.then(order => {
+			if (!order) {
+				return res.status(404).json({ message: "Not Found" })
+			}
+			return order.update(orderToUpdate);
+		})
+		.then(updatedOrder => {
+			return res.json(updatedOrder)
+		})
+		.catch(() => {
+			res.status(500).json({ message: "Internal server error" })
+		})
+});
+
 module.exports = server;
