@@ -52,6 +52,8 @@ export const ProductCardStyled = styled.article`
 		padding: 0.5em 1em;
 		height: 50%;
 		position: relative;
+		display: flex;
+		flex-direction: column;
 	}
 
 	.card__title {
@@ -113,11 +115,8 @@ export const ProductCardStyled = styled.article`
 	}
 
 	button {
-		position: absolute;
-		bottom: 1em;
-		left: 50%;
-		transform: translateX(-50%)
+		margin-top: auto;
+		z-index: 10;
     }
-
 `;
 
