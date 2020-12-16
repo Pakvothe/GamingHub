@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import SVG from 'react-inlinesvg';
 import arrow from '../../assets/img/arrow-down.svg';
 import checkboxUnchecked from '../../assets/img/checkbox-unchecked-purple.svg'
 import checkboxChecked from '../../assets/img/checkbox-checked-purple.svg'
@@ -307,4 +308,73 @@ export const CheckboxLabel = styled.label`
 			transform: translateY(-50%);
 		}
 	}
+`
+
+export const MiniCard = styled.article`
+	position: relative;
+	display: flex;
+	border: 2px solid var(--clr-primary);
+	border-radius: 0.5em;
+	margin-bottom: 1em;
+	align-items: center;
+	justify-content: flex-start;
+	background: var(--clr-white);
+	padding: 1em;
+
+	&:hover {
+		border: 2px solid var(--clr-primary-2);
+	}
+	.article__img{
+		height: 100px;
+		flex: 0 0 150px;
+		margin-right: 1em;
+		border-radius: 10px;
+		overflow: hidden;
+	}
+
+	.article__info{
+		text-align: left;
+
+		.article__name{
+			font-size: 1.2em;
+			font-weight: 900;
+		}
+	}
+
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.delete__product {
+		position: absolute;
+		right: 10px;
+		top: 10px;
+		background: none;
+		border: none;
+		width: 25px;
+		height: 25px;
+		transition: opacity 0.4s ease;
+		
+		svg {
+			width: 25px;
+			height: 25px;
+			fill: var(--clr-primary);
+		}
+
+	&:hover svg {
+		fill: var(--clr-primary-2);
+	}
+
+	&:focus {
+		outline: none;
+	}
+	&:active{
+		transform: translateY(1px);
+	}
+}	
+`
+
+export const StyledSVG = styled(SVG)`
 `
