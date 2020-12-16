@@ -9,6 +9,8 @@ import cart from '../../../assets/img/cart.svg'
 import joystick from '../../../assets/img/joystick.svg'
 import { IMAGE_NOT_FOUND } from '../../../utils/constants';
 
+import strings from './strings.js'
+
 export const ProductDetail = ({ product }) => {
 	const [quantity, setQuantity] = useState(1);
 	const language = useSelector(state => state.globalReducer.language);
@@ -56,21 +58,21 @@ export const ProductDetail = ({ product }) => {
 				</div>
 				<p className="game__description">{product[`description_${language}`]}</p>
 				<div className="game__quantity">
-					<span>Cantidad a comprar:</span>
+					<span>{strings[language].amount}</span>
 					<button className="game__quantitybutton" onClick={() => handleQuantityChange(-1)}>-</button>
 					<span className="game__quantityvalue">{quantity}</span>
 					<button className="game__quantitybutton" onClick={() => handleQuantityChange(1)}>+</button>
-					<span>{quantity > 1 ? "unidades" : "unidad"}</span>
+					<span>{quantity > 1 ? strings[language].units : strings[language].unit}</span>
 				</div>
 				<p className="game__stock">Stock: {product.stock}</p>
 				<div className="game__purchase-container">
 					<div className="game__buttons">
 						<Btn className="btn-ppal btn-img">
-							Comprar ahora
+							{strings[language].buy_now}
 							<StyledSVG src={joystick} />
 						</Btn>
 						<Btn className="btn-sec btn-img">
-							Agregar al carrito
+							{strings[language].add_to_cart}
 							<StyledSVG src={cart} />
 						</Btn>
 					</div>

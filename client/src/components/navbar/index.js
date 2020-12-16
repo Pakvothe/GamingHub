@@ -36,7 +36,7 @@ const Navbar = () => {
 				<Link to='/'>
 					<StyledSVG src={logoDual} />
 				</Link>
-				<SearchBar />
+				<SearchBar language={language} />
 				<ul className="navbar__options">
 					<li>
 						<div className='dropdown'>

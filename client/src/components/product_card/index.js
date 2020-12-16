@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 import { ProductCardStyled } from '../styles/styled_product_card';
 import { Btn } from '../styles/styled_global'
 import { IMAGE_NOT_FOUND } from '../../utils/constants';
+import strings from './strings';
 
-const ProductCard = ({ game }) => {
+const ProductCard = ({ game, language }) => {
 	return (
 		<ProductCardStyled>
 			<Link to={`/products/${game.id}`} className="card__link">Clic para ver al producto</Link>
@@ -18,7 +19,7 @@ const ProductCard = ({ game }) => {
 					}
 				</h3>
 				<p className="card__price">$ {game.price}</p>
-				<Btn className="btn-ppal">Agregar al carrito</Btn>
+				<Btn className="btn-ppal">{strings[language].add_to_cart}</Btn>
 			</div>
 		</ProductCardStyled>)
 };
