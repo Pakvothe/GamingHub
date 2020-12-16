@@ -59,7 +59,7 @@ const Navbar = () => {
 							<StyledSVG src={cart} />
 							<span>{strings[language].cart}</span>
 						</span>
-						<CartSideBar show={showBar} closeCallback={toggleModal} />
+						<CartSideBar language={language} show={showBar} closeCallback={toggleModal} />
 					</li>
 				</ul>
 			</NavbarStyled>

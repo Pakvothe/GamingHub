@@ -4,8 +4,9 @@ import { Btn } from '../styles/styled_global';
 import CloseButton from '../../assets/img/close-filled-purple.svg';
 import BigCloseButton from '../../assets/img/close-transparent.svg';
 import Mini from '../product_card/mini';
+import strings from './strings';
 
-const CartSideBar = ({ order, show, closeCallback }) => {
+const CartSideBar = ({ language, order, show, closeCallback }) => {
 	let subtotal = 0;
 	return (
 		<StyledSidebarCart>
@@ -13,7 +14,7 @@ const CartSideBar = ({ order, show, closeCallback }) => {
 				<button title='Close' className='modal__close' onClick={closeCallback}>
 					<StyledCloseBtn src={BigCloseButton} />
 				</button>
-				<h2 className='modal__title'>Tu carrito de compras:</h2>
+				<h2 className='modal__title'>{strings[language].your_cart}</h2>
 				{order.map(purchase => {
 					subtotal = purchase.price + subtotal;
 					return (
@@ -25,7 +26,7 @@ const CartSideBar = ({ order, show, closeCallback }) => {
 					<p>Subtotal:</p>
 					<p>${subtotal}</p>
 				</div>
-				<Btn className='btn-ppal'>Finalizar Compra</Btn>
+				<Btn className='btn-ppal'>{strings[language].checkout}</Btn>
 			</div>
 		</StyledSidebarCart>
 	);

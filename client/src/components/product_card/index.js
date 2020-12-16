@@ -9,7 +9,7 @@ import cart from '../../assets/img/cart.svg'
 const ProductCard = ({ game, language }) => {
 	return (
 		<ProductCardStyled>
-			<Link to={`/products/${game.id}`} className="card__link">Clic para ver al producto</Link>
+			<Link to={`/products/${game.id}`} className="card__link">{strings[language].click_to_see}</Link>
 			<div className="card__imgContainer">
 				<img className="card__img" src={game.images[0] ? game.images[0].url : IMAGE_NOT_FOUND} alt={game.name} />
 			</div>
