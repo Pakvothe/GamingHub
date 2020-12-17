@@ -14,6 +14,7 @@ import { changeLanguage } from './../../redux/actions/global_actions'
 
 /* --- Strings --- */
 import strings from './strings'
+import { emptyFilter } from '../../redux/actions/products_actions';
 const Navbar = () => {
 
 	const dispatch = useDispatch();
@@ -33,7 +34,7 @@ const Navbar = () => {
 	return (
 		<>
 			<NavbarStyled>
-				<Link to='/'>
+				<Link to='/' onClick={() => dispatch(emptyFilter())}>
 					<StyledSVG src={logoDual} />
 				</Link>
 				<SearchBar language={language} />
