@@ -1,18 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import strings from './strings';
 import { FormStyled } from "../../styles/styled_global";
-import { addCategory } from '../../../redux/actions/categories_actions';
+import { addCategory, editCategory, getCategory } from '../../../redux/actions/categories_actions';
 import { Btn } from '../../styles/styled_global'
+import { useParams } from 'react-router-dom';
 
 const AdminCategoryForm = () => {
+	const { id } = useParams();
+	const language = useSelector(state => state.globalReducer.language)
+	const category = useSelector(state => state.categoriesReducer.category.info)
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		if (id) dispatch(getCategory(id))
+	}, [])
+
 	const [input, setInput] = useState({
 		name_es: '',
 		name_en: ''
 	})
 
-	const language = useSelector(state => state.globalReducer.language)
-	const dispatch = useDispatch();
+	useEffect(() => {
+		if (id && Object.keys(category).length > 0) {
+			setInput(category);
+		}
+	}, [category])
 
 	const handleChange = (e) => {
 		setInput({
@@ -23,21 +36,24 @@ const AdminCategoryForm = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		dispatch(addCategory(input))
+		if (id) dispatch(editCategory(input))
+		else dispatch(addCategory(input))
 	}
+
+	const opciones = id ? strings[language].buttonEdit : strings[language].buttonAdd;
 	return (
 		<>
-			<h1 className="admin-h1">Agregar categoría</h1>
+			<h1 className="admin-h1">{opciones}</h1>
 			<FormStyled onSubmit={handleSubmit} method="POST" autoComplete="off">
 				<label>
 					<span>{strings[language].name_es}:</span>
-					<input type='text' name='name_es' onChange={handleChange} required />
+					<input type='text' name='name_es' value={input.name_es} onChange={handleChange} required />
 				</label>
 				<label>
 					<span>{strings[language].name_en}:</span>
-					<input type='text' name='name_en' onChange={handleChange} required />
+					<input type='text' name='name_en' value={input.name_en} onChange={handleChange} required />
 				</label>
-				<Btn type='submit' className="btn-ppal">{strings[language].button}</Btn>
+				<Btn type='submit' className="btn-ppal">{opciones}</Btn>
 			</FormStyled>
 		</>
 	);

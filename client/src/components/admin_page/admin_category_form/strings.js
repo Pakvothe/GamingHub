@@ -1,13 +1,15 @@
 const strings = {
 	en: {
-		name_en: "Spanish Name",
-		name_es: "English Name",
-		button: "Add Category"
+		name_en: "English Name",
+		name_es: "Spanish Name",
+		buttonAdd: "Add Category",
+		buttonEdit: "Edit Category"
 	},
 	es: {
 		name_en: "Nombre en inglés",
 		name_es: "Nombre en español",
-		button: "Agregar categoría"
+		buttonAdd: "Agregar categoría",
+		buttonEdit: "Editar categoría"
 	}
 };
 
