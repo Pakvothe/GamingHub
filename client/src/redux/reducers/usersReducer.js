@@ -89,7 +89,6 @@ const usersReducer = (state = initialState, action) => {
 			}
 
 		case DELETE_USER: {
-			console.log(action.payload)
 			return {
 				...state,
 				users: {

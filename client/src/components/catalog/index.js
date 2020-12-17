@@ -9,8 +9,11 @@ const Catalog = ({ products, isLoading, error, language }) => {
 			<CatalogStyled>
 				{isLoading && <h1>{strings[language].loading}</h1>}
 				{error && <h1 style={{ margin: "20px", textAlign: "center" }}>{strings[language].no_products}</h1>}
-				{!!products.length && products.map(product => (
-					<ProductCard language={language} game={product} key={product.id} />)
+				{!!products.length && products.map(product => {
+					if (product.is_active) {
+						return <ProductCard language={language} game={product} key={product.id} />
+					}
+				}
 				)}
 			</CatalogStyled>
 		</>

@@ -13,7 +13,6 @@ const AdminProductList = ({ products }) => {
 	}
 
 	const handleInput = (ev) => {
-		console.log(ev.target.name);
 		ev.persist();
 		dispatch(toggleActiveProduct(ev.target.name))
 	}
