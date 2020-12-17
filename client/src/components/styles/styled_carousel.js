@@ -66,6 +66,7 @@ export const StyledCarousel = styled.div`
 	display: inline-block;
 	pointer-events: none;
 }
+
 .carousel .carousel {
 	position: relative;
 }
@@ -133,7 +134,7 @@ export const StyledCarousel = styled.div`
 	padding: 5px;
 }
 .carousel.carousel-slider .control-arrow:hover {
-	background: rgba(0, 0, 0, 0.2);
+	background: rgba(118, 63, 199, 0.1);
 }
 .carousel .slider-wrapper {
 	overflow: hidden;
@@ -215,18 +216,19 @@ export const StyledCarousel = styled.div`
 	margin-left: -45%;
 	width: 90%;
 	border-radius: 10px;
-	background: #000;
-	color: #fff;
+	background: var(--clr-primary-2);
+	color: var(--clr-white);
 	padding: 10px;
-	font-size: 12px;
+	font-size: 16px;
 	text-align: center;
-	opacity: 0.25;
+	opacity: 0.50;
 	-webkit-transition: opacity 0.35s ease-in-out;
 	-moz-transition: opacity 0.35s ease-in-out;
 	-ms-transition: opacity 0.35s ease-in-out;
 	-o-transition: opacity 0.35s ease-in-out;
 	transition: opacity 0.35s ease-in-out;
 }
+
 .carousel .control-dots {
 	position: absolute;
 	bottom: 0;
@@ -240,6 +242,8 @@ export const StyledCarousel = styled.div`
 		bottom: 0;
    }
 }
+
+//estilos de los dots
 .carousel .control-dots .dot {
 	-webkit-transition: opacity 0.25s ease-in;
 	-moz-transition: opacity 0.25s ease-in;
@@ -249,10 +253,10 @@ export const StyledCarousel = styled.div`
 	opacity: 0.3;
 	filter: alpha(opacity=30);
 	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);
-	background: #fff;
+	background: var(--clr-primary-2);
 	border-radius: 50%;
-	width: 8px;
-	height: 8px;
+	width: 12px;
+	height: 12px;
 	cursor: pointer;
 	display: inline-block;
 	margin: 0 8px;
@@ -272,4 +276,10 @@ export const StyledCarousel = styled.div`
 }
 .carousel:hover .slide .legend {
 	opacity: 1;
-}`
+}
+
+//estilos de los links
+.link-styles{
+	text-decoration: none;
+}
+`
