@@ -3,25 +3,25 @@ import strings from './strings';
 import { FormSearchBar } from '../styles/styled_search_bar';
 import loupe from '../../assets/img/loupe.svg';
 import { useDispatch } from 'react-redux';
-import { Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { getSearchProducts } from '../../redux/actions/products_actions';
 
 
-const SearchBar = ({ propFunction, language }) => {
+const SearchBar = ({ language }) => {
 
 	const [inputText, setInputText] = useState('');
 	const history = useHistory()
 	const dispatch = useDispatch()
 
 	const handleChange = (ev) => {
-		setInputText(ev.target.value.trim());
+		setInputText(ev.target.value);
 	};
 
 	const handleSubmit = (ev) => {
 		ev.preventDefault();
 		setInputText('');
-		dispatch(getSearchProducts(inputText)) // final
-		history.push('/search')
+		dispatch(getSearchProducts(inputText.trim()));
+		history.push('/search');
 	};
 	return (
 		<FormSearchBar onSubmit={handleSubmit}>
