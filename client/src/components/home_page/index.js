@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 /* --- Components --- */
 import Catalog from '../catalog'
-import Carousel from '../carousel'
 
 /* --- Actions --- */
 import { getFilterProducts, getProducts, emptyFilter } from '../../redux/actions/products_actions'
@@ -39,7 +38,6 @@ const HomePage = () => {
 
 	return (
 		<div>
-			<Carousel />
 			<h1 className="main-title">{strings[language].main_header}</h1>
 			<SelectCategories language={language} categories={categories} handleSelect={handleSelect} />
 			<Catalog products={productsFilter.length ? productsFilter : products}

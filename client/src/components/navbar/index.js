@@ -40,7 +40,7 @@ const Navbar = () => {
 				<SearchBar language={language} />
 				<ul className="navbar__options">
 					<li>
-						<div className='dropdown'>
+						<div className='dropdown hover_text'>
 							<StyledSVG src={languageIcon} />
 							<span >{strings[language].language}</span>
 							<div className="dropdown-content" onClick={(e) => handleClick(e)}>
@@ -50,15 +50,15 @@ const Navbar = () => {
 						</div>
 					</li>
 					<li>
-						<Link to='/admin'>
+						<Link className="hover_text" to='/admin'>
 							<StyledSVG src={user} />
 							<span>{strings[language].user}</span>
 						</Link>
 					</li>
 					<li>
-						<span onClick={toggleModal} style={{ cursor: 'pointer' }}>
+						<span className="hover_text" onClick={toggleModal} style={{ cursor: 'pointer' }}>
 							<StyledSVG src={cart} />
-							<span>{strings[language].cart}</span>
+							<span >{strings[language].cart}</span>
 						</span>
 						<CartSideBar language={language} show={showBar} closeCallback={toggleModal} />
 					</li>
@@ -68,7 +68,7 @@ const Navbar = () => {
 				<ul className="navbar__menu">
 					<li>
 						<div className='dropdown'>
-							<span>{strings[language].categories}</span>
+							<span className="hover_text">{strings[language].categories}</span>
 							<div className="dropdown-content">
 								<span>Todos</span>
 								<span>Accion</span>
@@ -88,4 +88,4 @@ const Navbar = () => {
 	)
 }
 
-export default Navbar
+export default Navbar;
