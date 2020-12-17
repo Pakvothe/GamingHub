@@ -278,6 +278,18 @@ server.get('/categories', (req, res) => {
 		});
 });
 
+server.get('/categories/:id', (req, res) => {
+	const { id } = req.params;
+	Category.findByPk(id)
+		.then((category) => {
+			if (!category) return res.sendStatus(404)
+			res.json(category);
+		})
+		.catch(err => {
+			res.status(500).json({ message: 'Internal server error' })
+		});
+});
+
 server.post('/category', (req, res) => {
 	const { name_es, name_en } = req.body
 	if (!name_es && !name_en) {
@@ -326,12 +338,9 @@ server.put('/category/:catId', (req, res) => {
 		where: { id: catId },
 		returning: true
 	})
-		.then(data => {
-			data = data[1][0]
-			res.status(200).json({
-				message: "Category edited successfuly.",
-				data
-			})
+		.then(category => {
+			data = category[1][0]
+			res.status(200).json(data)
 		})
 })
 

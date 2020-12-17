@@ -23,7 +23,10 @@ export const GET_PRODUCT_ERROR = 'GET_PRODUCT_ERROR';
 
 //Category actions =>
 export const GET_CATEGORIES = 'GET_CATEGORIES';
+export const GET_CATEGORY = 'GET_CATEGORY';
 export const ADD_CATEGORY = 'ADD_CATEGORY';
+export const EDIT_CATEGORY = 'EDIT_CATEGORY';
+export const DELETE_CATEGORY = 'DELETE_CATEGORY';
 export const GET_ERROR_CATEGORY = 'GET_ERROR_CATEGORY';
 
 //Order actions =>
