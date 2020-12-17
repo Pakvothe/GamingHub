@@ -86,6 +86,11 @@ export const NavbarStyled = styled.nav`
 		padding: 0 1.5em;
 	}
 
+	.hover_text:hover{
+		color: var(--clr-primary);
+		fill: var(--clr-primary);
+	}
+
 	@media screen and (max-width: 600px) {
 
 		a { margin-left: 0; }
@@ -99,4 +104,3 @@ export const NavbarStyled = styled.nav`
 
 export const StyledSVG = styled(SVG)`
 `
-
