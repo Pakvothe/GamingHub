@@ -4,15 +4,17 @@ import { CatalogStyled } from './../styles/styled_catalog';
 import strings from './strings';
 
 const Catalog = ({ products, isLoading, error, language }) => {
+
+	if (isLoading) return <h1 className="main-title">{strings[language].loading}</h1>;
+
+	if (error) return <h1 className="main-title">ERROR</h1>
+
+	if (!products.length) return <h1 className="main-title">{strings[language].no_products}</h1>
+
 	return (
 		<>
 			<CatalogStyled>
-				{isLoading && <h1>{strings[language].loading}</h1>}
-				{error &&
-					<h1 style={{ margin: "20px", textAlign: "center" }}>ERROR</h1>}
-				{!products.length && !isLoading && !error &&
-					<h1 style={{ margin: "20px", textAlign: "center" }}>{strings[language].no_products}</h1>}
-				{!!products.length && products.map(product => {
+				{products.map(product => {
 					if (product.is_active) {
 						return <ProductCard language={language} game={product} key={product.id} />
 					}

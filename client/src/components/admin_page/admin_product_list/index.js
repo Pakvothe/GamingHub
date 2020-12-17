@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteProduct, toggleActiveProduct } from '../../../redux/actions/products_actions';
+import { deleteProduct, toggleActiveProduct, getProductsByName } from '../../../redux/actions/products_actions';
 import { Btn, DataTable } from '../../styles/styled_global';
 import { Link } from 'react-router-dom';
 
@@ -17,6 +17,10 @@ const AdminProductList = ({ products }) => {
 		dispatch(toggleActiveProduct(ev.target.name))
 	}
 
+	const handleOrder = () => {
+		dispatch(getProductsByName());
+	}
+
 	return (
 		<>
 			{/* <SearchBar /> */}
@@ -25,8 +29,8 @@ const AdminProductList = ({ products }) => {
 				<thead>
 					<tr>
 						<td>ID</td>
-						<td>Título</td>
-						<td>Stock</td>
+						<td onClick={handleOrder}>Título</td>
+						<td >Stock</td>
 						<td>Visible</td>
 						<td></td>
 					</tr>

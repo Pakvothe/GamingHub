@@ -4,6 +4,7 @@ const { Product, Category, Image } = require('../db.js');
 //----------"/products"--------------
 
 server.get('/', (req, res, next) => {
+	const { query } = req.query;
 	Product.findAll({
 		include: [
 			{
@@ -11,14 +12,16 @@ server.get('/', (req, res, next) => {
 			}
 		],
 		order: [
-			['id', 'ASC'],
+			query || ['id', 'ASC'],
 			[Image, 'id', 'ASC']
 		]
 	})
 		.then((products) => {
 			res.send(products);
 		})
-		.catch(next);
+		.catch(() => {
+			res.status(500).json({ message: "Internal server error" })
+		});
 });
 
 server.post('/', (req, res) => {

@@ -135,6 +135,24 @@ export const getSearchProducts = (payload) => {
 	}
 }
 
+export const getProductsByName = () => {
+	return function (dispatch) {
+		dispatch({ type: LOADING_PRODUCTS })
+		return axios.get(`${REACT_APP_API_URL}/products/?query=name`)
+			.then(products => {
+				dispatch({
+					type: GET_PRODUCTS,
+					payload: products.data
+				})
+			})
+			.catch(err => {
+				dispatch({
+					type: GET_PRODUCTS_ERROR
+				})
+			})
+	}
+}
+
 export const emptyFilter = () => {
 	return { type: 'EMPTY_FILTER' }
 }

@@ -5,7 +5,7 @@ import { SideBarContainer, SideBarButton, StyledSVG } from '../../styles/styled_
 import logo from '../../../assets/img/logo.svg'
 import arrowLeft from '../../../assets/img/arrow-left.svg'
 
-import { emptyFilter } from "../../../redux/actions/products_actions";
+import { emptyFilter, getProducts } from "../../../redux/actions/products_actions";
 import { useDispatch } from "react-redux";
 
 const AdminSideBar = () => {
@@ -20,7 +20,10 @@ const AdminSideBar = () => {
 		<>
 			<SideBarContainer className={buttonToggle && 'toggle'}>
 				<div>
-					<Link to="/" className="logo-link" onClick={() => dispatch(emptyFilter())}>
+					<Link to="/" className="logo-link" onClick={() => {
+						dispatch(emptyFilter())
+						dispatch(getProducts())
+					}}>
 						<StyledSVG src={logo} />
 					</Link>
 				</div>
