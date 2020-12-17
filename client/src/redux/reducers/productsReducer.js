@@ -10,6 +10,7 @@ import {
 	LOADING_PRODUCTS,
 	GET_FILTER_PRODUCTS,
 	GET_FILTER_PRODUCTS_ERROR,
+	EMPTY_FILTER,
 	LOADING_FILTER_PRODUCTS,
 	TOGGLE_ACTIVE_PRODUCT
 } from '../constants.js';
@@ -165,6 +166,14 @@ const productsReducer = (state = initialState, action) => {
 					productList: action.payload,
 					error: false
 				},
+			}
+		case EMPTY_FILTER:
+			return {
+				...state,
+				productsFilter: {
+					...state.productsFilter,
+					productList: []
+				}
 			}
 		default: return state;
 	}

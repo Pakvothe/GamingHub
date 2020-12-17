@@ -8,8 +8,7 @@ import {
 	GET_PRODUCT_ERROR,
 	GET_PRODUCTS,
 	GET_FILTER_PRODUCTS,
-	LOADING,
-	ERROR,
+	EMPTY_FILTER,
 	LOADING_FILTER_PRODUCTS,
 	LOADING_PRODUCTS,
 	GET_FILTER_PRODUCTS_ERROR,
@@ -116,6 +115,10 @@ export const getFilterProducts = (payload) => {
 				})
 			})
 	}
+}
+
+export const emptyFilter = () => {
+	return { type: 'EMPTY_FILTER' }
 }
 
 export const getProducts = () => {
