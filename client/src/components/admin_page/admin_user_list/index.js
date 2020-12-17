@@ -13,7 +13,6 @@ const AdminUserList = ({ users }) => {
 	}
 
 	const handleInput = (ev) => {
-		console.log(ev.target.name);
 		ev.persist();
 		// dispatch(toggleAdmin(ev.target.name))
 	}

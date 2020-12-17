@@ -29,7 +29,6 @@ const AdminUserForm = function () {
 
 	useEffect(() => {
 		if (Object.keys(user).length > 0 && id) {
-			console.log(user)
 			setInput({
 				...user,
 				password: ''

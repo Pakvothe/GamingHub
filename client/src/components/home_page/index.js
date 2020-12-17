@@ -30,7 +30,6 @@ const HomePage = () => {
 		dispatch(getCategories());
 	}, [])
 
-
 	const handleSelect = (e) => {
 		if (e.target.value === 'todos') {
 			return dispatch(emptyFilter())
@@ -43,7 +42,8 @@ const HomePage = () => {
 			<Carousel />
 			<h1 className="main-title">{strings[language].main_header}</h1>
 			<SelectCategories language={language} categories={categories} handleSelect={handleSelect} />
-			<Catalog products={productsFilter.length && productsFilter || products} language={language} isLoading={loadingProducts} error={errorProducts} />
+			<Catalog products={productsFilter.length ? productsFilter : products}
+				language={language} isLoading={loadingProducts} error={errorProducts} />
 		</div>
 	)
 }
