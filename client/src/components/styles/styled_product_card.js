@@ -115,8 +115,8 @@ export const ProductCardStyled = styled.article`
 	}
 
 	button {
+		font-size: 0.7em;
 		margin-top: auto;
 		z-index: 10;
     }
 `;
-
