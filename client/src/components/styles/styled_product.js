@@ -130,6 +130,10 @@ export const GameDetail = styled.section`
 		flex-direction: column;
 		justify-content: space-between;
 
+		button{
+			margin-bottom: 0.5em;
+		}
+		
 		@media (max-width: 500px) {
 			align-items: center;
 

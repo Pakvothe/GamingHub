@@ -1,5 +1,6 @@
 //Global actions =>
 export const CHANGE_LANGUAGE = 'CHANGE_LANGUAGE';
+export const TOGGLE_CART = 'TOGGLE_CART';
 export const ERROR = 'ERROR';
 export const LOADING = 'LOADING';
 

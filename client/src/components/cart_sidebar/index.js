@@ -1,7 +1,6 @@
 import React from 'react';
-import { StyledSidebarCart, StyledSVG, StyledCloseBtn } from '../styles/styled_sidebar_cart';
+import { StyledSidebarCart, StyledCloseBtn } from '../styles/styled_sidebar_cart';
 import { Btn } from '../styles/styled_global';
-import CloseButton from '../../assets/img/close-filled-purple.svg';
 import BigCloseButton from '../../assets/img/close-transparent.svg';
 import Mini from '../product_card/mini';
 import strings from './strings';

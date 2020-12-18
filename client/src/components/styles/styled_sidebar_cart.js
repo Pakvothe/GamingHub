@@ -17,7 +17,7 @@ export const StyledSidebarCart = styled.div`
 
 	.modal__title{
 		color: var(--clr-primary);
-		margin-bottom: 1em;
+		margin: 1em;
 	}
 
 	hr {
@@ -50,7 +50,7 @@ export const StyledSidebarCart = styled.div`
 
 		&:hover {
 			svg{
-				color: var(--clr-dark);
+				fill: var(--clr-dark);
 			}
 		}
 		&:focus {
@@ -68,5 +68,5 @@ export const StyledSidebarCart = styled.div`
 export const StyledCloseBtn = styled(SVG)`
 	width: 40px;
 	height: 40px;
-	color: #999;  
+	fill: #999;  
 `
