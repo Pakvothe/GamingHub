@@ -3,105 +3,73 @@ import SVG from 'react-inlinesvg';
 
 
 export const NavbarStyled = styled.nav`
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	place-items: center;
-	padding: 1.5rem 200px;
-	background-color: var(--clr-dark);
-	color:var(--clr-white);
-	svg {
-		fill: currentColor;
-	}
-
-	form {
-		margin: 0 40px;
-		min-width: 400px;
-	}
-
-	.navbar__logo{
-		justify-self:start;	
-	}
+	background: var(--clr-dark);
+	padding: 2em 0;
+	color: var(--clr-white);
 
 	a {
-		display: inline-block;
-		color: inherit;
 		text-decoration: none;
-		
-		&:hover { color: var(--clr-primary); }
+		color: currentColor;
+
+		&:hover { color: var(--clr-primary) }
 	}
 
-	li {
-		list-style: none;
-		list-style: none;
-
-		.dropdown {
-			position: relative;
-			display: inline-block;
-			cursor: pointer;
-		}
-
-		.dropdown-content {
-			display: none;
-			position: absolute;
-			left: 50%;
-			transform: translateX(-50%);
-			background-color: var(--clr-white);
-			box-shadow: 2px 2px 5px 0px var(--clr-dark);
-			border-radius: 1rem;
-			min-width: 160px;
-			z-index: 1;
-			overflow: hidden;
-		}
-
-		.dropdown-content span {
-			color: black;
-			padding: 12px 16px;
-			display: block;
-		}
-
-		.dropdown-content span:hover { background-color: #ccc }
-
-		.dropdown:hover .dropdown-content { display: block; }
-	}
-
-	.navbar__options{
-		width: 100%;
+	svg  { fill: currentColor; }
+	
+	.navbar__top {
 		display: flex;
-		justify-content: flex-end;
-		li {
-			display: block;
-			text-align:center;
-			margin: 0 1.5em;
-			span{
-				display: block;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 2em;
+
+		.navbar__logo {
+			color: var(--clr-white);
+			flex-basis: 300px;
+		}
+		
+		form {
+			flex-basis: 400px;
+		}
+
+		.navbar__options {
+			list-style: none;
+			display: flex;
+			align-items: center;
+			flex-basis: 300px;
+
+			& > li + li { margin-left: 3em; }
+
+			li, li > button {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+			}
+
+			li:hover { color: var(--clr-primary); }
+
+			button {
+				background: none;
+				border: none;
+				color: inherit;
+				font: inherit;
 			}
 		}
 	}
 
-	.navbar__menu{
-		grid-column: span 3;
-		place-items: center;
-		li {
-			display: inline-block;
-		}
-	}
 
-	.navbar__menu li{
-		padding: 0 1.5em;
-	}
+	.navbar__bottom {
 
-	.hover_text:hover{
-		color: var(--clr-primary);
-		fill: var(--clr-primary);
-	}
+		.navbar-bottom__menu {
+			margin: 0 auto;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			list-style: none;
+			color: currentColor;
+			cursor: default;
 
-	@media screen and (max-width: 600px) {
-
-		a { margin-left: 0; }
-
-		form {
-			flex-basis: 0;
-			margin: 2em 0;
+			& > li + li { margin-left: 3em; }
 		}
 	}
 `

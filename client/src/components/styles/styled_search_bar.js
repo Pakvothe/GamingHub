@@ -9,7 +9,7 @@ export const FormSearchBar = styled.form`
 	display: flex;
 	justify-content: space-between;
 	padding: 0 .7em;
-
+	
 	&:hover, &:focus-within  {
 		box-shadow: inset 0 0 7px rgba(0,0,0,.15);
 	}
