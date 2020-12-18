@@ -6,10 +6,9 @@ export const NavbarStyled = styled.nav`
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	place-items: center;
-	padding: 1.5rem 2rem;
+	padding: 1.5rem 200px;
 	background-color: var(--clr-dark);
 	color:var(--clr-white);
-
 	svg {
 		fill: currentColor;
 	}
@@ -19,11 +18,15 @@ export const NavbarStyled = styled.nav`
 		min-width: 400px;
 	}
 
+	.navbar__logo{
+		justify-self:start;	
+	}
+
 	a {
 		display: inline-block;
 		color: inherit;
 		text-decoration: none;
-
+		
 		&:hover { color: var(--clr-primary); }
 	}
 
@@ -64,10 +67,11 @@ export const NavbarStyled = styled.nav`
 	.navbar__options{
 		width: 100%;
 		display: flex;
-		justify-content: space-evenly;
+		justify-content: flex-end;
 		li {
 			display: block;
 			text-align:center;
+			margin: 0 1.5em;
 			span{
 				display: block;
 			}
