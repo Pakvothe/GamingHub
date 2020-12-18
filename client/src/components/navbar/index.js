@@ -9,7 +9,7 @@ import CartSideBar from '../cart_sidebar';
 
 /* --- Actions --- */
 import { emptyFilter, getFilterProducts } from '../../redux/actions/products_actions';
-import { changeLanguage, toggleCart } from './../../redux/actions/global_actions'
+import { changeLanguage } from './../../redux/actions/global_actions'
 
 /* --- Logos --- */
 import logoDual from '../../assets/img/logo-dual.svg'

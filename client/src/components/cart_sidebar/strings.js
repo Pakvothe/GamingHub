@@ -1,11 +1,11 @@
 export default {
 	en: {
 		your_cart: 'Your cart: ',
-		checkout: 'Checkout: '
+		checkout: 'Checkout'
 
 	},
 	es: {
 		your_cart: 'Tu carrito de compras: ',
-		checkout: 'Finalizar tu compra: '
+		checkout: 'Finalizar tu compra'
 	}
 }

@@ -27,7 +27,6 @@ function HomeRoutes() {
 	}
 	// <-
 
-
 	useEffect(() => {
 		if (!products.length) {
 			dispatch(getProducts({ query: 'stock', order: 'DESC' }));
