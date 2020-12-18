@@ -20,10 +20,8 @@ const ProductCard = ({ game, language }) => {
 					}
 				</h3>
 				<p className="card__price">$ {game.price}</p>
-				<Btn className="btn-ppal btn-img">
-					{strings[language].add_to_cart}
-					<StyledSVG src={cart} />
-				</Btn>
+				{game.stock ? <Btn className="btn-ppal btn-img">{strings[language].add_to_cart} <StyledSVG src={cart} /> </Btn> :
+					<span>Sin stock</span>}
 			</div>
 		</ProductCardStyled>)
 };

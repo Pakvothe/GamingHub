@@ -802,7 +802,29 @@ const products = [
 				name_es: 'aventura',
 			}
 		]
-	}
+	},
+	{	// 1
+		name: 'Test sin stock 2',
+		stock: 0,
+		description_es: 'El mundo ha caído bajo el control de Shinra Electric Power Company, una oscura corporación que controla la fuerza vital del planeta como energía mako. En la extensa ciudad de Midgar, una organización anti-Shinra que se hace llamar Avalanche ha intensificado su resistencia. Cloud Strife, un ex miembro de la unidad SOLDADO de élite de Shinra ahora convertido en mercenario, presta su ayuda al grupo, sin darse cuenta de las consecuencias épicas que le esperan',
+		description_en: 'The world has fallen under the control of the Shinra Electric Power Company, a shadowy corporation controlling the planet very life force as mako energy. In the sprawling city of Midgar, an anti-Shinra organization calling themselves Avalanche have stepped up their resistance. Cloud Strife, a former member of Shinra is elite SOLDIER unit now turned mercenary, lends his aid to the group, unaware of the epic consequences that await him.',
+		price: 52.38,
+		score: 5,
+		sales: 370,
+		is_active: true,
+		images: [
+			{
+				url: 'https://mlpnk72yciwc.i.optimole.com/w:auto/h:auto/q:auto/https://www.bleedingcool.com/wp-content/uploads/2019/11/917qd6zjz9l._sl1500.jpg'
+			},
+		],
+		serials: [],
+		catArray: [
+			{
+				name_en: 'rpg',
+				name_es: 'rpg',
+			}
+		]
+	},
 ];
 
 module.exports = products;
