@@ -56,10 +56,6 @@ export const Btn = styled.button`
 		height: 25px;
 		fill: currentColor;
 	}
-
-	&.btn-disabled {
-		display: none;
-	}
 `
 
 export const DataTable = styled.table`
