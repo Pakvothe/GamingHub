@@ -34,7 +34,7 @@ const Navbar = () => {
 	return (
 		<>
 			<NavbarStyled>
-				<Link to='/' onClick={() => dispatch(emptyFilter())}>
+				<Link to='/' className="navbar__logo" onClick={() => dispatch(emptyFilter())}>
 					<StyledSVG src={logoDual} />
 				</Link>
 				<SearchBar language={language} />

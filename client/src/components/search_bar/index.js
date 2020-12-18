@@ -2,16 +2,17 @@ import React, { useState } from 'react';
 import strings from './strings';
 import { FormSearchBar } from '../styles/styled_search_bar';
 import loupe from '../../assets/img/loupe.svg';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { getSearchProducts } from '../../redux/actions/products_actions';
 
 
-const SearchBar = ({ language }) => {
+const SearchBar = () => {
 
 	const [inputText, setInputText] = useState('');
 	const history = useHistory()
 	const dispatch = useDispatch()
+	const language = useSelector(state => state.globalReducer.language)
 
 	const handleChange = (ev) => {
 		setInputText(ev.target.value);

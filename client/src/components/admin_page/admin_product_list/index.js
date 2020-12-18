@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { deleteProduct, toggleActiveProduct, getProductsByName } from '../../../redux/actions/products_actions';
 import { Btn, DataTable } from '../../styles/styled_global';
 import { Link } from 'react-router-dom';
+import SearchBar from '../../search_bar';
 
 const AdminProductList = ({ products }) => {
 	const dispatch = useDispatch();
@@ -23,7 +24,7 @@ const AdminProductList = ({ products }) => {
 
 	return (
 		<>
-			{/* <SearchBar /> */}
+			<SearchBar />
 			<Link to="/admin/product"><Btn className="btn-ppal" >Agregar Producto</Btn></Link>
 			<DataTable>
 				<thead>

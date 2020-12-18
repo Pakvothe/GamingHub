@@ -6,7 +6,7 @@ import { Carousel } from 'react-responsive-carousel';
 const DemoCarousel = () => {
 	return (
 		<StyledCarousel>
-			<Carousel showArrows={true} showThumbs={false} autoPlay={true} infiniteLoop={true} transitionTime={450} showStatus={false}>
+			<Carousel showArrows={true} showThumbs={false} autoPlay={true} infiniteLoop={true} transitionTime={450} showStatus={false} dynamicHeight={true}>
 				<div>
 					<img src='https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/media/image/2020/02/final-fantasy-vii-remake-1879909.jpg' />
 					<Link to='/products/1' className='legend link-styles'>Final Fantasy VII Remake</Link>

@@ -63,6 +63,7 @@ export const StyledCarousel = styled.div`
 //aca se modifica la altura y ancho del carrousel
 .carousel img {
 	width: 100%;
+	height: 600px;
 	display: inline-block;
 	pointer-events: none;
 }
