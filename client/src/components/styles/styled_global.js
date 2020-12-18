@@ -55,7 +55,7 @@ export const Btn = styled.button`
 		width: 25px;
 		height: 25px;
 		fill: currentColor;
-	}git 
+	}
 `
 
 export const DataTable = styled.table`
