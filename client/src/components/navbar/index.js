@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
 import { NavbarStyled, StyledSVG } from '../styles/styled_navbar';
+import { Dropdown } from '../styles/styled_global';
 import SearchBar from '../search_bar';
 import CartSideBar from '../cart_sidebar';
 
@@ -34,55 +35,63 @@ const Navbar = () => {
 	return (
 		<>
 			<NavbarStyled>
-				<Link to='/' className="navbar__logo" onClick={() => dispatch(emptyFilter())}>
-					<StyledSVG src={logoDual} />
-				</Link>
-				<SearchBar language={language} />
-				<ul className="navbar__options">
-					<li>
-						<div className='dropdown hover_text'>
-							<StyledSVG src={languageIcon} />
-							<span >{strings[language].language}</span>
-							<div className="dropdown-content" onClick={(e) => handleClick(e)}>
-								<span id="en" className={language === 'en' ? 'selected' : null}>{strings[language].language_en}</span>
-								<span id="es" className={language === 'es' ? 'selected' : null}>{strings[language].language_es}</span>
-							</div>
+				<div className="wrapper">
+					<div className="navbar__top">
+						<div className="navbar__logo">
+							<Link to='/' onClick={() => dispatch(emptyFilter())}>
+								<StyledSVG src={logoDual} />
+							</Link>
+
 						</div>
-					</li>
-					<li>
-						<Link className="hover_text" to='/admin'>
-							<StyledSVG src={user} />
-							<span>{strings[language].user}</span>
-						</Link>
-					</li>
-					<li>
-						<span className="hover_text" onClick={toggleModal} style={{ cursor: 'pointer' }}>
-							<StyledSVG src={cart} />
-							<span >{strings[language].cart}</span>
-						</span>
-						<CartSideBar language={language} show={showBar} closeCallback={toggleModal} />
-					</li>
-				</ul>
-			</NavbarStyled>
-			<NavbarStyled>
-				<ul className="navbar__menu">
-					<li>
-						<div className='dropdown'>
-							<span className="hover_text">{strings[language].categories}</span>
-							<div className="dropdown-content">
-								<span>Todos</span>
-								<span>Accion</span>
-								<span>Aventura</span>
-							</div>
-						</div>
-					</li>
-					<li>
-						<Link to='/'>{strings[language].offer}</Link>
-					</li>
-					<li>
-						<Link to='/'>{strings[language].about}</Link>
-					</li>
-				</ul>
+						<SearchBar language={language} />
+						<ul className="navbar__options">
+							<Dropdown>
+								<StyledSVG src={languageIcon} />
+								<span>{strings[language].language}</span>
+								<ul onClick={(e) => handleClick(e)}>
+									<li id="en"><Link>{strings[language].language_en}</Link></li>
+									<li id="es"><Link>{strings[language].language_es}</Link></li>
+								</ul>
+							</Dropdown>
+							<Dropdown>
+								<StyledSVG src={user} />
+								<span>{strings[language].user}</span>
+								<ul>
+									<li className="dropdown__first-name"><p>Emiliano</p></li>
+									<li><Link>Item 1</Link></li>
+									<li><Link>Item 2</Link></li>
+									<li><Link>Item 3</Link></li>
+								</ul>
+							</Dropdown>
+							<li>
+								<button className="hover_text" onClick={toggleModal}>
+									<StyledSVG src={cart} />
+									<span>{strings[language].cart}</span>
+								</button>
+								<CartSideBar language={language} show={showBar} closeCallback={toggleModal} />
+							</li>
+						</ul>
+					</div>
+
+					<div className="navbar__bottom">
+						<ul className="navbar-bottom__menu">
+							<Dropdown>
+								<span className="hover_text">{strings[language].categories}</span>
+								<ul>
+									<li>Todos</li>
+									<li>Accion</li>
+									<li>Aventura</li>
+								</ul>
+							</Dropdown>
+							<li>
+								<Link to='/'>{strings[language].offer}</Link>
+							</li>
+							<li>
+								<Link to='/'>{strings[language].about}</Link>
+							</li>
+						</ul>
+					</div>
+				</div>
 			</NavbarStyled>
 		</>
 	)
