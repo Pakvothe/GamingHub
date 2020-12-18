@@ -49,12 +49,21 @@ const Navbar = () => {
 								<StyledSVG src={languageIcon} />
 								<span>{strings[language].language}</span>
 								<ul onClick={(e) => handleClick(e)}>
-									<li id="en"><Link>{strings[language].language_en}</Link></li>
-									<li id="es"><Link>{strings[language].language_es}</Link></li>
+									<li>
+										<Link id="en" className={language === 'en' ? 'selected' : null}>
+											{strings[language].language_en}
+										</Link> </li>
+									<li>
+										<Link id="es" className={language === 'es' ? 'selected' : null}>
+											{strings[language].language_es}
+										</Link>
+									</li>
 								</ul>
 							</Dropdown>
 							<Dropdown>
-								<StyledSVG src={user} />
+								<Link to='/admin'>
+									<StyledSVG src={user} />
+								</Link>
 								<span>{strings[language].user}</span>
 								<ul>
 									<li className="dropdown__first-name"><p>Emiliano</p></li>
@@ -92,7 +101,7 @@ const Navbar = () => {
 						</ul>
 					</div>
 				</div>
-			</NavbarStyled>
+			</NavbarStyled >
 		</>
 	)
 }
