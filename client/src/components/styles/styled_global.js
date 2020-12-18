@@ -381,13 +381,30 @@ export const Dropdown = styled.li`
 	padding-bottom: .8em;
 	margin-bottom: -.8em;
 
+	.dropdown-columns{
+		columns: 3;
+		column-rule: 1px solid #ccc;
+		padding: 1em;
+		li {
+			break-inside: avoid;
+			-webkit-column-break-inside: avoid;
+			page-break-inside: avoid;
+			a{
+				border-radius: .4em;
+			}
+			&:last-of-type a {
+				border-radius: .4em;
+			}
+		}
+	}
+
 	&:hover > ul {
 		display: block;
 		list-style: none;
 	}
 
 	& > ul {
-		width: 150px;
+		min-width: 150px;
 		display: none;
 		position: absolute;
 		left: 50%;
@@ -424,7 +441,7 @@ export const Dropdown = styled.li`
 
 
 		a {
-			text-align: left;
+			text-align: center;
 			display: block;
 			width: 100%;
 			padding: 1em 2em;

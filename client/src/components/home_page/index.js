@@ -26,7 +26,9 @@ const HomePage = () => {
 		if (!products.length) {
 			dispatch(getProducts());
 		}
-		dispatch(getCategories());
+		if (!categories.length) {
+			dispatch(getCategories());
+		}
 	}, [])
 
 	const handleSelect = (e) => {

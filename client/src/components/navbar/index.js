@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 import { NavbarStyled, StyledSVG } from '../styles/styled_navbar';
 import { Dropdown } from '../styles/styled_global';
 import SearchBar from '../search_bar';
 import CartSideBar from '../cart_sidebar';
+
+/* --- Actions --- */
+import { emptyFilter, getFilterProducts } from '../../redux/actions/products_actions';
 
 /* --- Logos --- */
 import logoDual from '../../assets/img/logo-dual.svg'
@@ -15,11 +19,12 @@ import { changeLanguage } from './../../redux/actions/global_actions'
 
 /* --- Strings --- */
 import strings from './strings'
-import { emptyFilter } from '../../redux/actions/products_actions';
+
 const Navbar = () => {
 
 	const dispatch = useDispatch();
 	const language = useSelector(state => state.globalReducer.language);
+	const categories = useSelector(state => state.categoriesReducer.categories.list);
 
 	//cart modal ->
 	const [showBar, setShowBar] = useState(false);
@@ -28,8 +33,15 @@ const Navbar = () => {
 	}
 	// <-
 
-	const handleClick = (e) => {
-		dispatch(changeLanguage(e.target.id))
+	const handleClick = (ev) => {
+		dispatch(changeLanguage(ev.target.id))
+	}
+
+	const handleCategories = (ev) => {
+		if (ev.target.id === 'todos') {
+			return dispatch(emptyFilter())
+		}
+		dispatch(getFilterProducts(ev.target.id));
 	}
 
 	return (
@@ -50,30 +62,28 @@ const Navbar = () => {
 								<span>{strings[language].language}</span>
 								<ul onClick={(e) => handleClick(e)}>
 									<li>
-										<Link id="en" className={language === 'en' ? 'selected' : null}>
+										<a id="en" className={language === 'en' ? 'selected' : null}>
 											{strings[language].language_en}
-										</Link> </li>
+										</a> </li>
 									<li>
-										<Link id="es" className={language === 'es' ? 'selected' : null}>
+										<a id="es" className={language === 'es' ? 'selected' : null}>
 											{strings[language].language_es}
-										</Link>
+										</a>
 									</li>
 								</ul>
 							</Dropdown>
 							<Dropdown>
-								<Link to='/admin'>
-									<StyledSVG src={user} />
-								</Link>
+								<StyledSVG src={user} />
 								<span>{strings[language].user}</span>
 								<ul>
 									<li className="dropdown__first-name"><p>Emiliano</p></li>
-									<li><Link>Item 1</Link></li>
+									<li><Link to="/user">Perfil</Link></li>
 									<li><Link>Item 2</Link></li>
-									<li><Link>Item 3</Link></li>
+									<li><Link to="/admin">Panel de Administración</Link></li>
 								</ul>
 							</Dropdown>
 							<li>
-								<button className="hover_text" onClick={toggleModal}>
+								<button className="hover_text" onClick={() => toggleModal}>
 									<StyledSVG src={cart} />
 									<span>{strings[language].cart}</span>
 								</button>
@@ -86,10 +96,19 @@ const Navbar = () => {
 						<ul className="navbar-bottom__menu">
 							<Dropdown>
 								<span className="hover_text">{strings[language].categories}</span>
-								<ul>
-									<li>Todos</li>
-									<li>Accion</li>
-									<li>Aventura</li>
+								<ul className="dropdown-columns" onClick={(e) => handleCategories(e)}>
+									<li><HashLink id="todos" to="#catalog">TODOS</HashLink></li>
+									{!!categories.length && categories.map(category => (
+										<li key={category.id}>
+											<HashLink
+												id={category[`name_${language}`]}
+												to="#catalog"
+												scroll={(el) => el.scrollIntoView({ behavior: 'instant', block: 'end' })}
+											>
+												{category[`name_${language}`].toUpperCase()}
+											</HashLink>
+										</li>
+									))}
 								</ul>
 							</Dropdown>
 							<li>
