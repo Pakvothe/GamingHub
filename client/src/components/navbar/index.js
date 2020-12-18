@@ -9,29 +9,23 @@ import CartSideBar from '../cart_sidebar';
 
 /* --- Actions --- */
 import { emptyFilter, getFilterProducts } from '../../redux/actions/products_actions';
+import { changeLanguage, toggleCart } from './../../redux/actions/global_actions'
 
 /* --- Logos --- */
 import logoDual from '../../assets/img/logo-dual.svg'
 import cart from '../../assets/img/cart.svg'
 import languageIcon from '../../assets/img/language.svg'
 import user from '../../assets/img/user.svg'
-import { changeLanguage } from './../../redux/actions/global_actions'
 
 /* --- Strings --- */
 import strings from './strings'
 
-const Navbar = () => {
+const Navbar = ({ toggleModal }) => {
 
 	const dispatch = useDispatch();
 	const language = useSelector(state => state.globalReducer.language);
 	const categories = useSelector(state => state.categoriesReducer.categories.list);
 
-	//cart modal ->
-	const [showBar, setShowBar] = useState(false);
-	const toggleModal = () => {
-		setShowBar(!showBar)
-	}
-	// <-
 
 	const handleClick = (ev) => {
 		dispatch(changeLanguage(ev.target.id))
@@ -83,11 +77,10 @@ const Navbar = () => {
 								</ul>
 							</Dropdown>
 							<li>
-								<button className="hover_text" onClick={() => toggleModal}>
+								<button onClick={toggleModal}>
 									<StyledSVG src={cart} />
 									<span>{strings[language].cart}</span>
 								</button>
-								<CartSideBar language={language} show={showBar} closeCallback={toggleModal} />
 							</li>
 						</ul>
 					</div>
@@ -95,7 +88,7 @@ const Navbar = () => {
 					<div className="navbar__bottom">
 						<ul className="navbar-bottom__menu">
 							<Dropdown>
-								<span className="hover_text">{strings[language].categories}</span>
+								<span >{strings[language].categories}</span>
 								<ul className="dropdown-columns" onClick={(e) => handleCategories(e)}>
 									<li><HashLink id="todos" to="#catalog">TODOS</HashLink></li>
 									{!!categories.length && categories.map(category => (
