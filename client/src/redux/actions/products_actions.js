@@ -157,10 +157,17 @@ export const emptyFilter = () => {
 	return { type: 'EMPTY_FILTER' }
 }
 
-export const getProducts = () => {
+export const getProducts = (payload) => {
+	let queries = '', options = '';
+
+	if (payload) {
+		queries = payload.query && '?query=' + payload.query;
+		options = payload.order && '&order=' + payload.order;
+	}
+
 	return function (dispatch) {
 		dispatch({ type: LOADING_PRODUCTS });
-		return axios.get(`${REACT_APP_API_URL}/products`)
+		return axios.get(`${REACT_APP_API_URL}/products${queries}${options}`)
 			.then(product => {
 				dispatch({
 					type: GET_PRODUCTS,

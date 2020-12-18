@@ -4,7 +4,8 @@ const { Product, Category, Image } = require('../db.js');
 //----------"/products"--------------
 
 server.get('/', (req, res, next) => {
-	const { query } = req.query;
+	const { query, order } = req.query;
+	console.log(req.query);
 	Product.findAll({
 		include: [
 			{
@@ -12,7 +13,7 @@ server.get('/', (req, res, next) => {
 			}
 		],
 		order: [
-			query || ['id', 'ASC'],
+			(query && [query, order || 'ASC']) || ['id', 'ASC'],
 			[Image, 'id', 'ASC']
 		]
 	})
