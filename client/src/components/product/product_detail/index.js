@@ -57,25 +57,34 @@ export const ProductDetail = ({ product }) => {
 					</span>
 				</div>
 				<p className="game__description">{product[`description_${language}`]}</p>
-				<div className="game__quantity">
-					<span>{strings[language].amount}</span>
-					<button className="game__quantitybutton" onClick={() => handleQuantityChange(-1)}>-</button>
-					<span className="game__quantityvalue">{quantity}</span>
-					<button className="game__quantitybutton" onClick={() => handleQuantityChange(1)}>+</button>
-					<span>{quantity > 1 ? strings[language].units : strings[language].unit}</span>
-				</div>
-				<p className="game__stock">Stock: {product.stock}</p>
+				{product.stock ?
+					<>
+						<div className="game__quantity">
+							<span>{strings[language].amount}</span>
+							<button className="game__quantitybutton" onClick={() => handleQuantityChange(-1)}>-</button>
+							<span className="game__quantityvalue">{quantity}</span>
+							<button className="game__quantitybutton" onClick={() => handleQuantityChange(1)}>+</button>
+							<span>{quantity > 1 ? strings[language].units : strings[language].unit}</span>
+						</div>
+						<p className="game__stock">Stock: {product.stock}</p>
+					</>
+					:
+					null}
 				<div className="game__purchase-container">
-					<div className="game__buttons">
-						<Btn className="btn-ppal btn-img">
-							{strings[language].buy_now}
-							<StyledSVG src={joystick} />
-						</Btn>
-						<Btn className="btn-sec btn-img">
-							{strings[language].add_to_cart}
-							<StyledSVG src={cart} />
-						</Btn>
-					</div>
+					{product.stock ?
+						<div className="game__buttons">
+							<Btn className="btn-ppal btn-img">
+								{strings[language].buy_now}
+								<StyledSVG src={joystick} />
+							</Btn>
+							<Btn className="btn-sec btn-img">
+								{strings[language].add_to_cart}
+								<StyledSVG src={cart} />
+							</Btn>
+						</div>
+						:
+						<span>Sin stock</span>
+					}
 					<img className="game__payment-methods-icons" src="https://d31dn7nfpuwjnm.cloudfront.net/images/valoraciones/0033/3717/Que_tarjetas_acepta_Mercado_Pago.jpg?1552322626" alt="Medios de Pago" />
 				</div>
 			</div>
