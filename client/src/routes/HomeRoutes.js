@@ -19,11 +19,12 @@ function HomeRoutes() {
 
 	useEffect(() => {
 		if (!products.length) {
-			dispatch(getProducts());
+			dispatch(getProducts({ query: 'stock', order: 'DESC' }));
 		}
 		if (!categories.length) {
 			dispatch(getCategories());
 		}
+
 	}, [])
 
 	return (
