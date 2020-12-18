@@ -13,7 +13,7 @@ const Catalog = ({ products, isLoading, error, language }) => {
 
 	return (
 		<>
-			<CatalogStyled>
+			<CatalogStyled id="catalog" >
 				{products.map(product => {
 					if (product.is_active) {
 						return <ProductCard language={language} game={product} key={product.id} />
