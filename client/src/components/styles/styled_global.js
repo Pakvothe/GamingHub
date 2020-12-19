@@ -241,8 +241,11 @@ export const FormStyled = styled.form`
 			width: 300px;
 			columns: 2;
 			column-fill: balance-all;
-
+			
 			li {
+				break-inside: avoid;
+				-webkit-column-break-inside: avoid;
+				page-break-inside: avoid;
 				padding: .5em 0;
 			}
 		}
