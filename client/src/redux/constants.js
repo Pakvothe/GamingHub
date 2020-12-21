@@ -57,3 +57,6 @@ export const DELETE_ITEM_CART = 'DELETE_ITEM_CART';
 export const CLEAR_CART = 'CLEAR_CART';
 export const ERROR_CART = 'ERROR_CART';
 export const LOADING_CART = 'LOADING_CART';
+export const SET_STOCK = 'SET_STOCK';
+export const EDIT_STOCK = 'EDIT_STOCK';
+export const DELETE_ITEM_STOCK = 'DELETE_ITEM_STOCK';

@@ -7,7 +7,8 @@ import {
 	DELETE_ITEM_CART,
 	CLEAR_CART,
 	ERROR_CART,
-	LOADING_CART
+	LOADING_CART,
+	SET_STOCK
 } from './../constants';
 
 const { REACT_APP_API_URL } = process.env;
@@ -32,13 +33,13 @@ export const setCart = () => {
 				const cartItems = products.data.map(product => {
 					product.quantity = cart[product.id];
 					return product;
-				})
-				dispatch(
-					{
-						type: SET_CART,
-						payload: cartItems
-					}
-				)
+				});
+				const stock = cartItems.reduce((acc, prod) => {
+					acc[prod.id] = prod.stock - prod.quantity;
+					return acc;
+				}, {});
+				dispatch({ type: SET_CART, payload: cartItems });
+				dispatch({ type: SET_STOCK, payload: stock });
 			})
 			.catch(err => {
 				console.log(err);

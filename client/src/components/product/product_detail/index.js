@@ -11,12 +11,14 @@ import { IMAGE_NOT_FOUND } from '../../../utils/constants';
 
 import strings from './strings.js'
 import { addItemCart } from '../../../redux/actions/cart_actions';
+import { EDIT_STOCK } from '../../../redux/constants';
 
 export const ProductDetail = ({ product }) => {
 	const dispatch = useDispatch();
 
 	const [quantity, setQuantity] = useState(1);
 	const language = useSelector(state => state.globalReducer.language);
+	const stock = useSelector(state => state.cartReducer.cart.stock);
 	const [currentImg, setCurrentImg] = useState(0);
 
 
@@ -31,15 +33,22 @@ export const ProductDetail = ({ product }) => {
 	function handleQuantityChange(amount) {
 		// Amount equals +1 or -1 
 		const newValue = quantity + amount;
-		if (newValue <= product.stock && newValue >= 1 && newValue <= 99) {
+		const conditionalStock = stock[product.id] || product.stock;
+		if (newValue <= conditionalStock && newValue >= 1 && newValue <= 99) {
 			setQuantity((prev) => prev + amount);
 		}
 	};
 
 	const handleClick = () => {
-		let productToDipatch = { ...product }
+		let productToDipatch = { ...product };
 		productToDipatch.quantity = quantity;
 		dispatch(addItemCart(productToDipatch));
+		let payload = {
+			id: product.id,
+			quantity: quantity,
+			stock: product.stock
+		}
+		dispatch({ type: EDIT_STOCK, payload })
 		setQuantity(1);
 	}
 
@@ -68,7 +77,7 @@ export const ProductDetail = ({ product }) => {
 					</span>
 				</div>
 				<p className="game__description">{product[`description_${language}`]}</p>
-				{product.stock ?
+				{product.stock && stock[product.id] !== 0 &&
 					<>
 						<div className="game__quantity">
 							<span>{strings[language].amount}</span>
@@ -77,12 +86,12 @@ export const ProductDetail = ({ product }) => {
 							<button className="game__quantitybutton" onClick={() => handleQuantityChange(1)}>+</button>
 							<span>{quantity > 1 ? strings[language].units : strings[language].unit}</span>
 						</div>
-						<p className="game__stock">Stock: {product.stock}</p>
+						<p className="game__stock">Stock: {stock[product.id] >= 0 ? stock[product.id] : product.stock}</p>
 					</>
-					:
-					null}
+				}
 				<div className="game__purchase-container">
-					{product.stock ?
+					{!product.stock || stock[product.id] === 0 && <span>Sin stock</span>}
+					{!!product.stock && stock[product.id] !== 0 &&
 						<div className="game__buttons">
 							<Btn className="btn-ppal btn-img">
 								{strings[language].buy_now}
@@ -93,8 +102,7 @@ export const ProductDetail = ({ product }) => {
 								<StyledSVG src={cart} />
 							</Btn>
 						</div>
-						:
-						<span>Sin stock</span>
+
 					}
 					<img className="game__payment-methods-icons" src="https://d31dn7nfpuwjnm.cloudfront.net/images/valoraciones/0033/3717/Que_tarjetas_acepta_Mercado_Pago.jpg?1552322626" alt="Medios de Pago" />
 				</div>
