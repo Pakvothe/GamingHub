@@ -47,3 +47,10 @@ export const GET_USERS = 'GET_USERS';
 export const DELETE_USER = 'DELETE_USER';
 export const USERS_ERROR = 'USERS_ERROR';
 export const LOADING_USERS = 'LOADING_USERS';
+
+//Cart actions => 
+export const SET_CART = 'SET_CART';
+export const ADD_UNIT_ITEM_CART = 'ADD_ITEM_CART';
+export const REMOVE_UNIT_ITEM_CART = 'REMOVE_ITEM_CART';
+export const DELETE_ITEM_CART = 'DELETE_ITEM_CART';
+export const CLEAR_CART = 'CLEAR_CART';

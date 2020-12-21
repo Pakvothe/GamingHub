@@ -444,4 +444,13 @@ server.get('/:id', (req, res) => {
 		});
 });
 
+server.get('/cart', (req, res) => {
+	const { arrayProducts } = req.body;
+
+	Product.findAll({
+		where: { id: arrayProducts }
+	})
+
+});
+
 module.exports = server;
