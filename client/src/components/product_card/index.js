@@ -13,10 +13,10 @@ const ProductCard = ({ game, language }) => {
 	const dispatch = useDispatch()
 
 	const handleClick = () => {
-		game.quantity = 1;
-		dispatch(addItemCart(game));
+		let gameToDispatch = { ...game }
+		gameToDispatch.quantity = 1
+		dispatch(addItemCart(gameToDispatch));
 	}
-
 	return (
 		<ProductCardStyled className="card">
 			<Link to={`/products/${game.id}`} className="card__link">{strings[language].click_to_see}</Link>

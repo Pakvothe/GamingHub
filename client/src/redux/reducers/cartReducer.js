@@ -73,32 +73,29 @@ const cartReducer = (state = initialState, action) => {
 				}
 			}
 		case ADD_ITEM_CART:
-			let found = state.cart.list.some(game => game.id === action.payload.id)
-			if (found) {
-				let array = [];
-				state.cart.list.forEach(product => {
-					if (product.id === action.payload.id) {
-						let sum = product.quantity + action.payload.quantity
-						console.log(sum);
-						console.log('cantidad antes', product.quantity);
-						product.quantity = sum;
-						console.log('cantidad despues', product.quantity);
-					}
-					array.push(product);
-				})
-				return state
-			} else {
+			let found = state.cart.list.find(game => game.id === action.payload.id);
+			if (found)
 				return {
-					...state,
 					cart: {
 						...state.cart,
-						list: [
-							...state.cart.list,
-							action.payload
-						]
+						list: state.cart.list.map(prod => {
+							if (prod.id === action.payload.id) {
+								prod.quantity += action.payload.quantity;
+							}
+							return prod;
+						})
 					}
 				}
+			else return {
+				cart: {
+					...state.cart,
+					list: [
+						...state.cart.list,
+						action.payload
+					]
+				}
 			}
+
 		case DELETE_ITEM_CART:
 			return {
 				...state,

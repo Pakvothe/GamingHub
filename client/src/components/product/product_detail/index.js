@@ -36,8 +36,9 @@ export const ProductDetail = ({ product }) => {
 	};
 
 	const handleClick = () => {
-		product.quantity = quantity;
-		dispatch(addItemCart(product))
+		let productToDipatch = { ...product }
+		productToDipatch.quantity = quantity;
+		dispatch(addItemCart(productToDipatch))
 	}
 
 	return (
