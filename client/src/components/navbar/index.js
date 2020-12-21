@@ -108,7 +108,7 @@ const Navbar = ({ toggleModal }) => {
 										<li key={category.id}>
 											<HashLink
 												id={category[`name_${language}`]}
-												to="#catalog"
+												to="/#catalog"
 												scroll={(el) => el.scrollIntoView({ behavior: 'instant', block: 'end' })}
 											>
 												{category[`name_${language}`].toUpperCase()}
