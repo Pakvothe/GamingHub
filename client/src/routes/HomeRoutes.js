@@ -18,6 +18,7 @@ function HomeRoutes() {
 
 	const dispatch = useDispatch();
 	const products = useSelector(state => state.productsReducer.products.productList);
+	const cart = useSelector(state => state.cartReducer.cart.list);
 	const categories = useSelector(state => state.categoriesReducer.categories.list);
 	const showCart = useSelector(state => state.globalReducer.showCart);
 	const language = useSelector(state => state.globalReducer.language);
@@ -41,7 +42,7 @@ function HomeRoutes() {
 	return (
 		<>
 			<Navbar toggleModal={toggleModal} />
-			<CartSideBar language={language} closeCallback={toggleModal} show={showCart} />
+			<CartSideBar language={language} closeCallback={toggleModal} show={showCart} order={cart} />
 			<Route exact path='/' component={Carousel} />
 			<main className="main-container">
 				<Route exact path='/' component={HomePage} />

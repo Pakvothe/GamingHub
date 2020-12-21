@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import StarRatings from "react-star-ratings";
 
 import { Btn } from '../../styles/styled_global';
@@ -10,8 +10,11 @@ import joystick from '../../../assets/img/joystick.svg'
 import { IMAGE_NOT_FOUND } from '../../../utils/constants';
 
 import strings from './strings.js'
+import { addItemCart } from '../../../redux/actions/cart_actions';
 
 export const ProductDetail = ({ product }) => {
+	const dispatch = useDispatch()
+
 	const [quantity, setQuantity] = useState(1);
 	const language = useSelector(state => state.globalReducer.language);
 	const [currentImg, setCurrentImg] = useState(0);
@@ -31,6 +34,11 @@ export const ProductDetail = ({ product }) => {
 			setQuantity((prev) => prev + amount);
 		}
 	};
+
+	const handleClick = () => {
+		product.quantity = quantity;
+		dispatch(addItemCart(product))
+	}
 
 	return (
 		<GameDetail>
@@ -77,7 +85,7 @@ export const ProductDetail = ({ product }) => {
 								{strings[language].buy_now}
 								<StyledSVG src={joystick} />
 							</Btn>
-							<Btn className="btn-sec btn-img">
+							<Btn className="btn-sec btn-img" onClick={handleClick}>
 								{strings[language].add_to_cart}
 								<StyledSVG src={cart} />
 							</Btn>
