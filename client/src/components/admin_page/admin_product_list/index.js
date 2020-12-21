@@ -24,15 +24,17 @@ const AdminProductList = ({ products }) => {
 
 	return (
 		<>
-			<SearchBar />
-			<Link to="/admin/product"><Btn className="btn-ppal" >Agregar Producto</Btn></Link>
+			<div style={{ display: 'flex', justifyContent: 'space-between' }}>
+				<Link to="/admin/product"><Btn className="btn-ppal" >Agregar Producto</Btn></Link>
+				<SearchBar />
+			</div>
 			<DataTable>
 				<thead>
 					<tr>
-						<td>ID</td>
+						<td className="cell-small">ID</td>
 						<td onClick={handleOrder}>Título</td>
-						<td >Stock</td>
-						<td>Visible</td>
+						<td className="cell-small">Stock</td>
+						<td className="cell-small">Visible</td>
 						<td></td>
 					</tr>
 				</thead>

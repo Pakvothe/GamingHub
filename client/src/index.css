@@ -6,6 +6,8 @@
 	--clr-white: #F5F4F8;
 	--clr-middle: #7E7E7E;
 	--clr-dark: #1B1A1F;
+	--clr-dark-1: #343a40;
+	--clr-dark-2: #454d55;
 	--clr-warning: #F6DB2D;
 	--clr-error: #D53051;
 	--clr-success: #97DA3F;
@@ -40,7 +42,6 @@ h1, h2, h3, h4, h5, h6, button {
 }
 
 body {
-	background-color: var(--clr-white);
 	font-family: Raleway, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;

@@ -10,14 +10,13 @@ export const StyledSidebarCart = styled.div`
 	width: 500px;
 	padding: 4em 2em;
 	z-index: 990;
-	background: var(--clr-white);
 	overflow: auto;
-	color: var(--clr-dark);
 	box-shadow: 0 0 50px rgba(0,0,0,0.7);
 
 	.modal__title{
 		color: var(--clr-primary);
-		margin: 1em;
+		margin: 1em 0;
+		text-align: center;
 	}
 
 	hr {
@@ -61,8 +60,7 @@ export const StyledSidebarCart = styled.div`
 		&:active{
 			transform: scale(0.9);
 		}
-	}
-		
+	}		
 `
 
 export const StyledCloseBtn = styled(SVG)`

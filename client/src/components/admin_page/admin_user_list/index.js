@@ -24,10 +24,10 @@ const AdminUserList = ({ users }) => {
 			<DataTable>
 				<thead>
 					<tr>
-						<td>ID</td>
+						<td className="cell-small">ID</td>
 						<td>Nombre</td>
 						<td>Apellido</td>
-						<td>Admin</td>
+						<td className="cell-small">Admin</td>
 						<td>Email</td>
 						<td></td>
 					</tr>

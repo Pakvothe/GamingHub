@@ -6,10 +6,8 @@ export const ProductCardStyled = styled.article`
 	border: 3px solid #9b5df7;
 	width: 250px;
 	border-radius: 10px;
-	background: var(--clr-white);
 	overflow: hidden;
 	box-shadow: 5px 5px 0px #9b5df7;
-	color: var(--clr-black);
 	position: relative;
 	transition: all 0.1s ease-in-out;
 	height: 400px;
@@ -60,10 +58,10 @@ export const ProductCardStyled = styled.article`
 		font-size: 1.2em;
 		color: #9b5df7;
 		font-weight: 900;
+
 		@supports (-webkit-background-clip: text)  {
-		color: transparent;
-		background: linear-gradient(-90deg, #5630e4, #9b5df7);
-		-webkit-background-clip: text;
+			color: transparent;
+			-webkit-background-clip: text;
 		}
 	}
 

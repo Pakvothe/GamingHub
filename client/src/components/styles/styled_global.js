@@ -1,9 +1,72 @@
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import SVG from 'react-inlinesvg';
 import arrow from '../../assets/img/arrow-down.svg';
 import checkboxUnchecked from '../../assets/img/checkbox-unchecked-purple.svg'
 import checkboxChecked from '../../assets/img/checkbox-checked-purple.svg'
 
+// Estilos globales para habilitar el dark mode:
+export const GlobalStyle = createGlobalStyle`
+	body {
+		background-color: ${({ theme }) => theme.body};
+		color:  ${({ theme }) => theme.text};
+		
+		.btn-sec {
+			background-color: ${({ theme }) => theme.btnBg};
+		}
+		
+		label > span:not(.no-shadow) {
+			background: ${({ theme }) => theme.body};
+			color:  ${({ theme }) => theme.text};
+		}
+		
+		label > input,
+		label > textarea {
+				color:  ${({ theme }) => theme.text};
+				background: ${({ theme }) => theme.body};
+			}
+
+		select {
+			color:  ${({ theme }) => theme.text};
+			
+			option {
+				background: ${({ theme }) => theme.body};
+			}
+		}
+
+		.modal {
+			background-color: ${({ theme }) => theme.body};
+			color:  ${({ theme }) => theme.text};
+		}
+		
+		.card {
+			background-color: ${({ theme }) => theme.cardBg};
+		}
+		.card__title {
+			@supports (-webkit-background-clip: text)  {
+				background: ${({ theme }) => theme.cardText};
+			}
+		}
+
+		table {
+			thead { background: ${({ theme }) => theme.tableBg}; }
+			tbody tr:nth-of-type(even) { background: ${({ theme }) => theme.tableBg}; }
+			td button {
+				border: 1px solid ${({ theme }) => theme.tableBtn};
+				color: ${({ theme }) => theme.tableBtn};
+			}
+
+			td button:hover {
+				background-color: ${({ theme }) => theme.tableBtn};
+				color: ${({ theme }) => theme.tableBtnHoverText};
+			}
+
+		}
+
+	}
+`
+
+
+// Styled components globales:
 export const Btn = styled.button`
 	font-weight: 900;
 	border: 3px solid;
@@ -32,7 +95,6 @@ export const Btn = styled.button`
 
 	&.btn-sec {
 		color: var(--clr-primary);
-		background-color: var(--clr-white);
 		border-color: var(--clr-primary);
 		box-shadow: 2px 2px 0px var(--clr-primary);
 	}
@@ -70,7 +132,6 @@ export const DataTable = styled.table`
 	width: 100%;
 
 	thead {
-		background: #EEE;
 		font-weight: 900;
 		text-transform: uppercase;
 		font-size: .85em;
@@ -80,19 +141,9 @@ export const DataTable = styled.table`
 	/* Seteamos el ancho de las columnas desde el thead porque en el tbody no puedo:
 	ID - Stock - Visible quiero que tengan ancho fijo. Las demás no me importan por el momento, que ocupen lo que sobra.
 	*/
-	thead td:nth-of-type(1),
-	thead td:nth-of-type(3),
-	thead td:nth-of-type(4){
+	thead .cell-small {
 		width: 75px;
 	}
-
-	/* Esto es opcional:
-	tbody tr:hover {
-	background: #E5E5E5 !important;
-	}*/
-
-	tbody tr:nth-of-type(even) { background: #EEE; }
-	tbody td:nth-of-type(2) { text-align: left; }
 
 	td {
 		padding: .75em 1em;
@@ -109,16 +160,10 @@ export const DataTable = styled.table`
 
 	td button {
 		background: none;
-		border: 1px solid var(--clr-dark);
 		border-radius: .3em;
 		padding: .5em 1em;
 		font-size: inherit;
 		margin: 0 .5em;
-	}
-
-	td button:hover {
-		background-color: var(--clr-dark);
-		color: var(--clr-white);
 	}
 
 	td button:active {
@@ -129,9 +174,7 @@ export const DataTable = styled.table`
 	@media (max-width: 1000px) {
 		font-size: .7em;
 
-		thead td:nth-of-type(1),
-		thead td:nth-of-type(3),
-		thead td:nth-of-type(4){
+		thead .cell-small {
 			width: 50px;
 		}
 
@@ -170,7 +213,6 @@ export const FormStyled = styled.form`
 				padding: 0 .5em;
 				font-weight: 900;
 				font-size: .9em;
-				background: var(--clr-white);
 			}
 
 			& > input,
@@ -180,7 +222,6 @@ export const FormStyled = styled.form`
 				padding: 1em;
 				border: 3px solid var(--clr-primary);
 				border-radius: .4em;
-				background: var(--clr-white);
 				width: 100%;
 				transition: box-shadow .2s ease;
 				outline: none;
@@ -321,7 +362,6 @@ export const MiniCard = styled.article`
 	margin-bottom: 1em;
 	align-items: center;
 	justify-content: flex-start;
-	background: var(--clr-white);
 	padding: 1em;
 
 	&:hover {
