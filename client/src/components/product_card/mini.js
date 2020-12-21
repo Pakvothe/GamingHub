@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import CloseButton from '../../assets/img/close-filled-purple.svg';
 import { deleteItemCart } from '../../redux/actions/cart_actions';
 import { MiniCard, StyledSVG } from '../styles/styled_global';
+import { Link } from 'react-router-dom';
 
 const Mini = ({ productDetail }) => {
 	const dispatch = useDispatch()
@@ -17,7 +18,9 @@ const Mini = ({ productDetail }) => {
 				<img src={productDetail.images[0].url} />
 			</div>
 			<div className='article__info'>
-				<p className='article__name'>{productDetail.name}</p>
+				<Link to={`/products/${productDetail.id}`}>
+					<p className='article__name'>{productDetail.name}</p>
+				</Link>
 				<p>${productDetail.price}</p>
 				<p>x {productDetail.quantity} U</p>
 			</div>

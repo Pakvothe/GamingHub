@@ -14,7 +14,7 @@ const initialState = {
 		isLoading: false,
 		list: [],
 		error: false
-	}
+	},
 };
 
 const cartReducer = (state = initialState, action) => {
@@ -25,7 +25,7 @@ const cartReducer = (state = initialState, action) => {
 				cart: {
 					error: false,
 					isLoading: false,
-					list: action.payload
+					list: action.payload,
 				}
 			}
 		case LOADING_CART:
@@ -76,6 +76,7 @@ const cartReducer = (state = initialState, action) => {
 			let found = state.cart.list.find(game => game.id === action.payload.id);
 			if (found)
 				return {
+					...state,
 					cart: {
 						...state.cart,
 						list: state.cart.list.map(prod => {
@@ -87,6 +88,7 @@ const cartReducer = (state = initialState, action) => {
 					}
 				}
 			else return {
+				...state,
 				cart: {
 					...state.cart,
 					list: [

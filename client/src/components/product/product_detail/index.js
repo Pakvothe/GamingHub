@@ -13,11 +13,12 @@ import strings from './strings.js'
 import { addItemCart } from '../../../redux/actions/cart_actions';
 
 export const ProductDetail = ({ product }) => {
-	const dispatch = useDispatch()
+	const dispatch = useDispatch();
 
 	const [quantity, setQuantity] = useState(1);
 	const language = useSelector(state => state.globalReducer.language);
 	const [currentImg, setCurrentImg] = useState(0);
+
 
 	function handleImage() {
 		if (currentImg >= product.images.length - 1) {
@@ -38,7 +39,8 @@ export const ProductDetail = ({ product }) => {
 	const handleClick = () => {
 		let productToDipatch = { ...product }
 		productToDipatch.quantity = quantity;
-		dispatch(addItemCart(productToDipatch))
+		dispatch(addItemCart(productToDipatch));
+		setQuantity(1);
 	}
 
 	return (
