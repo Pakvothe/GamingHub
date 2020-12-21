@@ -18,7 +18,7 @@ const AdminCategoryList = ({ categories, language }) => {
 			<DataTable>
 				<thead>
 					<tr>
-						<td>Nº ID</td>
+						<td className="cell-small">ID</td>
 						<td>Nombre</td>
 						<td></td>
 					</tr>

@@ -23,6 +23,7 @@ export const SelectStyled = styled.select`
 	margin-left: 1em;
 	text-transform: uppercase;
 
+
 	&::-ms-expand {
 		display: none;
 	}

@@ -9,11 +9,13 @@ import CartSideBar from '../cart_sidebar';
 
 /* --- Actions --- */
 import { emptyFilter, getFilterProducts } from '../../redux/actions/products_actions';
-import { changeLanguage } from './../../redux/actions/global_actions'
+import { changeLanguage, toggleTheme } from './../../redux/actions/global_actions'
 
 /* --- Logos --- */
 import logoDual from '../../assets/img/logo-dual.svg'
 import cart from '../../assets/img/cart.svg'
+import moon from '../../assets/img/moon.svg'
+import sun from '../../assets/img/sun.svg'
 import languageIcon from '../../assets/img/language.svg'
 import user from '../../assets/img/user.svg'
 
@@ -25,6 +27,7 @@ const Navbar = ({ toggleModal }) => {
 	const dispatch = useDispatch();
 	const language = useSelector(state => state.globalReducer.language);
 	const categories = useSelector(state => state.categoriesReducer.categories.list);
+	const theme = useSelector(state => state.globalReducer.theme)
 
 
 	const handleClick = (ev) => {
@@ -36,6 +39,10 @@ const Navbar = ({ toggleModal }) => {
 			return dispatch(emptyFilter())
 		}
 		dispatch(getFilterProducts(ev.target.id));
+	}
+
+	const handleTheme = () => {
+		dispatch(toggleTheme())
 	}
 
 	return (
@@ -80,6 +87,12 @@ const Navbar = ({ toggleModal }) => {
 								<button onClick={toggleModal}>
 									<StyledSVG src={cart} />
 									<span>{strings[language].cart}</span>
+								</button>
+							</li>
+							<li>
+								<button onClick={handleTheme}>
+									<StyledSVG src={theme === 'light' ? sun : moon} />
+									<span>Tema</span>
 								</button>
 							</li>
 						</ul>

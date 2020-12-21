@@ -9,10 +9,10 @@ const AdminProductList = ({ orders }) => {
 			<DataTable>
 				<thead>
 					<tr>
-						<td>Nº Orden</td>
+						<td className="cell-small">Nº Orden</td>
 						{/* <td>Usuario</td> */}
 						<td>Email</td>
-						<td>Total</td>
+						<td className="cell-small">Total</td>
 						<td>Estado</td>
 						<td>Metodo de Pago</td>
 					</tr>

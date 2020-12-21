@@ -25,7 +25,7 @@ const CartSideBar = ({ language, order, show, closeCallback }) => {
 					<p>Subtotal:</p>
 					<p>${subtotal}</p>
 				</div>
-				<Btn className='btn-ppal'>{strings[language].checkout}</Btn>
+				<Btn className='btn btn-ppal'>{strings[language].checkout}</Btn>
 			</div>
 		</StyledSidebarCart>
 	);

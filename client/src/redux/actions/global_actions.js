@@ -1,4 +1,4 @@
-import { CHANGE_LANGUAGE, TOGGLE_CART } from './../constants';
+import { CHANGE_LANGUAGE, TOGGLE_CART, TOGGLE_THEME } from './../constants';
 
 export const changeLanguage = (payload) => {
 	localStorage.setItem('language', payload);
@@ -11,5 +11,11 @@ export const changeLanguage = (payload) => {
 export const toggleCart = () => {
 	return {
 		type: TOGGLE_CART
+	}
+}
+
+export const toggleTheme = () => {
+	return {
+		type: TOGGLE_THEME
 	}
 }

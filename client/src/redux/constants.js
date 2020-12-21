@@ -1,6 +1,8 @@
 //Global actions =>
 export const CHANGE_LANGUAGE = 'CHANGE_LANGUAGE';
 export const TOGGLE_CART = 'TOGGLE_CART';
+export const TOGGLE_THEME = 'TOGGLE_THEME';
+export const SET_THEME = 'SET_THEME';
 export const ERROR = 'ERROR';
 export const LOADING = 'LOADING';
 
