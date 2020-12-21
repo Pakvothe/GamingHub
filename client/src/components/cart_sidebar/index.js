@@ -14,8 +14,8 @@ const CartSideBar = ({ language, order, show, closeCallback }) => {
 					<StyledCloseBtn src={BigCloseButton} />
 				</button>
 				<h2 className='modal__title'>{strings[language].your_cart}</h2>
-				{order.map(purchase => {
-					subtotal = purchase.price + subtotal;
+				{!!order.length && order.map(purchase => {
+					subtotal = purchase.price * purchase.quantity + subtotal;
 					return (
 						<Mini productDetail={purchase} key={purchase.id} />
 					)
@@ -23,7 +23,7 @@ const CartSideBar = ({ language, order, show, closeCallback }) => {
 				<hr />
 				<div className='modal__subtotal'>
 					<p>Subtotal:</p>
-					<p>${subtotal}</p>
+					<p>${subtotal.toFixed(2)}</p>
 				</div>
 				<Btn className='btn btn-ppal'>{strings[language].checkout}</Btn>
 			</div>
@@ -31,30 +31,30 @@ const CartSideBar = ({ language, order, show, closeCallback }) => {
 	);
 };
 
-CartSideBar.defaultProps = {
-	order: [{
-		id: 1,
-		name: 'Final Fantasy VII Remake',
-		price: 52.38,
-		images: [
-			{
-				url: 'https://images.goodgam.es/WKE-gd3lr40/enlarge:1/plain/covers/17-final-fantasy-vii-remake-cover.jpg'
-			}
-		]
-	},
-	{
-		id: 2,
-		name: 'FIFA 21',
-		price: 40.72,
-		images: [
-			{
-				url: 'https://i.imgur.com/RKCvcWJ.jpg'
-			}
-		],
-	}
-	],
-	show: false,
-	closeCallback: false
-}
+// CartSideBar.defaultProps = {
+// 	order: [{
+// 		id: 1,
+// 		name: 'Final Fantasy VII Remake',
+// 		price: 52.38,
+// 		images: [
+// 			{
+// 				url: 'https://images.goodgam.es/WKE-gd3lr40/enlarge:1/plain/covers/17-final-fantasy-vii-remake-cover.jpg'
+// 			}
+// 		]
+// 	},
+// 	{
+// 		id: 2,
+// 		name: 'FIFA 21',
+// 		price: 40.72,
+// 		images: [
+// 			{
+// 				url: 'https://i.imgur.com/RKCvcWJ.jpg'
+// 			}
+// 		],
+// 	}
+// 	],
+// 	show: false,
+// 	closeCallback: false
+// }
 
 export default CartSideBar;

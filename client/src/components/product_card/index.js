@@ -5,8 +5,26 @@ import { Btn, StyledSVG } from '../styles/styled_global'
 import { IMAGE_NOT_FOUND } from '../../utils/constants';
 import strings from './strings';
 import cart from '../../assets/img/cart.svg'
+import { useDispatch, useSelector } from 'react-redux';
+import { addItemCart } from '../../redux/actions/cart_actions';
 
 const ProductCard = ({ game, language }) => {
+
+	const dispatch = useDispatch();
+	const stock = useSelector(state => state.cartReducer.cart.stock);
+	const handleClick = () => {
+		if (!stock[game.id] && stock[game.id] !== 0) {
+			let gameToDispatch = { ...game }
+			gameToDispatch.quantity = 1;
+			dispatch(addItemCart(gameToDispatch));
+			let payload = {
+				id: game.id,
+				quantity: 1,
+				stock: game.stock
+			}
+			dispatch({ type: 'EDIT_STOCK', payload });
+		}
+	};
 	return (
 		<ProductCardStyled className="card">
 			<Link to={`/products/${game.id}`} className="card__link">{strings[language].click_to_see}</Link>
@@ -20,8 +38,11 @@ const ProductCard = ({ game, language }) => {
 					}
 				</h3>
 				<p className="card__price">$ {game.price}</p>
-				{game.stock ? <Btn className="btn-ppal btn-img">{strings[language].add_to_cart} <StyledSVG src={cart} /> </Btn> :
-					<span>Sin stock</span>}
+				{game.stock ?
+					<Btn className="btn-ppal btn-img" onClick={handleClick}>
+						{stock[game.id] === 0 ? strings[language].already_in_cart : strings[language].add_to_cart}
+						<StyledSVG src={cart} />
+					</Btn> : <span>Sin stock</span>}
 			</div>
 		</ProductCardStyled>)
 };
