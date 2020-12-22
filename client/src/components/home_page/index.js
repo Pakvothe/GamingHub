@@ -11,7 +11,6 @@ import { getCategories } from '../../redux/actions/categories_actions'
 /* --- Utils --- */
 import strings from './strings';
 import SelectCategories from '../select_categories'
-import { HashLink } from 'react-router-hash-link'
 import arrowUp from '../../assets/img/arrow-up.svg';
 
 /* --- Styles --- */
@@ -28,7 +27,6 @@ const HomePage = () => {
 	const errorProducts = useSelector(state => state.productsReducer.products.error);
 
 	const scrollButton = useRef();
-	console.log(scrollButton)
 
 	useEffect(() => {
 		if (!products.length) {
@@ -50,12 +48,14 @@ const HomePage = () => {
 	const scrollDistance = 700;
 
 	function scrollFunction() {
-		if (document.body.scrollTop > scrollDistance || document.documentElement.scrollTop > scrollDistance) {
-			scrollButton.current.style.pointerEvents = 'auto';
-			scrollButton.current.style.opacity = '100';
-		} else {
-			scrollButton.current.style.pointerEvents = 'none';
-			scrollButton.current.style.opacity = '0';
+		if (scrollButton.current) {
+			if (document.body.scrollTop > scrollDistance || document.documentElement.scrollTop > scrollDistance) {
+				scrollButton.current.style.pointerEvents = 'auto';
+				scrollButton.current.style.opacity = '100';
+			} else {
+				scrollButton.current.style.pointerEvents = 'none';
+				scrollButton.current.style.opacity = '0';
+			}
 		}
 	}
 	const scrollToTop = () => {
