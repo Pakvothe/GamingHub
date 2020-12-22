@@ -37,6 +37,10 @@ export const NavbarStyled = styled.nav`
 			align-items: center;
 			flex-basis: 300px;
 
+			& > li {
+				position: relative;
+			}
+
 			& > li + li { margin-left: 3em; }
 
 			li, li > button {
@@ -47,6 +51,18 @@ export const NavbarStyled = styled.nav`
 			}
 
 			li:hover { color: var(--clr-primary); }
+
+			.cart__number {
+				font-size: 0.8em;
+				background: var(--clr-primary);
+				line-height: 1;
+				padding: .3em .5em;
+				border-radius: 99em;
+				position: absolute;
+				top: -5px;
+				right: -5px;
+			}
+			li:hover .cart__number { color: var(--clr-white) }
 
 			button {
 				background: none;
