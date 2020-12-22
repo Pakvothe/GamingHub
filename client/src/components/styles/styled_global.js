@@ -45,7 +45,7 @@ export const GlobalStyle = createGlobalStyle`
 		}
 		
 		.card {
-			background-color: ${({ theme }) => theme.cardBg};
+			background: ${({ theme }) => theme.cardBg};
 		}
 		.card__title {
 			@supports (-webkit-background-clip: text)  {
