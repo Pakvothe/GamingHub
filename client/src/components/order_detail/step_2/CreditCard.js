@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import Cards from 'react-credit-cards';
 //-------> Styles
 import { CreditCardStyled } from '../../styles/styled_credit_card';
-import { FormStyled } from '../../styles/styled_global';
+import { FormStyled, Btn } from '../../styles/styled_global';
 
-const CreditCard = () => {
+const CreditCard = ({ handleSubmit }) => {
 
 	const [credCard, setCredCard] = useState({
 		cvc: '',
@@ -31,46 +31,63 @@ const CreditCard = () => {
 
 	return (
 		<CreditCardStyled>
-			<div className="card__container" id="PaymentForm">
-
-				<FormStyled>
-					<div>
-						<input
-							type="tel"
-							name="number"
-							placeholder="Card Number"
-							onChange={handleInputChange}
-							onFocus={handleInputFocus}
-						/>
+			<div className='card__container' id='PaymentForm'>
+				<FormStyled onSubmit={() => handleSubmit(credCard)}>
+					<div className='label__container'>
+						<label>
+							<span>Card Number</span>
+							<input
+								type='tel'
+								name='number'
+								placeholder='XXXX-XXXX-XXXX-XXXX'
+								onChange={handleInputChange}
+								onFocus={handleInputFocus}
+								required
+							/>
+						</label>
 					</div>
-					<div>E.g.: 49..., 51..., 36..., 37...</div>
-					<div>
-						<input
-							type="text"
-							name="name"
-							placeholder="Full Name"
-							onChange={handleInputChange}
-							onFocus={handleInputFocus}
-						/>
+					<div className='label__container'>
+						<label>
+							<span>Full Name</span>
+							<input
+								type='text'
+								name='name'
+								placeholder='Your Name'
+								onChange={handleInputChange}
+								onFocus={handleInputFocus}
+								required
+							/>
+						</label>
 					</div>
-					<div>
-						<input
-							type="tel"
-							name="expiry"
-							placeholder="Expiry Date"
-							onChange={handleInputChange}
-							on
-							Focus={handleInputFocus}
-						/>
+					<div className='label__container'>
+						<label>
+							<span>Expiry Date</span>
+							<input
+								type='tel'
+								name='expiry'
+								placeholder='MM/YY'
+								onChange={handleInputChange}
+								onFocus={handleInputFocus}
+								required
+							/>
+						</label>
 					</div>
-					<div>
-						<input
-							type="tel"
-							name="cvc"
-							placeholder="CVC"
-							onChange={handleInputChange}
-							onFocus={handleInputFocus}
-						/>
+					<div className='label__container'>
+						<label>
+							<span>CVC</span>
+							<input
+								type='password'
+								inputmode='tel'
+								name='cvc'
+								placeholder='XXX'
+								onChange={handleInputChange}
+								onFocus={handleInputFocus}
+								required
+							/>
+						</label>
+					</div>
+					<div className='button__container'>
+						<Btn type='submit' className='btn-ppal'>Siguiente</Btn>
 					</div>
 				</FormStyled>
 				<Cards

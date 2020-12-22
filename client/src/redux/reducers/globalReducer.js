@@ -2,6 +2,7 @@ import {
 	CHANGE_LANGUAGE,
 	TOGGLE_CART,
 	TOGGLE_THEME,
+	ADD_CREDIT_CARD,
 	LOADING,
 	ERROR
 } from '../constants.js';
@@ -9,7 +10,8 @@ import {
 const initialState = {
 	language: localStorage.getItem('language') || 'es',
 	showCart: false,
-	theme: localStorage.getItem('theme') || 'light'
+	theme: localStorage.getItem('theme') || 'light',
+	credCard: {}
 };
 
 const productsReducer = (state = initialState, action) => {
@@ -31,6 +33,12 @@ const productsReducer = (state = initialState, action) => {
 			return {
 				...state,
 				theme: (state.theme === 'light') ? 'dark' : 'light'
+			}
+
+		case ADD_CREDIT_CARD:
+			return {
+				...state,
+				credCard: action.payload
 			}
 
 		default: return state;

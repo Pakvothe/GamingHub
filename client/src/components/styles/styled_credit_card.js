@@ -5,7 +5,13 @@ export const CreditCardStyled = styled.div`
 	.card__container {
 		display: flex;
 		justify-content: space-around;
+		align-items: center;
 	}
+
+	.label__container {
+		margin: 1.5em 0;
+	}
+
 	.rccs {
 		perspective: 1000px;
 		width: 290px; 

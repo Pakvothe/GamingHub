@@ -1,14 +1,18 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import CreditCard from '../step_2/CreditCard';
+import { addCreditCard } from '../../../redux/actions/global_actions';
 //------>Styles
-import { Btn, FormStyled } from '../../styles/styled_global';
 import { StyledSVG, StepTwo } from '../../styles/styled_order_detail';
 import PurchaseStep2 from '../../../assets/img/purchase-steps-2.svg';
 
-const Step2 = ({ cart }) => {
-	const history = useHistory()
-	const handleClick = () => {
+const Step2 = () => {
+	const dispatch = useDispatch();
+	const history = useHistory();
+
+	const handleSubmit = (credCard) => {
+		dispatch(addCreditCard(credCard));
 		history.push('/order/detail')
 	}
 
@@ -16,11 +20,8 @@ const Step2 = ({ cart }) => {
 		<>
 			<h2>Datos de pago</h2>
 			<StyledSVG src={PurchaseStep2} />
-			<CreditCard />
 			<StepTwo>
-				<div>
-					<Btn onClick={handleClick} className='btn-ppal'>Siguiente</Btn>
-				</div>
+				<CreditCard handleSubmit={handleSubmit} />
 			</StepTwo>
 		</>
 	)
