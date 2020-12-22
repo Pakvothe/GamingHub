@@ -86,3 +86,10 @@ export const deleteItemStock = (payload) => {
 		payload
 	}
 }
+
+export const clearCart = () => {
+	localStorage.setItem('cart', '{}')
+	return {
+		type: CLEAR_CART
+	}
+}

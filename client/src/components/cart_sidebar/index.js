@@ -5,6 +5,7 @@ import { Btn } from '../styles/styled_global';
 import BigCloseButton from '../../assets/img/close-transparent.svg';
 import Mini from '../product_card/mini';
 import strings from './strings';
+import { Link } from 'react-router-dom';
 
 const CartSideBar = ({ language, order, show, closeCallback }) => {
 	useEffect(() => {
@@ -39,37 +40,13 @@ const CartSideBar = ({ language, order, show, closeCallback }) => {
 					<p>Subtotal:</p>
 					<p>${subtotal.toFixed(2)}</p>
 				</div>
-				<Btn className='btn btn-ppal'>{strings[language].checkout}</Btn>
+				<Link to="/order" onClick={closeCallback}>
+					<Btn className='btn btn-ppal'>{strings[language].checkout}</Btn>
+				</Link>
 			</div>
 		</StyledSidebarCart>,
 		document.getElementById('cartModal')
 	);
 };
-
-// CartSideBar.defaultProps = {
-// 	order: [{
-// 		id: 1,
-// 		name: 'Final Fantasy VII Remake',
-// 		price: 52.38,
-// 		images: [
-// 			{
-// 				url: 'https://images.goodgam.es/WKE-gd3lr40/enlarge:1/plain/covers/17-final-fantasy-vii-remake-cover.jpg'
-// 			}
-// 		]
-// 	},
-// 	{
-// 		id: 2,
-// 		name: 'FIFA 21',
-// 		price: 40.72,
-// 		images: [
-// 			{
-// 				url: 'https://i.imgur.com/RKCvcWJ.jpg'
-// 			}
-// 		],
-// 	}
-// 	],
-// 	show: false,
-// 	closeCallback: false
-// }
 
 export default CartSideBar;

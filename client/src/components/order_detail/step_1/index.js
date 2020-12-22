@@ -1,20 +1,45 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Mini from '../../product_card/mini';
 import { Btn, FormStyled } from '../../styles/styled_global';
 import { StyledSVG, StepOne } from '../../styles/styled_order_detail';
 import PurchaseStep1 from '../../../assets/img/purchase-steps-1.svg';
+import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
-const Step1 = ({ order }) => {
-	let subtotal = 0;
-	let discount = 10;
+const Step1 = ({ cart }) => {
+	const history = useHistory();
+	const dispatch = useDispatch();
+
+	const order = useSelector(state => state.ordersReducer.order.info)
+
+	const [total, setTotal] = useState(0.00);
+	const [subtotal, setSubtotal] = useState(0.00);
+	const [discount, setDiscount] = useState(0);
+
+	useEffect(() => {
+		if (cart.length > 0) {
+			setSubtotal(cart.reduce((acc, product) => {
+				acc = acc + (product.price * product.quantity)
+				return acc;
+			}, 0.00))
+		}
+	}, [cart])
+
+	useEffect(() => {
+		setTotal((subtotal - (subtotal * (discount / 100))).toFixed(2))
+	}, [subtotal, discount])
+
+	const handleClick = () => {
+		history.push('/order/payment')
+	}
+
 	return (
 		<>
 			<h2>Tu carrito de compras:</h2>
 			<StyledSVG src={PurchaseStep1} />
 			<StepOne>
 				<div>
-					{order.map(purchase => {
-						subtotal += purchase.price;
+					{cart.map(purchase => {
 						return (
 							<Mini productDetail={purchase} key={purchase.id} />
 						)
@@ -40,72 +65,14 @@ const Step1 = ({ order }) => {
 						<hr />
 						<div className='aside__total'>
 							<p>Total:</p>
-							<p>{(subtotal - (subtotal * (discount / 100))).toFixed(2)}</p>
+							<p>{total}</p>
 						</div>
-						<Btn className='btn-ppal'>Finalizar Compra</Btn>
+						<Btn className='btn-ppal' onClick={handleClick}>Siguiente</Btn>
 					</aside>
 				</div>
 			</StepOne>
 		</>
 	)
 }
-
-Step1.defaultProps = {
-	order: [{
-		id: 1,
-		name: 'Final Fantasy VII Remake',
-		price: 52.38,
-		images: [
-			{
-				url: 'https://images.goodgam.es/WKE-gd3lr40/enlarge:1/plain/covers/17-final-fantasy-vii-remake-cover.jpg'
-			}
-		]
-	},
-	{
-		id: 2,
-		name: 'FIFA 21',
-		price: 40.72,
-		images: [
-			{
-				url: 'https://i.imgur.com/RKCvcWJ.jpg'
-			}
-		],
-	},
-	{
-		id: 1,
-		name: 'Final Fantasy VII Remake',
-		price: 52.38,
-		images: [
-			{
-				url: 'https://images.goodgam.es/WKE-gd3lr40/enlarge:1/plain/covers/17-final-fantasy-vii-remake-cover.jpg'
-			}
-		]
-	},
-	{
-		id: 1,
-		name: 'Final Fantasy VII Remake',
-		price: 52.38,
-		images: [
-			{
-				url: 'https://images.goodgam.es/WKE-gd3lr40/enlarge:1/plain/covers/17-final-fantasy-vii-remake-cover.jpg'
-			}
-		]
-	},
-	{
-		id: 1,
-		name: 'Final Fantasy VII Remake',
-		price: 52.38,
-		images: [
-			{
-				url: 'https://images.goodgam.es/WKE-gd3lr40/enlarge:1/plain/covers/17-final-fantasy-vii-remake-cover.jpg'
-			}
-		]
-	}
-
-	],
-	show: false,
-	closeCallback: false
-}
-
 
 export default Step1;

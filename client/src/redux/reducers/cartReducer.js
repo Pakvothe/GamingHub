@@ -162,7 +162,8 @@ const cartReducer = (state = initialState, action) => {
 				...state,
 				cart: {
 					...state.cart,
-					list: []
+					list: [],
+					stock: {}
 				}
 			}
 		default: return state;

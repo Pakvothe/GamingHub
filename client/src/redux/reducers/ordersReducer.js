@@ -1,13 +1,19 @@
 import {
 	GET_ORDERS,
 	LOADING_ORDERS,
-	ORDERS_ERROR
+	ORDERS_ERROR,
+	ADD_ORDER
 } from '../constants.js';
 
 const initialState = {
 	orders: {
 		isLoading: false,
 		list: [],
+		error: false
+	},
+	order: {
+		isLoading: false,
+		info: {},
 		error: false
 	}
 };
@@ -21,6 +27,14 @@ const ordersReducer = (state = initialState, action) => {
 					...state.orders,
 					isLoading: false,
 					list: action.payload
+				}
+			}
+		case ADD_ORDER:
+			return {
+				...state,
+				order: {
+					...state.order,
+					info: action.payload
 				}
 			}
 		case ORDERS_ERROR:

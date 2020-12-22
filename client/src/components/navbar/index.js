@@ -79,7 +79,6 @@ const Navbar = ({ toggleModal }) => {
 								<ul>
 									<li className="dropdown__first-name"><p>Emiliano</p></li>
 									<li><Link to="/user">Perfil</Link></li>
-									<li><Link>Item 2</Link></li>
 									<li><Link to="/admin">Panel de Administración</Link></li>
 								</ul>
 							</Dropdown>
