@@ -7,9 +7,15 @@ import { Btn, CheckboxLabel, FormStyled } from '../../styles/styled_global'
 import { Redirect, useParams } from 'react-router-dom';
 import { editProduct } from './../../../redux/actions/products_actions';
 
+import { storage } from "../../../firebase/";
+
 const AdminProductForm = ({ categories }) => {
 	const { id } = useParams();
 	const dispatch = useDispatch();
+
+	const allInputs = { imgUrl: '' }
+	const [imageAsFile, setImageAsFile] = useState('')
+	const [imageAsUrl, setImageAsUrl] = useState(allInputs)
 
 	useEffect(() => {
 		if (id) dispatch(getProduct(id));
@@ -66,6 +72,11 @@ const AdminProductForm = ({ categories }) => {
 		}
 	}
 
+	const handleImageAsFile = (e) => {
+		const image = e.target.files[0]
+		setImageAsFile(imageFile => (image))
+	}
+
 	const handleCategories = (ev) => {
 		ev.persist();
 		setInput(prevState => ({
@@ -76,11 +87,26 @@ const AdminProductForm = ({ categories }) => {
 			}
 		}))
 	}
-
-	const handleSubmit = (ev) => {
+	const handleSubmit = async (ev) => {
 		ev.preventDefault();
-		id ? dispatch(editProduct(input)) : dispatch(addProduct(input));
-		setToAdmin(true);
+		if (imageAsFile === '') {
+			console.error(`not an image, the image file is a ${typeof (imageAsFile)}`)
+		}
+		const uploadTask = storage.ref(`/images/${imageAsFile.name}`).put(imageAsFile)
+		await uploadTask.on('state_changed',
+			(snapShot) => { console.log(snapShot) },
+			(err) => { console.log(err) },
+			() => {
+				storage.ref('images').child(imageAsFile.name).getDownloadURL()
+					.then(fireBaseUrl => {
+						let inputToDispatch = { ...input };
+						inputToDispatch.img = fireBaseUrl;
+						dispatch(addProduct(inputToDispatch));
+						setImageAsUrl(prevObject => ({ ...prevObject, imgUrl: fireBaseUrl }))
+					})
+			})
+		// id ? dispatch(editProduct(input)) : dispatch(addProduct(input));
+		// setToAdmin(true);
 	}
 
 	const opciones = id ? 'Editar producto' : 'Agregar producto';
@@ -117,7 +143,7 @@ const AdminProductForm = ({ categories }) => {
 						</label>
 						<label>
 							<span>Imagen:</span>
-							<input type='url' placeholder="http://..." name='img' value={input.img} onChange={handleInput} required />
+							<input type='file' name='img' onChange={handleImageAsFile} required />
 						</label>
 						<CheckboxLabel className="no-shadow check" checked={input.is_active}>
 							<input
