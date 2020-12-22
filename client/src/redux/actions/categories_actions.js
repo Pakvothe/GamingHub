@@ -12,7 +12,7 @@ const { REACT_APP_API_URL } = process.env;
 
 export const getCategories = () => {
 	return function (dispatch) {
-		return axios.get(`${REACT_APP_API_URL}/products/categories`)
+		return axios.get(`${REACT_APP_API_URL}/categories`)
 			.then((categories) => {
 				dispatch(
 					{
@@ -31,7 +31,7 @@ export const getCategories = () => {
 
 export const getCategory = (payload) => {
 	return function (dispatch) {
-		return axios.get(`${REACT_APP_API_URL}/products/categories/${payload}`)
+		return axios.get(`${REACT_APP_API_URL}/categories/${payload}`)
 			.then((categories) => {
 				dispatch(
 					{
@@ -50,7 +50,7 @@ export const getCategory = (payload) => {
 
 export const addCategory = (payload) => {
 	return function (dispatch) {
-		return axios.post(`${REACT_APP_API_URL}/products/category`, payload)
+		return axios.post(`${REACT_APP_API_URL}/category`, payload)
 			.then((categories) => {
 				dispatch(
 					{
@@ -69,7 +69,7 @@ export const addCategory = (payload) => {
 
 export const editCategory = (payload) => {
 	return function (dispatch) {
-		return axios.put(`${REACT_APP_API_URL}/products/category/${payload.id}`, payload)
+		return axios.put(`${REACT_APP_API_URL}/category/${payload.id}`, payload)
 			.then((categories) => {
 				dispatch(
 					{
@@ -89,7 +89,7 @@ export const editCategory = (payload) => {
 
 export const deleteCategory = (payload) => {
 	return function (dispatch) {
-		return axios.delete(`${REACT_APP_API_URL}/products/category/${payload}`)
+		return axios.delete(`${REACT_APP_API_URL}/category/${payload}`)
 			.then((categories) => {
 				dispatch(
 					{
