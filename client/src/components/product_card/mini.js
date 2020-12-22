@@ -1,17 +1,16 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
 import CloseButton from '../../assets/img/close-filled-purple.svg';
-import { deleteItemCart } from '../../redux/actions/cart_actions';
+import { deleteItemCart, deleteItemStock } from '../../redux/actions/cart_actions';
 import { MiniCard, StyledSVG } from '../styles/styled_global';
 import { Link } from 'react-router-dom';
-import { DELETE_ITEM_STOCK } from './../../redux/constants';
 
 const Mini = ({ productDetail }) => {
 	const dispatch = useDispatch()
 
 	const handleClick = () => {
 		dispatch(deleteItemCart(productDetail.id));
-		dispatch({ type: DELETE_ITEM_STOCK, payload: productDetail.id });
+		dispatch(deleteItemStock(productDetail.id));
 	}
 
 	return (

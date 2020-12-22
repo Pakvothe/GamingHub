@@ -92,7 +92,7 @@ const Navbar = ({ toggleModal }) => {
 							<li>
 								<button onClick={handleTheme}>
 									<StyledSVG src={theme === 'light' ? sun : moon} />
-									<span>Tema</span>
+									<span>{strings[language].theme}</span>
 								</button>
 							</li>
 						</ul>

@@ -10,8 +10,7 @@ import joystick from '../../../assets/img/joystick.svg'
 import { IMAGE_NOT_FOUND } from '../../../utils/constants';
 
 import strings from './strings.js'
-import { addItemCart } from '../../../redux/actions/cart_actions';
-import { EDIT_STOCK } from '../../../redux/constants';
+import { addItemCart, editStock } from '../../../redux/actions/cart_actions';
 
 export const ProductDetail = ({ product }) => {
 	const dispatch = useDispatch();
@@ -47,8 +46,8 @@ export const ProductDetail = ({ product }) => {
 			id: product.id,
 			quantity: quantity,
 			stock: product.stock
-		}
-		dispatch({ type: EDIT_STOCK, payload })
+		};
+		dispatch(editStock(payload));
 		setQuantity(1);
 	}
 
