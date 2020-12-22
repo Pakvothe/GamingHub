@@ -2,7 +2,8 @@ import axios from 'axios';
 import {
 	GET_ORDERS,
 	LOADING_ORDERS,
-	ORDERS_ERROR
+	ORDERS_ERROR,
+	ADD_ORDER
 } from '../constants';
 
 const { REACT_APP_API_URL } = process.env;
@@ -20,6 +21,18 @@ export const getOrders = () => {
 			.catch(err => {
 				dispatch({
 					type: ORDERS_ERROR
+				})
+			})
+	}
+}
+
+export const addOrder = (payload) => {
+	return function (dispatch) {
+		return axios.post(`${REACT_APP_API_URL}/orders`, payload)
+			.then(response => {
+				dispatch({
+					type: ADD_ORDER,
+					payload: response.data
 				})
 			})
 	}

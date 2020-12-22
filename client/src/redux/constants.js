@@ -34,6 +34,7 @@ export const GET_ERROR_CATEGORY = 'GET_ERROR_CATEGORY';
 
 //Order actions =>
 export const GET_ORDERS = 'GET_ORDERS';
+export const ADD_ORDER = 'ADD_ORDER';
 export const ORDERS_ERROR = 'ORDERS_ERROR';
 export const LOADING_ORDERS = 'LOADING_ORDERS';
 

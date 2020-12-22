@@ -7,6 +7,8 @@ import Footer from '../components/footer';
 import CartSideBar from '../components/cart_sidebar';
 import Carousel from '../components/carousel';
 import Step1 from '../components/order_detail/step_1';
+import Step2 from '../components/order_detail/step_2';
+import Step3 from '../components/order_detail/step_3';
 import HomePage from '../components/home_page';
 import SearchPage from '../components/search_page';
 import UserPage from '../components/user_page';
@@ -48,7 +50,15 @@ function HomeRoutes() {
 				<Route exact path='/' component={HomePage} />
 				<Route exact path='/search' component={SearchPage} />
 				<Route path='/products/:id' component={Product} />
-				<Route exact path='/orders/:id' component={Step1} />
+				<Route exact path='/order'>
+					<Step1 cart={cart} />
+				</Route>
+				<Route exact path='/order/payment'>
+					<Step2 cart={cart} />
+				</Route>
+				<Route exact path='/order/detail'>
+					<Step3 cart={cart} />
+				</Route>
 				<Route exact path='/user' component={UserPage} />
 			</main>
 			<Footer />

@@ -11,12 +11,14 @@ server.post('/', async (req, res) => {
 	// let total = products.reduce((acc, prod) => acc + (prod.price * prod.quantity), 0);
 	// order.total_amount = total;
 
+	let idOrder;
 	Order.create(order)
 		.then(createdOrder => {
+			idOrder = createdOrder.id;
 			let formattedProducts = products.map(prod => {
 				return {
 					productId: prod.id,
-					orderId: createdOrder.id,
+					orderId: idOrder,
 					unit_price: prod.price,
 					quantity: prod.quantity
 				}
@@ -24,13 +26,14 @@ server.post('/', async (req, res) => {
 			return Orders_products.bulkCreate(formattedProducts)
 		})
 		.then(() => Order.findOne({
-			where: { id: createdOrder.id },
+			where: { id: idOrder },
 			include: [
 				{ model: Product }
 			]
 		}))
 		.then(updatedOrder => res.json(updatedOrder))
-		.catch(() => {
+		.catch((err) => {
+			console.log(err);
 			res.status(500).json({ message: "Internal server error" })
 		})
 });
