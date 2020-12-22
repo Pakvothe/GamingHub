@@ -102,7 +102,7 @@ export const getProduct = (payload) => {
 export const getFilterProducts = (payload) => {
 	return function (dispatch) {
 		dispatch({ type: LOADING_FILTER_PRODUCTS });
-		return axios.get(`${REACT_APP_API_URL}/products/category/${payload}`)
+		return axios.get(`${REACT_APP_API_URL}/category/${payload}`)
 			.then(products => {
 				dispatch({
 					type: GET_FILTER_PRODUCTS,
