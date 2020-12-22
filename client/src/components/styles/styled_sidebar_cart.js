@@ -51,7 +51,7 @@ export const StyledSidebarCart = styled.div`
 			font-weight: 900;
 		}
 	}
-	.modal__close{
+	.modal__close {
 		position: absolute;
 		top: 2em;
 		left: 2em;
@@ -73,7 +73,12 @@ export const StyledSidebarCart = styled.div`
 		&:active{
 			transform: scale(0.9);
 		}
-	}		
+	}
+
+	.modal__buttons {
+		display: flex;
+		justify-content: space-between;
+	}
 }
 `
 

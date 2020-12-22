@@ -22,13 +22,16 @@ import user from '../../assets/img/user.svg'
 /* --- Strings --- */
 import strings from './strings'
 
-const Navbar = ({ toggleModal }) => {
+const Navbar = ({ toggleModal, cartNumber }) => {
 
 	const dispatch = useDispatch();
 	const language = useSelector(state => state.globalReducer.language);
 	const categories = useSelector(state => state.categoriesReducer.categories.list);
 	const theme = useSelector(state => state.globalReducer.theme)
-
+	const number = cartNumber.reduce((acc, prod) => {
+		acc = acc + prod.quantity
+		return acc;
+	}, 0)
 
 	const handleClick = (ev) => {
 		dispatch(changeLanguage(ev.target.id))
@@ -86,6 +89,9 @@ const Navbar = ({ toggleModal }) => {
 								<button onClick={toggleModal}>
 									<StyledSVG src={cart} />
 									<span>{strings[language].cart}</span>
+									{!!number && <span className="cart__number">{
+										number >= 100 ? '99+' : number
+									}</span>}
 								</button>
 							</li>
 							<li>
@@ -108,7 +114,7 @@ const Navbar = ({ toggleModal }) => {
 											<HashLink
 												id={category[`name_${language}`]}
 												to="/#catalog"
-												scroll={(el) => el.scrollIntoView({ behavior: 'instant', block: 'end' })}
+												scroll={(el) => el.scrollIntoView({ behavior: 'smooth', block: 'end' })}
 											>
 												{category[`name_${language}`].toUpperCase()}
 											</HashLink>
