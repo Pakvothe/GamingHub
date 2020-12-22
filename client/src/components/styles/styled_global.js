@@ -362,11 +362,21 @@ export const MiniCard = styled.article`
 	margin-bottom: 1em;
 	align-items: center;
 	justify-content: flex-start;
-	padding: 1em;
+	padding: 1em 1.5em 1em 1em;
+
+	a {
+		color: currentColor;
+		text-decoration: none;
+
+		&:hover {
+			color: var(--clr-primary);
+		}
+	}
 
 	&:hover {
 		border: 2px solid var(--clr-primary-2);
 	}
+
 	.article__img{
 		height: 100px;
 		flex: 0 0 150px;
@@ -376,10 +386,14 @@ export const MiniCard = styled.article`
 	}
 
 	.article__info{
+		align-self: stretch;
 		text-align: left;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-evenly;
 
 		.article__name{
-			font-size: 1.2em;
+			font-size: 1.1em;
 			font-weight: 900;
 		}
 	}
