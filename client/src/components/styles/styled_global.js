@@ -11,7 +11,13 @@ export const GlobalStyle = createGlobalStyle`
 		color:  ${({ theme }) => theme.text};
 		
 		.btn-sec {
-			background-color: ${({ theme }) => theme.btnBg};
+			color: ${({ theme }) => theme.btnSecText};
+			background-color: ${({ theme }) => theme.btnSecBg};
+			box-shadow: ${({ theme }) => theme.btnSecShadow};
+			border: ${({ theme }) => theme.btnSecBorder};
+			&:hover {
+				border: ${({ theme }) => theme.btnSecHoverBorder};
+			}
 		}
 		
 		label > span:not(.no-shadow) {
@@ -39,7 +45,7 @@ export const GlobalStyle = createGlobalStyle`
 		}
 		
 		.card {
-			background-color: ${({ theme }) => theme.cardBg};
+			background: ${({ theme }) => theme.cardBg};
 		}
 		.card__title {
 			@supports (-webkit-background-clip: text)  {
@@ -61,7 +67,6 @@ export const GlobalStyle = createGlobalStyle`
 			}
 
 		}
-
 	}
 `
 
@@ -91,12 +96,6 @@ export const Btn = styled.button`
 
 	&.btn-ppal:hover {
 		background-image: linear-gradient(45deg, var(--clr-primary), var(--clr-secondary));
-	}
-
-	&.btn-sec {
-		color: var(--clr-primary);
-		border-color: var(--clr-primary);
-		box-shadow: 2px 2px 0px var(--clr-primary);
 	}
 
 	&.btn-sec:hover {
@@ -437,6 +436,7 @@ export const Dropdown = styled.li`
 	position: relative;
 	padding-bottom: .8em;
 	margin-bottom: -.8em;
+	cursor: default;
 
 	.dropdown-columns{
 		columns: 3;

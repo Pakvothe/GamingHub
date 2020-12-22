@@ -20,7 +20,7 @@ export const ProductDetail = ({ product }) => {
 	const language = useSelector(state => state.globalReducer.language);
 	const stock = useSelector(state => state.cartReducer.cart.stock);
 	const [currentImg, setCurrentImg] = useState(0);
-
+	const theme = useSelector(state => state.globalReducer.theme)
 
 	function handleImage() {
 		if (currentImg >= product.images.length - 1) {
@@ -68,9 +68,9 @@ export const ProductDetail = ({ product }) => {
 				<div className="game__container-price-score">
 					<p className="game__price">${product.price}</p>
 					<span className="game__star-container">
-						<StarRatings
+						<StarRatings className="ratingStars"
 							rating={product.score}
-							starRatedColor="var(--clr-dark)"
+							starRatedColor={theme === 'light' ? 'var(--clr-dark)' : 'var(--clr-primary)'}
 							starDimension="1.5em"
 							starSpacing="0"
 						/>

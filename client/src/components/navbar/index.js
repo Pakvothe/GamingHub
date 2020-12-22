@@ -126,7 +126,7 @@ const Navbar = ({ toggleModal }) => {
 						</ul>
 					</div>
 				</div>
-			</NavbarStyled >
+			</NavbarStyled>
 		</>
 	)
 }

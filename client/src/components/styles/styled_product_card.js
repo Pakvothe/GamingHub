@@ -3,11 +3,11 @@ import styled from 'styled-components';
 export const ProductCardStyled = styled.article`
 	font-family: Poppins, sans-serif;
 	font-size: 1.2em;
-	border: 3px solid #9b5df7;
+	border: 3px solid var(--clr-primary);
 	width: 250px;
 	border-radius: 10px;
 	overflow: hidden;
-	box-shadow: 5px 5px 0px #9b5df7;
+	box-shadow: 5px 5px 0px var(--clr-primary);
 	position: relative;
 	transition: all 0.1s ease-in-out;
 	height: 400px;
@@ -114,6 +114,7 @@ export const ProductCardStyled = styled.article`
 	button {
 		font-size: 0.7em;
 		margin-top: auto;
+		margin-bottom: .5em;
 		z-index: 10;
     }
 `;
