@@ -24,8 +24,9 @@ const CartSideBar = ({ language, cart, show, closeCallback }) => {
 	}, [show]);
 
 	const [subtotal, setSubtotal] = useState(0.00);
+
 	useEffect(() => {
-		if (cart.length > 0) {
+		if (cart) {
 			setSubtotal(cart.reduce((acc, product) => {
 				acc = acc + (product.price * product.quantity)
 				return acc;
