@@ -5,6 +5,7 @@ export const TOGGLE_THEME = 'TOGGLE_THEME';
 export const SET_THEME = 'SET_THEME';
 export const ERROR = 'ERROR';
 export const LOADING = 'LOADING';
+export const ADD_CREDIT_CARD = 'ADD_CREDIT_CARD';
 
 //Product actions =>
 export const GET_PRODUCTS = 'GET_PRODUCTS';

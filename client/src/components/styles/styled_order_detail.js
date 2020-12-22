@@ -67,18 +67,15 @@ export const StepOne = styled.div`
 `
 
 export const StepTwo = styled.div`
-	display: flex;
+
+	.button__container {
+		button {
+			margin: 2em auto 0;
+			display: block;
+			
+		}
+	}
 	
-	& div:first-child {
-		margin-right: 4em;
-	}
-
-	& div:last-child {
-		flex-grow: 0;
-		flex-basis: 500px;
-		position: relative;
-	}
-
 	aside {
 		border: 3px solid var(--clr-primary);
 		border-radius: 0.5em;
