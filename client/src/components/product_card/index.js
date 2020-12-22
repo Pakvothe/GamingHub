@@ -7,6 +7,7 @@ import strings from './strings';
 import cart from '../../assets/img/cart.svg'
 import { useDispatch, useSelector } from 'react-redux';
 import { addItemCart, editStock } from '../../redux/actions/cart_actions';
+import { toggleCart } from '../../redux/actions/global_actions';
 
 const ProductCard = ({ game, language }) => {
 
@@ -23,6 +24,8 @@ const ProductCard = ({ game, language }) => {
 				stock: game.stock
 			}
 			dispatch(editStock(payload));
+		} else {
+			dispatch(toggleCart())
 		}
 	};
 	return (

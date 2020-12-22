@@ -53,6 +53,11 @@ body {
 	min-height: 100vh;
 }
 
+#cartModal {
+	z-index: 99;
+	position: relative;
+}
+
 .main-container {
 	width: 80%;
 	max-width: 1200px;

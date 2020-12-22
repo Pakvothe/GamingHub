@@ -4,6 +4,7 @@ import CloseButton from '../../assets/img/close-filled-purple.svg';
 import { deleteItemCart, deleteItemStock } from '../../redux/actions/cart_actions';
 import { MiniCard, StyledSVG } from '../styles/styled_global';
 import { Link } from 'react-router-dom';
+import { toggleCart } from '../../redux/actions/global_actions';
 
 const Mini = ({ productDetail }) => {
 	const dispatch = useDispatch()
@@ -19,7 +20,7 @@ const Mini = ({ productDetail }) => {
 				<img src={productDetail.images[0].url} />
 			</div>
 			<div className='article__info'>
-				<Link to={`/products/${productDetail.id}`}>
+				<Link to={`/products/${productDetail.id}`} onClick={() => dispatch(toggleCart())}>
 					<p className='article__name'>{productDetail.name}</p>
 				</Link>
 				<p>${productDetail.price}</p>
