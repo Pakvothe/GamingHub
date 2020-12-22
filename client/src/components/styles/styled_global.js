@@ -436,6 +436,7 @@ export const Dropdown = styled.li`
 	position: relative;
 	padding-bottom: .8em;
 	margin-bottom: -.8em;
+	cursor: default;
 
 	.dropdown-columns{
 		columns: 3;
