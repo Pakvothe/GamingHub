@@ -10,7 +10,7 @@ export const StyledCarousel = styled.div`
 	opacity: 0.4;
 	filter: alpha(opacity=40);
 	position: absolute;
-	z-index: 2;
+	/* z-index: 2; */
 	top: 20px;
 	background: none;
 	border: 0;
