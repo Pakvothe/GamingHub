@@ -6,7 +6,7 @@ import { IMAGE_NOT_FOUND } from '../../utils/constants';
 import strings from './strings';
 import cart from '../../assets/img/cart.svg'
 import { useDispatch, useSelector } from 'react-redux';
-import { addItemCart } from '../../redux/actions/cart_actions';
+import { addItemCart, editStock } from '../../redux/actions/cart_actions';
 
 const ProductCard = ({ game, language }) => {
 
@@ -22,7 +22,7 @@ const ProductCard = ({ game, language }) => {
 				quantity: 1,
 				stock: game.stock
 			}
-			dispatch({ type: 'EDIT_STOCK', payload });
+			dispatch(editStock(payload));
 		}
 	};
 	return (
@@ -39,7 +39,7 @@ const ProductCard = ({ game, language }) => {
 				<p className="card__price">$ {game.price}</p>
 				{game.stock ?
 					<Btn className="btn-ppal btn-img" onClick={handleClick}>
-						{stock[game.id] === 0 ? strings[language].already_in_cart : strings[language].add_to_cart}
+						{stock[game.id] >= 0 ? strings[language].already_in_cart : strings[language].add_to_cart}
 						<StyledSVG src={cart} />
 					</Btn> : <span>Sin stock</span>}
 			</div>

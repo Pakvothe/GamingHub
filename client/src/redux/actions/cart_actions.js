@@ -8,7 +8,9 @@ import {
 	CLEAR_CART,
 	ERROR_CART,
 	LOADING_CART,
-	SET_STOCK
+	SET_STOCK,
+	EDIT_STOCK,
+	DELETE_ITEM_STOCK
 } from './../constants';
 
 const { REACT_APP_API_URL } = process.env;
@@ -67,6 +69,20 @@ export const deleteItemCart = (payload) => {
 	localStorage.setItem('cart', JSON.stringify(cart));
 	return {
 		type: DELETE_ITEM_CART,
+		payload
+	}
+}
+
+export const editStock = (payload) => {
+	return {
+		type: EDIT_STOCK,
+		payload
+	}
+}
+
+export const deleteItemStock = (payload) => {
+	return {
+		type: DELETE_ITEM_STOCK,
 		payload
 	}
 }

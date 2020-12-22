@@ -7,7 +7,8 @@ const strings = {
 		cart: 'Cart',
 		categories: 'Categories',
 		offer: 'Offer',
-		about: 'About'
+		about: 'About',
+		theme: 'Theme'
 	},
 	es: {
 		language: 'Idioma',
@@ -17,7 +18,8 @@ const strings = {
 		cart: 'Carrito',
 		categories: 'Categorias',
 		offer: 'Ofertas',
-		about: 'Conocenos'
+		about: 'Conocenos',
+		theme: 'Tema'
 	}
 };
 
