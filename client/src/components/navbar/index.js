@@ -82,6 +82,7 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 								<ul>
 									<li className="dropdown__first-name"><p>Emiliano</p></li>
 									<li><Link to="/user">Perfil</Link></li>
+									<li><Link to="/signup">Registrarse</Link></li>
 									<li><Link to="/admin">Panel de Administración</Link></li>
 								</ul>
 							</Dropdown>

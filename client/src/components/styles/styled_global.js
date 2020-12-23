@@ -185,6 +185,10 @@ export const DataTable = styled.table`
 
 export const FormStyled = styled.form`
 
+	.form__title {
+		margin-bottom: 1em;
+	}
+
 	.flex-form-container {
 		display: flex;
 
