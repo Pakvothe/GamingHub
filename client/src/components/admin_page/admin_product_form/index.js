@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { addProduct, getProduct } from '../../../redux/actions/products_actions'
@@ -17,6 +17,10 @@ const AdminProductForm = ({ categories }) => {
 	const product = useSelector((state) => state.productsReducer.productDetail.product);
 	const isLoading = useSelector((state) => state.productsReducer.productDetail.isLoading);
 
+	const [toAdmin, setToAdmin] = useState(false);
+
+	const fileInput = useRef(null);
+
 	let [input, setInput] = useState({
 		name: '',
 		description_es: '',
@@ -26,6 +30,7 @@ const AdminProductForm = ({ categories }) => {
 		is_active: true,
 		categories: {}
 	});
+
 	useEffect(() => {
 		if (input.img.length === imagesAsFile.length && input.img.length > 0) {
 			dispatch(addProduct(input));
@@ -36,7 +41,6 @@ const AdminProductForm = ({ categories }) => {
 		if (id) dispatch(getProduct(id));
 	}, []);
 
-	const [toAdmin, setToAdmin] = useState(false);
 
 	useEffect(() => {
 		if (id && Object.keys(product).length) {
@@ -77,9 +81,18 @@ const AdminProductForm = ({ categories }) => {
 	const handleImagesAsFile = (e) => {
 		const images = [...e.target.files];
 		console.log(images)
-		images.map(img => {
-			if (!img.type.includes('image')) alert('NOT AN IMAGE')
-		})
+		let invalidFile = images.some(img => !img.type.includes('image'));
+		let invalidSize = images.some(img => img.size > 2097152);
+		if (invalidFile) {
+			alert('Only images are allowed');
+			fileInput.current.value = '';
+			return;
+		}
+		if (invalidSize) {
+			alert('Only images below 2mb are allowed');
+			fileInput.current.value = '';
+			return;
+		}
 		setImagesAsFile(imageFile => (images));
 	}
 
@@ -152,7 +165,7 @@ const AdminProductForm = ({ categories }) => {
 						</label>
 						<label>
 							<span>Imagen:</span>
-							<input type='file' name='img' onChange={handleImagesAsFile} multiple required />
+							<input ref={fileInput} type='file' name='img' onChange={handleImagesAsFile} multiple required />
 						</label>
 						<CheckboxLabel className="no-shadow check" checked={input.is_active}>
 							<input
