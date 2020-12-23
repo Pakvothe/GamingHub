@@ -72,11 +72,9 @@ export const StepOne = styled.div`
 export const StepTwo = styled.div`
 
 	.button__container {
-		background-color: red;
 		button {
 			margin: 2em auto 0;
 			display: block;
-			
 		}
 	}
 	
