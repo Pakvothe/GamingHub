@@ -92,10 +92,8 @@ server.post('/', (req, res) => {
 				categories.forEach(category => {
 					product.addCategories(category); //Creo la relacion de la categoria con el producto recien creado
 				})
-				return Image.create({  // Le agrego la imagen al producto
-					url: img,
-					productId: product.id
-				})
+				let images = img.map(url => ({ url, productId: product.id }))
+				return Image.bulkCreate(images)
 			})
 			.then(() => {
 				return Product.findOne({
