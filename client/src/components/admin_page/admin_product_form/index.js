@@ -5,7 +5,6 @@ import { addProduct, getProduct } from '../../../redux/actions/products_actions'
 
 import { Btn, CheckboxLabel, FormStyled } from '../../styles/styled_global'
 import { Redirect, useParams } from 'react-router-dom';
-import { editProduct } from './../../../redux/actions/products_actions';
 
 import { storage } from "../../../firebase/";
 
@@ -13,13 +12,7 @@ const AdminProductForm = ({ categories }) => {
 	const { id } = useParams();
 	const dispatch = useDispatch();
 
-	const allInputs = { imgUrl: '' }
-	const [imageAsFile, setImageAsFile] = useState('')
-	const [imageAsUrl, setImageAsUrl] = useState(allInputs)
-
-	useEffect(() => {
-		if (id) dispatch(getProduct(id));
-	}, []);
+	const [imagesAsFile, setImagesAsFile] = useState([]);
 
 	const product = useSelector((state) => state.productsReducer.productDetail.product);
 	const isLoading = useSelector((state) => state.productsReducer.productDetail.isLoading);
@@ -29,10 +22,19 @@ const AdminProductForm = ({ categories }) => {
 		description_es: '',
 		description_en: '',
 		price: 1,
-		img: '',
+		img: [],
 		is_active: true,
 		categories: {}
 	});
+	useEffect(() => {
+		if (input.img.length === imagesAsFile.length && input.img.length > 0) {
+			dispatch(addProduct(input));
+		}
+	}, [input.img]);
+
+	useEffect(() => {
+		if (id) dispatch(getProduct(id));
+	}, []);
 
 	const [toAdmin, setToAdmin] = useState(false);
 
@@ -72,9 +74,13 @@ const AdminProductForm = ({ categories }) => {
 		}
 	}
 
-	const handleImageAsFile = (e) => {
-		const image = e.target.files[0]
-		setImageAsFile(imageFile => (image))
+	const handleImagesAsFile = (e) => {
+		const images = [...e.target.files];
+		console.log(images)
+		images.map(img => {
+			if (!img.type.includes('image')) alert('NOT AN IMAGE')
+		})
+		setImagesAsFile(imageFile => (images));
 	}
 
 	const handleCategories = (ev) => {
@@ -87,26 +93,29 @@ const AdminProductForm = ({ categories }) => {
 			}
 		}))
 	}
-	const handleSubmit = async (ev) => {
+	const handleSubmit = (ev) => {
 		ev.preventDefault();
-		if (imageAsFile === '') {
-			console.error(`not an image, the image file is a ${typeof (imageAsFile)}`)
-		}
-		const uploadTask = storage.ref(`/images/${imageAsFile.name}`).put(imageAsFile)
-		await uploadTask.on('state_changed',
-			(snapShot) => { console.log(snapShot) },
-			(err) => { console.log(err) },
-			() => {
-				storage.ref('images').child(imageAsFile.name).getDownloadURL()
-					.then(fireBaseUrl => {
-						let inputToDispatch = { ...input };
-						inputToDispatch.img = fireBaseUrl;
-						dispatch(addProduct(inputToDispatch));
-						setImageAsUrl(prevObject => ({ ...prevObject, imgUrl: fireBaseUrl }))
-					})
-			})
-		// id ? dispatch(editProduct(input)) : dispatch(addProduct(input));
-		// setToAdmin(true);
+		imagesAsFile.map(imageAsFile => {
+
+			if (imageAsFile === '') {
+				console.error(`not an image, the image file is a ${typeof (imageAsFile)}`)
+			}
+			const uploadTask = storage.ref(`/images/${imageAsFile.name}`).put(imageAsFile)
+			uploadTask.on('state_changed',
+				(snapShot) => { console.log(snapShot) },
+				(err) => { console.log(err) },
+				() => {
+					storage.ref('images').child(imageAsFile.name).getDownloadURL()
+						.then(fireBaseUrl => {
+							setInput(prev => ({
+								...prev,
+								img: [...prev.img, fireBaseUrl]
+							}))
+						})
+				})
+			// id ? dispatch(editProduct(input)) : dispatch(addProduct(input));
+			// setToAdmin(true);
+		})
 	}
 
 	const opciones = id ? 'Editar producto' : 'Agregar producto';
@@ -143,7 +152,7 @@ const AdminProductForm = ({ categories }) => {
 						</label>
 						<label>
 							<span>Imagen:</span>
-							<input type='file' name='img' onChange={handleImageAsFile} required />
+							<input type='file' name='img' onChange={handleImagesAsFile} multiple required />
 						</label>
 						<CheckboxLabel className="no-shadow check" checked={input.is_active}>
 							<input
