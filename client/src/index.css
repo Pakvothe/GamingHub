@@ -6,8 +6,8 @@
 	--clr-white: #F5F4F8;
 	--clr-middle: #7E7E7E;
 	--clr-dark: #1B1A1F;
-	--clr-dark-1: #343a40;
-	--clr-dark-2: #454d55;
+	--clr-dark-1: #2C2F31;
+	--clr-dark-2: #35383a;
 	--clr-warning: #F6DB2D;
 	--clr-error: #D53051;
 	--clr-success: #97DA3F;
@@ -30,13 +30,13 @@ h1, h2, h3, h4, h5, h6, button {
 	font-weight: 900;
 }
 
-.main-container > h2 {
+.main-container>h2 {
 	text-align: center;
 	margin-bottom: 1em;
 	font-size: 2em;
 }
 
-.main-container > svg {
+.main-container>svg {
 	display: block;
 	margin: 0 auto 2em;
 }
@@ -79,7 +79,7 @@ body {
 @media (max-width: 800px) {
 	.admin-main-container {
 		margin-left: 50px;
-	}	
+	}
 }
 
 .label-select {
@@ -99,7 +99,7 @@ body {
 	border-bottom: 1px solid #CCC;
 }
 
-.wrapper{
+.wrapper {
 	width: 80%;
 	max-width: 1200px;
 	margin: 0 auto;

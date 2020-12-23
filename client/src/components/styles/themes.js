@@ -26,7 +26,7 @@ export const darkTheme = {
 	btnSecBorder: '2px solid var(--clr-white)',
 	btnSecHoverBorder: '2px solid var(--clr-primary)',
 
-	cardBg: 'linear-gradient(45deg, var(--clr-dark-2), #5a6774)',
+	cardBg: 'var(--clr-dark-1)',
 	cardText: 'var(--clr-white)',
 
 	tableBg: 'var(--clr-dark-2)',
