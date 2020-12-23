@@ -3,7 +3,7 @@ import Mini from '../../product_card/mini';
 import { Btn, FormStyled } from '../../styles/styled_global';
 import { StyledSVG, StepOne } from '../../styles/styled_order_detail';
 import PurchaseStep1 from '../../../assets/img/purchase-steps-1.svg';
-import { useHistory } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Step1 = ({ cart }) => {
@@ -33,6 +33,9 @@ const Step1 = ({ cart }) => {
 		history.push('/order/payment')
 	}
 
+	if (cart.length < 1) {
+		return <Redirect to='/' />
+	}
 	return (
 		<>
 			<h2>Tu carrito de compras:</h2>

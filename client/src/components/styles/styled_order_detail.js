@@ -3,15 +3,18 @@ import SVG from 'react-inlinesvg';
 
 export const StepOne = styled.div`
 	display: flex;
-	
-	& div:first-child {
+	justify-content: space-between;
+
+	& > div:first-child {
 		margin-right: 4em;
+		flex: 1;
 	}
 
-	& div:last-child {
+	& > div:last-child {
 		flex-grow: 0;
 		flex-basis: 500px;
 		position: relative;
+		margin: 0 auto;
 	}
 
 	aside {
@@ -69,6 +72,7 @@ export const StepOne = styled.div`
 export const StepTwo = styled.div`
 
 	.button__container {
+		background-color: red;
 		button {
 			margin: 2em auto 0;
 			display: block;
