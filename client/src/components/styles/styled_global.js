@@ -529,5 +529,16 @@ export const Dropdown = styled.li`
 
 `
 
+export const Badge = styled.span`
+	display: inline-block;
+	background-color: var(--clr-error);
+	margin-top: 1em;
+	padding: .35em .65em;
+	font-size: .75em;
+	color: #fff;
+	text-align: center;
+	border-radius: .25rem;
+`
+
 export const StyledSVG = styled(SVG)`
 `

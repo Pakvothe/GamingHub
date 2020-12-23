@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ProductCardStyled } from '../styles/styled_product_card';
-import { Btn, StyledSVG } from '../styles/styled_global'
+import { Btn, StyledSVG, Badge } from '../styles/styled_global'
 import { IMAGE_NOT_FOUND } from '../../utils/constants';
 import strings from './strings';
 import cart from '../../assets/img/cart.svg'
@@ -44,7 +44,7 @@ const ProductCard = ({ game, language }) => {
 					<Btn className="btn-ppal btn-img" onClick={handleClick}>
 						{stock[game.id] >= 0 ? strings[language].already_in_cart : strings[language].add_to_cart}
 						<StyledSVG src={cart} />
-					</Btn> : <span>Sin stock</span>}
+					</Btn> : <Badge>Sin stock</Badge>}
 			</div>
 			<Link to={`/products/${game.id}`} className="card__link">{strings[language].click_to_see}</Link>
 		</ProductCardStyled>)
