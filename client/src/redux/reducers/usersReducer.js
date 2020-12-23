@@ -12,7 +12,7 @@ import {
 
 const initialState = {
 	user: {
-		info: {},
+		info: localStorage.getItem('user') || {},
 		isLoading: false,
 		error: false
 	},
@@ -28,9 +28,9 @@ const usersReducer = (state = initialState, action) => {
 		case ADD_USER: {
 			return {
 				...state,
-				users: {
-					...state.users,
-					list: [...state.users.list, action.payload]
+				user: {
+					...state.user,
+					info: action.payload,
 				}
 			}
 		}

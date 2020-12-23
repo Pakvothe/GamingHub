@@ -92,3 +92,15 @@ export const deleteUser = (payload) => { //payload = product.id
 			.catch() //check errors
 	}
 }
+
+export const toggleAdmin = (payload) => {
+	return function (dispatch) {
+		return axios.put(`${REACT_APP_API_URL}/users/${payload.id}`, { is_admin: payload.is_admin })
+			.then(() => {
+				dispatch(
+					getUsers()
+				)
+			})
+			.catch() //check errors
+	}
+}

@@ -4,7 +4,9 @@ const { User, Order, Product } = require('../db.js');
 //----------"/users"--------------
 
 server.get('/', (req, res) => {
-	User.findAll()
+	User.findAll({
+		order: [['id', 'ASC']]
+	})
 		.then((users) => {
 			res.status(200).json(users);
 		})

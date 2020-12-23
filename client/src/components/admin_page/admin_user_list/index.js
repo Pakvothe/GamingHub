@@ -1,8 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { getUsers, deleteUser } from '../../../redux/actions/users_actions';
-import { Btn, DataTable } from '../../styles/styled_global';
+import { deleteUser, toggleAdmin } from '../../../redux/actions/users_actions';
+import { DataTable } from '../../styles/styled_global';
 
 const AdminUserList = ({ users }) => {
 	const dispatch = useDispatch();
@@ -12,15 +11,12 @@ const AdminUserList = ({ users }) => {
 		alert('User deleted.');
 	}
 
-	const handleInput = (ev) => {
-		ev.persist();
-		// dispatch(toggleAdmin(ev.target.name))
+	const handleInput = (id, is_admin) => {
+		dispatch(toggleAdmin({ id, is_admin }))
 	}
 
 	return (
 		<>
-			{/* <SearchBar /> */}
-			<Link to="/admin/user"><Btn className="btn-ppal">Agregar Usuario</Btn></Link>
 			<DataTable>
 				<thead>
 					<tr>
@@ -29,7 +25,6 @@ const AdminUserList = ({ users }) => {
 						<td>Apellido</td>
 						<td className="cell-small">Admin</td>
 						<td>Email</td>
-						<td></td>
 					</tr>
 				</thead>
 				<tbody>
@@ -48,14 +43,8 @@ const AdminUserList = ({ users }) => {
 										/>
 										</CheckboxLabel>
 									</td> */}
-							<td><input type="checkbox" checked={user.is_admin} onChange={handleInput} name={user.id} /></td>
+							<td><input type="checkbox" checked={user.is_admin} onChange={() => handleInput(user.id, !user.is_admin)} /></td>
 							<td>{user.email}</td>
-							<td>
-								<ul>
-									<li><Link to={`/admin/users/${user.id}`}><button>Editar</button></Link></li>
-									<li><button onClick={() => handleDelete(user.id)}>Eliminar</button></li>
-								</ul>
-							</td>
 						</tr>
 					))}
 				</tbody>

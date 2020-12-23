@@ -12,6 +12,7 @@ import Step3 from '../components/order_detail/step_3';
 import HomePage from '../components/home_page';
 import SearchPage from '../components/search_page';
 import UserPage from '../components/user_page';
+import SignUp from '../components/sign_up';
 import { getProducts } from '../redux/actions/products_actions';
 import { getCategories } from '../redux/actions/categories_actions';
 import { toggleCart } from '../redux/actions/global_actions';
@@ -60,6 +61,7 @@ function HomeRoutes() {
 					<Step3 cart={cart} />
 				</Route>
 				<Route exact path='/user' component={UserPage} />
+				<Route exact path='/signup' component={SignUp} />
 			</main>
 			<Footer />
 		</>
