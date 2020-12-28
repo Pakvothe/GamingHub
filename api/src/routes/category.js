@@ -19,11 +19,32 @@ server.post('/', (req, res) => {
 
 server.get('/:catName', (req, res) => {
 	let { catName } = req.params
+	const { limit, offset } = req.query;
+
 	catName = catName.toLowerCase();
+	let count = 0;
+	Product.count({
+		include: [
+			{
+				model: Category,
+				where: {
+					[Op.or]: [
+						{ name_en: catName },
+						{ name_es: catName }
+					]
+				}
+			}
+		]
+	})
+		.then(data => {
+			count = data;
+		})
 	Product.findAll({
 		order: [
 			[Image, 'id', 'ASC']
 		],
+		limit: limit ? limit : null,
+		offset: offset ? offset : null,
 		include: [
 			{
 				model: Category,
@@ -38,7 +59,7 @@ server.get('/:catName', (req, res) => {
 			}
 		]
 	})
-		.then(data => res.json(data))
+		.then(data => res.json({ count, results: data }))
 })
 
 server.put('/:catId', (req, res) => {

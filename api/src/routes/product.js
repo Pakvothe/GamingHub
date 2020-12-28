@@ -283,7 +283,6 @@ server.put('/:id', (req, res) => {
 			res.status(200).json(data)
 		})
 		.catch((err) => {
-			console.log(err);
 			if (err.message.includes('error 400')) {
 				return res.status(400).json({ message: 'Bad request' })
 			}

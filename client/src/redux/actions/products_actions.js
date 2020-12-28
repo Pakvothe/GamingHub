@@ -99,14 +99,19 @@ export const getProduct = (payload) => {
 	}
 }
 
-export const getFilterProducts = (payload) => {
+export const getFilterProducts = (payload, options) => {
+	let limit = '', offset = '';
+	if (options) {
+		limit = options.limit ? '?limit=' + options.limit : limit;
+		offset = options.offset ? '&offset=' + options.offset : offset;
+	}
 	return function (dispatch) {
 		dispatch({ type: LOADING_FILTER_PRODUCTS });
-		return axios.get(`${REACT_APP_API_URL}/category/${payload}`)
+		return axios.get(`${REACT_APP_API_URL}/category/${payload}${limit}${offset}`)
 			.then(products => {
 				dispatch({
 					type: GET_FILTER_PRODUCTS,
-					payload: products.data
+					payload: { filter: payload, products: products.data.results, count: products.data.count }
 				})
 			})
 			.catch(err => {

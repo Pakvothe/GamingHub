@@ -7,7 +7,7 @@ const SelectCategories = ({ language, categories, handleSelect }) => {
 		<label className="label-select">
 			<span>{strings[language].filter_category}</span>
 			<SelectStyled onChange={handleSelect}>
-				<option value="todos">{strings[language].all}</option>
+				<option value="todos" >{strings[language].all}</option>
 				{!!categories.length && categories.map(category => (
 					<option key={category.id} value={category[`name_${language}`]}>{category[`name_${language}`].toUpperCase()}</option>
 				))}

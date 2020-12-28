@@ -15,6 +15,7 @@ import arrowUp from '../../assets/img/arrow-up.svg';
 
 /* --- Styles --- */
 import { StyledSVG } from '../styles/styled_global';
+import { resetCurrentPage } from '../../redux/actions/global_actions'
 
 const HomePage = () => {
 
@@ -28,9 +29,11 @@ const HomePage = () => {
 
 	const scrollButton = useRef();
 
+	const limitPerPage = 8;
+
 	useEffect(() => {
 		if (!products.length) {
-			dispatch(getProducts());
+			dispatch(getProducts({ query: 'stock', order: 'DESC', limit: 8 }));
 		}
 		if (!categories.length) {
 			dispatch(getCategories());
@@ -38,10 +41,12 @@ const HomePage = () => {
 	}, [])
 
 	const handleSelect = (e) => {
+		dispatch(resetCurrentPage())
 		if (e.target.value === 'todos') {
-			return dispatch(emptyFilter())
+			dispatch(emptyFilter())
+			return dispatch(getProducts({ query: 'stock', order: 'DESC', limit: 8 }))
 		}
-		dispatch(getFilterProducts(e.target.value));
+		dispatch(getFilterProducts(e.target.value, { limit: 8 }));
 	}
 
 	window.onscroll = function () { scrollFunction() };
@@ -67,8 +72,13 @@ const HomePage = () => {
 		<div>
 			<h1 className="main-title">{strings[language].main_header}</h1>
 			<SelectCategories language={language} categories={categories} handleSelect={handleSelect} />
-			<Catalog products={productsFilter.length ? productsFilter : products}
-				language={language} isLoading={loadingProducts} error={errorProducts} />
+			<Catalog products={products}
+				productsFilter={productsFilter}
+				language={language}
+				isLoading={loadingProducts}
+				error={errorProducts}
+				limit={limitPerPage}
+			/>
 			<button ref={scrollButton} className="button__top" onClick={scrollToTop}>
 				<StyledSVG src={arrowUp} />
 			</button>
