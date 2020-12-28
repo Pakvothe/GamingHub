@@ -158,16 +158,17 @@ export const emptyFilter = () => {
 }
 
 export const getProducts = (payload) => {
-	let queries = '', options = '';
+	let queries = '', order = '', limit = '', offset = '';
 
 	if (payload) {
-		queries = payload.query && '?query=' + payload.query;
-		options = payload.order && '&order=' + payload.order;
+		queries = payload.query ? '?query=' + payload.query : queries;
+		order = payload.order ? '&order=' + payload.order : order;
+		limit = payload.limit ? '&limit=' + payload.limit : limit;
+		offset = payload.offset ? '&offset=' + payload.offset : offset;
 	}
-
 	return function (dispatch) {
 		dispatch({ type: LOADING_PRODUCTS });
-		return axios.get(`${REACT_APP_API_URL}/products${queries}${options}`)
+		return axios.get(`${REACT_APP_API_URL}/products${queries}${order}${limit}${offset}`)
 			.then(product => {
 				dispatch({
 					type: GET_PRODUCTS,

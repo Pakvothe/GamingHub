@@ -19,7 +19,8 @@ const initialState = {
 	products: {
 		isLoading: false,
 		productList: [],
-		error: false
+		error: false,
+		count: 0
 	},
 	productDetail: {
 		isLoading: false,
@@ -43,7 +44,8 @@ const productsReducer = (state = initialState, action) => {
 					productList: [
 						...state.products.productList,
 						action.payload
-					]
+					],
+					count: state.products.count + 1
 				}
 			}
 		case EDIT_PRODUCT:
@@ -136,8 +138,9 @@ const productsReducer = (state = initialState, action) => {
 				...state,
 				products: {
 					isLoading: false,
-					productList: action.payload,
-					error: false
+					productList: action.payload.results,
+					error: false,
+					count: action.payload.count
 				},
 			}
 		case LOADING_FILTER_PRODUCTS:
