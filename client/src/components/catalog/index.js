@@ -1,5 +1,4 @@
-import React, { useEffect, useReducer, useState } from 'react'
-// import Pagination from '../pagination';
+import React from 'react'
 import ProductCard from '../product_card'
 import { CatalogStyled } from './../styles/styled_catalog';
 import strings from './strings';
@@ -8,6 +7,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getFilterProducts, getProducts } from '../../redux/actions/products_actions';
 import { PaginationStyled } from '../styles/styled_pagination';
 import { changeCurrentPage } from '../../redux/actions/global_actions';
+//Styles =>
+import arrowLeft from '../../assets/img/arrow-left.svg';
+import arrowRight from '../../assets/img/arrow-right.svg';
+import { StyledSVG } from '../styles/styled_global';
 
 const Catalog = ({ products, productsFilter, isLoading, error, language, limit }) => {
 	const count = useSelector(state => state.productsReducer.count)
@@ -51,8 +54,8 @@ const Catalog = ({ products, productsFilter, isLoading, error, language, limit }
 					marginPagesDisplayed={2}
 					pageRangeDisplayed={5}
 					onPageChange={handlePageChange}
-					previousLabel={strings[language].previous}
-					nextLabel={strings[language].next}
+					previousLabel={<StyledSVG src={arrowLeft} />}
+					nextLabel={<StyledSVG src={arrowRight} />}
 					breakLabel={'...'}
 					breakClassName={'break-me'}
 					containerClassName={'pagination'}

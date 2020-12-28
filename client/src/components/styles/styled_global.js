@@ -460,13 +460,13 @@ export const Dropdown = styled.li`
 	}
 
 	&:hover > ul {
-		display: block;
+		display:block;
 		list-style: none;
 	}
 
 	& > ul {
-		min-width: 150px;
 		display: none;
+		min-width: 150px;
 		position: absolute;
 		left: 50%;
 		top: 100%;
