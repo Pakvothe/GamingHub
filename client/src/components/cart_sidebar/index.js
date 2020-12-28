@@ -8,6 +8,8 @@ import Mini from '../product_card/mini';
 import strings from './strings';
 import { Link } from 'react-router-dom';
 import { clearCart } from '../../redux/actions/cart_actions';
+import Slide from 'react-reveal/Slide';
+
 
 const CartSideBar = ({ language, cart, show, closeCallback }) => {
 	const dispatch = useDispatch();
@@ -37,28 +39,30 @@ const CartSideBar = ({ language, cart, show, closeCallback }) => {
 	return ReactDOM.createPortal(
 		<StyledSidebarCart>
 			<div className="cart__overlay" style={{ display: show ? 'block' : 'none' }} onClick={closeCallback} />
-			<div className='modal' style={{ display: show ? 'block' : 'none' }}>
-				<button title='Close' className='modal__close' onClick={closeCallback}>
-					<StyledCloseBtn src={BigCloseButton} />
-				</button>
-				<h2 className='modal__title'>{strings[language].your_cart}</h2>
-				{!!cart.length && cart.map(purchase => {
-					return (
-						<Mini productDetail={purchase} key={purchase.id} />
-					)
-				})}
-				<hr />
-				<div className='modal__subtotal'>
-					<p>Subtotal:</p>
-					<p>${subtotal.toFixed(2)}</p>
+			<Slide right duration={400} when={show}>
+				<div className='modal' style={{ display: show ? 'block' : 'none' }}>
+					<button title='Close' className='modal__close' onClick={closeCallback}>
+						<StyledCloseBtn src={BigCloseButton} />
+					</button>
+					<h2 className='modal__title'>{strings[language].your_cart}</h2>
+					{!!cart.length && cart.map(purchase => {
+						return (
+							<Mini productDetail={purchase} key={purchase.id} />
+						)
+					})}
+					<hr />
+					<div className='modal__subtotal'>
+						<p>Subtotal:</p>
+						<p>${subtotal.toFixed(2)}</p>
+					</div>
+					<div className="modal__buttons">
+						<Link to="/order" onClick={closeCallback}>
+							<Btn className='btn btn-ppal'>{strings[language].checkout}</Btn>
+						</Link>
+						<Btn className='btn btn-sec' onClick={() => dispatch(clearCart())}>{strings[language].empty_cart}</Btn>
+					</div>
 				</div>
-				<div className="modal__buttons">
-					<Link to="/order" onClick={closeCallback}>
-						<Btn className='btn btn-ppal'>{strings[language].checkout}</Btn>
-					</Link>
-					<Btn className='btn btn-sec' onClick={() => dispatch(clearCart())}>{strings[language].empty_cart}</Btn>
-				</div>
-			</div>
+			</Slide>
 		</StyledSidebarCart>,
 		document.getElementById('cartModal')
 	);

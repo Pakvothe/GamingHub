@@ -4,6 +4,7 @@ import StarRatings from "react-star-ratings";
 
 import { Btn, Badge } from '../../styles/styled_global';
 import { GameDetail, StyledSVG } from '../../styles/styled_product';
+import Fade from 'react-reveal/Fade';
 
 import cart from '../../../assets/img/cart.svg'
 import joystick from '../../../assets/img/joystick.svg'
@@ -53,10 +54,14 @@ export const ProductDetail = ({ product }) => {
 
 	return (
 		<GameDetail>
-			<div className="game__img">
-				<img src={product.images[currentImg] ? product.images[currentImg].url
-					: IMAGE_NOT_FOUND} onClick={handleImage} alt={`${product.name}`} />
-			</div>
+			<Fade duration={700}>
+				<div className="game__img">
+					<img src={product.images[currentImg] ? product.images[currentImg].url
+						: IMAGE_NOT_FOUND} onClick={handleImage} alt={`${product.name}`} />
+				</div>
+			</Fade>
+
+
 			<div className="game__info">
 				<h1 className="game__title">{product.name}</h1>
 				<ul className="game__categories">
@@ -105,6 +110,7 @@ export const ProductDetail = ({ product }) => {
 					<img className="game__payment-methods-icons" src="https://d31dn7nfpuwjnm.cloudfront.net/images/valoraciones/0033/3717/Que_tarjetas_acepta_Mercado_Pago.jpg?1552322626" alt="Medios de Pago" />
 				</div>
 			</div>
-		</GameDetail>
+
+		</GameDetail >
 	)
 }
