@@ -9,11 +9,11 @@ import Fade from 'react-reveal/Fade';
 
 const Mini = ({ productDetail }) => {
 	const dispatch = useDispatch()
-	const [wea, setWea] = useState(true);
+	const [effect, setEffect] = useState(true);
 
 
 	const handleClick = () => {
-		setWea(false);
+		setEffect(false);
 		setTimeout(() => {
 			dispatch(deleteItemCart(productDetail.id));
 			dispatch(deleteItemStock(productDetail.id));
@@ -22,7 +22,7 @@ const Mini = ({ productDetail }) => {
 	}
 
 	return (
-		<Fade duration={300} when={wea}>
+		<Fade duration={300} when={effect}>
 			<MiniCard key={productDetail.id}>
 				<div className='article__img'>
 					<img src={productDetail.images[0].url} />
