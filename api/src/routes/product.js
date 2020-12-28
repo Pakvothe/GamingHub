@@ -4,8 +4,13 @@ const { Product, Category, Image } = require('../db.js');
 //----------"/products"--------------
 
 server.get('/', (req, res, next) => {
-	const { query, order } = req.query;
-	console.log(req.query);
+	const { query, order, limit, offset } = req.query;
+
+	let count = 0;
+	Product.count()
+		.then(data => {
+			count = data;
+		})
 	Product.findAll({
 		include: [
 			{
@@ -15,10 +20,12 @@ server.get('/', (req, res, next) => {
 		order: [
 			(query && [query, order || 'ASC']) || ['id', 'ASC'],
 			[Image, 'id', 'ASC']
-		]
+		],
+		limit: limit ? limit : null,
+		offset: offset ? offset : null
 	})
 		.then((products) => {
-			res.send(products);
+			res.send({ count, results: products });
 		})
 		.catch(() => {
 			res.status(500).json({ message: "Internal server error" })
@@ -276,7 +283,6 @@ server.put('/:id', (req, res) => {
 			res.status(200).json(data)
 		})
 		.catch((err) => {
-			console.log(err);
 			if (err.message.includes('error 400')) {
 				return res.status(400).json({ message: 'Bad request' })
 			}

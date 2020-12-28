@@ -19,7 +19,7 @@ const initialState = {
 	products: {
 		isLoading: false,
 		productList: [],
-		error: false
+		error: false,
 	},
 	productDetail: {
 		isLoading: false,
@@ -29,8 +29,10 @@ const initialState = {
 	productsFilter: {
 		isLoading: false,
 		productList: [],
-		error: false
+		error: false,
+		filter: 'todos'
 	},
+	count: 0
 };
 
 const productsReducer = (state = initialState, action) => {
@@ -43,8 +45,9 @@ const productsReducer = (state = initialState, action) => {
 					productList: [
 						...state.products.productList,
 						action.payload
-					]
-				}
+					],
+				},
+				count: state.products.count + 1
 			}
 		case EDIT_PRODUCT:
 			return {
@@ -136,9 +139,10 @@ const productsReducer = (state = initialState, action) => {
 				...state,
 				products: {
 					isLoading: false,
-					productList: action.payload,
-					error: false
+					productList: action.payload.results,
+					error: false,
 				},
+				count: action.payload.count
 			}
 		case LOADING_FILTER_PRODUCTS:
 			return {
@@ -163,16 +167,19 @@ const productsReducer = (state = initialState, action) => {
 				...state,
 				productsFilter: {
 					isLoading: false,
-					productList: action.payload,
-					error: false
+					productList: action.payload.products,
+					error: false,
+					filter: action.payload.filter
 				},
+				count: action.payload.count
 			}
 		case EMPTY_FILTER:
 			return {
 				...state,
 				productsFilter: {
 					...state.productsFilter,
-					productList: []
+					productList: [],
+					filter: 'todos'
 				}
 			}
 		default: return state;
