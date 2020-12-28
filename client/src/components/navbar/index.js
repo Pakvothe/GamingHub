@@ -8,8 +8,8 @@ import SearchBar from '../search_bar';
 import CartSideBar from '../cart_sidebar';
 
 /* --- Actions --- */
-import { emptyFilter, getFilterProducts } from '../../redux/actions/products_actions';
-import { changeLanguage, toggleTheme } from './../../redux/actions/global_actions'
+import { emptyFilter, getFilterProducts, getProducts } from '../../redux/actions/products_actions';
+import { changeLanguage, resetCurrentPage, toggleTheme } from './../../redux/actions/global_actions'
 
 /* --- Logos --- */
 import logoDual from '../../assets/img/logo-dual.svg'
@@ -38,7 +38,9 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 	}
 
 	const handleCategories = (ev) => {
+		dispatch(resetCurrentPage())
 		if (ev.target.id === 'todos') {
+			dispatch(getProducts({ query: 'stock', order: 'DESC', limit: 8 }))
 			return dispatch(emptyFilter())
 		}
 		dispatch(getFilterProducts(ev.target.id));

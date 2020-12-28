@@ -44,7 +44,6 @@ export const setCart = () => {
 				dispatch({ type: SET_STOCK, payload: stock });
 			})
 			.catch(err => {
-				console.log(err);
 				dispatch({
 					type: ERROR_CART
 				})

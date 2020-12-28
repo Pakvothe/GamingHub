@@ -80,7 +80,6 @@ const AdminProductForm = ({ categories }) => {
 
 	const handleImagesAsFile = (e) => {
 		const images = [...e.target.files];
-		console.log(images)
 		let invalidFile = images.some(img => !img.type.includes('image'));
 		let invalidSize = images.some(img => img.size > 2097152);
 		if (invalidFile) {

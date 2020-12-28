@@ -4,14 +4,17 @@ import {
 	TOGGLE_THEME,
 	ADD_CREDIT_CARD,
 	LOADING,
-	ERROR
+	ERROR,
+	RESET_CURRENT_PAGE,
+	CHANGE_CURRENT_PAGE
 } from '../constants.js';
 
 const initialState = {
 	language: localStorage.getItem('language') || 'es',
 	showCart: false,
 	theme: localStorage.getItem('theme') || 'light',
-	credCard: {}
+	credCard: {},
+	currentPage: 0
 };
 
 const productsReducer = (state = initialState, action) => {
@@ -40,7 +43,16 @@ const productsReducer = (state = initialState, action) => {
 				...state,
 				credCard: action.payload
 			}
-
+		case RESET_CURRENT_PAGE:
+			return {
+				...state,
+				currentPage: 0
+			}
+		case CHANGE_CURRENT_PAGE:
+			return {
+				...state,
+				currentPage: action.payload
+			}
 		default: return state;
 	}
 }
