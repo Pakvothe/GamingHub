@@ -8,6 +8,7 @@ import cart from '../../assets/img/cart.svg'
 import { useDispatch, useSelector } from 'react-redux';
 import { addItemCart, editStock } from '../../redux/actions/cart_actions';
 import { toggleCart } from '../../redux/actions/global_actions';
+import Fade from 'react-reveal/Fade';
 
 const ProductCard = ({ game, language }) => {
 
@@ -29,25 +30,28 @@ const ProductCard = ({ game, language }) => {
 		}
 	};
 	return (
-		<ProductCardStyled className="card">
-			<div className="card__imgContainer">
-				<img className="card__img" src={game.images[0] ? game.images[0].url : IMAGE_NOT_FOUND} alt={game.name} />
-			</div>
-			<div className="card__content">
-				<h3 className="card__title">
-					{
-						game.name.length > 33 ? game.name.substring(0, 30) + '...' : (game.name)
-					}
-				</h3>
-				<p className="card__price">$ {game.price}</p>
-				{game.stock ?
-					<Btn className="btn-ppal btn-img" onClick={handleClick}>
-						{stock[game.id] >= 0 ? strings[language].already_in_cart : strings[language].add_to_cart}
-						<StyledSVG src={cart} />
-					</Btn> : <Badge>Sin stock</Badge>}
-			</div>
-			<Link to={`/products/${game.id}`} className="card__link">{strings[language].click_to_see}</Link>
-		</ProductCardStyled>)
+		<Fade>
+			<ProductCardStyled className="card">
+				<div className="card__imgContainer">
+					<img className="card__img" src={game.images[0] ? game.images[0].url : IMAGE_NOT_FOUND} alt={game.name} />
+				</div>
+				<div className="card__content">
+					<h3 className="card__title">
+						{
+							game.name.length > 33 ? game.name.substring(0, 30) + '...' : (game.name)
+						}
+					</h3>
+					<p className="card__price">$ {game.price}</p>
+					{game.stock ?
+						<Btn className="btn-ppal btn-img" onClick={handleClick}>
+							{stock[game.id] >= 0 ? strings[language].already_in_cart : strings[language].add_to_cart}
+							<StyledSVG src={cart} />
+						</Btn> : <Badge>Sin stock</Badge>}
+				</div>
+				<Link to={`/products/${game.id}`} className="card__link">{strings[language].click_to_see}</Link>
+			</ProductCardStyled>
+		</Fade>
+	)
 };
 
 export default ProductCard;
