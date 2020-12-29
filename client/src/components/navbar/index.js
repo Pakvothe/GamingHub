@@ -5,7 +5,7 @@ import { HashLink } from 'react-router-hash-link';
 import { NavbarStyled, StyledSVG } from '../styles/styled_navbar';
 import { Dropdown } from '../styles/styled_global';
 import SearchBar from '../search_bar';
-import Pulse from 'react-reveal/Pulse';
+import Fade from 'react-reveal/Fade';
 
 /* --- Actions --- */
 import { emptyFilter, getFilterProducts, getProducts } from '../../redux/actions/products_actions';
@@ -67,17 +67,15 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 								<StyledSVG src={languageIcon} />
 								<span>{strings[language].language}</span>
 								<ul onClick={(e) => handleClick(e)}>
-									<Pulse >
-										<li>
-											<a id="en" className={language === 'en' ? 'selected' : null}>
-												{strings[language].language_en}
-											</a> </li>
-										<li>
-											<a id="es" className={language === 'es' ? 'selected' : null}>
-												{strings[language].language_es}
-											</a>
-										</li>
-									</Pulse>
+									<li>
+										<a id="en" className={language === 'en' ? 'selected' : null}>
+											{strings[language].language_en}
+										</a> </li>
+									<li>
+										<a id="es" className={language === 'es' ? 'selected' : null}>
+											{strings[language].language_es}
+										</a>
+									</li>
 								</ul>
 							</Dropdown>
 							<Dropdown>
@@ -85,11 +83,10 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 								<span>{strings[language].user}</span>
 								<ul>
 									<li className="dropdown__first-name"><p>Emiliano</p></li>
-									<Pulse >
-										<li><Link to="/user">Perfil</Link></li>
-										<li><Link to="/signup">Registrarse</Link></li>
-										<li><Link to="/admin">Panel de Administración</Link></li>
-									</Pulse>
+
+									<li><Link to="/user">Perfil</Link></li>
+									<li><Link to="/signup">Registrarse</Link></li>
+									<li><Link to="/admin">Panel de Administración</Link></li>
 								</ul>
 							</Dropdown>
 							<li>
@@ -115,21 +112,17 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 							<Dropdown>
 								<span >{strings[language].categories}</span>
 								<ul className="dropdown-columns" onClick={(e) => handleCategories(e)}>
-									<Pulse>
-										<li><HashLink id="todos" to="#catalog">TODOS</HashLink></li>
-									</Pulse>
+									<li><HashLink id="todos" to="#catalog">TODOS</HashLink></li>
 									{!!categories.length && categories.map(category => (
-										<Pulse >
-											<li key={category.id}>
-												<HashLink
-													id={category[`name_${language}`]}
-													to="/#catalog"
-													scroll={(el) => el.scrollIntoView({ behavior: 'smooth', block: 'end' })}
-												>
-													{category[`name_${language}`].toUpperCase()}
-												</HashLink>
-											</li>
-										</Pulse>
+										<li key={category.id}>
+											<HashLink
+												id={category[`name_${language}`]}
+												to="/#catalog"
+												scroll={(el) => el.scrollIntoView({ behavior: 'smooth', block: 'end' })}
+											>
+												{category[`name_${language}`].toUpperCase()}
+											</HashLink>
+										</li>
 									))}
 								</ul>
 							</Dropdown>
