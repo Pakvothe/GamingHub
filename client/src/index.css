@@ -124,6 +124,7 @@ body {
 .button__top:hover {
 	background: var(--clr-primary);
 }
+
 .button__top svg {
 	fill: var(--clr-white);
 	width: 30px;

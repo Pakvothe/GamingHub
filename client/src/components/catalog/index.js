@@ -10,7 +10,7 @@ import { changeCurrentPage } from '../../redux/actions/global_actions';
 //Styles =>
 import arrowLeft from '../../assets/img/arrow-left.svg';
 import arrowRight from '../../assets/img/arrow-right.svg';
-import { StyledSVG } from '../styles/styled_global';
+import { StyledLoader, StyledSVG } from '../styles/styled_global';
 
 const Catalog = ({ products, productsFilter, isLoading, error, language, limit }) => {
 	const count = useSelector(state => state.productsReducer.count)
@@ -19,11 +19,9 @@ const Catalog = ({ products, productsFilter, isLoading, error, language, limit }
 	const dispatch = useDispatch()
 
 
-	if (isLoading) return <h1 className="main-title">{strings[language].loading}</h1>;
-
 	if (error) return <h1 className="main-title">ERROR</h1>
 
-	if (!products.length) return <h1 className="main-title">{strings[language].no_products}</h1>
+	if (!isLoading && !products.length) return <h1 className="main-title">{strings[language].no_products}</h1>
 
 	const handlePageChange = (ev) => {
 		const offset = limit * ev.selected
@@ -36,36 +34,44 @@ const Catalog = ({ products, productsFilter, isLoading, error, language, limit }
 	}
 	return (
 		<>
-			<CatalogStyled id="catalog" >
-				{productsFilter.length ? productsFilter.map(product => {
-					if (product.is_active) {
-						return <ProductCard language={language} game={product} key={product.id} />
-					}
-				}) : products.map(product => {
-					if (product.is_active) {
-						return <ProductCard language={language} game={product} key={product.id} />
-					}
-				})}
-			</CatalogStyled>
-			<PaginationStyled>
-				<ReactPaginate
-					forcePage={currentPage}
-					pageCount={Math.ceil(count / limit)}
-					marginPagesDisplayed={2}
-					pageRangeDisplayed={5}
-					onPageChange={handlePageChange}
-					previousLabel={<StyledSVG src={arrowLeft} />}
-					nextLabel={<StyledSVG src={arrowRight} />}
-					breakLabel={'...'}
-					breakClassName={'break-me'}
-					containerClassName={'pagination'}
-					subContainerClassName={'pages pagination'}
-					activeClassName={'active'}
-					disabledClassName={'disabled'}
-					previousClassName={'controls'}
-					nextClassName={'controls'}
-				/>
-			</PaginationStyled>
+			<StyledLoader
+				active={isLoading}
+				spinner
+				text={strings[language].loading}
+				className='loading__overlay'
+				classNamePrefix='loading__'
+			>
+				<CatalogStyled id="catalog" >
+					{productsFilter.length ? productsFilter.map(product => {
+						if (product.is_active) {
+							return <ProductCard language={language} game={product} key={product.id} />
+						}
+					}) : products.map(product => {
+						if (product.is_active) {
+							return <ProductCard language={language} game={product} key={product.id} />
+						}
+					})}
+				</CatalogStyled>
+				<PaginationStyled>
+					<ReactPaginate
+						forcePage={currentPage}
+						pageCount={Math.ceil(count / limit)}
+						marginPagesDisplayed={2}
+						pageRangeDisplayed={5}
+						onPageChange={handlePageChange}
+						previousLabel={<StyledSVG src={arrowLeft} />}
+						nextLabel={<StyledSVG src={arrowRight} />}
+						breakLabel={'...'}
+						breakClassName={'break-me'}
+						containerClassName={'pagination'}
+						subContainerClassName={'pages pagination'}
+						activeClassName={'active'}
+						disabledClassName={'disabled'}
+						previousClassName={'controls'}
+						nextClassName={'controls'}
+					/>
+				</PaginationStyled>
+			</StyledLoader>
 		</>
 	);
 }

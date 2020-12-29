@@ -6,6 +6,7 @@ export const CatalogStyled = styled.div`
 	justify-content: center;
 	flex-wrap: wrap;
 	gap: 2em;
+	min-height: 700px;
 `;
 
 export const SelectStyled = styled.select`
