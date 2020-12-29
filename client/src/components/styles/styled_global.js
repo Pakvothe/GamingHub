@@ -3,6 +3,8 @@ import SVG from 'react-inlinesvg';
 import arrow from '../../assets/img/arrow-down.svg';
 import checkboxUnchecked from '../../assets/img/checkbox-unchecked-purple.svg'
 import checkboxChecked from '../../assets/img/checkbox-checked-purple.svg'
+import LoadingOverlay from 'react-loading-overlay';
+
 
 // Estilos globales para habilitar el dark mode:
 export const GlobalStyle = createGlobalStyle`
@@ -67,6 +69,13 @@ export const GlobalStyle = createGlobalStyle`
 			}
 
 		}
+		.loading__overlay {
+			background-color: ${({ theme }) => theme.loadingBg};
+		}
+		.loading__content{
+			color: ${({ theme }) => theme.loadingColor};
+		}
+
 	}
 `
 
@@ -538,6 +547,23 @@ export const Badge = styled.span`
 	color: #fff;
 	text-align: center;
 	border-radius: .25rem;
+`
+
+export const StyledLoader = styled(LoadingOverlay)`
+
+	.loading__spinner {
+		width: 100px;
+		& svg circle { stroke: var(--clr-primary)}
+	}
+
+	.loading__content {
+		position: absolute;
+		top: 50px;
+		left: 50%;
+		transform: translateX(-50%);
+		font-size: 2em;
+		font-weight: 900;
+	}
 `
 
 export const StyledSVG = styled(SVG)`
