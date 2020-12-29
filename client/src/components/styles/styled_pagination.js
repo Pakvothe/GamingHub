@@ -17,23 +17,24 @@ export const PaginationStyled = styled.nav`
 	}
 
 	li {
-		display: flex;
-		align-items: center;
-		justify-content: center;
 		margin: 0 0.5em;
 		cursor: pointer;
 		list-style: none;
-		width: 2.5em;
-		height: 2.5em;
-		border-radius: 99em;
-		border: 2px solid transparent;
-
-		&:hover{
-			border-color: var(--clr-primary);
+		a{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 2.5em;
+			height: 2.5em;
+			border-radius: 99em;
+			border: 2px solid transparent;
+			&:hover{
+				border-color: var(--clr-primary);
+			}
 		}
 	}
 
-	li:focus{
+	li:focus, a:focus{
 		outline: none;
 	}
 
@@ -49,14 +50,12 @@ export const PaginationStyled = styled.nav`
 		}
 
 		&:hover{
-			svg {
-			fill: var(--clr-primary);
-			}
+			svg { fill: var(--clr-primary); }
+			a { border: none; }
 		}
 	}
 
 	.active{
-		padding: .5em;
 		background: var(--clr-primary);
 		color: var(--clr-white);
 		z-index: 80;
@@ -65,16 +64,13 @@ export const PaginationStyled = styled.nav`
 	}
 	.disabled{
 		cursor: default;
-
 		svg {
 			fill: var(--clr-dark);
 			width: 3em;
 			height: 3em;
 		}
 		&:hover{
-			svg {
-			fill: var(--clr-dark);
-			}
+			svg { fill: var(--clr-dark); }
 		}
 	}
 `
