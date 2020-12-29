@@ -10,6 +10,7 @@ export const NavbarStyled = styled.nav`
 	a {
 		text-decoration: none;
 		color: currentColor;
+		font-weight: 500;
 
 		&:hover { color: var(--clr-primary) }
 	}
