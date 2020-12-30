@@ -16,7 +16,9 @@ export const lightTheme = {
 	tableBtnHoverText: 'var(--clr-white)',
 
 	loadingBg: 'rgba(245, 244, 248, .8)',
-	loadingColor: 'var(--clr-dark)'
+	loadingColor: 'var(--clr-dark)',
+
+	reviewColor: 'var(--clr-dark)'
 }
 
 export const darkTheme = {
@@ -37,5 +39,7 @@ export const darkTheme = {
 	tableBtnHoverText: 'var(--clr-dark)',
 
 	loadingBg: 'rgba(44, 47, 49, .8)',
-	loadingColor: 'var(--clr-white)'
+	loadingColor: 'var(--clr-white)',
+
+	reviewColor: 'var(--clr-white)'
 }

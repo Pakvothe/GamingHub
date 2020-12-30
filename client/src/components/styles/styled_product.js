@@ -85,10 +85,6 @@ export const GameDetail = styled.section`
 	.game__quantity {
 		margin-top: 2em;
 
-		span:last-of-type {
-			margin-left: 1em;
-		}
-
 		span:first-child {
 			margin-right: 1em;
 		}
