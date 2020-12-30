@@ -15,7 +15,7 @@ import arrowUp from '../../assets/img/arrow-up.svg';
 
 /* --- Styles --- */
 import { StyledSVG } from '../styles/styled_global';
-import { resetCurrentPage } from '../../redux/actions/global_actions'
+import { changeCurrentPage, resetCurrentPage } from '../../redux/actions/global_actions'
 
 const HomePage = () => {
 
@@ -23,6 +23,7 @@ const HomePage = () => {
 	const language = useSelector(state => state.globalReducer.language);
 	const products = useSelector(state => state.productsReducer.products.productList);
 	const productsFilter = useSelector(state => state.productsReducer.productsFilter.productList);
+	const filter = useSelector(state => state.productsReducer.productsFilter.filter)
 	const categories = useSelector(state => state.categoriesReducer.categories.list);
 	const loadingProducts = useSelector(state => state.productsReducer.products.isLoading);
 	const errorProducts = useSelector(state => state.productsReducer.products.error);
@@ -68,16 +69,25 @@ const HomePage = () => {
 		document.documentElement.scrollTop = 0;
 	}
 
+	const handlePageChange = (ev) => {
+		const offset = limitPerPage * ev.selected
+		dispatch(changeCurrentPage(ev.selected));
+		if (productsFilter.length) {
+			dispatch(getFilterProducts(filter, { limit: limitPerPage, offset }))
+		} else {
+			dispatch(getProducts({ query: 'stock', order: 'DESC', limit: limitPerPage, offset }))
+		}
+	}
+
 	return (
 		<div>
 			<h1 className="main-title">{strings[language].main_header}</h1>
 			<SelectCategories language={language} categories={categories} handleSelect={handleSelect} />
-			<Catalog products={products}
-				productsFilter={productsFilter}
+			<Catalog products={productsFilter.length ? productsFilter : products}
 				language={language}
 				isLoading={loadingProducts}
 				error={errorProducts}
-				limit={limitPerPage}
+				handlePageChange={handlePageChange}
 			/>
 			<button ref={scrollButton} className="button__top" onClick={scrollToTop}>
 				<StyledSVG src={arrowUp} />

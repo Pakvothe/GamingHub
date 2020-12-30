@@ -38,6 +38,22 @@ const StyledFooter = styled.footer`
 	}
 
 	svg { fill: var(--clr-white) }
+
+	.navbar__top {
+		display: none;
+	}
+
+	@media (max-width: 1000px){
+		ul {
+			flex-direction: column;
+			&>li + li{
+				margin: 1em 0 0;
+			}
+		}
+		.navbar__top {
+			display: block;
+		}
+	}
 `
 
 export default StyledFooter;

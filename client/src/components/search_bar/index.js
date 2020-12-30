@@ -21,7 +21,7 @@ const SearchBar = () => {
 	const handleSubmit = (ev) => {
 		ev.preventDefault();
 		setInputText('');
-		dispatch(getSearchProducts(inputText.trim()));
+		dispatch(getSearchProducts(inputText.trim()), {});
 		history.push('/search');
 	};
 	return (

@@ -8,8 +8,14 @@ const Footer = () => {
 	return (
 		<StyledFooter>
 			<StyledSVG src={logo} />
+			<nav className="navbar__top">
+				<ul>
+					<li><Link to="/categories">Categorias</Link></li>
+					<li><Link to="">Ofertas</Link></li>
+				</ul>
+			</nav>
 
-			<nav>
+			<nav className="navbar__bottom">
 				<ul>
 					<li><Link to="">Términos y condiciones</Link></li>
 					<li><Link to="">Privacidad</Link></li>
