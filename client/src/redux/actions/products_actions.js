@@ -126,17 +126,16 @@ export const getFilterProducts = (payload, options) => {
 }
 
 export const getSearchProducts = (payload, options) => {
-
 	let limit = '', offset = '';
 
 	if (options) {
-		limit = options.limit ? '?limit=' + options.limit : limit;
+		limit = options.limit ? '&limit=' + options.limit : limit;
 		offset = options.offset ? '&offset=' + options.offset : offset;
 	}
 
 	return function (dispatch) {
 		dispatch({ type: LOADING_FILTER_PRODUCTS });
-		return axios.get(`${REACT_APP_API_URL}/products/search?query=${payload}`)
+		return axios.get(`${REACT_APP_API_URL}/products/search?query=${payload}${limit}${offset}`)
 			.then(products => {
 
 				dispatch({

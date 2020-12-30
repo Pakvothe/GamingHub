@@ -28,7 +28,7 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 	const language = useSelector(state => state.globalReducer.language);
 	const categories = useSelector(state => state.categoriesReducer.categories.list);
 	const theme = useSelector(state => state.globalReducer.theme)
-	const [width, setWidth] = useState(0)
+
 	const number = cartNumber.reduce((acc, prod) => {
 		acc = acc + prod.quantity
 		return acc;
@@ -58,7 +58,10 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 				<div className="wrapper">
 					<div className="navbar__top">
 						<div className="navbar__logo">
-							<Link to='/' onClick={() => dispatch(emptyFilter())}>
+							<Link to='/' onClick={() => {
+								dispatch(emptyFilter())
+								dispatch(getProducts())
+							}}>
 								<StyledSVG src={logoDual} />
 							</Link>
 

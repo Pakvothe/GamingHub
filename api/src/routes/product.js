@@ -124,7 +124,15 @@ server.get('/search', (req, res) => {
 	if (query) {
 
 		let count = 0;
-		Product.count()
+		Product.count({
+			where: {
+				[Op.or]: [
+					{ name: { [Op.iLike]: `%${query}%` } },
+					{ description_es: { [Op.iLike]: `%${query}%` } },
+					{ description_en: { [Op.iLike]: `%${query}%` } }
+				]
+			}
+		})
 			.then(data => {
 				count = data;
 			})
