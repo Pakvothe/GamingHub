@@ -120,8 +120,16 @@ server.post('/', (req, res) => {
 })
 
 server.get('/search', (req, res) => {
-	const { query } = req.query;
+	const { query, limit, offset } = req.query;
 	if (query) {
+
+		let count = 0;
+		Product.count()
+			.then(data => {
+				count = data;
+			})
+
+
 		Product.findAll({
 			where: {
 				[Op.or]: [
@@ -132,10 +140,12 @@ server.get('/search', (req, res) => {
 			},
 			include: [{
 				model: Image,
-			}]
+			}],
+			limit: limit ? limit : null,
+			offset: offset ? offset : null
 		})
 			.then((products) => {
-				res.status(200).json(products);
+				res.status(200).json({ count, results: products });
 			})
 			.catch(err => {
 				res.status(500).json({ message: 'Internal server error', })

@@ -89,6 +89,28 @@ export const NavbarStyled = styled.nav`
 			& > li + li { margin-left: 3em; }
 		}
 	}
+	@media (max-width: 1000px){
+		.navbar__top{
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			margin-bottom: 0;
+			form {
+				flex-basis: 0;
+			}
+			.navbar__logo{
+				margin-bottom: 2em;
+				flex-basis: 0;
+			}
+			.navbar__options{
+				flex-basis: 0;
+				margin: 2em 0 0;
+			}
+		}
+		.navbar__bottom{
+			display: none;
+		}
+	}
 `
 
 export const StyledSVG = styled(SVG)`

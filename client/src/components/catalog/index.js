@@ -12,26 +12,13 @@ import arrowLeft from '../../assets/img/arrow-left.svg';
 import arrowRight from '../../assets/img/arrow-right.svg';
 import { StyledLoader, StyledSVG } from '../styles/styled_global';
 
-const Catalog = ({ products, productsFilter, isLoading, error, language, limit }) => {
+const Catalog = ({ products, isLoading, error, language, handlePageChange }) => {
 	const count = useSelector(state => state.productsReducer.count)
-	const filter = useSelector(state => state.productsReducer.productsFilter.filter)
 	const currentPage = useSelector(state => state.globalReducer.currentPage);
-	const dispatch = useDispatch()
-
 
 	if (error) return <h1 className="main-title">ERROR</h1>
 
 	if (!isLoading && !products.length) return <h1 className="main-title">{strings[language].no_products}</h1>
-
-	const handlePageChange = (ev) => {
-		const offset = limit * ev.selected
-		dispatch(changeCurrentPage(ev.selected));
-		if (productsFilter.length) {
-			dispatch(getFilterProducts(filter, { limit: limit, offset }))
-		} else {
-			dispatch(getProducts({ query: 'stock', order: 'DESC', limit: limit, offset }))
-		}
-	}
 	return (
 		<>
 			<StyledLoader
@@ -42,11 +29,7 @@ const Catalog = ({ products, productsFilter, isLoading, error, language, limit }
 				classNamePrefix='loading__'
 			>
 				<CatalogStyled id="catalog" >
-					{productsFilter.length ? productsFilter.map(product => {
-						if (product.is_active) {
-							return <ProductCard language={language} game={product} key={product.id} />
-						}
-					}) : products.map(product => {
+					{products && products.map(product => {
 						if (product.is_active) {
 							return <ProductCard language={language} game={product} key={product.id} />
 						}
@@ -55,7 +38,7 @@ const Catalog = ({ products, productsFilter, isLoading, error, language, limit }
 				<PaginationStyled>
 					<ReactPaginate
 						forcePage={currentPage}
-						pageCount={Math.ceil(count / limit)}
+						pageCount={Math.ceil(count / 8)}
 						marginPagesDisplayed={2}
 						pageRangeDisplayed={5}
 						onPageChange={handlePageChange}

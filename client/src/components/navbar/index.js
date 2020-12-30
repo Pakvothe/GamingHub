@@ -28,6 +28,7 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 	const language = useSelector(state => state.globalReducer.language);
 	const categories = useSelector(state => state.categoriesReducer.categories.list);
 	const theme = useSelector(state => state.globalReducer.theme)
+	const [width, setWidth] = useState(0)
 	const number = cartNumber.reduce((acc, prod) => {
 		acc = acc + prod.quantity
 		return acc;
@@ -49,6 +50,7 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 	const handleTheme = () => {
 		dispatch(toggleTheme())
 	}
+
 
 	return (
 		<>
