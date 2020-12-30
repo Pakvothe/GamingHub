@@ -76,6 +76,11 @@ export const GlobalStyle = createGlobalStyle`
 			color: ${({ theme }) => theme.loadingColor};
 		}
 
+		.reviews__filter button,
+		.reviews__filter button::after
+		 {
+			color: ${({ theme }) => theme.reviewColor};
+		}
 	}
 `
 
@@ -565,6 +570,39 @@ export const StyledLoader = styled(LoadingOverlay)`
 		font-weight: 900;
 	}
 `
+
+export const StyledTitle = styled.h2`
+		text-align: center;
+		text-transform: uppercase;
+		font-size: 1.75em;
+		margin-bottom: 1.5em;
+
+		span {
+			position: relative;
+			display: inline-block;
+
+			&::before {
+				content: '';
+				height: 1px;
+				background: #555;
+				position: absolute;
+				left: -100%;
+				top: 50%;
+				width: 95%;
+			}
+
+			&::after {
+				content: '';
+				height: 1px;
+				background: #555;
+				position: absolute;
+				right: -100%;
+				top: 50%;
+				width: 95%;
+			}
+		}
+`
+
 
 export const StyledSVG = styled(SVG)`
 `
