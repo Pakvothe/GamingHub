@@ -460,16 +460,14 @@ export const Dropdown = styled.li`
 		columns: 3;
 		column-rule: 1px solid #ccc;
 		padding: 1em;
+
 		li {
 			break-inside: avoid;
 			-webkit-column-break-inside: avoid;
 			page-break-inside: avoid;
-			a{
-				border-radius: .4em;
-			}
-			&:last-of-type a {
-				border-radius: .4em;
-			}
+
+			a{ border-radius: .4em }
+			&:last-of-type a { border-radius: .4em }
 		}
 	}
 
@@ -489,7 +487,7 @@ export const Dropdown = styled.li`
 		font-size: 0.9em;
 		color: var(--clr-dark);
 		background-color: var(--clr-white);
-		box-shadow: 0 0 10px black;
+		box-shadow: 0 0 20px rgba(0,0,0,.7);
 		border-radius: .4em;
 		z-index: 10;
 
@@ -545,13 +543,38 @@ export const Dropdown = styled.li`
 
 export const Badge = styled.span`
 	display: inline-block;
-	background-color: var(--clr-error);
+	min-width: 175px;
 	margin-top: 1em;
-	padding: .35em .65em;
+	padding: .7em 1.2em;
 	font-size: .75em;
-	color: #fff;
+	font-weight: 900;
 	text-align: center;
-	border-radius: .25rem;
+	color: var(--clr-white);
+	border-radius: 10em;
+
+	&.warning {
+		background-color: var(--clr-warning);
+	}
+	
+	&.error {
+		background-color: var(--clr-error);
+	}
+
+	&.success {
+		background-color: var(--clr-success);
+	}
+
+	&.secondary {
+		background-color: var(--clr-secondary);
+	}
+
+	&.dark {
+		background-color: var(--clr-dark);
+	}
+
+	&.small {
+		width: 50px;
+	}
 `
 
 export const StyledLoader = styled(LoadingOverlay)`
