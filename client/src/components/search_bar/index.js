@@ -5,6 +5,7 @@ import loupe from '../../assets/img/loupe.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { getSearchProducts } from '../../redux/actions/products_actions';
+import { resetCurrentPage } from '../../redux/actions/global_actions';
 
 
 const SearchBar = () => {
@@ -14,6 +15,8 @@ const SearchBar = () => {
 	const dispatch = useDispatch()
 	const language = useSelector(state => state.globalReducer.language)
 
+	const limitPerPage = 8;
+
 	const handleChange = (ev) => {
 		setInputText(ev.target.value);
 	};
@@ -21,8 +24,9 @@ const SearchBar = () => {
 	const handleSubmit = (ev) => {
 		ev.preventDefault();
 		setInputText('');
-		dispatch(getSearchProducts(inputText.trim()), {});
-		history.push('/search');
+		dispatch(getSearchProducts(inputText.trim(), { limit: limitPerPage }));
+		dispatch(resetCurrentPage())
+		history.push(`/search?query=${inputText.trim().toLowerCase()}`);
 	};
 	return (
 		<FormSearchBar onSubmit={handleSubmit}>

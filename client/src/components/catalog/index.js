@@ -3,10 +3,8 @@ import ProductCard from '../product_card'
 import { CatalogStyled } from './../styles/styled_catalog';
 import strings from './strings';
 import ReactPaginate from 'react-paginate';
-import { useDispatch, useSelector } from 'react-redux';
-import { getFilterProducts, getProducts } from '../../redux/actions/products_actions';
+import { useSelector } from 'react-redux';
 import { PaginationStyled } from '../styles/styled_pagination';
-import { changeCurrentPage } from '../../redux/actions/global_actions';
 //Styles =>
 import arrowLeft from '../../assets/img/arrow-left.svg';
 import arrowRight from '../../assets/img/arrow-right.svg';
