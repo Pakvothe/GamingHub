@@ -2,22 +2,25 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { StyledCarousel } from '../styles/styled_carousel.js';
 import { Carousel } from 'react-responsive-carousel';
+import Cyberpunk from '../../assets/img/slider_img/Cyberpunk.png';
+import FFVII from '../../assets/img/slider_img/FFVII.jpg';
+import Fifa2021 from '../../assets/img/slider_img/Fifa2021.jpg';
 
 const DemoCarousel = () => {
 	return (
 		<StyledCarousel>
-			<Carousel showArrows={true} showThumbs={false} autoPlay={true} infiniteLoop={true} transitionTime={450} showStatus={false} dynamicHeight={true}>
-				<div>
-					<img src='https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/media/image/2020/02/final-fantasy-vii-remake-1879909.jpg' />
-					<Link to='/products/1' className='legend link-styles'>Final Fantasy VII Remake</Link>
+			<Carousel showArrows={false} showThumbs={false} autoPlay={true} infiniteLoop={true} transitionTime={450} showStatus={false} dynamicHeight={true}>
+				<div className="slider__img-container">
+					<Link to='/products/1' className='slider__link' />
+					<img src={FFVII} />
 				</div>
-				<div>
-					<img src='https://wallpapercave.com/wp/wp6710683.jpg' />
-					<Link to='/products/2' className='legend link-styles'>FIFA 21</Link>
+				<div className="slider__img-container">
+					<Link to='/products/2' className="slider__link" />
+					<img src={Fifa2021} />
 				</div>
-				<div>
-					<img src='https://images5.alphacoders.com/927/thumb-1920-927025.png' />
-					<Link to='/products/3' className='legend link-styles'>Cyberpunk 2077</Link>
+				<div className="slider__img-container">
+					<Link to='/products/3' className='slider__link' />
+					<img src={Cyberpunk} />
 				</div>
 			</Carousel>
 		</StyledCarousel>

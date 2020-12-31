@@ -46,7 +46,7 @@ const ProductCard = ({ game, language }) => {
 						<Btn className="btn-ppal btn-img" onClick={handleClick}>
 							{stock[game.id] >= 0 ? strings[language].already_in_cart : strings[language].add_to_cart}
 							<StyledSVG src={cart} />
-						</Btn> : <Badge>Sin stock</Badge>}
+						</Btn> : <Badge className="card__noStock error">Sin stock</Badge>}
 				</div>
 				<Link to={`/products/${game.id}`} className="card__link">{strings[language].click_to_see}</Link>
 			</ProductCardStyled>

@@ -116,5 +116,10 @@ export const ProductCardStyled = styled.article`
 		margin-top: auto;
 		margin-bottom: .5em;
 		z-index: 10;
-    }
+	}
+	
+	.card__noStock {
+		margin-top: auto;
+		margin-bottom: .5em;
+	}
 `;

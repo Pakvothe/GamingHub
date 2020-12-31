@@ -95,7 +95,7 @@ export const ProductDetail = ({ product }) => {
 						</>
 					}
 					<div className="game__purchase-container">
-						{(!product.stock || stock[product.id] === 0) && <Badge>Sin stock</Badge>}
+						{(!product.stock || stock[product.id] === 0) && <Badge className="error small">Sin stock</Badge>}
 						{!!product.stock && stock[product.id] !== 0 &&
 							<div className="game__buttons">
 								<Btn className="btn-ppal btn-img">
