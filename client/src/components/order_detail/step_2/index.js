@@ -11,14 +11,21 @@ const Step2 = ({ cart }) => {
 	const dispatch = useDispatch();
 	const history = useHistory();
 
-	const handleSubmit = (credCard) => {
-		dispatch(addCreditCard(credCard));
-		history.push('/order/detail')
+	const handleSubmit = (e, credCard) => {
+		e.preventDefault();
+		const { expiry, cvc, number, name } = credCard;
+		if (expiry.length === 4 && cvc.length === 3 && number.length === 16 && name.includes(' ')) {
+			dispatch(addCreditCard(credCard));
+			history.push('/order/detail')
+		} else {
+			alert('Datos erróneos')
+		}
 	}
 
 	if (cart.length < 1) {
 		return <Redirect to='/' />
 	}
+
 	return (
 		<>
 			<h2>Datos de pago</h2>
