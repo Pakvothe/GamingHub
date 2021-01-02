@@ -187,6 +187,7 @@ export const getProducts = (payload) => {
 		dispatch({ type: LOADING_PRODUCTS });
 		return axios.get(`${REACT_APP_API_URL}/products${queries}${order}${limit}${offset}`)
 			.then(product => {
+				console.log(product.data)
 				dispatch({
 					type: GET_PRODUCTS,
 					payload: product.data

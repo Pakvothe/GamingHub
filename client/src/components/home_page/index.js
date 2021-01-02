@@ -34,14 +34,6 @@ const HomePage = () => {
 
 	const limitPerPage = 8;
 
-	useEffect(() => {
-		if (!products.length) {
-			dispatch(getProducts(getProductsPayload));
-		}
-		if (!categories.length) {
-			dispatch(getCategories());
-		}
-	}, [])
 
 	const handleSelect = (e) => {
 		dispatch(resetCurrentPage())
