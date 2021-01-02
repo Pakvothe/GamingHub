@@ -10,20 +10,20 @@ server.get('/', (req, res, next) => {
 	Product.count()
 		.then(data => {
 			count = data;
+			return Product.findAll({
+				include: [
+					{
+						model: Image,
+					}
+				],
+				order: [
+					(query && [query, order || 'ASC']) || ['id', 'ASC'],
+					[Image, 'id', 'ASC']
+				],
+				limit: limit ? limit : null,
+				offset: offset ? offset : null
+			})
 		})
-	Product.findAll({
-		include: [
-			{
-				model: Image,
-			}
-		],
-		order: [
-			(query && [query, order || 'ASC']) || ['id', 'ASC'],
-			[Image, 'id', 'ASC']
-		],
-		limit: limit ? limit : null,
-		offset: offset ? offset : null
-	})
 		.then((products) => {
 			res.send({ count, results: products });
 		})
