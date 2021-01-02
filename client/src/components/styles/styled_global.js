@@ -199,6 +199,52 @@ export const DataTable = styled.table`
 
 export const FormStyled = styled.form`
 
+	.image__container {
+		width: 400px;
+	}
+
+	.image_thumbnail {
+		position: relative;
+		display: inline-block;
+		height: 5em;
+		width: 5em;
+		margin-right: 1em;
+		margin-bottom: 1em;
+		overflow: hidden;
+		border-radius: 10px;
+		cursor: pointer;
+
+		.delete__image {
+			pointer-events: none;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			position: absolute;
+			color: white;
+			font-size: 0.8em;
+			font-weight: 900;
+			padding: 0.5em;
+			top: 0;
+			bottom: 0;
+			right: 0;
+			left: 0;
+			background-color: rgba(0,0,0,0.7);
+			opacity: 0;
+		} 
+
+		&:hover {
+			.delete__image {
+				opacity: 1;
+			}
+		}
+
+		img {
+			height: 100%;
+			width: 100%;
+			object-fit: cover;
+		}
+	}
+
 	.form__title {
 		margin-bottom: 1em;
 	}
