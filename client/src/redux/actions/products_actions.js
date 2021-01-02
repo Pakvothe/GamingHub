@@ -13,7 +13,8 @@ import {
 	LOADING_PRODUCTS,
 	GET_FILTER_PRODUCTS_ERROR,
 	GET_PRODUCTS_ERROR,
-	TOGGLE_ACTIVE_PRODUCT
+	TOGGLE_ACTIVE_PRODUCT,
+	DELETE_IMAGE
 } from './../constants';
 
 const { REACT_APP_API_URL } = process.env;
@@ -197,5 +198,15 @@ export const getProducts = (payload) => {
 					type: GET_PRODUCTS_ERROR
 				})
 			})
+	}
+}
+
+export const deleteImage = (payload) => { //payload = product.id
+	return function (dispatch) {
+		return axios.delete(`${REACT_APP_API_URL}/products/image/${payload.id}`)
+			.then(() => {
+				dispatch(getProduct(payload.productId))
+			})
+			.catch() //check errors
 	}
 }

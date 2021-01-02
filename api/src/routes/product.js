@@ -272,17 +272,8 @@ server.put('/:id', (req, res) => {
 			})
 		})
 		.then(() => {
-			return Image.destroy({
-				where: {
-					productId: product.id
-				}
-			})
-		})
-		.then(() => {
-			return Image.create({
-				url: img,
-				productId: product.id
-			})
+			let images = img.map(url => ({ url, productId: product.id }))
+			return Image.bulkCreate(images)
 		})
 		.then(() => {
 			return Product.findOne({
@@ -390,4 +381,22 @@ server.get('/:id', (req, res) => {
 			});
 		});
 });
+
+server.delete('/image/:id', (req, res) => {
+	const imgId = req.params.id;
+	Image.destroy({
+		where: { id: imgId },
+	}).then(data => {
+		if (!data) {
+			res.status(404).json({ message: 'Image not found.' })
+		} else {
+			res.status(200).json({ message: 'Image deleted.' })
+		}
+	}).catch(() => {
+		res.status(500).json({
+			message: 'Internal server error',
+		})
+	});
+});
+
 module.exports = server;

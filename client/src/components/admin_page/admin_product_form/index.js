@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { addProduct, getProduct } from '../../../redux/actions/products_actions'
+import { addProduct, getProduct, editProduct, deleteImage } from '../../../redux/actions/products_actions'
 
 import { Btn, CheckboxLabel, FormStyled } from '../../styles/styled_global'
 import { Redirect, useParams } from 'react-router-dom';
@@ -33,7 +33,8 @@ const AdminProductForm = ({ categories }) => {
 
 	useEffect(() => {
 		if (input.img.length === imagesAsFile.length && input.img.length > 0) {
-			dispatch(addProduct(input));
+			id ? dispatch(editProduct(input)) : dispatch(addProduct(input));
+			setToAdmin(true);
 		}
 	}, [input.img]);
 
@@ -41,12 +42,11 @@ const AdminProductForm = ({ categories }) => {
 		if (id) dispatch(getProduct(id));
 	}, []);
 
-
 	useEffect(() => {
 		if (id && Object.keys(product).length) {
-
 			const newCategories = product.categories.reduce((acc, cat) => {
-				acc[cat.id] = true; return acc;
+				acc[cat.id] = true;
+				return acc;
 			}, {});
 
 			setInput({
@@ -55,11 +55,10 @@ const AdminProductForm = ({ categories }) => {
 				description_es: product.description_es,
 				description_en: product.description_en,
 				price: product.price,
-				img: product.images[0].url,
+				img: [],
 				is_active: product.is_active,
 				categories: newCategories
 			})
-
 		}
 	}, [product]);
 
@@ -83,12 +82,12 @@ const AdminProductForm = ({ categories }) => {
 		let invalidFile = images.some(img => !img.type.includes('image'));
 		let invalidSize = images.some(img => img.size > 2097152);
 		if (invalidFile) {
-			alert('Only images are allowed');
+			alert('Sólo se aceptan imágenes');
 			fileInput.current.value = '';
 			return;
 		}
 		if (invalidSize) {
-			alert('Only images below 2mb are allowed');
+			alert('Sólo imágenes menores a 2mb');
 			fileInput.current.value = '';
 			return;
 		}
@@ -107,6 +106,12 @@ const AdminProductForm = ({ categories }) => {
 	}
 	const handleSubmit = (ev) => {
 		ev.preventDefault();
+
+		if (id && !imagesAsFile.length) {
+			dispatch(editProduct(input));
+			return setToAdmin(true);
+		};
+
 		imagesAsFile.map(imageAsFile => {
 
 			if (imageAsFile === '') {
@@ -125,8 +130,6 @@ const AdminProductForm = ({ categories }) => {
 							}))
 						})
 				})
-			// id ? dispatch(editProduct(input)) : dispatch(addProduct(input));
-			// setToAdmin(true);
 		})
 	}
 
@@ -164,8 +167,18 @@ const AdminProductForm = ({ categories }) => {
 						</label>
 						<label>
 							<span>Imagen:</span>
-							<input ref={fileInput} type='file' name='img' onChange={handleImagesAsFile} multiple required />
+							<input ref={fileInput} type='file' name='img' onChange={handleImagesAsFile} multiple required={id ? false : true} />
 						</label>
+						<br />
+						{id && product.images?.length > 0 &&
+							product.images.map(image =>
+								<img src={image.url} width="100px" key={image.id} onClick={() => {
+									dispatch(deleteImage(image))
+									alert('Imagen borrada')
+								}} />
+							)}
+						<br />
+						<br />
 						<CheckboxLabel className="no-shadow check" checked={input.is_active}>
 							<input
 								type='checkbox'

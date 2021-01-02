@@ -27,6 +27,8 @@ export const GET_PRODUCT = 'GET_PRODUCT';
 export const TOGGLE_ACTIVE_PRODUCT = 'TOGGLE_ACTIVE_PRODUCT';
 export const GET_PRODUCT_ERROR = 'GET_PRODUCT_ERROR';
 
+export const DELETE_IMAGE = 'DELETE_IMAGE';
+
 //Category actions =>
 export const GET_CATEGORIES = 'GET_CATEGORIES';
 export const GET_CATEGORY = 'GET_CATEGORY';
