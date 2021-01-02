@@ -17,6 +17,8 @@ import arrowUp from '../../assets/img/arrow-up.svg';
 import { StyledSVG } from '../styles/styled_global';
 import { changeCurrentPage, resetCurrentPage } from '../../redux/actions/global_actions'
 
+export const getProductsPayload = { query: 'stock', order: 'DESC', limit: 8 };
+
 const HomePage = () => {
 
 	const dispatch = useDispatch();
@@ -34,7 +36,7 @@ const HomePage = () => {
 
 	useEffect(() => {
 		if (!products.length) {
-			dispatch(getProducts({ query: 'stock', order: 'DESC', limit: 8 }));
+			dispatch(getProducts(getProductsPayload));
 		}
 		if (!categories.length) {
 			dispatch(getCategories());
@@ -45,7 +47,7 @@ const HomePage = () => {
 		dispatch(resetCurrentPage())
 		if (e.target.value === 'todos') {
 			dispatch(emptyFilter())
-			return dispatch(getProducts({ query: 'stock', order: 'DESC', limit: 8 }))
+			return dispatch(getProducts(getProductsPayload))
 		}
 		dispatch(getFilterProducts(e.target.value, { limit: 8 }));
 	}

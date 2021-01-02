@@ -22,6 +22,9 @@ import user from '../../assets/img/user.svg'
 /* --- Strings --- */
 import strings from './strings'
 
+/* --- Products Payload --- */
+import { getProductsPayload } from './../home_page/index';
+
 const Navbar = ({ toggleModal, cartNumber }) => {
 
 	const dispatch = useDispatch();
@@ -41,7 +44,7 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 	const handleCategories = (ev) => {
 		dispatch(resetCurrentPage())
 		if (ev.target.id === 'todos') {
-			dispatch(getProducts({ query: 'stock', order: 'DESC', limit: 8 }))
+			dispatch(getProducts(getProductsPayload))
 			return dispatch(emptyFilter())
 		}
 		dispatch(getFilterProducts(ev.target.id));
@@ -60,7 +63,7 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 						<div className="navbar__logo">
 							<Link to='/' onClick={() => {
 								dispatch(emptyFilter())
-								dispatch(getProducts())
+								dispatch(getProducts(getProductsPayload))
 							}}>
 								<StyledSVG src={logoDual} />
 							</Link>
