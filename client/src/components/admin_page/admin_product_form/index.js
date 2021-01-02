@@ -7,6 +7,7 @@ import { Btn, CheckboxLabel, FormStyled } from '../../styles/styled_global'
 import { Redirect, useParams } from 'react-router-dom';
 
 import { storage } from "../../../firebase/";
+import { useToasts } from 'react-toast-notifications';
 
 const AdminProductForm = ({ categories }) => {
 	const { id } = useParams();
@@ -18,6 +19,7 @@ const AdminProductForm = ({ categories }) => {
 	const isLoading = useSelector((state) => state.productsReducer.productDetail.isLoading);
 
 	const [toAdmin, setToAdmin] = useState(false);
+	const { addToast } = useToasts();
 
 	const fileInput = useRef(null);
 
@@ -34,6 +36,7 @@ const AdminProductForm = ({ categories }) => {
 	useEffect(() => {
 		if (input.img.length === imagesAsFile.length && input.img.length > 0) {
 			id ? dispatch(editProduct(input)) : dispatch(addProduct(input));
+			addToast(`product ${id ? "edited" : "added"} successfully`, { appearance: 'success' })
 			setToAdmin(true);
 		}
 	}, [input.img]);
@@ -109,6 +112,7 @@ const AdminProductForm = ({ categories }) => {
 
 		if (id && !imagesAsFile.length) {
 			dispatch(editProduct(input));
+			addToast(`product edited successfully`, { appearance: 'success' })
 			return setToAdmin(true);
 		};
 

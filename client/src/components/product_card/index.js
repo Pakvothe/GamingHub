@@ -9,11 +9,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addItemCart, editStock } from '../../redux/actions/cart_actions';
 import { toggleCart } from '../../redux/actions/global_actions';
 import Fade from 'react-reveal/Fade';
+import { useToasts } from 'react-toast-notifications';
 
 const ProductCard = ({ game, language }) => {
 
 	const dispatch = useDispatch();
 	const stock = useSelector(state => state.cartReducer.cart.stock);
+	const { addToast } = useToasts();
 	const handleClick = () => {
 		if (!stock[game.id] && stock[game.id] !== 0) {
 			let gameToDispatch = { ...game }
@@ -25,6 +27,8 @@ const ProductCard = ({ game, language }) => {
 				stock: game.stock
 			}
 			dispatch(editStock(payload));
+			addToast(game.name + ' added to cart', { appearance: 'success' })
+
 		} else {
 			dispatch(toggleCart())
 		}

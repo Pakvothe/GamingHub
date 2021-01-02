@@ -13,6 +13,7 @@ import { IMAGE_NOT_FOUND } from '../../../utils/constants';
 
 import strings from './strings.js'
 import { addItemCart, editStock } from '../../../redux/actions/cart_actions';
+import { useToasts } from 'react-toast-notifications';
 
 export const ProductDetail = ({ product }) => {
 	const dispatch = useDispatch();
@@ -21,7 +22,8 @@ export const ProductDetail = ({ product }) => {
 	const language = useSelector(state => state.globalReducer.language);
 	const stock = useSelector(state => state.cartReducer.cart.stock);
 	const [currentImg, setCurrentImg] = useState(0);
-	const theme = useSelector(state => state.globalReducer.theme)
+	const theme = useSelector(state => state.globalReducer.theme);
+	const { addToast } = useToasts();
 
 	function handleImage() {
 		if (currentImg >= product.images.length - 1) {
@@ -50,6 +52,7 @@ export const ProductDetail = ({ product }) => {
 			stock: product.stock
 		};
 		dispatch(editStock(payload));
+		addToast(`${product.name} added to cart x${quantity}`, { appearance: 'success' })
 		setQuantity(1);
 	}
 
