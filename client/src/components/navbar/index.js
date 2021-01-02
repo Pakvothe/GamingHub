@@ -64,6 +64,7 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 							<Link to='/' onClick={() => {
 								dispatch(emptyFilter())
 								dispatch(getProducts(getProductsPayload))
+								dispatch(resetCurrentPage())
 							}}>
 								<StyledSVG src={logoDual} />
 							</Link>

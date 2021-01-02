@@ -4,13 +4,14 @@ const { Product, Category, Image } = require('../db.js');
 //----------"/products"--------------
 
 server.get('/', (req, res, next) => {
-	const { query, order, limit, offset } = req.query;
+	const { query, order, limit, offset, isActive } = req.query;
 
 	let count = 0;
 	Product.count()
 		.then(data => {
 			count = data;
 			return Product.findAll({
+				where: !isActive && { is_active: true },
 				include: [
 					{
 						model: Image,

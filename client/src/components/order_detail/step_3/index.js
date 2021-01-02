@@ -1,14 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Btn, FormStyled } from '../../styles/styled_global';
 import { StyledSVG, StepTwo } from '../../styles/styled_order_detail';
 import PurchaseStep3 from '../../../assets/img/purchase-steps-3.svg';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addOrder } from '../../../redux/actions/orders_actions';
+import { clearCart } from '../../../redux/actions/cart_actions';
 
 const Step3 = ({ cart }) => {
-	const history = useHistory()
+	const history = useHistory();
+	const dispatch = useDispatch();
+	const [total, setTotal] = useState(0);
+
+	useEffect(() => {
+		setTotal(cart.reduce((acc, product) => {
+			acc = acc + (product.price * product.quantity)
+			return acc;
+		}, 0.00));
+	}, [])
+
 	const handleClick = () => {
-		history.push('/')
-	}
+		const order = {
+			email: "fran231@gmail.com",
+			total_amount: total,
+			state: "created",
+			payment_method: "mp",
+			userId: 1,
+			products: cart
+		}
+		dispatch(addOrder(order));
+		dispatch(clearCart());
+		history.push('/');
+	};
 
 	return (
 		<>
