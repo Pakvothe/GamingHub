@@ -176,19 +176,19 @@ export const emptyFilter = () => {
 }
 
 export const getProducts = (payload) => {
-	let queries = '', order = '', limit = '', offset = '';
+	let queries = '', order = '', limit = '', offset = '', isActive = '';
 
 	if (payload) {
 		queries = payload.query ? '?query=' + payload.query : queries;
 		order = payload.order ? '&order=' + payload.order : order;
 		limit = payload.limit ? '&limit=' + payload.limit : limit;
 		offset = payload.offset ? '&offset=' + payload.offset : offset;
+		isActive = payload.isActive ? '?isActive=' + payload.isActive : isActive;
 	}
 	return function (dispatch) {
 		dispatch({ type: LOADING_PRODUCTS });
-		return axios.get(`${REACT_APP_API_URL}/products${queries}${order}${limit}${offset}`)
+		return axios.get(`${REACT_APP_API_URL}/products${queries}${order}${limit}${offset}${isActive}`)
 			.then(product => {
-				console.log(product.data)
 				dispatch({
 					type: GET_PRODUCTS,
 					payload: product.data

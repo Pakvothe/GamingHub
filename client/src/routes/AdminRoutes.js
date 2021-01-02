@@ -24,7 +24,7 @@ function AdminRoutes() {
 	const language = useSelector((state) => state.globalReducer.language);
 
 	useEffect(() => {
-		dispatch(getProducts());
+		dispatch(getProducts({ isActive: true }));
 		dispatch(getCategories());
 		dispatch(getOrders());
 		dispatch(getUsers());

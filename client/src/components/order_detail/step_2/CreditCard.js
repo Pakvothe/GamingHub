@@ -22,7 +22,19 @@ const CreditCard = ({ handleSubmit }) => {
 	}
 
 	const handleInputChange = (e) => {
-		const { name, value } = e.target;
+		let { name, value } = e.target;
+		if (name === 'cvc') {
+			value = value.replace(/[^0-9.]/g, '').substring(0, 3);
+		}
+		if (name === 'number') {
+			value = value.substring(0, 16);
+		}
+		if (name === 'expiry') {
+			value = value.substring(0, 4);
+		}
+		if (name === 'name') {
+			value = value.replace(/[0-9.]/g, '')
+		}
 		setCredCard({
 			...credCard,
 			[name]: value
@@ -32,13 +44,14 @@ const CreditCard = ({ handleSubmit }) => {
 	return (
 		<CreditCardStyled>
 			<div className='card__container' id='PaymentForm'>
-				<FormStyled onSubmit={() => handleSubmit(credCard)}>
+				<FormStyled onSubmit={(e) => handleSubmit(e, credCard)}>
 					<div className='label__container'>
 						<label>
 							<span>Card Number</span>
 							<input
-								type='tel'
+								type='number'
 								name='number'
+								value={credCard.number}
 								placeholder='XXXX-XXXX-XXXX-XXXX'
 								onChange={handleInputChange}
 								onFocus={handleInputFocus}
@@ -52,6 +65,7 @@ const CreditCard = ({ handleSubmit }) => {
 							<input
 								type='text'
 								name='name'
+								value={credCard.name}
 								placeholder='Your Name'
 								onChange={handleInputChange}
 								onFocus={handleInputFocus}
@@ -63,9 +77,10 @@ const CreditCard = ({ handleSubmit }) => {
 						<label>
 							<span>Expiry Date</span>
 							<input
-								type='tel'
+								type='number'
 								name='expiry'
-								placeholder='MM/YY'
+								value={credCard.expiry}
+								placeholder='MMYY'
 								onChange={handleInputChange}
 								onFocus={handleInputFocus}
 								required
@@ -77,8 +92,8 @@ const CreditCard = ({ handleSubmit }) => {
 							<span>CVC</span>
 							<input
 								type='password'
-								inputmode='tel'
 								name='cvc'
+								value={credCard.cvc}
 								placeholder='XXX'
 								onChange={handleInputChange}
 								onFocus={handleInputFocus}
