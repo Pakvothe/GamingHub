@@ -4,13 +4,17 @@ import { deleteProduct, toggleActiveProduct, getProductsByName } from '../../../
 import { Btn, DataTable } from '../../styles/styled_global';
 import { Link } from 'react-router-dom';
 import SearchBar from '../../search_bar';
+import { useToasts } from 'react-toast-notifications';
 
 const AdminProductList = ({ products }) => {
 	const dispatch = useDispatch();
 
-	const handleDelete = (id) => {
-		dispatch(deleteProduct(id));
-		alert('Product deleted.');
+	const { addToast } = useToasts();
+	const handleDelete = (prod) => {
+		if (window.confirm(`Are you sure you want to delete ${prod.name}?`)) {
+			dispatch(deleteProduct(prod.id));
+			addToast(`product deleted successfully`, { appearance: 'info' })
+		}
 	}
 
 	const handleInput = (ev) => {
@@ -58,7 +62,7 @@ const AdminProductList = ({ products }) => {
 							<td>
 								<ul>
 									<li><Link to={`/admin/product/${prod.id}`}><button>Editar</button></Link></li>
-									<li><button onClick={() => handleDelete(prod.id)}>Eliminar</button></li>
+									<li><button onClick={() => handleDelete(prod)}>Eliminar</button></li>
 								</ul>
 							</td>
 						</tr>

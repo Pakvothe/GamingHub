@@ -4,13 +4,18 @@ import strings from './strings';
 import { FormStyled } from "../../styles/styled_global";
 import { addCategory, editCategory, getCategory } from '../../../redux/actions/categories_actions';
 import { Btn } from '../../styles/styled_global'
-import { useParams } from 'react-router-dom';
+import { useParams, Redirect } from 'react-router-dom';
+import { useToasts } from 'react-toast-notifications';
+import { ADD_PRODUCT } from '../../../redux/constants';
 
 const AdminCategoryForm = () => {
 	const { id } = useParams();
 	const language = useSelector(state => state.globalReducer.language)
 	const category = useSelector(state => state.categoriesReducer.category.info)
 	const dispatch = useDispatch();
+	const { addToast } = useToasts();
+
+	const [toAdmin, setToAdmin] = useState(false);
 
 	useEffect(() => {
 		if (id) dispatch(getCategory(id))
@@ -38,9 +43,13 @@ const AdminCategoryForm = () => {
 		e.preventDefault();
 		if (id) dispatch(editCategory(input))
 		else dispatch(addCategory(input))
+		addToast(`category ${id ? "edited" : "added"} successfully`, { appearance: 'success' })
+		setToAdmin(true);
 	}
 
 	const opciones = id ? strings[language].buttonEdit : strings[language].buttonAdd;
+
+	if (toAdmin) return <Redirect to="/admin/categories" />
 	return (
 		<>
 			<h1 className="admin-h1">{opciones}</h1>
