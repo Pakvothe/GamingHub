@@ -38,7 +38,9 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 	}, 0)
 
 	const handleClick = (ev) => {
-		dispatch(changeLanguage(ev.target.id))
+		if (ev.target.id) {
+			dispatch(changeLanguage(ev.target.id))
+		}
 	}
 
 	const handleCategories = (ev) => {
