@@ -6,8 +6,9 @@ import { addProduct, getProduct, editProduct, deleteImage } from '../../../redux
 import { Btn, CheckboxLabel, FormStyled } from '../../styles/styled_global'
 import { Redirect, useParams } from 'react-router-dom';
 
-import { storage } from "../../../firebase/";
+import { storage } from '../../../firebase/';
 import { useToasts } from 'react-toast-notifications';
+import Swal from 'sweetalert2';
 
 const AdminProductForm = ({ categories }) => {
 	const { id } = useParams();
@@ -36,7 +37,7 @@ const AdminProductForm = ({ categories }) => {
 	useEffect(() => {
 		if (input.img.length === imagesAsFile.length && input.img.length > 0) {
 			id ? dispatch(editProduct(input)) : dispatch(addProduct(input));
-			addToast(`product ${id ? "edited" : "added"} successfully`, { appearance: 'success' })
+			addToast(`product ${id ? 'edited' : 'added'} successfully`, { appearance: 'success' })
 			setToAdmin(true);
 		}
 	}, [input.img]);
@@ -85,12 +86,24 @@ const AdminProductForm = ({ categories }) => {
 		let invalidFile = images.some(img => !img.type.includes('image'));
 		let invalidSize = images.some(img => img.size > 2097152);
 		if (invalidFile) {
-			alert('Sólo se aceptan imágenes');
+			Swal.fire({
+				heightAuto: false,
+				title: 'Solo se aceptan imágenes',
+				icon: 'warning',
+				confirmButtonColor: '#3085d6',
+				confirmButtonText: 'Ok',
+			})
 			fileInput.current.value = '';
 			return;
 		}
 		if (invalidSize) {
-			alert('Sólo imágenes menores a 2mb');
+			Swal.fire({
+				heightAuto: false,
+				title: 'Sólo imágenes menores a 2mb',
+				icon: 'warning',
+				confirmButtonColor: '#3085d6',
+				confirmButtonText: 'Ok',
+			})
 			fileInput.current.value = '';
 			return;
 		}
@@ -140,13 +153,13 @@ const AdminProductForm = ({ categories }) => {
 	const opciones = id ? 'Editar producto' : 'Agregar producto';
 
 	if (isLoading) return <h1>Loading...</h1>;
-	if (toAdmin) return <Redirect to="/admin" />
+	if (toAdmin) return <Redirect to='/admin' />
 
 	return (
 		<>
-			<h1 className="admin-h1">{opciones}</h1>
-			<FormStyled method='post' onSubmit={handleSubmit} autoComplete="off">
-				<div className="flex-form-container">
+			<h1 className='admin-h1'>{opciones}</h1>
+			<FormStyled method='post' onSubmit={handleSubmit} autoComplete='off'>
+				<div className='flex-form-container'>
 					<div>
 						<label>
 							<span>Nombre:</span>
@@ -174,38 +187,60 @@ const AdminProductForm = ({ categories }) => {
 							<input ref={fileInput} type='file' name='img' onChange={handleImagesAsFile} multiple required={id ? false : true} />
 						</label>
 						<br />
-						{id && product.images?.length > 0 &&
-							product.images.map(image =>
-								<img src={image.url} width="100px" key={image.id} onClick={() => {
-									dispatch(deleteImage(image))
-									alert('Imagen borrada')
-								}} />
-							)}
+						<div className='image__container'>
+							{id && product.images?.length > 0 &&
+								product.images.map(image =>
+									<div className='image_thumbnail'>
+										<span className='delete__image'>ELIMINAR</span>
+										<img src={image.url} width='100px' key={image.id} onClick={() => {
+											Swal.fire({
+												heightAuto: false,
+												title: 'Borrar imagen?',
+												text: 'Esta imagen se borrará permanentemente',
+												icon: 'warning',
+												showCancelButton: true,
+												confirmButtonColor: '#3085d6',
+												cancelButtonColor: '#d33',
+												confirmButtonText: 'Si, borrarla!',
+											}).then((result) => {
+												if (result.isConfirmed) {
+													Swal.fire(
+														'Borrada!',
+														'La imagen ha sido funada.',
+														'success',
+														dispatch(deleteImage(image))
+													)
+												}
+											})
+										}} />
+									</div>
+								)}
+						</div>
 						<br />
 						<br />
-						<CheckboxLabel className="no-shadow check" checked={input.is_active}>
+						<CheckboxLabel className='no-shadow check' checked={input.is_active}>
 							<input
 								type='checkbox'
 								value={input.is_active}
 								onChange={handleInput}
 								name='is_active'
 							/>
-							<span className="no-shadow">Activo</span>
+							<span className='no-shadow'>Activo</span>
 						</CheckboxLabel>
-						<span className="form__categorias">Categorías:</span>
+						<span className='form__categorias'>Categorías:</span>
 						<ul>
 							{
 								categories.map(cat => {
 									return (
 										<li key={cat.id}>
-											<CheckboxLabel className="no-shadow check" checked={input.categories[cat.id]}>
+											<CheckboxLabel className='no-shadow check' checked={input.categories[cat.id]}>
 												<input
 													type='checkbox'
 													name={cat.name_es}
 													value={cat.id}
 													onChange={handleCategories}
 												/>
-												<span className="no-shadow">{cat.name_es}</span>
+												<span className='no-shadow'>{cat.name_es}</span>
 
 											</CheckboxLabel>
 										</li>
@@ -213,7 +248,7 @@ const AdminProductForm = ({ categories }) => {
 								})
 							}
 						</ul>
-						<Btn type='submit' className="btn-ppal">{opciones}</Btn>
+						<Btn type='submit' className='btn-ppal'>{opciones}</Btn>
 					</div>
 				</div>
 			</FormStyled>
