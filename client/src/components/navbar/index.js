@@ -5,11 +5,11 @@ import { HashLink } from 'react-router-hash-link';
 import { NavbarStyled, StyledSVG } from '../styles/styled_navbar';
 import { Dropdown } from '../styles/styled_global';
 import SearchBar from '../search_bar';
-import Fade from 'react-reveal/Fade';
+
 
 /* --- Actions --- */
 import { emptyFilter, getFilterProducts, getProducts } from '../../redux/actions/products_actions';
-import { changeLanguage, resetCurrentPage, toggleTheme } from './../../redux/actions/global_actions'
+import { changeLanguage, resetCurrentPage, toggleTheme, openLogin } from './../../redux/actions/global_actions'
 
 /* --- Logos --- */
 import logoDual from '../../assets/img/logo-dual.svg'
@@ -56,6 +56,9 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 		dispatch(toggleTheme())
 	}
 
+	const openLoginModal = () => {
+		dispatch(openLogin(true))
+	}
 
 	return (
 		<>
@@ -98,6 +101,7 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 									<li><Link to="/user">Perfil</Link></li>
 									<li><Link to="/signup">Registrarse</Link></li>
 									<li><Link to="/admin">Panel de Administración</Link></li>
+									<li><Link onClick={openLoginModal}>Login</Link></li>
 								</ul>
 							</Dropdown>
 							<li>
