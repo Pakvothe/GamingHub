@@ -15,7 +15,9 @@ import arrowUp from '../../assets/img/arrow-up.svg';
 
 /* --- Styles --- */
 import { StyledSVG } from '../styles/styled_global';
-import { changeCurrentPage, resetCurrentPage } from '../../redux/actions/global_actions'
+import { changeCurrentPage, resetCurrentPage } from '../../redux/actions/global_actions';
+import { animateScroll } from 'react-scroll';
+
 
 export const getProductsPayload = { query: 'stock', order: 'DESC', limit: 8 };
 
@@ -59,8 +61,7 @@ const HomePage = () => {
 		}
 	}
 	const scrollToTop = () => {
-		document.body.scrollTop = 0;
-		document.documentElement.scrollTop = 0;
+		animateScroll.scrollToTop();
 	}
 
 	const handlePageChange = (ev) => {
