@@ -4,6 +4,7 @@ const { Product, Category, Image } = require('../db.js');
 //----------"/products"--------------
 
 server.get('/', (req, res, next) => {
+	if (!req.user) return res.sendStatus(401);
 	const { query, order, limit, offset, isActive } = req.query;
 
 	let count = 0;
