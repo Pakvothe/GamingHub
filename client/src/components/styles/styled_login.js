@@ -41,7 +41,7 @@ export const LoginStyled = styled.div`
 	}
 	
 	svg {
-		fill: currentColor;
+		fill: ${props => (props.theme === 'dark' ? 'var(--clr-white)' : 'var(--clr-dark)')};
 		width: 30px;
 		height: 30px;
 		transition: fill .2s ease-in-out;

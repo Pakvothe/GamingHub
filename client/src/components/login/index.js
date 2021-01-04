@@ -59,7 +59,7 @@ const Login = () => {
 			portalClassName={'ReactModalPortal'}
 			ariaHideApp={false}
 		>
-			<LoginStyled>
+			<LoginStyled theme={theme}>
 				<button className='button' onClick={closeModal}><StyledSVG src={CloseButton} /></button>
 				<FormStyled>
 					<h2 className='form__title titulo'>{strings[language].title}</h2>
