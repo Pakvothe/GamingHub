@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addUser } from '../../redux/actions/users_actions';
 import { FormStyled, Btn } from '../styles/styled_global';
+import strings from './strings'
 
 const SignUp = () => {
 	const dispatch = useDispatch()
 	const language = useSelector((state) => state.globalReducer.language);
-
 	let [input, setInput] = useState({
 		username: '',
 		password: '',
@@ -33,28 +33,28 @@ const SignUp = () => {
 	return (
 		<>
 			<FormStyled onSubmit={handleSubmit} autoComplete="off">
-				<h1 className='form__title'>SignUp</h1>
+				<h1 className='form__title'>{strings[language].signUp}</h1>
 				<label>
-					<span>Username:</span>
+					<span>{strings[language].username}</span>
 					<input type="text" value={input.username} name="username" onChange={handleChange} required />
 				</label>
 				<label>
-					<span>Password:</span>
+					<span>{strings[language].password}</span>
 					<input type="password" value={input.password} name="password" onChange={handleChange} required />
 				</label>
 				<label>
-					<span>Email:</span>
+					<span>{strings[language].email}</span>
 					<input type="email" value={input.email} name="email" onChange={handleChange} required />
 				</label>
 				<label>
-					<span>Nombre:</span>
+					<span>{strings[language].name}</span>
 					<input type="text" value={input.first_name} name="first_name" onChange={handleChange} required />
 				</label>
 				<label>
-					<span>Apellido:</span>
+					<span>{strings[language].lastName}</span>
 					<input type="text" value={input.last_name} name="last_name" onChange={handleChange} required />
 				</label>
-				<Btn type="submit" className="btn-ppal"> Registrate wey	</Btn>
+				<Btn type="submit" className="btn-ppal">Registrarse</Btn>
 			</FormStyled>
 		</>
 	)
