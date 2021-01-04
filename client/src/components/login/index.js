@@ -1,5 +1,6 @@
 import React from 'react';
 import Modal from 'react-modal';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { openLogin } from '../../redux/actions/global_actions';
 import { FormStyled, Btn, StyledSVG } from '../styles/styled_global';
@@ -21,6 +22,7 @@ const Login = () => {
 			right: 0,
 			bottom: 0,
 			backgroundColor: 'rgba(44, 47, 49, 0.95)',
+			zIndex: '9999'
 		},
 		content: {
 			top: '50%',
@@ -35,6 +37,7 @@ const Login = () => {
 			color: theme === 'dark' ? '#F5F4F8' : '#1B1A1F',
 			background: theme === 'dark' ? '#2C2F31' : '#F5F4F8',
 			WebkitOverflowScrolling: 'touch',
+			zIndex: '9999',
 		},
 	};
 
@@ -83,6 +86,10 @@ const Login = () => {
 							}}
 							required />
 					</label>
+					<div className='link_container'>
+						<Link>{strings[language].olvi}</Link>
+						<Link>{strings[language].create}</Link>
+					</div>
 					<Btn type='submit' className='btn-ppal'>Ok</Btn>
 				</FormStyled>
 			</LoginStyled>

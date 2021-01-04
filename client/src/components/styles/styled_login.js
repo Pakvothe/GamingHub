@@ -3,9 +3,31 @@ import styled from 'styled-components';
 export const LoginStyled = styled.div`
 
 .titulo{
-	margin: 0 auto 1em auto;
+	margin: 0 auto 1.5em auto;
 	width: 50%;
 	text-align: center;
+}
+
+.link_container{
+	display:flex;
+	flex-direction: column;
+	align-items: flex-end;
+	margin-top: 1em;
+	justify-content: space-between;
+
+	a {
+		color: ${props => (props.theme === 'dark' ? 'var(--clr-white)' : 'var(--clr-dark)')};
+		text-decoration: none;
+		transition: color .2s ease-in-out;
+
+		&:hover{
+			color: var(--clr-primary);
+		}
+	}
+
+	& > a + a{
+		margin-top: .5em;
+	}
 }
 
 .btn-ppal{
@@ -50,6 +72,40 @@ export const LoginStyled = styled.div`
 		}
 		&:active {
 			transform: scale(0.9);
+		}
+	}
+
+
+
+	@media (max-width: 1050px) {
+		.ReactModal__Body--open {
+			.flex-form-container {
+				display: block;
+		 	}
+		}
+	}
+
+	@media (max-width: 480px) {
+		.ReactModal__Body--open {
+
+			.flex-form-container {
+
+				width: 100%; 
+				justify-content: center;
+
+				input {
+					width: 100%;
+
+				}
+				label {
+				width: 70vw; 
+				justify-content: center;
+				}
+
+				.contact__info {
+				width: 300px; 
+				}
+			}
 		}
 	}
 }
