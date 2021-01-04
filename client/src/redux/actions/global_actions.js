@@ -1,4 +1,12 @@
-import { CHANGE_LANGUAGE, TOGGLE_CART, TOGGLE_THEME, ADD_CREDIT_CARD, RESET_CURRENT_PAGE, CHANGE_CURRENT_PAGE } from './../constants';
+import {
+	CHANGE_LANGUAGE,
+	TOGGLE_CART,
+	TOGGLE_THEME,
+	ADD_CREDIT_CARD,
+	RESET_CURRENT_PAGE,
+	CHANGE_CURRENT_PAGE,
+	OPEN_LOGIN,
+} from './../constants';
 
 export const changeLanguage = (payload) => {
 	localStorage.setItem('language', payload);
@@ -35,6 +43,13 @@ export const resetCurrentPage = () => {
 export const changeCurrentPage = (payload) => {
 	return {
 		type: CHANGE_CURRENT_PAGE,
+		payload
+	}
+}
+
+export const openLogin = (payload) => {
+	return {
+		type: OPEN_LOGIN,
 		payload
 	}
 }

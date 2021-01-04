@@ -672,6 +672,5 @@ export const StyledTitle = styled.h2`
 		}
 `
 
-
 export const StyledSVG = styled(SVG)`
 `

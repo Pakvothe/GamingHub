@@ -12,6 +12,7 @@ import Step3 from '../components/order_detail/step_3';
 import HomePage from '../components/home_page';
 import SearchPage from '../components/search_page';
 import UserPage from '../components/user_page';
+import Login from '../components/login';
 import SignUp from '../components/sign_up';
 import { getProducts } from '../redux/actions/products_actions';
 import { getCategories } from '../redux/actions/categories_actions';
@@ -44,10 +45,11 @@ function HomeRoutes() {
 
 	return (
 		<>
+			<Login />
 			<Navbar toggleModal={toggleModal} cartNumber={cart} />
 			<CartSideBar language={language} closeCallback={toggleModal} show={showCart} cart={cart} />
 			<Route exact path='/' component={Carousel} />
-			<main className="main-container">
+			<main className='main-container'>
 				<Route exact path='/' component={HomePage} />
 				<Route exact path='/search' component={SearchPage} />
 				<Route path='/products/:id' component={Product} />
