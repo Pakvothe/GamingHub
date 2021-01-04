@@ -42,6 +42,9 @@ export const GET_ORDERS = 'GET_ORDERS';
 export const ADD_ORDER = 'ADD_ORDER';
 export const ORDERS_ERROR = 'ORDERS_ERROR';
 export const LOADING_ORDERS = 'LOADING_ORDERS';
+export const GET_ORDER = 'GET_ORDER';
+export const LOADING_ORDER = 'LOADING_ORDER';
+export const ORDER_ERROR = 'ORDER_ERROR';
 
 //User actions =>
 export const ADD_USER = 'ADD_USER';

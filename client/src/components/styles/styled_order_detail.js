@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import SVG from 'react-inlinesvg';
 
+export const StyledOrderDetail = styled.div`
+
+`
+
 export const StepOne = styled.div`
 	display: flex;
 	justify-content: space-between;
