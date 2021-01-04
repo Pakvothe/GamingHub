@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { openLogin } from '../../redux/actions/global_actions';
 import { FormStyled, Btn, StyledSVG } from '../styles/styled_global';
+import { LoginStyled } from '../styles/styled_login';
 import CloseButton from '../../assets/img/close-filled-purple.svg';
 import strings from './strings';
 
@@ -58,10 +59,10 @@ const Login = () => {
 			portalClassName={'ReactModalPortal'}
 			ariaHideApp={false}
 		>
-			<button className='button' onClick={closeModal}><StyledSVG src={CloseButton} /></button>
-			<FormStyled>
-				<div className='flex-form-container'>
-					<h2 className='form__title'>{strings[language].title}</h2>
+			<LoginStyled>
+				<button className='button' onClick={closeModal}><StyledSVG src={CloseButton} /></button>
+				<FormStyled>
+					<h2 className='form__title titulo'>{strings[language].title}</h2>
 					<label>
 						<span>{strings[language].user}</span>
 						<input type='text'
@@ -83,8 +84,8 @@ const Login = () => {
 							required />
 					</label>
 					<Btn type='submit' className='btn-ppal'>Ok</Btn>
-				</div>
-			</FormStyled>
+				</FormStyled>
+			</LoginStyled>
 		</Modal>
 	)
 }

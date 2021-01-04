@@ -49,7 +49,7 @@ function HomeRoutes() {
 			<Navbar toggleModal={toggleModal} cartNumber={cart} />
 			<CartSideBar language={language} closeCallback={toggleModal} show={showCart} cart={cart} />
 			<Route exact path='/' component={Carousel} />
-			<main className="main-container">
+			<main className='main-container'>
 				<Route exact path='/' component={HomePage} />
 				<Route exact path='/search' component={SearchPage} />
 				<Route path='/products/:id' component={Product} />
