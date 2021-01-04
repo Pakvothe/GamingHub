@@ -15,9 +15,9 @@ const Product = () => {
 
 	return (
 		<>
+			{(error || !product.is_active) && !isLoading && <h1 style={{ margin: "20px", textAlign: "center" }}>El producto no existe</h1>}
 			{isLoading && <h1>Loading...</h1>}
-			{!isLoading && !!Object.keys(product).length && <ProductDetail product={product} />}
-			{error && <h1 style={{ margin: "20px", textAlign: "center" }}>El producto no existe</h1>}
+			{!isLoading && product.is_active && <ProductDetail product={product} />}
 		</>
 	);
 };

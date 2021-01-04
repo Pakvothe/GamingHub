@@ -5,8 +5,12 @@ import { SideBarContainer, SideBarButton, StyledSVG } from '../../styles/styled_
 import logo from '../../../assets/img/logo.svg'
 import arrowLeft from '../../../assets/img/arrow-left.svg'
 
+import { emptyFilter, getProducts } from "../../../redux/actions/products_actions";
+import { useDispatch } from "react-redux";
+
 const AdminSideBar = () => {
 	const [buttonToggle, setButtonToggle] = useState(true);
+	const dispatch = useDispatch();
 
 	const toggleMenu = () => {
 		setButtonToggle((prev) => !prev)
@@ -16,7 +20,10 @@ const AdminSideBar = () => {
 		<>
 			<SideBarContainer className={buttonToggle && 'toggle'}>
 				<div>
-					<Link to="/" className="logo-link">
+					<Link to="/" className="logo-link" onClick={() => {
+						dispatch(emptyFilter())
+						dispatch(getProducts({ query: 'stock', order: 'DESC', limit: 8 }))
+					}}>
 						<StyledSVG src={logo} />
 					</Link>
 				</div>
@@ -26,8 +33,8 @@ const AdminSideBar = () => {
 				<ul>
 					<li><Link to="/admin">Productos</Link></li>
 					<li><Link to="/admin/categories">Categorias</Link></li>
-					<li><Link to="#">Ordenes</Link></li>
-					<li><Link to="#">Usuarios</Link></li>
+					<li><Link to="/admin/orders">Ordenes</Link></li>
+					<li><Link to="/admin/users">Usuarios</Link></li>
 				</ul>
 			</SideBarContainer>
 		</>

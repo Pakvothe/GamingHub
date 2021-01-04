@@ -85,10 +85,6 @@ export const GameDetail = styled.section`
 	.game__quantity {
 		margin-top: 2em;
 
-		span:last-of-type {
-			margin-left: 1em;
-		}
-
 		span:first-child {
 			margin-right: 1em;
 		}
@@ -130,6 +126,10 @@ export const GameDetail = styled.section`
 		flex-direction: column;
 		justify-content: space-between;
 
+		button{
+			margin-bottom: 0.5em;
+		}
+		
 		@media (max-width: 500px) {
 			align-items: center;
 
@@ -142,7 +142,7 @@ export const GameDetail = styled.section`
     .game__purchase-container {
       display: flex;
 	  justify-content: space-between;
-	  
+	  align-items: center;
 	  @media (max-width: 500px) {
 		  flex-direction: column;
 		  align-items: center;

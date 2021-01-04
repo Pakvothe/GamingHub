@@ -1,30 +1,44 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteProduct } from '../../../redux/actions/products_actions';
-import SearchBar from '../admin_search_bar';
+import { deleteProduct, toggleActiveProduct, getProductsByName } from '../../../redux/actions/products_actions';
 import { Btn, DataTable } from '../../styles/styled_global';
 import { Link } from 'react-router-dom';
+import SearchBar from '../../search_bar';
+import { useToasts } from 'react-toast-notifications';
 
 const AdminProductList = ({ products }) => {
 	const dispatch = useDispatch();
 
-	const handleDelete = (id) => {
-		console.log(id);
-		dispatch(deleteProduct(id));
-		alert('Product deleted.');
+	const { addToast } = useToasts();
+	const handleDelete = (prod) => {
+		if (window.confirm(`Are you sure you want to delete ${prod.name}?`)) {
+			dispatch(deleteProduct(prod.id));
+			addToast(`product deleted successfully`, { appearance: 'info' })
+		}
+	}
+
+	const handleInput = (ev) => {
+		ev.persist();
+		dispatch(toggleActiveProduct(ev.target.name))
+	}
+
+	const handleOrder = () => {
+		dispatch(getProductsByName());
 	}
 
 	return (
 		<>
-			{/* <SearchBar /> */}
-			<Link to="/admin/product"><Btn className="btn-ppal" >Agregar Producto</Btn></Link>
+			<div style={{ display: 'flex', justifyContent: 'space-between' }}>
+				<Link to="/admin/product"><Btn className="btn-ppal" >Agregar Producto</Btn></Link>
+				<SearchBar />
+			</div>
 			<DataTable>
 				<thead>
 					<tr>
-						<td>ID</td>
-						<td>Título</td>
-						<td>Stock</td>
-						<td>Visible</td>
+						<td className="cell-small">ID</td>
+						<td onClick={handleOrder}>Título</td>
+						<td className="cell-small">Stock</td>
+						<td className="cell-small">Visible</td>
 						<td></td>
 					</tr>
 				</thead>
@@ -34,11 +48,21 @@ const AdminProductList = ({ products }) => {
 							<td>{prod.id}</td>
 							<td>{prod.name}</td>
 							<td>{prod.stock}</td>
-							<td><input type="checkbox" checked={prod.is_active} /></td>
+							{/* <td>
+								<CheckboxLabel className="no-shadow check" checked={input.is_active[prod.id]}>
+									<input
+										type='checkbox'
+										value={input.is_active[prod.id]}
+										onChange={handleInput}
+										name='is_active'
+									/>
+								</CheckboxLabel>
+							</td> */}
+							<td><input type="checkbox" checked={prod.is_active} onChange={handleInput} name={prod.id} /></td>
 							<td>
 								<ul>
 									<li><Link to={`/admin/product/${prod.id}`}><button>Editar</button></Link></li>
-									<li><button onClick={() => handleDelete(prod.id)}>Eliminar</button></li>
+									<li><button onClick={() => handleDelete(prod)}>Eliminar</button></li>
 								</ul>
 							</td>
 						</tr>

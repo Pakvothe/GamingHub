@@ -3,13 +3,11 @@ import styled from 'styled-components';
 export const ProductCardStyled = styled.article`
 	font-family: Poppins, sans-serif;
 	font-size: 1.2em;
-	border: 3px solid #9b5df7;
+	border: 3px solid var(--clr-primary);
 	width: 250px;
 	border-radius: 10px;
-	background: var(--clr-white);
 	overflow: hidden;
-	box-shadow: 5px 5px 0px #9b5df7;
-	color: var(--clr-black);
+	box-shadow: 5px 5px 0px var(--clr-primary);
 	position: relative;
 	transition: all 0.1s ease-in-out;
 	height: 400px;
@@ -27,7 +25,6 @@ export const ProductCardStyled = styled.article`
 		bottom: 0;
 		width: 100%;
 		height: 100%;
-		z-index: 10;
 	}
 
 	.card__imgContainer {
@@ -52,16 +49,18 @@ export const ProductCardStyled = styled.article`
 		padding: 0.5em 1em;
 		height: 50%;
 		position: relative;
+		display: flex;
+		flex-direction: column;
 	}
 
 	.card__title {
 		font-size: 1.2em;
 		color: #9b5df7;
 		font-weight: 900;
+
 		@supports (-webkit-background-clip: text)  {
-		color: transparent;
-		background: linear-gradient(-90deg, #5630e4, #9b5df7);
-		-webkit-background-clip: text;
+			color: transparent;
+			-webkit-background-clip: text;
 		}
 	}
 
@@ -113,11 +112,14 @@ export const ProductCardStyled = styled.article`
 	}
 
 	button {
-		position: absolute;
-		bottom: 1em;
-		left: 50%;
-		transform: translateX(-50%)
-    }
-
+		font-size: 0.7em;
+		margin-top: auto;
+		margin-bottom: .5em;
+		z-index: 10;
+	}
+	
+	.card__noStock {
+		margin-top: auto;
+		margin-bottom: .5em;
+	}
 `;
-

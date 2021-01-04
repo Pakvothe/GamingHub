@@ -44,9 +44,10 @@ require('dotenv').config();
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 const { PORT } = process.env;
-const { Product, Category, Image, Serial } = require('./src/db.js');
+const { Product, Category, Image, Serial, User, Order, Orders_products } = require('./src/db.js');
 const utilsProd = require("./utils/products");
-const utilsCat = require("./utils/categories");
+const utilsOrder = require("./utils/orders");
+const utilsUser = require("./utils/users");
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
@@ -65,9 +66,38 @@ conn.sync({ force: true }).then(() => {
 					}).catch(err => console.log(err));
 				});
 			})
-			console.log("Datos cargados exitosamente");
+			console.log('Productos cargados exitosamente');
 		})
 		.catch((err) => {
 			console.error(err);
 		});
+	User.bulkCreate(utilsUser, { hooks: true })
+		.then(() => {
+			console.log("Usuarios cargados exitosamente")
+			return Order.bulkCreate(utilsOrder)
+		})
+		.then(() => {
+			Orders_products.create({
+				productId: 1,
+				orderId: 1,
+				unit_price: 52.38,
+				quantity: 2
+			})
+			Orders_products.create({
+				productId: 1,
+				orderId: 2,
+				unit_price: 52.38,
+				quantity: 2
+			})
+			Orders_products.create({
+				productId: 2,
+				orderId: 2,
+				unit_price: 40.72,
+				quantity: 1
+			})
+			console.log('Ordenes cargadas exitosamente')
+		})
+		.catch(err => {
+			console.log(err);
+		})
 });

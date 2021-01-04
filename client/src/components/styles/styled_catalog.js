@@ -6,6 +6,7 @@ export const CatalogStyled = styled.div`
 	justify-content: center;
 	flex-wrap: wrap;
 	gap: 2em;
+	min-height: 700px;
 `;
 
 export const SelectStyled = styled.select`
@@ -22,6 +23,7 @@ export const SelectStyled = styled.select`
 	background-size: 1.5em;
 	margin-left: 1em;
 	text-transform: uppercase;
+
 
 	&::-ms-expand {
 		display: none;

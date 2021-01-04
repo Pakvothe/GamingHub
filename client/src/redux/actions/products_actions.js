@@ -8,12 +8,13 @@ import {
 	GET_PRODUCT_ERROR,
 	GET_PRODUCTS,
 	GET_FILTER_PRODUCTS,
-	LOADING,
-	ERROR,
+	EMPTY_FILTER,
 	LOADING_FILTER_PRODUCTS,
 	LOADING_PRODUCTS,
 	GET_FILTER_PRODUCTS_ERROR,
-	GET_PRODUCTS_ERROR
+	GET_PRODUCTS_ERROR,
+	TOGGLE_ACTIVE_PRODUCT,
+	DELETE_IMAGE
 } from './../constants';
 
 const { REACT_APP_API_URL } = process.env;
@@ -66,6 +67,21 @@ export const editProduct = (payload) => {
 	}
 }
 
+export const toggleActiveProduct = (payload) => {
+	return function (dispatch) {
+		return axios.put(`${REACT_APP_API_URL}/products/${payload}/active`, payload)
+			.then((product) => {
+				dispatch(
+					{
+						type: TOGGLE_ACTIVE_PRODUCT,
+						payload: product.data
+					}
+				)
+			})
+			.catch() //check errors
+	}
+}
+
 export const getProduct = (payload) => {
 	return function (dispatch) {
 		dispatch({ type: LOADING_PRODUCT });
@@ -84,14 +100,22 @@ export const getProduct = (payload) => {
 	}
 }
 
-export const getFilterProducts = (payload) => {
+export const getFilterProducts = (payload, options) => {
+
+	let limit = '', offset = '';
+
+	if (options) {
+		limit = options.limit ? '?limit=' + options.limit : limit;
+		offset = options.offset ? '&offset=' + options.offset : offset;
+	}
+
 	return function (dispatch) {
 		dispatch({ type: LOADING_FILTER_PRODUCTS });
-		return axios.get(`${REACT_APP_API_URL}/products/category/${payload}`)
+		return axios.get(`${REACT_APP_API_URL}/category/${payload}${limit}${offset}`)
 			.then(products => {
 				dispatch({
 					type: GET_FILTER_PRODUCTS,
-					payload: products.data
+					payload: { filter: payload, products: products.data.results, count: products.data.count }
 				})
 			})
 			.catch(err => {
@@ -102,10 +126,68 @@ export const getFilterProducts = (payload) => {
 	}
 }
 
-export const getProducts = () => {
+export const getSearchProducts = (payload, options) => {
+	let limit = '', offset = '';
+
+	if (options) {
+		limit = options.limit ? '&limit=' + options.limit : limit;
+		offset = options.offset ? '&offset=' + options.offset : offset;
+	}
+
+	return function (dispatch) {
+		dispatch({ type: LOADING_FILTER_PRODUCTS });
+		return axios.get(`${REACT_APP_API_URL}/products/search?query=${payload}${limit}${offset}`)
+			.then(products => {
+
+				dispatch({
+					type: GET_FILTER_PRODUCTS,
+					payload: { filter: payload, products: products.data.results, count: products.data.count }
+				})
+			})
+			.catch(err => {
+				console.log('error', err);
+				dispatch({
+					type: GET_FILTER_PRODUCTS_ERROR
+				})
+			})
+	}
+}
+
+export const getProductsByName = () => {
+	return function (dispatch) {
+		dispatch({ type: LOADING_PRODUCTS })
+		return axios.get(`${REACT_APP_API_URL}/products/?query=name`)
+			.then(products => {
+				dispatch({
+					type: GET_PRODUCTS,
+					payload: products.data
+				})
+			})
+			.catch(err => {
+				dispatch({
+					type: GET_PRODUCTS_ERROR
+				})
+			})
+	}
+}
+
+export const emptyFilter = () => {
+	return { type: 'EMPTY_FILTER' }
+}
+
+export const getProducts = (payload) => {
+	let queries = '', order = '', limit = '', offset = '', isActive = '';
+
+	if (payload) {
+		queries = payload.query ? '?query=' + payload.query : queries;
+		order = payload.order ? '&order=' + payload.order : order;
+		limit = payload.limit ? '&limit=' + payload.limit : limit;
+		offset = payload.offset ? '&offset=' + payload.offset : offset;
+		isActive = payload.isActive ? '?isActive=' + payload.isActive : isActive;
+	}
 	return function (dispatch) {
 		dispatch({ type: LOADING_PRODUCTS });
-		return axios.get(`${REACT_APP_API_URL}/products`)
+		return axios.get(`${REACT_APP_API_URL}/products${queries}${order}${limit}${offset}${isActive}`)
 			.then(product => {
 				dispatch({
 					type: GET_PRODUCTS,
@@ -117,5 +199,15 @@ export const getProducts = () => {
 					type: GET_PRODUCTS_ERROR
 				})
 			})
+	}
+}
+
+export const deleteImage = (payload) => { //payload = product.id
+	return function (dispatch) {
+		return axios.delete(`${REACT_APP_API_URL}/products/image/${payload.id}`)
+			.then(() => {
+				dispatch(getProduct(payload.productId))
+			})
+			.catch() //check errors
 	}
 }

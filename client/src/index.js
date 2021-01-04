@@ -8,12 +8,14 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux'
 import store from './redux/store/store'
 
+import { ToastProvider } from 'react-toast-notifications'
+
 ReactDOM.render(
 	<Provider store={store}>
 		<Router>
-			<React.StrictMode>
+			<ToastProvider autoDismiss={true} autoDismissTimeout={3000}>
 				<App />
-			</React.StrictMode>
+			</ToastProvider>
 		</Router>
 	</Provider>,
 	document.getElementById('root')

@@ -1,9 +1,16 @@
-import { ADD_CATEGORY, GET_CATEGORIES } from '../constants.js';
+import { ADD_CATEGORY, GET_CATEGORIES, EDIT_CATEGORY, DELETE_CATEGORY, GET_CATEGORY } from '../constants.js';
 
 const initialState = {
-	isLoading: false,
-	categoryList: [],
-	error: false
+	categories: {
+		isLoading: false,
+		list: [],
+		error: false
+	},
+	category: {
+		isLoading: false,
+		info: {},
+		error: false
+	}
 };
 
 const categoriesReducer = (state = initialState, action) => {
@@ -11,15 +18,50 @@ const categoriesReducer = (state = initialState, action) => {
 		case GET_CATEGORIES:
 			return {
 				...state,
-				categoryList: action.payload
+				categories: {
+					...state.categories,
+					list: action.payload
+				}
+			}
+		case GET_CATEGORY:
+			return {
+				...state,
+				category: {
+					...state.category,
+					info: action.payload
+				}
 			}
 		case ADD_CATEGORY:
 			return {
 				...state,
-				categoryList: [
-					...state.categoryList,
-					action.payload
-				]
+				categories: {
+					...state.categories,
+					list: [
+						...state.categories.list,
+						action.payload
+					]
+				}
+			}
+		case EDIT_CATEGORY:
+			return {
+				...state,
+				categories: {
+					...state.categories,
+					list: state.categories.list.map(el => {
+						if (el.id === action.payload.id) {
+							return action.payload;
+						}
+						return el;
+					})
+				}
+			}
+		case DELETE_CATEGORY:
+			return {
+				...state,
+				categories: {
+					...state.categories,
+					list: state.categories.list.filter(category => category.id !== action.payload.id)
+				}
 			}
 		default: return state;
 	}

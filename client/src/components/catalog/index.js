@@ -1,73 +1,58 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { getFilterProducts, getProducts } from '../../redux/actions/products_actions';
-import { getCategories } from '../../redux/actions/categories_actions';
+import React from 'react'
 import ProductCard from '../product_card'
-import { CatalogStyled, SelectStyled } from './../styles/styled_catalog';
+import { CatalogStyled } from './../styles/styled_catalog';
+import strings from './strings';
+import ReactPaginate from 'react-paginate';
+import { useSelector } from 'react-redux';
+import { PaginationStyled } from '../styles/styled_pagination';
+//Styles =>
+import arrowLeft from '../../assets/img/arrow-left.svg';
+import arrowRight from '../../assets/img/arrow-right.svg';
+import { StyledLoader, StyledSVG } from '../styles/styled_global';
 
-const Catalog = () => {
+const Catalog = ({ products, isLoading, error, language, handlePageChange }) => {
+	const count = useSelector(state => state.productsReducer.count)
+	const currentPage = useSelector(state => state.globalReducer.currentPage);
 
+	if (error) return <h1 className="main-title">ERROR</h1>
 
-	const [filter, setFilter] = useState(false);
-
-	const language = useSelector(state => state.globalReducer.language);
-	const products = useSelector(state => state.productsReducer.products.productList);
-	const productsFilter = useSelector(state => state.productsReducer.productsFilter.productList);
-	const categories = useSelector(state => state.categoriesReducer.categoryList);
-	const loadingProducts = useSelector(state => state.productsReducer.products.isLoading);
-	const errorProducts = useSelector(state => state.productsReducer.products.error);
-	const [options, setOptions] = useState([]);
-
-	const dispatch = useDispatch();
-
-	useEffect(() => {
-		if (!products.length) {
-			dispatch(getProducts());
-		}
-		dispatch(getCategories());
-	}, [])
-
-	useEffect(() => {
-		if (categories.length > 0) {
-			let reduce = categories.reduce((acc, category) => {
-				acc.push({ value: category.id, label: category['name_' + language] });
-				return acc;
-			}, [])
-			setOptions(reduce)
-		}
-	}, [categories])
-
-
-
-	const handleChange = (e) => {
-		if (e.target.value === 'todos') {
-			return setFilter(false);
-		}
-		setFilter(true);
-		dispatch(getFilterProducts(e.target.value));
-	}
-
+	if (!isLoading && !products.length) return <h1 className="main-title">{strings[language].no_products}</h1>
 	return (
 		<>
-			<h1 className="main-title">Encontrá el juego que buscás:</h1>
-			<label className="label-select">
-				<span>Filtrar por categoria:</span>
-				<SelectStyled onChange={handleChange}>
-					<option value="todos">TODOS</option>
-					{options && options.map(category => (
-						<option key={category.value} value={category.label}>{category.label.toUpperCase()}</option>
-					))}
-				</SelectStyled>
-			</label>
-			<CatalogStyled>
-				{loadingProducts && <h1>Loading...</h1>}
-				{!loadingProducts &&
-					(filter && productsFilter.map(card => <ProductCard game={card} key={card.id} />))
-					||
-					!!Object.keys(products).length && products.map(card => <ProductCard game={card} key={card.id} />)
-				}
-				{errorProducts && <h1 style={{ margin: "20px", textAlign: "center" }}>No hay productos para mostrar</h1>}
-			</CatalogStyled>
+			<StyledLoader
+				active={isLoading}
+				spinner
+				text={strings[language].loading}
+				className='loading__overlay'
+				classNamePrefix='loading__'
+			>
+				<CatalogStyled id="catalog" >
+					{products && products.map(product => {
+						if (product.is_active) {
+							return <ProductCard language={language} game={product} key={product.id} />
+						}
+					})}
+				</CatalogStyled>
+				<PaginationStyled>
+					<ReactPaginate
+						forcePage={currentPage}
+						pageCount={Math.ceil(count / 8)}
+						marginPagesDisplayed={2}
+						pageRangeDisplayed={5}
+						onPageChange={handlePageChange}
+						previousLabel={<StyledSVG src={arrowLeft} />}
+						nextLabel={<StyledSVG src={arrowRight} />}
+						breakLabel={'...'}
+						breakClassName={'break-me'}
+						containerClassName={'pagination'}
+						subContainerClassName={'pages pagination'}
+						activeClassName={'active'}
+						disabledClassName={'disabled'}
+						previousClassName={'controls'}
+						nextClassName={'controls'}
+					/>
+				</PaginationStyled>
+			</StyledLoader>
 		</>
 	);
 }
