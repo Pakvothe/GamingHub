@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import { SideBarContainer, SideBarButton, StyledSVG } from '../../styles/styled_admin_sidebar';
 import logo from '../../../assets/img/logo.svg'
@@ -31,10 +31,10 @@ const AdminSideBar = () => {
 					<StyledSVG src={arrowLeft} />
 				</SideBarButton>
 				<ul>
-					<li><Link to="/admin">Productos</Link></li>
-					<li><Link to="/admin/categories">Categorias</Link></li>
-					<li><Link to="/admin/orders">Ordenes</Link></li>
-					<li><Link to="/admin/users">Usuarios</Link></li>
+					<li><NavLink exact activeClassName="active" to="/admin">Productos</NavLink></li>
+					<li><NavLink activeClassName="active" to="/admin/categories">Categorias</NavLink></li>
+					<li><NavLink activeClassName="active" to="/admin/orders">Ordenes</NavLink></li>
+					<li><NavLink activeClassName="active" to="/admin/users">Usuarios</NavLink></li>
 				</ul>
 			</SideBarContainer>
 		</>

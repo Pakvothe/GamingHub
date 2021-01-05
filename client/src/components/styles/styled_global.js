@@ -143,6 +143,15 @@ export const DataTable = styled.table`
 	box-shadow: 8px 8px 0px rgba(0,0,0,.05);
 	table-layout: fixed;
 	width: 100%;
+	transition: box-shadow .25s ease;
+
+	&:hover {
+		box-shadow: 9px 9px 0px rgba(0,0,0,.07);
+	}
+
+	&.table-small {
+		max-width: 400px;
+	}
 
 	thead {
 		font-weight: 900;
@@ -183,6 +192,20 @@ export const DataTable = styled.table`
 		transform: scale(0.95);
 	}
 
+	tfoot td {
+		border-top: 1px solid #CCC;
+		border-bottom: none;
+		font-size: 1.2em;
+		font-weight: 700;
+	}
+
+	.row-link {
+		cursor: pointer;
+		
+		&:hover {
+			outline: 1px solid var(--clr-primary);
+		}
+	}
 
 	@media (max-width: 1000px) {
 		font-size: .7em;

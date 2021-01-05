@@ -1,11 +1,18 @@
 import React from 'react';
 import { Btn, DataTable } from '../../styles/styled_global';
-import { Link } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 
 const AdminProductList = ({ orders }) => {
 
+	const history = useHistory();
+
+	const handleClick = (id) => {
+		history.push(`/admin/order/${id}`)
+	}
+
 	return (
 		<>
+			<h1 className='admin-h1'>órdenes</h1>
 			<DataTable>
 				<thead>
 					<tr>
@@ -19,7 +26,7 @@ const AdminProductList = ({ orders }) => {
 				</thead>
 				<tbody>
 					{orders && orders.map(order => (
-						<tr key={order.id}>
+						<tr className='row-link' key={order.id} onClick={(ev) => handleClick(order.id)}>
 							{/* <td>{order.user}</td> */}
 							<td>{order.id}</td>
 							<td>{order.email}</td>

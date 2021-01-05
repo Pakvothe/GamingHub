@@ -17,6 +17,7 @@ const AdminUserList = ({ users }) => {
 
 	return (
 		<>
+			<h1 className='admin-h1'>usuarios</h1>
 			<DataTable>
 				<thead>
 					<tr>
