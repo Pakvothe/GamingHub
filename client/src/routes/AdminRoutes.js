@@ -14,6 +14,7 @@ import AdminCategoryList from '../components/admin_page/admin_category_list';
 import AdminProductForm from './../components/admin_page/admin_product_form/index';
 import AdminOrderList from './../components/admin_page/admin_order_list';
 import AdminUserList from './../components/admin_page/admin_user_list';
+import AdminOrderDetail from './../components/admin_page/admin_order_detail/index';
 
 function AdminRoutes() {
 	const dispatch = useDispatch();
@@ -63,7 +64,7 @@ function AdminRoutes() {
 				</Route>
 
 				<Route exact path='/admin/order/:id'>
-					{/* <AdminOrderDetail /> */}
+					<AdminOrderDetail />
 				</Route>
 			</main>
 		</>

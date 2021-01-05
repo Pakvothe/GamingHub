@@ -1,55 +1,92 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getOrder } from '../../../redux/actions/orders_actions';
 import { DataTable } from '../../styles/styled_global';
 import { StyledOrderDetail } from '../../styles/styled_order_detail';
+import { useParams } from 'react-router-dom';
 
 const AdminOrderDetail = () => {
 	const dispatch = useDispatch();
+	const { id } = useParams();
 
+	const orderInfo = useSelector(state => state.ordersReducer.order.info);
+	const products = orderInfo?.products;
 
 	useEffect(() => {
-		dispatch()
+		dispatch(getOrder(id));
 	}, [])
 
 	return (
 		<StyledOrderDetail>
-			<div>
-				<h1>Titulo</h1>
-				<DataTable>
-					<thead>
-						<tr>
-							<td onClick={handleOrder}>Título</td>
-							<td className="cell-small">Stock</td>
-							<td className="cell-small">Visible</td>
-							<td className="cell-small">Imagen</td>
-							<td></td>
-						</tr>
-					</thead>
-					<tbody>
-						{products && products.map(prod => (
-							<tr key={prod.name}>
-								<td>{prod.name}</td>
-								<td>{prod.quantity}</td>
-								<td>{prod.image[0]}</td>
+			<h1 className='admin-h1'>Orden nº {id}</h1>
+			<div className='tables-container'>
+				<div>
+					<h2>Detalles de la orden</h2>
+					<DataTable className='table-small'>
+						<tbody>
+							<tr>
+								<td>Realizada por:</td>
+								<td>{orderInfo?.email}</td>
 							</tr>
-						))}
-					</tbody>
-				</DataTable>
+							<tr>
+								<td>Fecha:</td>
+								<td>{orderInfo?.createdAt?.split('T')[0]}</td>
+							</tr>
+							<tr>
+								<td>Precio Total:</td>
+								<td>${orderInfo?.total_amount}</td>
+							</tr>
+							<tr>
+								<td>Estado:</td>
+								<td>{orderInfo?.state}</td>
+							</tr>
+							<tr>
+								<td>Metodo de Pago:</td>
+								<td>{orderInfo?.payment_method}</td>
+							</tr>
+							<tr>
+								<td>Cantidad comprada:</td>
+								<td>{orderInfo?.products?.length}</td>
+							</tr>
+						</tbody>
+					</DataTable>
+				</div>
+				<div>
+					<h2>Productos</h2>
+					<DataTable>
+						<thead>
+							<tr>
+								<td /* onClick={handleSortTitle} */>Título</td>
+								<td>Cantidad</td>
+								<td>Precio Unitario</td>
+								<td>Precio Total</td>
+							</tr>
+						</thead>
+						<tbody>
+							{products && products.map(prod => (
+								<tr key={prod.id}>
+									<td>{prod.name}</td>
+									<td>{prod.orders_products.quantity}</td>
+									<td>${prod.orders_products.unit_price}</td>
+									<td>${prod.orders_products.quantity * prod.orders_products.unit_price}</td>
+								</tr>
+							))}
+						</tbody>
+						<tfoot>
+							<tr>
+								<td>-</td>
+								<td>-</td>
+								<td>-</td>
+								<td>Total: ${orderInfo?.total_amount}</td>
+							</tr>
+						</tfoot>
+					</DataTable>
+				</div>
 			</div>
-			<div>
-				<ul>
-					<li></li>
-					<li></li>
-					<li></li>
-				</ul>
-				<ul>
-					<li></li>
-					<li></li>
-					<li></li>
-				</ul>
-			</div>
+
 		</StyledOrderDetail>
 	)
 }
+
 
 export default AdminOrderDetail;

@@ -2,6 +2,13 @@ import styled from 'styled-components';
 import SVG from 'react-inlinesvg';
 
 export const StyledOrderDetail = styled.div`
+	.tables-container {
+		display: flex;
+
+		& > div:first-child {
+			flex: 1 0 30%;
+		}
+	}
 
 `
 
