@@ -13,6 +13,7 @@ import {
 const initialState = {
 	user: {
 		info: localStorage.getItem('user') || {},
+		jwt: localStorage.getItem('jwt') || '',
 		isLoading: false,
 		error: false
 	},
@@ -31,6 +32,7 @@ const usersReducer = (state = initialState, action) => {
 				user: {
 					...state.user,
 					info: action.payload,
+					jwt: action.payload
 				}
 			}
 		}

@@ -19,7 +19,6 @@ module.exports = (sequelize) => {
 		},
 		username: {
 			type: D.STRING,
-			allowNull: false,
 			unique: true
 		},
 		email: {

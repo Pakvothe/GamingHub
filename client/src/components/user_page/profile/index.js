@@ -1,14 +1,17 @@
 import React from 'react'
-
+import { useSelector } from 'react-redux'
 /* --- Styled --- */
 import { ProfileStyled } from '../../styles/styled_profile'
 
-const Profile = ({ user }) => {
+const Profile = () => {
+
+	const user = useSelector(state => state.usersReducer.user.info)
+
 	return (
 		<ProfileStyled>
 			<div>
 				<div className="img-container">
-					<img src={user.img} />
+					<img src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmlsZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80" />
 				</div>
 			</div>
 			<div>

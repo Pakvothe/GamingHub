@@ -80,7 +80,6 @@ const AdminProductStockList = () => {
 
 	const handleSubmit = (ev) => {
 		ev.preventDefault();
-		console.log('9999999999999999999')
 		let serialInput = ev.target.elements[0];
 		if (serialInput.value.length === 20) {
 			dispatch(editSerial({ id, serial: serialInput.value }));
