@@ -8,6 +8,7 @@ export const LOADING = 'LOADING';
 export const ADD_CREDIT_CARD = 'ADD_CREDIT_CARD';
 export const RESET_CURRENT_PAGE = 'RESET_CURRENT_PAGE';
 export const CHANGE_CURRENT_PAGE = 'CHANGE_CURRENT_PAGE';
+export const OPEN_LOGIN = 'OPEN_LOGIN';
 
 //Product actions =>
 export const GET_PRODUCTS = 'GET_PRODUCTS';
@@ -29,6 +30,13 @@ export const GET_PRODUCT_ERROR = 'GET_PRODUCT_ERROR';
 
 export const DELETE_IMAGE = 'DELETE_IMAGE';
 
+export const GET_SERIALS = 'GET_SERIALS';
+export const ADD_SERIAL = 'ADD_SERIAL';
+export const EDIT_SERIAL = 'EDIT_SERIAL';
+export const DELETE_SERIAL = 'DELETE_SERIAL';
+export const ERROR_SERIAL = 'ERROR_SERIAL';
+export const CLEAR_ERROR_SERIAL = 'ERROR_SERIAL';
+
 //Category actions =>
 export const GET_CATEGORIES = 'GET_CATEGORIES';
 export const GET_CATEGORY = 'GET_CATEGORY';
@@ -47,6 +55,8 @@ export const LOADING_ORDER = 'LOADING_ORDER';
 export const ORDER_ERROR = 'ORDER_ERROR';
 
 //User actions =>
+export const LOGIN_USER = 'LOGIN_USER';
+export const LOGOUT_USER = 'LOGOUT_USER';
 export const ADD_USER = 'ADD_USER';
 export const GET_USER = 'GET_USER';
 export const EDIT_USER = 'EDIT_USER';

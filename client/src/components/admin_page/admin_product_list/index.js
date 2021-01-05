@@ -49,19 +49,10 @@ const AdminProductList = ({ products }) => {
 							<td>{prod.id}</td>
 							<td>{prod.name}</td>
 							<td>{prod.stock}</td>
-							{/* <td>
-								<CheckboxLabel className="no-shadow check" checked={input.is_active[prod.id]}>
-									<input
-										type='checkbox'
-										value={input.is_active[prod.id]}
-										onChange={handleInput}
-										name='is_active'
-									/>
-								</CheckboxLabel>
-							</td> */}
 							<td><input type="checkbox" checked={prod.is_active} onChange={handleInput} name={prod.id} /></td>
 							<td>
 								<ul>
+									<li><Link to={`/admin/product/${prod.id}/stock`}><button>Stock</button></Link></li>
 									<li><Link to={`/admin/product/${prod.id}`}><button>Editar</button></Link></li>
 									<li><button onClick={() => handleDelete(prod)}>Eliminar</button></li>
 								</ul>

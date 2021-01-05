@@ -19,7 +19,6 @@ module.exports = (sequelize) => {
 		},
 		username: {
 			type: D.STRING,
-			allowNull: false,
 			unique: true
 		},
 		email: {
@@ -33,6 +32,13 @@ module.exports = (sequelize) => {
 		password: {
 			type: D.STRING,
 			allowNull: false,
+			set(value) {
+				if (value) {
+					const salt = bcrypt.genSaltSync(10);
+					const hash = bcrypt.hashSync(value, salt);
+					this.setDataValue('password', hash);
+				}
+			}
 		},
 		language: {
 			type: D.ENUM('en', 'es'),
@@ -42,14 +48,10 @@ module.exports = (sequelize) => {
 			type: D.BOOLEAN,
 			allowNull: false
 		}
-	}, {
-		hooks: {
-			beforeCreate: hashPassword,
-			beforeUpdate: hashPassword,
-			beforeBulkCreate: (users) => users.map((user) => hashPassword(user, "save"))
-		}
 	})
-	User.prototype.validPassword = function (password) {
-		return bcrypt.compare(password.toString(), this.password);
+
+	User.prototype.compare = function (password) {
+		return bcrypt.compareSync(password.toString(), this.password);
 	}
+
 }
