@@ -109,14 +109,14 @@ const Login = () => {
 							value={input.password}
 							required />
 					</label>
-					<div className='link_container'>
-						<Link>{strings[language].olvi}</Link>
-						<Link>{strings[language].create}</Link>
+					<div className='link_container' onClick={() => dispatch(openLogin(false))}>
+						<Link to="/reset">{strings[language].olvi}</Link>
+						<Link to="/signup">{strings[language].create}</Link>
 					</div>
 					<Btn type='submit' className='btn-ppal'>Ok</Btn>
 				</FormStyled>
 			</LoginStyled>
-		</Modal>
+		</Modal >
 	)
 }
 

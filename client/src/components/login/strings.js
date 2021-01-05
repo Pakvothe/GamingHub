@@ -1,7 +1,7 @@
 export default {
 	en: {
 		title: 'Log In',
-		user: 'User:',
+		email: 'Email:',
 		pass: 'Password:',
 		olvi: 'Forgot my Password',
 		create: 'Create an Account'
@@ -9,7 +9,7 @@ export default {
 	},
 	es: {
 		title: 'Iniciar Sesión',
-		user: 'Usuario:',
+		email: 'Correo:',
 		pass: 'Contraseña:',
 		olvi: 'Olvidé mi Contraseña',
 		create: 'Crear una Cuenta'
