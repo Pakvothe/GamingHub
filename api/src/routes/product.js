@@ -56,6 +56,8 @@ server.post('/cart', (req, res) => {
 });
 
 server.post('/', (req, res) => {
+	if (!req.user?.is_admin) return res.sendStatus(401);
+
 	const {
 		name,
 		description_es,
@@ -164,7 +166,10 @@ server.get('/search', (req, res) => {
 		res.status(400).json({ message: "Query is empty" });
 	}
 })
+
 server.put('/:id/active', (req, res) => {
+	if (!req.user?.is_admin) return res.sendStatus(401);
+
 	const { id } = req.params;
 	Product.findOne({
 		where: { id }
@@ -204,6 +209,8 @@ server.put('/:id/active', (req, res) => {
 })
 
 server.put('/:id', (req, res) => {
+	if (!req.user?.is_admin) return res.sendStatus(401);
+
 	const { id } = req.params;
 	const {
 		name,
@@ -302,6 +309,8 @@ server.put('/:id', (req, res) => {
 
 
 server.post('/:prodId/category/:catId', (req, res) => {
+	if (!req.user?.is_admin) return res.sendStatus(401);
+
 	let { prodId, catId } = req.params;
 	let prod = Product.findOne({
 		where: { id: prodId }
@@ -317,6 +326,8 @@ server.post('/:prodId/category/:catId', (req, res) => {
 })
 
 server.delete('/:prodId/category/:catId', (req, res) => {
+	if (!req.user?.is_admin) return res.sendStatus(401);
+
 	let { prodId, catId } = req.params;
 	let prod = Product.findOne({
 		where: { id: prodId }
@@ -332,6 +343,8 @@ server.delete('/:prodId/category/:catId', (req, res) => {
 })
 
 server.delete('/:id', (req, res) => {
+	if (!req.user?.is_admin) return res.sendStatus(401);
+
 	const prodId = req.params.id;
 	Product.destroy({
 		where: {
@@ -384,6 +397,8 @@ server.get('/:id', (req, res) => {
 });
 
 server.delete('/image/:id', (req, res) => {
+	if (!req.user?.is_admin) return res.sendStatus(401);
+
 	const imgId = req.params.id;
 	Image.destroy({
 		where: { id: imgId },

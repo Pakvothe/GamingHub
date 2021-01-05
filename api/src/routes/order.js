@@ -4,12 +4,11 @@ const { Order, Product, Orders_products } = require('../db.js');
 //----------"/orders"--------------
 
 server.post('/', async (req, res) => {
+	if (!req.user) return res.sendStatus(401);
+
 	const order = req.body;
 	const { products } = order;
 	delete order.products;
-	//	trabajo para el front?
-	// let total = products.reduce((acc, prod) => acc + (prod.price * prod.quantity), 0);
-	// order.total_amount = total;
 
 	let idOrder;
 	Order.create(order)
@@ -38,7 +37,10 @@ server.post('/', async (req, res) => {
 });
 
 server.get('/', (req, res) => {
+	if (!req.user) return res.sendStatus(401);
+
 	Order.findAll({
+		where: !req.user.is_admin && { userId: req.user.id },
 		include: [
 			{
 				model: Product,

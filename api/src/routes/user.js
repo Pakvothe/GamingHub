@@ -4,6 +4,8 @@ const { User, Order, Product } = require('../db.js');
 //----------"/users"--------------
 
 server.get('/', (req, res) => {
+	if (!req.user?.is_admin) return res.sendStatus(401);
+
 	User.findAll({
 		order: [['id', 'ASC']]
 	})
@@ -15,32 +17,35 @@ server.get('/', (req, res) => {
 		})
 });
 
-server.get('/:id', (req, res) => {
-	const { id } = req.params
-	User.findByPk(id)
-		.then(foundUser => {
-			if (!foundUser) {
-				return res.status(404).json({ message: "User not found" });
-			}
-			return res.status(200).json(foundUser)
-		})
-		.catch(err => {
-			return res.status(500).json({ message: "Internal server error" });
-		})
-})
+// server.get('/:id', (req, res) => {
+// 	const { id } = req.params
+// 	User.findByPk(id)
+// 		.then(foundUser => {
+// 			if (!foundUser) {
+// 				return res.status(404).json({ message: "User not found" });
+// 			}
+// 			return res.status(200).json(foundUser)
+// 		})
+// 		.catch(err => {
+// 			return res.status(500).json({ message: "Internal server error" });
+// 		})
+// })
 
-server.post('/', (req, res) => {
-	const newUser = req.body;
-	User.create(newUser)
-		.then(user => {
-			return res.status(200).json(user)
-		})
-		.catch(err => {
-			return res.status(500).json({ message: "Internal server error" });
-		})
-})
+// server.post('/', (req, res) => {
+
+// 	const newUser = req.body;
+// 	User.create(newUser)
+// 		.then(user => {
+// 			return res.status(200).json(user)
+// 		})
+// 		.catch(err => {
+// 			return res.status(500).json({ message: "Internal server error" });
+// 		})
+// })
 
 server.put('/:id', (req, res) => {
+	if (!req.user) return res.sendStatus(401);
+
 	const { id } = req.params;
 	const toUpdate = req.body;
 	if (!toUpdate.password) {
@@ -67,6 +72,8 @@ server.put('/:id', (req, res) => {
 });
 
 server.delete('/:userId', (req, res) => {
+	if (!req.user?.is_admin) return res.sendStatus(401);
+
 	const { userId } = req.params;
 	var user = {};
 
@@ -94,32 +101,33 @@ server.delete('/:userId', (req, res) => {
 		})
 })
 
+//TAL VEZ SIRVA PARA ADMIN
+// server.get('/:id/orders', (req, res) => {
 
-server.get('/:id/orders', (req, res) => {
-	const { id } = req.params;
-	if (!+id) res.status(400).json({ message: "Bad Request" });
+// 	const { id } = req.params;
+// 	if (!+id) res.status(400).json({ message: "Bad Request" });
 
-	Order.findAll({
-		where: {
-			userId: id
-		},
-		include: [
-			{
-				model: Product,
-				through: {
-					attributes: [
-						'unit_price', 'quantity'
-					]
-				}
-			}
-		]
-	})
-		.then(orders => {
-			return res.json(orders);
-		})
-		.catch(() => {
-			res.status(500).json({ message: "Internal server error" })
-		});
-});
+// 	Order.findAll({
+// 		where: {
+// 			userId: id
+// 		},
+// 		include: [
+// 			{
+// 				model: Product,
+// 				through: {
+// 					attributes: [
+// 						'unit_price', 'quantity'
+// 					]
+// 				}
+// 			}
+// 		]
+// 	})
+// 		.then(orders => {
+// 			return res.json(orders);
+// 		})
+// 		.catch(() => {
+// 			res.status(500).json({ message: "Internal server error" })
+// 		});
+// });
 
 module.exports = server; 

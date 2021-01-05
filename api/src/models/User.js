@@ -3,11 +3,6 @@ const D = DataTypes;
 const bcrypt = require("bcrypt");
 
 module.exports = (sequelize) => {
-	const hashPassword = async (user, save) => {
-		const salt = await bcrypt.genSalt(10);
-		user.password = await bcrypt.hash(user.password, salt)
-		if (save) user.save();
-	};
 	const User = sequelize.define('user', {
 		first_name: {
 			type: D.STRING,

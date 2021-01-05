@@ -17,7 +17,8 @@ import {
 	DELETE_IMAGE,
 	GET_SERIALS,
 	ERROR_SERIAL,
-	CLEAR_ERROR_SERIAL
+	CLEAR_ERROR_SERIAL,
+	BEARER
 } from './../constants';
 
 const { REACT_APP_API_URL } = process.env;
@@ -26,7 +27,7 @@ const { REACT_APP_API_URL } = process.env;
 
 export const addProduct = (payload) => {
 	return function (dispatch) {
-		return axios.post(`${REACT_APP_API_URL}/products`, payload)
+		return axios.post(`${REACT_APP_API_URL}/products`, payload, BEARER())
 			.then((product) => {
 				dispatch(
 					{
@@ -42,7 +43,7 @@ export const addProduct = (payload) => {
 
 export const deleteProduct = (payload) => { //payload = product.id
 	return function (dispatch) {
-		return axios.delete(`${REACT_APP_API_URL}/products/${payload}`)
+		return axios.delete(`${REACT_APP_API_URL}/products/${payload}`, BEARER())
 			.then(() => {
 				dispatch(
 					{
@@ -57,7 +58,7 @@ export const deleteProduct = (payload) => { //payload = product.id
 
 export const editProduct = (payload) => {
 	return function (dispatch) {
-		return axios.put(`${REACT_APP_API_URL}/products/${payload.id}`, payload)
+		return axios.put(`${REACT_APP_API_URL}/products/${payload.id}`, payload, BEARER())
 			.then((product) => {
 				dispatch(
 					{
@@ -72,7 +73,7 @@ export const editProduct = (payload) => {
 
 export const toggleActiveProduct = (payload) => {
 	return function (dispatch) {
-		return axios.put(`${REACT_APP_API_URL}/products/${payload}/active`, payload)
+		return axios.put(`${REACT_APP_API_URL}/products/${payload}/active`, payload, BEARER())
 			.then((product) => {
 				dispatch(
 					{
@@ -206,7 +207,7 @@ export const getProducts = (payload) => {
 
 export const deleteImage = (payload) => { //payload = product.id
 	return function (dispatch) {
-		return axios.delete(`${REACT_APP_API_URL}/products/image/${payload.id}`)
+		return axios.delete(`${REACT_APP_API_URL}/products/image/${payload.id}`, BEARER())
 			.then(() => {
 				dispatch(getProduct(payload.productId))
 			})
@@ -218,7 +219,7 @@ export const deleteImage = (payload) => { //payload = product.id
 
 export const getSerials = (payload) => {
 	return function (dispatch) {
-		return axios.get(`${REACT_APP_API_URL}/serials/${payload}`)
+		return axios.get(`${REACT_APP_API_URL}/serials/${payload}`, BEARER())
 			.then((serials) => {
 				dispatch({ type: GET_SERIALS, payload: serials.data })
 			})
@@ -228,7 +229,7 @@ export const getSerials = (payload) => {
 
 export const deleteSerial = (payload) => {
 	return function (dispatch) {
-		return axios.delete(`${REACT_APP_API_URL}/serials/${payload.serial}`)
+		return axios.delete(`${REACT_APP_API_URL}/serials/${payload.serial}`, BEARER())
 			.then(() => {
 				dispatch(getSerials(payload.productId));
 				dispatch(getProducts({ isActive: true }));
@@ -239,7 +240,7 @@ export const deleteSerial = (payload) => {
 
 export const addSerial = (payload) => {
 	return function (dispatch) {
-		return axios.post(`${REACT_APP_API_URL}/serials/${payload.productId}`, { serials: payload.serials })
+		return axios.post(`${REACT_APP_API_URL}/serials/${payload.productId}`, { serials: payload.serials }, BEARER())
 			.then((a) => {
 				dispatch(getProducts({ isActive: true }));
 				dispatch(getSerials(payload.productId));
@@ -252,7 +253,7 @@ export const addSerial = (payload) => {
 
 export const editSerial = (payload) => {
 	return function (dispatch) {
-		return axios.put(`${REACT_APP_API_URL}/serials/${payload.id}`, { serial: payload.serial })
+		return axios.put(`${REACT_APP_API_URL}/serials/${payload.id}`, { serial: payload.serial }, BEARER())
 			.then((a) => {
 				dispatch(getSerials(payload.productId));
 			})

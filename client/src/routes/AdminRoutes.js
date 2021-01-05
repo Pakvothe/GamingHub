@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Route, useHistory } from 'react-router-dom';
+import { Route, useHistory, Redirect } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { getProducts } from '../redux/actions/products_actions';
@@ -26,17 +26,25 @@ function AdminRoutes() {
 	const orders = useSelector((state) => state.ordersReducer.orders.list);
 	const users = useSelector((state) => state.usersReducer.users.list);
 	const user = useSelector((state) => state.usersReducer.user.info);
+	const userLoading = useSelector((state) => state.usersReducer.user.isLoading);
 	const language = useSelector((state) => state.globalReducer.language);
 
 	useEffect(() => {
-		if (!user.is_admin) history.push('/');
-		dispatch(getProducts({ isActive: true }));
-		dispatch(getCategories());
-		dispatch(getOrders());
-		dispatch(getUsers());
+		if (!JSON.parse(localStorage.getItem('jwt'))) history.push('/');
 	}, []);
 
+	useEffect(() => {
+		if (user.is_admin === false) return history.push('/');
+		if (user.is_admin === true) {
+			dispatch(getProducts({ isActive: true }));
+			dispatch(getCategories());
+			dispatch(getOrders());
+			dispatch(getUsers());
+		}
+	}, [user]);
 
+
+	if (userLoading) return <h1>Loading....</h1>
 
 	return (
 		<>

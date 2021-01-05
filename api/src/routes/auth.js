@@ -8,7 +8,7 @@ server.get("/me", async (req, res, next) => {
 	try {
 		if (req.user) {
 			const { id } = req.user;
-			const result = await User.findByPk(id);
+			const result = await User.findByPk(id, { attributes: { exclude: ['password'] } });
 			res.json(result);
 		} else res.sendStatus(401);
 	} catch (error) {
