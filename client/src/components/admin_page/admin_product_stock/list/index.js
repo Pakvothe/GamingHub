@@ -13,8 +13,6 @@ const AdminProductStockList = () => {
 	const serials = useSelector(state => state.productsReducer.serials.list);
 	const error = useSelector(state => state.productsReducer.serials.error);
 
-	console.log(serials)
-
 	const [input, setInput] = useState('');
 
 	useEffect(() => {
