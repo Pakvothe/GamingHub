@@ -18,7 +18,7 @@ import cart from '../../assets/img/cart.svg'
 import moon from '../../assets/img/moon.svg'
 import sun from '../../assets/img/sun.svg'
 import languageIcon from '../../assets/img/language.svg'
-import user from '../../assets/img/user.svg'
+import userPic from '../../assets/img/user.svg'
 
 /* --- Strings --- */
 import strings from './strings'
@@ -31,6 +31,7 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 	const dispatch = useDispatch();
 	const language = useSelector(state => state.globalReducer.language);
 	const categories = useSelector(state => state.categoriesReducer.categories.list);
+	const user = useSelector(state => state.usersReducer.user.info);
 	const theme = useSelector(state => state.globalReducer.theme)
 
 	const number = cartNumber.reduce((acc, prod) => {
@@ -98,16 +99,23 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 								</ul>
 							</Dropdown>
 							<Dropdown>
-								<StyledSVG src={user} />
+								<StyledSVG src={userPic} />
 								<span>{strings[language].user}</span>
 								<ul>
-									<li className='dropdown__first-name'><p>Emiliano</p></li>
-
-									<li><Link to='/user'>Perfil</Link></li>
-									<li><Link to='/signup'>Registrarse</Link></li>
-									<li><Link to='/admin'>Panel de Administración</Link></li>
-									<li><Link onClick={openLoginModal}>Login</Link></li>
-									<li><Link onClick={handleLogout}>Logout</Link></li>
+									{
+										user.first_name ? (
+											<>
+												<li className='dropdown__first-name'><p>{user.first_name}</p></li>
+												<li><Link to='/user'>Perfil</Link></li>
+												{user.is_admin && <li><Link to='/admin'>Panel de Administración</Link></li>}
+												<li><Link to="/" onClick={handleLogout}>Logout</Link></li>
+											</>
+										) : (
+												<>
+													<li><Link to="/#" onClick={openLoginModal}>Login</Link></li>
+												</>
+											)
+									}
 								</ul>
 							</Dropdown>
 							<li>

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, useHistory } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { getProducts } from '../redux/actions/products_actions';
@@ -18,19 +18,24 @@ import AdminOrderList from './../components/admin_page/admin_order_list';
 import AdminUserList from './../components/admin_page/admin_user_list';
 
 function AdminRoutes() {
+	const history = useHistory()
 	const dispatch = useDispatch();
 	const products = useSelector((state) => state.productsReducer.products.productList);
 	const categories = useSelector((state) => state.categoriesReducer.categories.list);
 	const orders = useSelector((state) => state.ordersReducer.orders.list);
 	const users = useSelector((state) => state.usersReducer.users.list);
+	const user = useSelector((state) => state.usersReducer.user.info);
 	const language = useSelector((state) => state.globalReducer.language);
 
 	useEffect(() => {
+		if (!user.is_admin) history.push('/');
 		dispatch(getProducts({ isActive: true }));
 		dispatch(getCategories());
 		dispatch(getOrders());
 		dispatch(getUsers());
 	}, []);
+
+
 
 	return (
 		<>
