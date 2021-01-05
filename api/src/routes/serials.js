@@ -9,7 +9,10 @@ server.get('/:id', (req, res) => {
 	Serial.findAll({
 		where: {
 			productId: id
-		}
+		},
+		order: [
+			['id']
+		]
 	})
 		.then(serials => {
 			res.json(serials);
