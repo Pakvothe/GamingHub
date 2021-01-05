@@ -14,7 +14,10 @@ import {
 	GET_FILTER_PRODUCTS_ERROR,
 	GET_PRODUCTS_ERROR,
 	TOGGLE_ACTIVE_PRODUCT,
-	DELETE_IMAGE
+	DELETE_IMAGE,
+	GET_SERIALS,
+	ERROR_SERIAL,
+	CLEAR_ERROR_SERIAL
 } from './../constants';
 
 const { REACT_APP_API_URL } = process.env;
@@ -210,4 +213,56 @@ export const deleteImage = (payload) => { //payload = product.id
 			})
 			.catch() //check errors
 	}
+}
+
+//SERIALS ACTIONS
+
+export const getSerials = (payload) => {
+	return function (dispatch) {
+		return axios.get(`${REACT_APP_API_URL}/serials/${payload}`)
+			.then((serials) => {
+				dispatch({ type: GET_SERIALS, payload: serials.data })
+			})
+			.catch() //check errors
+	}
+}
+
+export const deleteSerial = (payload) => {
+	return function (dispatch) {
+		return axios.delete(`${REACT_APP_API_URL}/serials/${payload.serial}`)
+			.then(() => {
+				dispatch(getSerials(payload.productId));
+				dispatch(getProducts({ isActive: true }));
+			})
+			.catch() //check errors
+	}
+}
+
+export const addSerial = (payload) => {
+	return function (dispatch) {
+		return axios.post(`${REACT_APP_API_URL}/serials/${payload.productId}`, { serials: payload.serials })
+			.then((a) => {
+				dispatch(getProducts({ isActive: true }));
+				dispatch(getSerials(payload.productId));
+			})
+			.catch(err => {
+				dispatch({ type: ERROR_SERIAL, payload: err.response.data })
+			}) //check errors
+	}
+}
+
+export const editSerial = (payload) => {
+	return function (dispatch) {
+		return axios.put(`${REACT_APP_API_URL}/serials/${payload.id}`, { serial: payload.serial })
+			.then((a) => {
+				dispatch(getSerials(payload.id));
+			})
+			.catch(err => {
+				dispatch({ type: ERROR_SERIAL, payload: err.response.data })
+			}) //check errors
+	}
+}
+
+export const clearErrorSerial = () => {
+	return { type: CLEAR_ERROR_SERIAL }
 }

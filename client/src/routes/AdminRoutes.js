@@ -12,6 +12,8 @@ import AdminProductList from '../components/admin_page/admin_product_list';
 import AdminCategoryForm from '../components/admin_page/admin_category_form';
 import AdminCategoryList from '../components/admin_page/admin_category_list';
 import AdminProductForm from './../components/admin_page/admin_product_form/index';
+import AdminProductStockList from './../components/admin_page/admin_product_stock/list';
+import AdminProductStockForm from './../components/admin_page/admin_product_stock/form';
 import AdminOrderList from './../components/admin_page/admin_order_list';
 import AdminUserList from './../components/admin_page/admin_user_list';
 
@@ -44,6 +46,14 @@ function AdminRoutes() {
 
 				<Route exact path='/admin/product/:id'>
 					<AdminProductForm categories={categories} />
+				</Route>
+
+				<Route exact path='/admin/product/:id/stock'>
+					<AdminProductStockList categories={categories} />
+				</Route>
+
+				<Route exact path='/admin/product/:id/stock/new'>
+					<AdminProductStockForm categories={categories} />
 				</Route>
 
 				<Route exact path='/admin/categories'>

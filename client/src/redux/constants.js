@@ -30,6 +30,13 @@ export const GET_PRODUCT_ERROR = 'GET_PRODUCT_ERROR';
 
 export const DELETE_IMAGE = 'DELETE_IMAGE';
 
+export const GET_SERIALS = 'GET_SERIALS';
+export const ADD_SERIAL = 'ADD_SERIAL';
+export const EDIT_SERIAL = 'EDIT_SERIAL';
+export const DELETE_SERIAL = 'DELETE_SERIAL';
+export const ERROR_SERIAL = 'ERROR_SERIAL';
+export const CLEAR_ERROR_SERIAL = 'ERROR_SERIAL';
+
 //Category actions =>
 export const GET_CATEGORIES = 'GET_CATEGORIES';
 export const GET_CATEGORY = 'GET_CATEGORY';
