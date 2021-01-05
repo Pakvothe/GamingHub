@@ -6,7 +6,8 @@ import {
 	GET_USERS,
 	DELETE_USER,
 	USERS_ERROR,
-	LOADING_USERS
+	LOADING_USERS,
+	LOGIN_USER
 } from '../constants';
 
 const { REACT_APP_API_URL } = process.env;
@@ -20,6 +21,26 @@ export const getUser = () => {
 					type: GET_USER,
 					payload: user.data
 				})
+			})
+			.catch(err => {
+				dispatch({
+					type: USERS_ERROR
+				})
+			})
+	}
+}
+
+export const loginUser = (payload) => {
+	return function (dispatch) {
+		return axios.post(`${REACT_APP_API_URL}/auth/login`, payload)
+			.then(user => {
+				const jwt = JSON.stringify(user.data)
+				localStorage.setItem('jwt', jwt);
+				dispatch({
+					type: LOGIN_USER,
+					payload: user.data
+				})
+				dispatch(getUser());
 			})
 			.catch(err => {
 				dispatch({
