@@ -1,5 +1,9 @@
-export const BEARER = {
-	headers: { "Authorization": `Bearer ${JSON.parse(localStorage.getItem('jwt'))}` }
+export function BEARER() {
+	return {
+		headers: {
+			"Authorization": `Bearer ${JSON.parse(localStorage.getItem('jwt'))}`
+		}
+	}
 }
 
 //Global actions =>
