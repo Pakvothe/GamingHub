@@ -49,4 +49,22 @@ server.post('/:id', (req, res) => {
 		});
 })
 
+server.put('/:id', (req, res) => {
+	const { id } = req.params;
+	let { serial } = req.body;
+
+	Serial.update({ serial }, {
+		where: { id }
+	})
+		.then(updatedSerial => {
+			if (!updatedSerial[0]) return res.status(404).json({ message: 'Serial not found' });
+			res.json({ message: 'Serial updated successfully' });
+		})
+		.catch(e => {
+			let type = e.errors[0].type;
+			let value = e.errors[0].value;
+			res.status(400).json({ type, value });
+		});
+})
+
 module.exports = server; 

@@ -13,7 +13,9 @@ import {
 	EMPTY_FILTER,
 	LOADING_FILTER_PRODUCTS,
 	TOGGLE_ACTIVE_PRODUCT,
-	GET_SERIALS
+	GET_SERIALS,
+	ERROR_SERIAL,
+	CLEAR_ERROR_SERIAL
 } from '../constants.js';
 
 const initialState = {
@@ -195,6 +197,23 @@ const productsReducer = (state = initialState, action) => {
 					isLoading: false,
 					error: false,
 					list: action.payload
+				}
+			}
+		case ERROR_SERIAL:
+			return {
+				...state,
+				serials: {
+					...state.serials,
+					isLoading: false,
+					error: action.payload
+				}
+			}
+		case CLEAR_ERROR_SERIAL:
+			return {
+				...state,
+				serials: {
+					...state.serials,
+					error: false
 				}
 			}
 		default: return state;

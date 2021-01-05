@@ -16,7 +16,8 @@ import {
 	TOGGLE_ACTIVE_PRODUCT,
 	DELETE_IMAGE,
 	GET_SERIALS,
-	ERROR_SERIAL
+	ERROR_SERIAL,
+	CLEAR_ERROR_SERIAL
 } from './../constants';
 
 const { REACT_APP_API_URL } = process.env;
@@ -239,13 +240,29 @@ export const deleteSerial = (payload) => {
 
 export const addSerial = (payload) => {
 	return function (dispatch) {
-		return axios.post(`${REACT_APP_API_URL}/serials/${payload.id}`, { serials: payload.serials })
-			.then(() => {
+		return axios.post(`${REACT_APP_API_URL}/serials/${payload.productId}`, { serials: payload.serials })
+			.then((a) => {
 				dispatch(getProducts({ isActive: true }));
+				dispatch(getSerials(payload.productId));
 			})
 			.catch(err => {
-				console.log(err.response.data)
 				dispatch({ type: ERROR_SERIAL, payload: err.response.data })
 			}) //check errors
 	}
+}
+
+export const editSerial = (payload) => {
+	return function (dispatch) {
+		return axios.put(`${REACT_APP_API_URL}/serials/${payload.id}`, { serial: payload.serial })
+			.then((a) => {
+				dispatch(getSerials(payload.id));
+			})
+			.catch(err => {
+				dispatch({ type: ERROR_SERIAL, payload: err.response.data })
+			}) //check errors
+	}
+}
+
+export const clearErrorSerial = () => {
+	return { type: CLEAR_ERROR_SERIAL }
 }
