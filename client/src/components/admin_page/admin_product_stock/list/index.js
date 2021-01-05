@@ -29,8 +29,8 @@ const AdminProductStockList = () => {
 	useEffect(() => {
 		error && Swal.fire({
 			heightAuto: false,
-			title: 'Serial repetido!',
-			text: `El serial ${error.value} ya existe!`,
+			title: '¡Serial repetido!',
+			text: `¡El serial ${error.value} ya existe!`,
 			icon: 'warning',
 			confirmButtonColor: '#3085d6',
 			cancelButtonColor: '#d33',
@@ -43,8 +43,8 @@ const AdminProductStockList = () => {
 	const handleDelete = (serialId) => {
 		Swal.fire({
 			heightAuto: false,
-			title: 'Confirm!',
-			text: 'Serial deleted.',
+			title: 'Delete serial?',
+			text: 'This action cannot be reversed.',
 			icon: 'warning',
 			showCancelButton: true,
 			confirmButtonColor: '#3085d6',
@@ -63,28 +63,34 @@ const AdminProductStockList = () => {
 	}
 
 	const handleEdit = (inputId) => {
-		document.getElementById(inputId).toggleAttribute('disabled');
+		document.getElementById(inputId).removeAttribute('disabled'); // Que no haga toggle sino que lo quite
 		document.getElementById(inputId).focus();
 	}
 
-	const handleEscape = (ev, inputId) => {
+	const handleEscape = (ev) => { // Para que se cancele la edición cuando se aprieta ESC
 		if (ev.keyCode === 27) {
-			document.getElementById(inputId).toggleAttribute('disabled');
+			document.querySelectorAll('input').forEach(input => input.setAttribute('disabled', 'true'));
 			dispatch(getSerials(id));
 		}
+	}
+
+	const handleFocus = (ev) => { // Para que se cancele la edición cuando das clic fuera del input
+		let input = ev.target;
+		input.addEventListener('focusout', () => {
+			input.setAttribute('disabled', 'true')
+		}, { once: true })
 	}
 
 	const handleChange = (ev) => {
 		setInput({ ...input, [ev.target.id]: ev.target.value });
 	}
 
-	const handleSubmit = (ev) => {
+	const handleSubmit = (ev, serialId, productId) => {
 		ev.preventDefault();
-		console.log('9999999999999999999')
-		let serialInput = ev.target.elements[0];
+		let serialInput = document.getElementById(serialId);
 		if (serialInput.value.length === 20) {
-			dispatch(editSerial({ id, serial: serialInput.value }));
-			document.getElementById(serialInput.id).toggleAttribute('disabled');
+			dispatch(editSerial({ id: serialId, serial: serialInput.value, productId }));
+			serialInput.setAttribute('disabled', 'true');
 		}
 	}
 
@@ -109,11 +115,12 @@ const AdminProductStockList = () => {
 						<tr key={serial.id}>
 							<td>{serial.id}</td>
 							<td>
-								<form onSubmit={handleSubmit}>
+								<form className="serial-form" onSubmit={(ev) => handleSubmit(ev, serial.id, serial.productId)}>
 									<input type="text"
 										id={serial.id}
 										onChange={handleChange}
-										onKeyDown={(e) => handleEscape(e, serial.id)}
+										onKeyDown={(e) => handleEscape(e)}
+										onFocus={(e) => handleFocus(e)}
 										disabled
 										value={input[serial.id] || ''}
 									/>

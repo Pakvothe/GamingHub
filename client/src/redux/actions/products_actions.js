@@ -255,7 +255,7 @@ export const editSerial = (payload) => {
 	return function (dispatch) {
 		return axios.put(`${REACT_APP_API_URL}/serials/${payload.id}`, { serial: payload.serial })
 			.then((a) => {
-				dispatch(getSerials(payload.id));
+				dispatch(getSerials(payload.productId));
 			})
 			.catch(err => {
 				dispatch({ type: ERROR_SERIAL, payload: err.response.data })
