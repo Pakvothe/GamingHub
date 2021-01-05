@@ -1,6 +1,17 @@
 import styled from 'styled-components';
 import SVG from 'react-inlinesvg';
 
+export const StyledOrderDetail = styled.div`
+	.tables-container {
+		display: flex;
+
+		& > div:first-child {
+			flex: 1 0 30%;
+		}
+	}
+
+`
+
 export const StepOne = styled.div`
 	display: flex;
 	justify-content: space-between;

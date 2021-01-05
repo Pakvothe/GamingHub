@@ -16,6 +16,7 @@ import AdminProductStockList from './../components/admin_page/admin_product_stoc
 import AdminProductStockForm from './../components/admin_page/admin_product_stock/form';
 import AdminOrderList from './../components/admin_page/admin_order_list';
 import AdminUserList from './../components/admin_page/admin_user_list';
+import AdminOrderDetail from './../components/admin_page/admin_order_detail/index';
 
 function AdminRoutes() {
 	const history = useHistory()
@@ -78,7 +79,7 @@ function AdminRoutes() {
 				</Route>
 
 				<Route exact path='/admin/order/:id'>
-					{/* <AdminOrderDetail /> */}
+					<AdminOrderDetail />
 				</Route>
 			</main>
 		</>

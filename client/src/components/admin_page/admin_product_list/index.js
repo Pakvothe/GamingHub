@@ -28,6 +28,7 @@ const AdminProductList = ({ products }) => {
 
 	return (
 		<>
+			<h1 className='admin-h1'>productos</h1>
 			<div style={{ display: 'flex', justifyContent: 'space-between' }}>
 				<Link to="/admin/product"><Btn className="btn-ppal" >Agregar Producto</Btn></Link>
 				<SearchBar />

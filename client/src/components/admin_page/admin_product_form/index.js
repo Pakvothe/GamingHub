@@ -24,6 +24,8 @@ const AdminProductForm = ({ categories }) => {
 
 	const fileInput = useRef(null);
 
+
+
 	let [input, setInput] = useState({
 		name: '',
 		description_es: '',
@@ -152,6 +154,17 @@ const AdminProductForm = ({ categories }) => {
 
 	const opciones = id ? 'Editar producto' : 'Agregar producto';
 
+	const swalDeleteImg = {
+		heightAuto: false,
+		title: 'Borrar imagen?',
+		text: 'Esta imagen se borrará permanentemente',
+		icon: 'warning',
+		showCancelButton: true,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		confirmButtonText: 'Si, borrarla!',
+	};
+
 	if (isLoading) return <h1>Loading...</h1>;
 	if (toAdmin) return <Redirect to='/admin' />
 
@@ -193,20 +206,11 @@ const AdminProductForm = ({ categories }) => {
 									<div className='image_thumbnail'>
 										<span className='delete__image'>ELIMINAR</span>
 										<img src={image.url} width='100px' key={image.id} onClick={() => {
-											Swal.fire({
-												heightAuto: false,
-												title: 'Borrar imagen?',
-												text: 'Esta imagen se borrará permanentemente',
-												icon: 'warning',
-												showCancelButton: true,
-												confirmButtonColor: '#3085d6',
-												cancelButtonColor: '#d33',
-												confirmButtonText: 'Si, borrarla!',
-											}).then((result) => {
+											Swal.fire(swalDeleteImg).then((result) => {
 												if (result.isConfirmed) {
 													Swal.fire(
 														'Borrada!',
-														'La imagen ha sido funada.',
+														'La imagen ha sido borrada.',
 														'success',
 														dispatch(deleteImage(image))
 													)

@@ -33,7 +33,8 @@ const AdminCategoryList = ({ categories, language }) => {
 
 	return (
 		<>
-			<Link to="/admin/category"><Btn className="btn-ppal" >Agregar Categoria</Btn></Link>
+			<h1 className='admin-h1'>categorías</h1>
+			<Link to="/admin/category"><Btn className="btn-ppal">Agregar Categoria</Btn></Link>
 			<DataTable>
 				<thead>
 					<tr>

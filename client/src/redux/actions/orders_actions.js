@@ -3,7 +3,10 @@ import {
 	GET_ORDERS,
 	LOADING_ORDERS,
 	ORDERS_ERROR,
-	ADD_ORDER
+	ADD_ORDER,
+	ORDER_ERROR,
+	GET_ORDER,
+	LOADING_ORDER
 } from '../constants';
 
 const { REACT_APP_API_URL } = process.env;
@@ -21,6 +24,23 @@ export const getOrders = () => {
 			.catch(err => {
 				dispatch({
 					type: ORDERS_ERROR
+				})
+			})
+	}
+}
+export const getOrder = (payload) => {
+	return function (dispatch) {
+		dispatch({ type: LOADING_ORDER });
+		return axios.get(`${REACT_APP_API_URL}/orders/${payload}`)
+			.then(product => {
+				dispatch({
+					type: GET_ORDER,
+					payload: product.data
+				})
+			})
+			.catch(err => {
+				dispatch({
+					type: ORDER_ERROR
 				})
 			})
 	}

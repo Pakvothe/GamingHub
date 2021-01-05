@@ -52,11 +52,18 @@ export const SideBarContainer = styled.div`
 			color: currentColor;
 			text-decoration: none;
 			padding: 1em 2em;
-			transition: background-color .258910s ease;
+			transition: background-color .25s ease, padding .25s ease;
 
 			&:hover {
 				background-color: var(--clr-primary-2);
 				transition: none;
+			}
+
+			&.active {
+				font-weight: 700;
+				border-left: 5px solid var(--clr-primary-2);
+				padding-left: 3em;
+				transition: padding .25s ease;
 			}
 		}
 	}
