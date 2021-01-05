@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
 import { addUser } from '../../redux/actions/users_actions';
 import { FormStyled, Btn } from '../styles/styled_global';
@@ -6,6 +7,7 @@ import strings from './strings'
 
 const SignUp = () => {
 	const dispatch = useDispatch()
+	const history = useHistory();
 	const language = useSelector((state) => state.globalReducer.language);
 	let [input, setInput] = useState({
 		username: '',
@@ -28,6 +30,8 @@ const SignUp = () => {
 	const handleSubmit = (ev) => {
 		ev.preventDefault();
 		dispatch(addUser(input));
+		//Falta manejar el error
+		history.push('/');
 	}
 
 	return (

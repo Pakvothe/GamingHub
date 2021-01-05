@@ -148,7 +148,6 @@ export const getSearchProducts = (payload, options) => {
 				})
 			})
 			.catch(err => {
-				console.log('error', err);
 				dispatch({
 					type: GET_FILTER_PRODUCTS_ERROR
 				})
