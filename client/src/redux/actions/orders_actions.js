@@ -6,7 +6,8 @@ import {
 	ADD_ORDER,
 	ORDER_ERROR,
 	GET_ORDER,
-	LOADING_ORDER
+	LOADING_ORDER,
+	BEARER
 } from '../constants';
 
 const { REACT_APP_API_URL } = process.env;
@@ -14,7 +15,7 @@ const { REACT_APP_API_URL } = process.env;
 export const getOrders = () => {
 	return function (dispatch) {
 		dispatch({ type: LOADING_ORDERS });
-		return axios.get(`${REACT_APP_API_URL}/orders`)
+		return axios.get(`${REACT_APP_API_URL}/orders`, BEARER)
 			.then(product => {
 				dispatch({
 					type: GET_ORDERS,
@@ -31,7 +32,7 @@ export const getOrders = () => {
 export const getOrder = (payload) => {
 	return function (dispatch) {
 		dispatch({ type: LOADING_ORDER });
-		return axios.get(`${REACT_APP_API_URL}/orders/${payload}`)
+		return axios.get(`${REACT_APP_API_URL}/orders/${payload}`, BEARER)
 			.then(product => {
 				dispatch({
 					type: GET_ORDER,
@@ -48,7 +49,7 @@ export const getOrder = (payload) => {
 
 export const addOrder = (payload) => {
 	return function (dispatch) {
-		return axios.post(`${REACT_APP_API_URL}/orders`, payload)
+		return axios.post(`${REACT_APP_API_URL}/orders`, payload, BEARER)
 			.then(response => {
 				dispatch({
 					type: ADD_ORDER,

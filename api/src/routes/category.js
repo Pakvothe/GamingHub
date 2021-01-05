@@ -4,6 +4,8 @@ const { Product, Category, Image } = require('../db.js');
 //----------"/category"--------------
 
 server.post('/', (req, res) => {
+	if (!req.user?.is_admin) return res.sendStatus(401);
+
 	const { name_es, name_en } = req.body
 	if (!name_es && !name_en) {
 		return res.status(400).json({ message: 'Bad Request' })
@@ -63,6 +65,8 @@ server.get('/:catName', (req, res) => {
 })
 
 server.put('/:catId', (req, res) => {
+	if (!req.user?.is_admin) return res.sendStatus(401);
+
 	let { catId } = req.params;
 	let { name_es, name_en } = req.body;
 	Category.update({
@@ -79,6 +83,8 @@ server.put('/:catId', (req, res) => {
 })
 
 server.delete('/:catId', (req, res) => {
+	if (!req.user?.is_admin) return res.sendStatus(401);
+
 	const { catId } = req.params;
 	var category = {};
 	Category.findOne({
