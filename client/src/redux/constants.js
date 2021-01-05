@@ -53,6 +53,7 @@ export const LOADING_ORDERS = 'LOADING_ORDERS';
 
 //User actions =>
 export const LOGIN_USER = 'LOGIN_USER';
+export const LOGOUT_USER = 'LOGOUT_USER';
 export const ADD_USER = 'ADD_USER';
 export const GET_USER = 'GET_USER';
 export const EDIT_USER = 'EDIT_USER';

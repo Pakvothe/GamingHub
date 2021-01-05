@@ -7,13 +7,13 @@ import {
 	GET_USERS,
 	DELETE_USER,
 	LOADING_USERS,
-	USERS_ERROR
+	USERS_ERROR,
+	LOGOUT_USER
 } from '../constants.js';
 
 const initialState = {
 	user: {
-		info: localStorage.getItem('user') || {},
-		jwt: localStorage.getItem('jwt') || '',
+		info: {},
 		isLoading: false,
 		error: false
 	},
@@ -117,6 +117,17 @@ const usersReducer = (state = initialState, action) => {
 					...state.users,
 					isLoading: false,
 					error: true
+				}
+			}
+		}
+
+		case LOGOUT_USER: {
+			return {
+				...state,
+				user: {
+					info: {},
+					isLoading: false,
+					error: false
 				}
 			}
 		}

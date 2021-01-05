@@ -10,6 +10,7 @@ import SearchBar from '../search_bar';
 /* --- Actions --- */
 import { emptyFilter, getFilterProducts, getProducts } from '../../redux/actions/products_actions';
 import { changeLanguage, resetCurrentPage, toggleTheme, openLogin } from './../../redux/actions/global_actions'
+import { logout } from './../../redux/actions/users_actions'
 
 /* --- Logos --- */
 import logoDual from '../../assets/img/logo-dual.svg'
@@ -60,6 +61,10 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 		dispatch(openLogin(true))
 	}
 
+	const handleLogout = () => {
+		dispatch(logout());
+	}
+
 	return (
 		<>
 			<NavbarStyled>
@@ -102,6 +107,7 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 									<li><Link to='/signup'>Registrarse</Link></li>
 									<li><Link to='/admin'>Panel de Administración</Link></li>
 									<li><Link onClick={openLoginModal}>Login</Link></li>
+									<li><Link onClick={handleLogout}>Logout</Link></li>
 								</ul>
 							</Dropdown>
 							<li>

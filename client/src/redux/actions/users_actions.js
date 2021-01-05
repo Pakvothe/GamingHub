@@ -7,7 +7,8 @@ import {
 	DELETE_USER,
 	USERS_ERROR,
 	LOADING_USERS,
-	LOGIN_USER
+	LOGIN_USER,
+	LOGOUT_USER
 } from '../constants';
 
 const { REACT_APP_API_URL } = process.env;
@@ -27,6 +28,13 @@ export const getUser = () => {
 					type: USERS_ERROR
 				})
 			})
+	}
+}
+
+export const logout = (payload) => {
+	localStorage.removeItem('jwt');
+	return {
+		type: LOGOUT_USER
 	}
 }
 
