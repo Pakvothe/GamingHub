@@ -183,6 +183,31 @@ export const DataTable = styled.table`
 		transform: scale(0.95);
 	}
 
+	.serial-form {
+		max-width: 180px;
+		margin: 0 auto;
+
+		input {
+			font-family: Poppins, Raleway, Arial, sans-serif;
+			font-size: 1em;
+			background: none;
+			border-radius: .3em;
+			border: 1px solid transparent;
+			width: 100%;
+			padding: .5em 1em;
+
+			&:focus {
+				outline: none;
+				border: 1px solid var(--clr-primary);
+			}
+
+			&[disabled] {
+				border: 1px solid transparent;
+				color: inherit;
+			}
+		}
+	}
+
 
 	@media (max-width: 1000px) {
 		font-size: .7em;

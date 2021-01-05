@@ -53,8 +53,8 @@ const AdminProductStockForm = () => {
 	return (
 		<>
 			<h1 className="admin-h1">Agregar serials</h1>
+			<p style={{ marginBottom: '2em' }}>Agregar cada serial en una línea distinta.</p>
 			<FormStyled onSubmit={handleSubmit} method="POST" autoComplete="off">
-
 				<label>
 					<span>Serials:</span>
 					<textarea type='text' name='serial' value={serial} onChange={handleInput} required>
