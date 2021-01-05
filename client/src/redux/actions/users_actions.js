@@ -31,7 +31,7 @@ export const getUser = () => {
 	}
 }
 
-export const logout = (payload) => {
+export const logout = () => {
 	localStorage.removeItem('jwt');
 	return {
 		type: LOGOUT_USER
