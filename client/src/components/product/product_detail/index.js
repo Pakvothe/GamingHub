@@ -11,7 +11,7 @@ import cart from '../../../assets/img/cart.svg'
 import joystick from '../../../assets/img/joystick.svg'
 import { IMAGE_NOT_FOUND } from '../../../utils/constants';
 
-import strings from './strings.js'
+import strings from './strings.js';
 import { addItemCart, editStock } from '../../../redux/actions/cart_actions';
 import { useToasts } from 'react-toast-notifications';
 
