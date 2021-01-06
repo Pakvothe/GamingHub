@@ -12,7 +12,7 @@ const strings = {
 		logout_confirm: 'Close Session!',
 		logout_confirm_text: 'Are you sure?',
 		logout_button: 'Yes!',
-		logout_confirm_text: 'You have successfully logged out',
+		logout_confirm_text2: 'You have successfully logged out',
 	},
 	es: {
 		language: 'Idioma',
@@ -27,7 +27,7 @@ const strings = {
 		logout_confirm: 'Cerrar Sesión!',
 		logout_confirm_text: '¿Estás Seguro?',
 		logout_button: 'Si!',
-		logout_confirm_text: 'Has cerrado sesión correctamente',
+		logout_confirm_text_2: 'Has cerrado sesión correctamente',
 	}
 };
 
