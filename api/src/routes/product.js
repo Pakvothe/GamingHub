@@ -1,6 +1,7 @@
 const server = require('express').Router();
 const { Op } = require('sequelize');
-const { Product, Category, Image } = require('../db.js');
+const { Product, Category, Image, Review } = require('../db.js');
+
 //----------"/products"--------------
 
 server.get('/', (req, res, next) => {
@@ -379,6 +380,8 @@ server.get('/:id', (req, res) => {
 				through: { attributes: [] }
 			}, {
 				model: Image
+			}, {
+				model: Review
 			}
 		]
 	})
@@ -414,5 +417,81 @@ server.delete('/image/:id', (req, res) => {
 		})
 	});
 });
+
+server.post('/:id/review', (req, res) => {
+	if (!req.user) return res.sendStatus(401);
+	const { id: productId } = req.params;
+	const { id: userId } = req.user;
+	const { score, description } = req.body;
+
+	if (!+productId) {
+		return res.status(400).json({
+			message: 'Bad Request'
+		});
+	};
+
+	Product.findByPk(productId)
+		.then((prod) => {
+			if (!prod) return res.status(404).json({ message: 'Product not found.' });
+
+			return Review.create({ score, description, productId, userId })
+		})
+		.then(() => {
+			return res.status(201).json({ message: 'Review created' });
+		})
+		.catch((err) => {
+			//console.error(err);
+			res.status(500).json({
+				message: 'Internal server error',
+			})
+		})
+
+});
+
+server.put('/reviews/:id', (req, res) => {
+	if (!req.user) return res.sendStatus(401);
+	const { id } = req.params;
+
+
+	Review.update(req.body, {
+		where: {
+			id, userId: req.user.id
+		}
+	})
+		.then(resp => {
+			console.log("resp", resp)
+			if (!resp[0]) return res.status(404).json({ message: 'Review not found.' });
+
+			return res.status(200).json({ message: 'Review Updated.' })
+		})
+		.catch(() => {
+			res.status(500).json({
+				message: 'Internal server error',
+			})
+		})
+
+});
+
+server.delete('/reviews/:id', (req, res) => {
+	if (!req.user) return res.sendStatus(401);
+	const { id } = req.params;
+
+	Review.destroy({
+		where: req.user.is_admin ? { id } : { id, userId: req.user.id }
+	})
+		.then(resp => {
+			if (!resp) return res.status(404).json({ message: 'Review not found.' });
+
+			return res.status(200).json({ message: 'Review Deleted.' })
+		})
+		.catch((err) => {
+			console.error(err);
+			res.status(500).json({
+				message: 'Internal server error',
+			})
+		})
+})
+
+
 
 module.exports = server;
