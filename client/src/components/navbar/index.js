@@ -5,7 +5,7 @@ import { HashLink } from 'react-router-hash-link';
 import { NavbarStyled, StyledSVG } from '../styles/styled_navbar';
 import { Dropdown } from '../styles/styled_global';
 import SearchBar from '../search_bar';
-
+import Swal from 'sweetalert2';
 
 /* --- Actions --- */
 import { emptyFilter, getFilterProducts, getProducts } from '../../redux/actions/products_actions';
@@ -63,7 +63,26 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 	}
 
 	const handleLogout = () => {
-		dispatch(logout());
+
+		Swal.fire({
+			heightAuto: false,
+			title: strings[language].logout_confirm,
+			text: strings[language].logout_confirm_text,
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: strings[language].logout_button,
+		}).then((result) => {
+			if (result.isConfirmed) {
+				Swal.fire(
+					strings[language].logout_confirm,
+					strings[language].logout_confirm_text,
+					'success',
+					dispatch(logout())
+				)
+			}
+		})
 	}
 
 	return (

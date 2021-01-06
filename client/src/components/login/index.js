@@ -8,12 +8,14 @@ import { LoginStyled } from '../styles/styled_login';
 import CloseButton from '../../assets/img/close-filled-purple.svg';
 import strings from './strings';
 import { loginUser } from '../../redux/actions/users_actions';
+import { useToasts } from 'react-toast-notifications';
 
 const Login = () => {
 	const dispatch = useDispatch();
 	const loginIsOpen = useSelector(state => state.globalReducer.loginIsOpen);
 	const language = useSelector(state => state.globalReducer.language);
 	const theme = useSelector(state => state.globalReducer.theme);
+	const { addToast } = useToasts();
 
 	const [input, setInput] = useState({
 		email: '',
@@ -67,7 +69,8 @@ const Login = () => {
 	const handleSubmit = (ev) => {
 		ev.preventDefault()
 		dispatch(loginUser(input));
-		//FALTA MANEJAR ERRORES
+		addToast(strings[language].login, { appearance: 'success' })
+
 		dispatch(openLogin(false));
 	}
 
