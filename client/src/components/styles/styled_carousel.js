@@ -41,17 +41,83 @@ export const StyledCarousel = styled.div`
 	overflow: hidden;
 	height: 60vh;
 	border-radius: 1em;
+
 	.embla__slide__detail {
 		color: var(--clr-white);
 		position: absolute;
 		bottom: 0;
 		right: 0;
 		left: 0;
-		z-index: 1;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		padding: 1em;
+		padding: 2em 3em;
+
+		.slide__details__left {
+			text-align: center;
+			margin-right: 1em;
+		}
+
+		.slide__details__right {
+			text-align: right;
+		}
+
+		@media (max-width: 1000px) {
+			font-size: 0.7em;
+			height: 100%;
+			flex-direction: column;
+			padding: 2em;
+
+			.slide__details__left {
+				justify-self: flex-start;
+				margin: 0;
+				max-width: 100%;
+				width: 100%;
+			}
+
+			.slide__details__right {
+				text-align: center;
+			}
+
+		}
+
+		.slide__title {
+			font-size: 3em;
+			text-shadow: 5px 5px 0px var(--clr-primary-2), 0 0 20px rgba(0,0,0,0.5);
+		}
+
+		.slide__price, .slide__discount {
+			margin-right: .5em;
+		}
+
+		.slide__price {
+			font-size: 2.5em;
+			font-weight: 900;
+			text-shadow: 5px 5px 0px var(--clr-primary-2), 0 0 20px rgba(0,0,0,0.5);
+		}
+
+		.slide__discount {
+			font-size: 1.5em;
+			background-color: var(--clr-secondary);
+			padding: .2em;
+			border-radius: 0.3em;
+			opacity: 0.9;
+		}
+
+		.slide__btn {
+			font-size: 1.2em;
+			padding: 1em 3em 1em 1em;
+			margin-top: 1em;
+			border-width: 4px;
+			position: relative;
+			cursor: pointer;
+
+			&:hover {
+				transform: translate(2px, 2px);
+				outline: 0;
+				box-shadow: none;
+			}
+		}
 	}
 }
 
@@ -88,9 +154,11 @@ export const StyledCarousel = styled.div`
 	fill: var(--clr-white);
 	padding: 0;
 	transition: transform .4s ease;
+
 	&:active {
 		transform: scale(0.95) translateY(-50%);
 	}
+
 	&:hover {
 		background-color: var(--clr-primary-2)
 	}

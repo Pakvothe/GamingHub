@@ -5,10 +5,11 @@ import { PrevButton, NextButton } from "./Buttons";
 import Cyberpunk from '../../assets/img/slider_img/Cyberpunk.png';
 import FFVII from '../../assets/img/slider_img/FFVII.jpg';
 import Fifa2021 from '../../assets/img/slider_img/Fifa2021.jpg';
+import cart from '../../assets/img/cart.svg';
 
 //Styles
 import { StyledCarousel } from '../styles/styled_carousel';
-import { Btn } from '../styles/styled_global';
+import { Btn, StyledSVG } from '../styles/styled_global';
 import Fade from 'react-reveal/Fade'
 
 //Embla
@@ -68,11 +69,16 @@ const Carousel = () => {
 								<div className="embla__slide__inner">
 									<img className="embla__slide__img" src={FFVII} alt="A cool cat." />
 									<div className="embla__slide__detail">
-										<h3>Final Fantasy VII</h3>
-										<div>
-											<span>-20%</span>
-											<span>10.99</span>
-											<Btn className="btn btn-ppal">Add to cart</Btn>
+										<div className="slide__details__left">
+											<h3 className="slide__title">Final Fantasy VII</h3>
+										</div>
+										<div className="slide__details__right">
+											<span className="slide__discount">-20%</span>
+											<span className="slide__price">$10.99</span>
+											<Btn className="btn btn-ppal btn-img slide__btn">
+												Agregar al carrito
+												<StyledSVG src={cart} />
+											</Btn>
 										</div>
 									</div>
 								</div>
@@ -81,11 +87,16 @@ const Carousel = () => {
 								<div className="embla__slide__inner">
 									<img className="embla__slide__img" src={Cyberpunk} alt="A cool cat." />
 									<div className="embla__slide__detail">
-										<h3>CyberPunk</h3>
-										<div>
-											<span>-15%</span>
-											<span>9.99</span>
-											<Btn className="btn btn-ppal">Add to cart</Btn>
+										<div className="slide__details__left">
+											<h3 className="slide__title">Cyberpunk 2077</h3>
+										</div>
+										<div className="slide__details__right">
+											<span className="slide__discount">-15%</span>
+											<span className="slide__price">$1050.99</span>
+											<Btn className="btn btn-ppal btn-img slide__btn">
+												Agregar al carrito
+												<StyledSVG src={cart} />
+											</Btn>
 										</div>
 									</div>
 								</div>
@@ -94,11 +105,16 @@ const Carousel = () => {
 								<div className="embla__slide__inner">
 									<img className="embla__slide__img" src={Fifa2021} alt="A cool cat." />
 									<div className="embla__slide__detail">
-										<h3>FIFA 2021</h3>
-										<div>
-											<span>30%</span>
-											<span>19.99</span>
-											<Btn className="btn btn-ppal">Add to cart</Btn>
+										<div className="slide__details__left">
+											<h3 className="slide__title">Fifa 2021</h3>
+										</div>
+										<div className="slide__details__right">
+											<span className="slide__discount">-10%</span>
+											<span className="slide__price">$0.99</span>
+											<Btn className="btn btn-ppal btn-img slide__btn">
+												Agregar al carrito
+												<StyledSVG src={cart} />
+											</Btn>
 										</div>
 									</div>
 								</div>
