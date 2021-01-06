@@ -70,8 +70,7 @@ const Login = () => {
 		ev.preventDefault()
 		dispatch(loginUser(input));
 		addToast(strings[language].login, { appearance: 'success' })
-
-		dispatch(openLogin(false));
+		closeModal()
 	}
 
 	return (
