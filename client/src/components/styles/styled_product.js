@@ -96,19 +96,6 @@ export const GameDetail = styled.section`
 		}
 	}
 	
-	.game__quantitybutton {
-		color: var(--clr-white);
-		background-color: var(--clr-primary);
-		border-radius: 100%;
-		border: none;
-		width: 25px;
-		height: 25px;
-		font-weight: 400;
-
-		&:active {
-			background-color: var(--clr-primary-2);
-		}
-	}
 	
     .game__quantityvalue{
 		font-weight: bold;

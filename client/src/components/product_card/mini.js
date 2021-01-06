@@ -1,16 +1,17 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import CloseButton from '../../assets/img/close-filled-purple.svg';
-import { deleteItemCart, deleteItemStock } from '../../redux/actions/cart_actions';
-import { MiniCard, StyledSVG } from '../styles/styled_global';
+import { addItemCart, deleteItemCart, deleteItemStock, editStock } from '../../redux/actions/cart_actions';
+import { MiniCard, QuantityButton, StyledSVG } from '../styles/styled_global';
 import { Link } from 'react-router-dom';
 import { toggleCart } from '../../redux/actions/global_actions';
 import Fade from 'react-reveal/Fade';
+import strings from './strings';
 
 const Mini = ({ productDetail }) => {
 	const dispatch = useDispatch()
 	const [effect, setEffect] = useState(true);
-
+	const language = useSelector(state => state.globalReducer.language);
 
 	const handleClick = () => {
 		setEffect(false);
@@ -19,6 +20,23 @@ const Mini = ({ productDetail }) => {
 			dispatch(deleteItemStock(productDetail.id));
 
 		}, 100)
+	}
+
+	const handleQuantityChange = (amount) => {
+
+		const newValue = productDetail.quantity + amount;
+
+		if (newValue <= productDetail.stock && newValue >= 1 && newValue <= 99) {
+			let productToDispatch = { ...productDetail };
+			productToDispatch.quantity = amount;
+			dispatch(addItemCart(productToDispatch));
+			let payload = {
+				id: productDetail.id,
+				quantity: amount,
+				stock: productDetail.stock
+			};
+			dispatch(editStock(payload));
+		}
 	}
 
 	return (
@@ -32,7 +50,12 @@ const Mini = ({ productDetail }) => {
 						<p className='article__name'>{productDetail.name}</p>
 					</Link>
 					<p>${productDetail.price}</p>
-					<p>x {productDetail.quantity} U</p>
+					<div className="article__quantitybuttons">
+						<QuantityButton className='quantitybutton-small' onClick={() => handleQuantityChange(-1)}>-</QuantityButton>
+						<span className='quantitytext'> {productDetail.quantity} </span>
+						<span>{strings[language].units} </span>
+						<QuantityButton className='quantitybutton-small' onClick={() => handleQuantityChange(1)}>+</QuantityButton>
+					</div>
 				</div>
 				<button className='delete__product' onClick={handleClick}><StyledSVG src={CloseButton} /></button>
 			</MiniCard>
