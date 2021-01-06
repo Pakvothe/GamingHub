@@ -86,4 +86,5 @@ export const StyledCloseBtn = styled(SVG)`
 	width: 40px;
 	height: 40px;
 	fill: #999;  
+	cursor: pointer;
 `

@@ -529,6 +529,7 @@ export const MiniCard = styled.article`
 			width: 25px;
 			height: 25px;
 			fill: var(--clr-primary);
+			cursor: pointer;
 		}
 
 	&:hover svg {
