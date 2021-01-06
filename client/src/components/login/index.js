@@ -8,12 +8,14 @@ import { LoginStyled } from '../styles/styled_login';
 import CloseButton from '../../assets/img/close-filled-purple.svg';
 import strings from './strings';
 import { loginUser } from '../../redux/actions/users_actions';
+import { useToasts } from 'react-toast-notifications';
 
 const Login = () => {
 	const dispatch = useDispatch();
 	const loginIsOpen = useSelector(state => state.globalReducer.loginIsOpen);
 	const language = useSelector(state => state.globalReducer.language);
 	const theme = useSelector(state => state.globalReducer.theme);
+	const { addToast } = useToasts();
 
 	const [input, setInput] = useState({
 		email: '',
@@ -67,8 +69,8 @@ const Login = () => {
 	const handleSubmit = (ev) => {
 		ev.preventDefault()
 		dispatch(loginUser(input));
-		//FALTA MANEJAR ERRORES
-		dispatch(openLogin(false));
+		addToast(strings[language].login, { appearance: 'success' })
+		closeModal()
 	}
 
 	return (
@@ -110,8 +112,8 @@ const Login = () => {
 							required />
 					</label>
 					<div className='link_container' onClick={() => dispatch(openLogin(false))}>
-						<Link to="/reset">{strings[language].olvi}</Link>
-						<Link to="/signup">{strings[language].create}</Link>
+						<Link to="/reset" onClick={closeModal}>{strings[language].olvi}</Link>
+						<Link to="/signup" onClick={closeModal}>{strings[language].create}</Link>
 					</div>
 					<Btn type='submit' className='btn-ppal'>Ok</Btn>
 				</FormStyled>

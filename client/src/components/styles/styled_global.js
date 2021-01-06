@@ -529,6 +529,7 @@ export const MiniCard = styled.article`
 			width: 25px;
 			height: 25px;
 			fill: var(--clr-primary);
+			cursor: pointer;
 		}
 
 	&:hover svg {
@@ -600,7 +601,8 @@ export const Dropdown = styled.li`
 		& li {
 			margin: 0;
 			width: 100%;
-		
+			cursor: pointer;
+			
 			&:last-of-type a {
 				border-radius: 0 0 .3em .3em;
 			}

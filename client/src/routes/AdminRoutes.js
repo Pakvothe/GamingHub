@@ -6,6 +6,8 @@ import { getProducts } from '../redux/actions/products_actions';
 import { getCategories } from './../redux/actions/categories_actions';
 import { getOrders } from '../redux/actions/orders_actions';
 import { getUsers } from '../redux/actions/users_actions';
+import { StyledLoader } from '../components/styles/styled_global';
+import strings from '../components/product/strings';
 
 import AdminSideBar from '../components/admin_page/admin_side_bar';
 import AdminProductList from '../components/admin_page/admin_product_list';
@@ -17,6 +19,7 @@ import AdminProductStockForm from './../components/admin_page/admin_product_stoc
 import AdminOrderList from './../components/admin_page/admin_order_list';
 import AdminUserList from './../components/admin_page/admin_user_list';
 import AdminOrderDetail from './../components/admin_page/admin_order_detail/index';
+
 
 function AdminRoutes() {
 	const history = useHistory()
@@ -44,7 +47,13 @@ function AdminRoutes() {
 	}, [user]);
 
 
-	if (userLoading) return <h1>Loading....</h1>
+	if (userLoading) return <StyledLoader
+		active={userLoading}
+		spinner
+		text={strings[language].loading}
+		className='loading__overlay'
+		classNamePrefix='loading__'
+	/>
 
 	return (
 		<>

@@ -8,7 +8,11 @@ const strings = {
 		categories: 'Categories',
 		offer: 'Offer',
 		about: 'About',
-		theme: 'Theme'
+		theme: 'Theme',
+		logout_confirm: 'Close Session!',
+		logout_confirm_text: 'Are you sure?',
+		logout_button: 'Yes!',
+		logout_confirm_text2: 'You have successfully logged out',
 	},
 	es: {
 		language: 'Idioma',
@@ -19,7 +23,11 @@ const strings = {
 		categories: 'Categorias',
 		offer: 'Ofertas',
 		about: 'Conocenos',
-		theme: 'Tema'
+		theme: 'Tema',
+		logout_confirm: 'Cerrar Sesión!',
+		logout_confirm_text: '¿Estás Seguro?',
+		logout_button: 'Si!',
+		logout_confirm_text_2: 'Has cerrado sesión correctamente',
 	}
 };
 
