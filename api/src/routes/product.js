@@ -440,7 +440,7 @@ server.post('/:id/review', (req, res) => {
 			return res.status(201).json({ message: 'Review created' });
 		})
 		.catch((err) => {
-			//console.error(err);
+			console.error(err);
 			res.status(500).json({
 				message: 'Internal server error',
 			})
@@ -456,10 +456,10 @@ server.put('/reviews/:id', (req, res) => {
 	Review.update(req.body, {
 		where: {
 			id, userId: req.user.id
-		}
+		},
+		individualHooks: true
 	})
 		.then(resp => {
-			console.log("resp", resp)
 			if (!resp[0]) return res.status(404).json({ message: 'Review not found.' });
 
 			return res.status(200).json({ message: 'Review Updated.' })
@@ -477,7 +477,8 @@ server.delete('/reviews/:id', (req, res) => {
 	const { id } = req.params;
 
 	Review.destroy({
-		where: req.user.is_admin ? { id } : { id, userId: req.user.id }
+		where: req.user.is_admin ? { id } : { id, userId: req.user.id },
+		individualHooks: true
 	})
 		.then(resp => {
 			if (!resp) return res.status(404).json({ message: 'Review not found.' });

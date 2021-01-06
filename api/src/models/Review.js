@@ -4,7 +4,21 @@ const D = DataTypes;
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
 	// defino el modelo
-	sequelize.define('review', {
+	const updateScore = (review) => {
+		sequelize.models.Review.findAll({
+			where: { productId: review.productId }
+		})
+			.then(productReviews => {
+				let average = productReviews.reduce((acc, prod) => acc + prod.score, 0) / productReviews.length;
+				sequelize.models.Product.update({ score: average }, {
+					where: {
+						id: review.productId
+					}
+				})
+			});
+	};
+
+	const Review = sequelize.define('review', {
 		score: {
 			type: D.INTEGER,
 			allowNull: false,
@@ -18,6 +32,12 @@ module.exports = (sequelize) => {
 			type: D.TEXT,
 			allowNull: true,
 			defaultValue: '',
+		}
+	}, {
+		hooks: {
+			afterCreate: updateScore,
+			afterUpdate: updateScore,
+			afterDestroy: updateScore,
 		}
 	});
 }

@@ -49,3 +49,5 @@ module.exports = (sequelize) => {
 // afterDestroy: () => console.log('after destroy'),
 // afterUpdate: () => console.log('after update'),
 // afterBulkDestroy: () => console.log('after bulkdestroy'),
+// afterBulkCreate: () => console.log('after bulkcreate'),
+// afterBulkUpdate: () => console.log('after bulkupdate'),
