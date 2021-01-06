@@ -22,7 +22,7 @@ server.post('/', async (req, res) => {
 					quantity: prod.quantity
 				}
 			});
-			return Orders_products.bulkCreate(formattedProducts)
+			return Orders_products.bulkCreate(formattedProducts, { individualHooks: true })
 		})
 		.then(() => Order.findOne({
 			where: { id: idOrder },
