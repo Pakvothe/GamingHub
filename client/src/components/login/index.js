@@ -110,8 +110,8 @@ const Login = () => {
 							required />
 					</label>
 					<div className='link_container' onClick={() => dispatch(openLogin(false))}>
-						<Link to="/reset">{strings[language].olvi}</Link>
-						<Link to="/signup">{strings[language].create}</Link>
+						<Link to="/reset" onClick={closeModal}>{strings[language].olvi}</Link>
+						<Link to="/signup" onClick={closeModal}>{strings[language].create}</Link>
 					</div>
 					<Btn type='submit' className='btn-ppal'>Ok</Btn>
 				</FormStyled>
