@@ -1,12 +1,21 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { PrevButton, NextButton } from "./Buttons";
+
+//Assets
 import Cyberpunk from '../../assets/img/slider_img/Cyberpunk.png';
 import FFVII from '../../assets/img/slider_img/FFVII.jpg';
 import Fifa2021 from '../../assets/img/slider_img/Fifa2021.jpg';
-import { useEmblaCarousel } from 'embla-carousel/react'
+
+//Styles
 import { StyledCarousel } from '../styles/styled_carousel';
-import Fade from 'react-reveal/Fade'
 import { Btn } from '../styles/styled_global';
+import Fade from 'react-reveal/Fade'
+
+//Embla
+import { useEmblaCarousel } from 'embla-carousel/react'
+import { useRecursiveTimeout } from "./useRecursiveTimeout";
+const AUTOPLAY_INTERVAL = 3500;
+
 const Carousel = () => {
 	const [viewportRef, embla] = useEmblaCarousel({ loop: true, speed: 5 });
 	const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
@@ -25,6 +34,29 @@ const Carousel = () => {
 		embla.on("select", onSelect);
 		onSelect();
 	}, [embla, onSelect]);
+
+
+	const autoplay = useCallback(() => {
+		if (!embla) return;
+		if (embla.canScrollNext()) {
+			embla.scrollNext();
+		} else {
+			embla.scrollTo(0);
+		}
+	}, [embla]);
+
+	const { play, stop } = useRecursiveTimeout(autoplay, AUTOPLAY_INTERVAL);
+
+	useEffect(() => {
+		if (!embla) return;
+		onSelect();
+		embla.on("select", onSelect);
+		embla.on("pointerDown", stop);
+	}, [embla, onSelect, stop]);
+
+	useEffect(() => {
+		play();
+	}, [play]);
 
 	return (
 		<StyledCarousel>
