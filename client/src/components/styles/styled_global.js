@@ -720,5 +720,24 @@ export const StyledTitle = styled.h2`
 		}
 `
 
+export const QuantityButton = styled.button`
+	color: var(--clr-white);
+	background-color: var(--clr-primary);
+	border-radius: 100%;
+	border: none;
+	width: 25px;
+	height: 25px;
+	font-weight: 400;
+
+	&:active {
+		background-color: var(--clr-primary-2);
+	}
+
+	&.quantitybutton-small {
+		width: 20px;
+		height: 20px;
+	}
+`
+
 export const StyledSVG = styled(SVG)`
 `

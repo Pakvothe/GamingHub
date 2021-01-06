@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import StarRatings from "react-star-ratings";
 
 import Reviews from '../../reviews';
-import { Btn, Badge } from '../../styles/styled_global';
+import { Btn, Badge, QuantityButton } from '../../styles/styled_global';
 import { GameDetail, StyledSVG } from '../../styles/styled_product';
 import Fade from 'react-reveal/Fade';
 
@@ -90,9 +90,9 @@ export const ProductDetail = ({ product }) => {
 						<>
 							<div className="game__quantity">
 								<span>{strings[language].amount}</span>
-								<button className="game__quantitybutton" onClick={() => handleQuantityChange(-1)}>-</button>
-								<span className="game__quantityvalue">{quantity}</span>
-								<button className="game__quantitybutton" onClick={() => handleQuantityChange(1)}>+</button>
+								<QuantityButton onClick={() => handleQuantityChange(-1)}>-</QuantityButton>
+								<span className="game__quantityvalue quantitytext">{quantity}</span>
+								<QuantityButton onClick={() => handleQuantityChange(1)}>+</QuantityButton>
 							</div>
 							<p className="game__stock">Stock: {stock[product.id] >= 0 ? stock[product.id] : product.stock}</p>
 						</>

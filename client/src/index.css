@@ -130,3 +130,9 @@ body {
 	width: 30px;
 	height: 30px;
 }
+
+.quantitytext {
+	min-width: 1.4em;
+	display: inline-block;
+	text-align: center;
+}
