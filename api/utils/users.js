@@ -15,7 +15,7 @@ const users = [
 		email: 'cosme@mail.com',
 		password: '1234',
 		language: 'es',
-		is_admin: true
+		is_admin: false
 	},
 	{
 		first_name: 'Nacho',
