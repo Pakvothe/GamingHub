@@ -116,7 +116,7 @@ export const ProductDetail = ({ product }) => {
 					</div>
 				</div>
 			</GameDetail>
-			<Reviews />
+			<Reviews reviews={product.reviews} />
 		</>
 	)
 }

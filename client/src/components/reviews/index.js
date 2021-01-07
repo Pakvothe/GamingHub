@@ -20,7 +20,7 @@ function Reviews({ reviews }) {
 				{
 					reviews.map((review, i) => (
 						<div className="review" key={i}>
-							<p className="review__username">{review.user.name}</p>
+							<p className="review__username">{review.user.first_name}</p>
 							<span className="review__stars">
 								<StarRatings
 									rating={review.score}
