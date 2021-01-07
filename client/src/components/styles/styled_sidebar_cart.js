@@ -21,7 +21,11 @@ export const StyledSidebarCart = styled.div`
 	.modal {
 		@media (max-width: 510px) {
 			width: 100vw;
+			.modal__buttons{
+				margin: 0 0.2em;
+			}
 		}
+
 		position: fixed;
 		right: 0;
 		top: 0;
