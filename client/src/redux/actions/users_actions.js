@@ -20,6 +20,8 @@ export const getUser = () => {
 		dispatch({ type: LOADING_USER })
 		return axios.get(`${REACT_APP_API_URL}/auth/me`, BEARER())
 			.then(user => {
+				if (user.data.jwt) localStorage.setItem('jwt', JSON.stringify(user.data.jwt));
+				delete user.data.jwt
 				dispatch({
 					type: GET_USER,
 					payload: user.data
