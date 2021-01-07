@@ -13,6 +13,11 @@ const strings = {
 		logout_confirm_text: 'Are you sure?',
 		logout_button: 'Yes!',
 		logout_confirm_text2: 'You have successfully logged out',
+		login: 'Log In',
+		signup: 'Sign Up',
+		logout: 'Log Out',
+		admin: 'Administration Panel',
+		profile: 'Profile',
 	},
 	es: {
 		language: 'Idioma',
@@ -28,6 +33,11 @@ const strings = {
 		logout_confirm_text: '¿Estás Seguro?',
 		logout_button: 'Si!',
 		logout_confirm_text_2: 'Has cerrado sesión correctamente',
+		login: 'Iniciar Sesión',
+		signup: 'Regístrate',
+		logout: 'Cerrar Sesión',
+		admin: 'Panel de Administración',
+		profile: 'Perfil',
 	}
 };
 
