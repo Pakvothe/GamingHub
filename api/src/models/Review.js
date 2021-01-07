@@ -36,6 +36,9 @@ module.exports = (sequelize) => {
 	}, {
 		hooks: {
 			afterCreate: updateScore,
+			afterBulkCreate: (reviews) => {
+				reviews.map(updateScore)
+			},
 			afterUpdate: updateScore,
 			afterDestroy: updateScore,
 		}

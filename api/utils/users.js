@@ -34,6 +34,15 @@ const users = [
 		password: '1337',
 		language: 'es',
 		is_admin: true
+	},
+	{
+		first_name: 'Paco',
+		last_name: 'Ortiz',
+		username: 'pavothe',
+		email: 'paco@mail.com',
+		password: 'linux',
+		language: 'es',
+		is_admin: true
 	}
 ]
 
