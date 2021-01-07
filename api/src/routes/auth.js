@@ -9,7 +9,23 @@ server.get("/me", async (req, res, next) => {
 		if (req.user) {
 			const { id } = req.user;
 			const result = await User.findByPk(id, { attributes: { exclude: ['password'] } });
-			res.json(result);
+			if (req.user.updatedAt === result.updatedAt.toISOString()) {
+				return res.json(result);
+			} else {
+				const { id, first_name, last_name, email, is_admin, updatedAt } = result;
+				result.dataValues.jwt = jwt.sign(
+					{
+						id,
+						first_name,
+						last_name,
+						email,
+						is_admin,
+						updatedAt
+					},
+					SECRET
+				)
+				return res.json(result)
+			}
 		} else res.sendStatus(401);
 	} catch (error) {
 		next(error);
@@ -19,7 +35,7 @@ server.get("/me", async (req, res, next) => {
 server.post("/register", async function (req, res, next) {
 	try {
 		const user = await User.create(req.body);
-		const { id, first_name, last_name, email, is_admin } = user;
+		const { id, first_name, last_name, email, is_admin, updatedAt } = user;
 		return res.send(
 			jwt.sign(
 				{
@@ -28,6 +44,7 @@ server.post("/register", async function (req, res, next) {
 					last_name,
 					email,
 					is_admin,
+					updatedAt
 				},
 				SECRET
 			)

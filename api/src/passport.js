@@ -18,6 +18,7 @@ passport.use(
 				last_name,
 				email: userEmail,
 				is_admin,
+				updatedAt
 			} = user;
 			return done(null, {
 				id,
@@ -25,6 +26,7 @@ passport.use(
 				last_name,
 				email: userEmail,
 				is_admin,
+				updatedAt
 			});
 		}
 	)
