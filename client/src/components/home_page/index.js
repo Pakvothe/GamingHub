@@ -19,7 +19,7 @@ import { changeCurrentPage, resetCurrentPage } from '../../redux/actions/global_
 import { animateScroll } from 'react-scroll';
 
 
-export const getProductsPayload = { query: 'stock', order: 'DESC', limit: 8 };
+export const getProductsPayload = { name: 'stock', order: 'DESC', limit: 8 };
 
 const HomePage = () => {
 
@@ -70,7 +70,7 @@ const HomePage = () => {
 		if (productsFilter.length) {
 			dispatch(getFilterProducts(filter, { limit: limitPerPage, offset }))
 		} else {
-			dispatch(getProducts({ query: 'stock', order: 'DESC', limit: limitPerPage, offset }))
+			dispatch(getProducts({ name: 'stock', order: 'DESC', limit: limitPerPage, offset }))
 		}
 	}
 

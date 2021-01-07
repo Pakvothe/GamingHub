@@ -5,7 +5,7 @@ const { Product, Category, Image, Review, User } = require('../db.js');
 //----------"/products"--------------
 
 server.get('/', (req, res, next) => {
-	const { query, order, limit, offset, isActive } = req.query;
+	const { name, order, limit, offset, isActive } = req.query;
 
 	let count = 0;
 	Product.count()
@@ -19,7 +19,7 @@ server.get('/', (req, res, next) => {
 					}
 				],
 				order: [
-					(query && [query, order || 'ASC']) || ['id', 'ASC'],
+					(name && [name, order || 'ASC']) || ['id', 'ASC'],
 					[Image, 'id', 'ASC']
 				],
 				limit: limit ? limit : null,

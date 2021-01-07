@@ -38,6 +38,7 @@ server.post('/', async (req, res) => {
 
 server.get('/', (req, res) => {
 	if (!req.user) return res.sendStatus(401);
+	const { name, order } = req.query;
 
 	Order.findAll({
 		where: !req.user.is_admin && { userId: req.user.id },
@@ -50,6 +51,9 @@ server.get('/', (req, res) => {
 					]
 				}
 			}
+		],
+		order: [
+			(name && [name, order || 'ASC']) || ['id', 'ASC']
 		]
 	})
 		.then((orders) => {

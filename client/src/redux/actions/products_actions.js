@@ -18,7 +18,8 @@ import {
 	GET_SERIALS,
 	ERROR_SERIAL,
 	CLEAR_ERROR_SERIAL,
-	BEARER
+	BEARER,
+	QUERY_FUNCTION
 } from './../constants';
 
 const { REACT_APP_API_URL } = process.env;
@@ -179,18 +180,10 @@ export const emptyFilter = () => {
 }
 
 export const getProducts = (payload) => {
-	let queries = '', order = '', limit = '', offset = '', isActive = '';
 
-	if (payload) {
-		queries = payload.query ? '?query=' + payload.query : queries;
-		order = payload.order ? '&order=' + payload.order : order;
-		limit = payload.limit ? '&limit=' + payload.limit : limit;
-		offset = payload.offset ? '&offset=' + payload.offset : offset;
-		isActive = payload.isActive ? '?isActive=' + payload.isActive : isActive;
-	}
 	return function (dispatch) {
 		dispatch({ type: LOADING_PRODUCTS });
-		return axios.get(`${REACT_APP_API_URL}/products${queries}${order}${limit}${offset}${isActive}`)
+		return axios.get(`${REACT_APP_API_URL}/products${QUERY_FUNCTION(payload)}`)
 			.then(product => {
 				dispatch({
 					type: GET_PRODUCTS,

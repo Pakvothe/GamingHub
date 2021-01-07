@@ -35,7 +35,7 @@ function HomeRoutes() {
 
 	useEffect(() => {
 		if (!products.length) {
-			dispatch(getProducts({ query: 'stock', order: 'DESC', limit: 8 }));
+			dispatch(getProducts({ name: 'stock', order: 'DESC', limit: 8 }));
 		}
 		if (!categories.length) {
 			dispatch(getCategories());

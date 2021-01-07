@@ -7,15 +7,17 @@ import {
 	ORDER_ERROR,
 	GET_ORDER,
 	LOADING_ORDER,
-	BEARER
+	BEARER,
+	QUERY_FUNCTION
 } from '../constants';
 
 const { REACT_APP_API_URL } = process.env;
 
-export const getOrders = () => {
+export const getOrders = (payload = {}) => {
+
 	return function (dispatch) {
 		dispatch({ type: LOADING_ORDERS });
-		return axios.get(`${REACT_APP_API_URL}/orders`, BEARER())
+		return axios.get(`${REACT_APP_API_URL}/orders${QUERY_FUNCTION(payload)}`, BEARER())
 			.then(product => {
 				dispatch({
 					type: GET_ORDERS,
