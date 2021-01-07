@@ -4,7 +4,6 @@ const D = DataTypes;
 module.exports = (sequelize) => {
 
 	const updateSales = (instance) => {
-		console.log('ENTRÉ')
 		sequelize.models.Orders_products.findAll({
 			where: {
 				productId: instance.productId
