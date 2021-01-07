@@ -1,12 +1,13 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import StarRatings from "react-star-ratings";
+import ShowMoreText from 'react-show-more-text';
 import { StyledTitle } from '../styles/styled_global';
 import { StyledReviews } from '../styles/styled_reviews';
-
-
+import strings from './strings'
 function Reviews({ reviews }) {
 	const theme = useSelector(state => state.globalReducer.theme)
+	const language = useSelector(state => state.globalReducer.language)
 
 	return (
 		<StyledReviews>
@@ -29,70 +30,22 @@ function Reviews({ reviews }) {
 									starSpacing="0"
 								/>
 							</span>
-							<p className="review__description">{review.description}</p>
+							{/* <p className="review__description">{review.description}</p> */}
+							<ShowMoreText
+								lines={8}
+								more={strings[language].more}
+								less={strings[language].less}
+								className='review__description'
+								expanded={false}
+							>
+								{review.description}
+							</ShowMoreText>
 						</div>
 					))
 				}
 			</div>
 		</StyledReviews>
 	)
-}
-
-Reviews.defaultProps = {
-	reviews: [
-		{
-			score: 5,
-			date: '30-12-2020',
-			description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore quae debitis quidem necessitatibus. Facere illo explicabo obcaecati nostrum natus quasi, id reprehenderit magnam ducimus sequi delectus animi unde! Dolores, eligendi?',
-			product: {
-				id: 2
-			},
-			user: {
-				id: 1,
-				name: 'Emi',
-				mail: 'emi@emi.com'
-			}
-		},
-		{
-			score: 5,
-			date: '30-12-2020',
-			description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore quae debitis quidem necessitatibus. Facere illo explicabo obcaecati nostrum natus quasi, id reprehenderit magnam ducimus sequi delectus animi unde! Dolores, eligendi?',
-			product: {
-				id: 2
-			},
-			user: {
-				id: 1,
-				name: 'Emi',
-				mail: 'emi@emi.com'
-			}
-		},
-		{
-			score: 1.5,
-			date: '30-12-2020',
-			description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore quae debitis quidem necessitatibus. Facere illo explicabo obcaecati nostrum natus quasi, id reprehenderit magnam ducimus sequi delectus animi unde! Dolores, eligendi?',
-			product: {
-				id: 2
-			},
-			user: {
-				id: 1,
-				name: 'Emi',
-				mail: 'emi@emi.com'
-			}
-		},
-		{
-			score: 3,
-			date: '30-12-2020',
-			description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore quae debitis quidem necessitatibus. Facere illo explicabo obcaecati nostrum natus quasi, id reprehenderit magnam ducimus sequi delectus animi unde! Dolores, eligendi?',
-			product: {
-				id: 2
-			},
-			user: {
-				id: 1,
-				name: 'Emi',
-				mail: 'emi@emi.com'
-			}
-		}
-	]
 }
 
 export default Reviews

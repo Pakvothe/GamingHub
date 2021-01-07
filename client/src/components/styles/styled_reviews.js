@@ -66,6 +66,30 @@ export const StyledReviews = styled.section`
 			.review__description {
 				text-align: left;
 				line-height: 1.5;
+				a{
+					color: var(--clr-primary);
+					text-decoration: none;
+					font-weight: 700;
+					font-size: 1.2em;
+					opacity: 1;
+					&:hover{
+						color: var(--clr-secondary);
+					}
+				}
+				&>span{
+					&>span{
+						&>span{
+							&:last-child{
+								&>span{
+									span:first-child{
+										opacity: .5;
+										color: var(--clr-primary-2);
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 	}
