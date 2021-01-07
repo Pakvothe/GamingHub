@@ -125,13 +125,14 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 										user.first_name ? (
 											<>
 												<li className='dropdown__first-name'><p>{user.first_name}</p></li>
-												<li><Link to='/user'>Perfil</Link></li>
-												{user.is_admin && <li><Link to='/admin'>Panel de Administración</Link></li>}
-												<li><Link to="/" onClick={handleLogout}>Logout</Link></li>
+												<li><Link to='/user'>{strings[language].profile}</Link></li>
+												{user.is_admin && <li><Link to='/admin'>{strings[language].admin}</Link></li>}
+												<li><Link to="/" onClick={handleLogout}>{strings[language].logout}</Link></li>
 											</>
 										) : (
 												<>
-													<li><Link to="/#" onClick={openLoginModal}>Login</Link></li>
+													<li><Link to="/#" onClick={openLoginModal}>{strings[language].login}</Link></li>
+													<Link to="/signup" >{strings[language].signup}</Link>
 												</>
 											)
 									}
