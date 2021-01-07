@@ -14,6 +14,7 @@ import SearchPage from '../components/search_page';
 import UserPage from '../components/user_page';
 import Login from '../components/login';
 import SignUp from '../components/sign_up';
+import EditUser from '../components/user_page/edit_profile';
 import { getProducts } from '../redux/actions/products_actions';
 import { getCategories } from '../redux/actions/categories_actions';
 import { toggleCart } from '../redux/actions/global_actions';
@@ -64,6 +65,7 @@ function HomeRoutes() {
 				</Route>
 				<Route exact path='/user' component={UserPage} />
 				<Route exact path='/signup' component={SignUp} />
+				<Route exact path='/edit' component={EditUser} />
 			</main>
 			<Footer />
 		</>
