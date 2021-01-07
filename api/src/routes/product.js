@@ -1,6 +1,6 @@
 const server = require('express').Router();
 const { Op } = require('sequelize');
-const { Product, Category, Image, Review } = require('../db.js');
+const { Product, Category, Image, Review, User } = require('../db.js');
 
 //----------"/products"--------------
 
@@ -381,7 +381,11 @@ server.get('/:id', (req, res) => {
 			}, {
 				model: Image
 			}, {
-				model: Review
+				model: Review,
+				include: [{
+					model: User,
+					attributes: ['first_name', 'last_name', 'username']
+				}]
 			}
 		]
 	})
@@ -392,7 +396,8 @@ server.get('/:id', (req, res) => {
 				return res.json(prod);
 			}
 		})
-		.catch(() => {
+		.catch((err) => {
+			console.log(err)
 			res.status(500).json({
 				message: 'Internal server error',
 			});
@@ -485,14 +490,11 @@ server.delete('/reviews/:id', (req, res) => {
 
 			return res.status(200).json({ message: 'Review Deleted.' })
 		})
-		.catch((err) => {
-			console.error(err);
+		.catch(() => {
 			res.status(500).json({
 				message: 'Internal server error',
 			})
 		})
 })
-
-
 
 module.exports = server;

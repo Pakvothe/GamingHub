@@ -51,6 +51,7 @@ Product.belongsToMany(Order, { through: 'orders_products' })
 Order.belongsToMany(Product, { through: 'orders_products' })
 User.hasMany(Order, { foreignKey: { allowNull: false } });
 User.hasMany(Review, { foreignKey: { allowNull: false } });
+Review.belongsTo(User, { foreignKey: { allowNull: false }, onDelete: 'CASCADE' });
 
 module.exports = {
 	...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
