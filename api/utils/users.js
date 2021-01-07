@@ -27,6 +27,15 @@ const users = [
 		is_admin: true
 	},
 	{
+		first_name: 'Tincho',
+		last_name: 'Sanchez',
+		username: 'Tincho',
+		email: 'tinsanchez000@gmail.com',
+		password: '1337',
+		language: 'es',
+		is_admin: true
+	},
+	{
 		first_name: 'Paco',
 		last_name: 'Ortiz',
 		username: 'pavothe',
