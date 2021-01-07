@@ -164,12 +164,35 @@ export const DataTable = styled.table`
 	ID - Stock - Visible quiero que tengan ancho fijo. Las demás no me importan por el momento, que ocupen lo que sobra.
 	*/
 	thead .cell-small {
-		width: 75px;
+		width: 90px;
 	}
 
 	td {
+		position: relative;
 		padding: .75em 1em;
 		border-bottom: 1px solid #CCC;
+		user-select: none;
+		cursor: default;
+	}
+
+	.icon {
+		cursor: pointer;
+		&::after{
+			font-family: "Font Awesome 5 Pro";
+			font-weight: 700;
+		}
+
+		&.up::after{
+			content: " \f077";
+		}
+
+		&.down::after{
+			content: " \f078";
+		}
+	}
+
+	.active::after{
+		color: var(--clr-primary);
 	}
 
 	tbody tr:last-of-type td { border-bottom: 0; }

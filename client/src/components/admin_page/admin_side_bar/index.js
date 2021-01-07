@@ -22,7 +22,7 @@ const AdminSideBar = () => {
 				<div>
 					<Link to="/" className="logo-link" onClick={() => {
 						dispatch(emptyFilter())
-						dispatch(getProducts({ query: 'stock', order: 'DESC', limit: 8 }))
+						dispatch(getProducts({ name: 'stock', order: 'DESC', limit: 8 }))
 					}}>
 						<StyledSVG src={logo} />
 					</Link>

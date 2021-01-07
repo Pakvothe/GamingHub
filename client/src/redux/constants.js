@@ -6,6 +6,18 @@ export function BEARER() {
 	}
 }
 
+export function QUERY_FUNCTION(payload) {
+	let string = ''
+
+	if (payload && !!Object.keys(payload).length) {
+		for (const key in payload) {
+			string += `&${key}=${payload[key]}`
+		}
+		string = `?${string.slice(1)}`
+	}
+	return string;
+}
+
 //Global actions =>
 export const CHANGE_LANGUAGE = 'CHANGE_LANGUAGE';
 export const TOGGLE_CART = 'TOGGLE_CART';

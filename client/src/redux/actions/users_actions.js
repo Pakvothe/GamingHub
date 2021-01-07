@@ -10,7 +10,7 @@ import {
 	LOGIN_USER,
 	LOGOUT_USER,
 	LOADING_USER,
-	BEARER
+	BEARER,
 } from '../constants';
 
 const { REACT_APP_API_URL } = process.env;
