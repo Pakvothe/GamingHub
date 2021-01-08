@@ -124,7 +124,7 @@ export const getUsers = () => {
 	}
 }
 
-export const deleteUser = (payload) => { //payload = product.id
+export const deleteUser = (payload) => {
 	return function (dispatch) {
 		return axios.delete(`${REACT_APP_API_URL}/users/${payload}`, BEARER())
 			.then((user) => {
@@ -134,8 +134,13 @@ export const deleteUser = (payload) => { //payload = product.id
 						payload: user.data
 					}
 				)
+				dispatch(getUsers())
+				return {
+					type: 'success',
+					code: user.status
+				};
 			})
-			.catch() //check errors
+			.catch(err => ({ type: 'error', code: err }))
 	}
 }
 
