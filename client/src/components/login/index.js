@@ -80,6 +80,10 @@ const Login = () => {
 		window.location.href = `${REACT_APP_API_URL}/auth/google`
 	}
 
+	const signFacebook = () => {
+		window.location.href = `${REACT_APP_API_URL}/auth/facebook`
+	}
+
 	return (
 		<Modal
 			isOpen={loginIsOpen}
@@ -128,7 +132,7 @@ const Login = () => {
 					<button className="social-btn google-icon" onClick={signGoogle}>
 						{strings[language].google}
 					</button>
-					<button className="social-btn facebook-icon">
+					<button className="social-btn facebook-icon" onClick={signFacebook}>
 						{strings[language].facebook}
 					</button>
 				</SocialLogin>

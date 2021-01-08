@@ -86,4 +86,26 @@ server.get('/googleCallback',
 		res.redirect(`${process.env.FRONT}?jwt=${token}`);
 	});
 
+server.get("/facebook", passport.authenticate('facebook', {
+	scope: ['email', 'user_photos']
+}));
+
+server.get('/facebookCallback',
+	passport.authenticate('facebook'),
+	function (req, res) {
+		const { id, first_name, last_name, email, is_admin, updatedAt } = req.user.dataValues;
+		const token = jwt.sign(
+			{
+				id,
+				first_name,
+				last_name,
+				email,
+				is_admin,
+				updatedAt
+			},
+			SECRET
+		)
+		res.redirect(`${process.env.FRONT}?jwt=${token}`);
+	});
+
 module.exports = server;
