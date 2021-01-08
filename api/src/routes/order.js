@@ -1,6 +1,6 @@
 const server = require('express').Router();
 const { Op } = require('sequelize');
-const { Order, Product, Orders_products } = require('../db.js');
+const { Order, Product, Orders_products, Review } = require('../db.js');
 //----------"/orders"--------------
 
 server.post('/', async (req, res) => {
@@ -65,6 +65,8 @@ server.get('/', (req, res) => {
 });
 
 server.get('/:orderId', (req, res) => {
+	if (!req.user) return res.sendStatus(401);
+
 	const { orderId } = req.params
 
 	Order.findOne({
@@ -78,7 +80,13 @@ server.get('/:orderId', (req, res) => {
 					attributes: [
 						'unit_price', 'quantity'
 					]
-				}
+				},
+				include: [
+					{
+						model: Review,
+						required: false
+					}
+				]
 			}
 		]
 	})
@@ -90,6 +98,7 @@ server.get('/:orderId', (req, res) => {
 			}
 		})
 		.catch((err) => {
+			console.log(err);
 			res.status(500).json({ message: "Internal server error" });
 		})
 })
