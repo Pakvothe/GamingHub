@@ -85,6 +85,13 @@ export const GlobalStyle = createGlobalStyle`
 `
 
 
+export const Flex = styled.div`
+	display: flex;
+	justify-content: ${props => props.justify || 'center'};
+	align-items: ${props => props.align || 'center'};
+`
+
+
 // Styled components globales:
 export const Btn = styled.button`
 	font-weight: 900;

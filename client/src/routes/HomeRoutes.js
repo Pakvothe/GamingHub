@@ -21,6 +21,7 @@ import { getProducts } from '../redux/actions/products_actions';
 import { getCategories } from '../redux/actions/categories_actions';
 import { toggleCart } from '../redux/actions/global_actions';
 import Reset from './../components/reset/index';
+import ReviewForm from '../components/reviews/review_form';
 
 function HomeRoutes() {
 
@@ -72,6 +73,7 @@ function HomeRoutes() {
 				<Route exact path='/edit' component={EditUser} />
 				<Route exact path='/orders' component={UserOrders} />
 				<Route exact path='/order/:id' component={UserOrderDetail} />
+				<Route exact path='/review/:id' component={ReviewForm} />
 			</main>
 			<Footer />
 		</>

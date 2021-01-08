@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getOrder } from '../../../redux/actions/orders_actions';
 import { Btn, DataTable } from '../../styles/styled_global';
 import { StyledOrderDetail } from '../../styles/styled_order_detail';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Link } from 'react-router-dom';
 
 const UserOrderDetail = () => {
 	const history = useHistory();
@@ -57,6 +57,7 @@ const UserOrderDetail = () => {
 								<td>Cantidad</td>
 								<td>Precio Unitario</td>
 								<td>Precio Total</td>
+								<td></td>
 							</tr>
 						</thead>
 						<tbody>
@@ -66,15 +67,17 @@ const UserOrderDetail = () => {
 									<td>{prod.orders_products.quantity}</td>
 									<td>${prod.orders_products.unit_price}</td>
 									<td>${prod.orders_products.quantity * prod.orders_products.unit_price}</td>
+									<td><Link to={`/review/${prod.id}?game=${prod.name}`}><button>Dejar reseña del producto</button></Link></td>
 								</tr>
 							))}
 						</tbody>
 						<tfoot>
 							<tr>
-								<td>-</td>
-								<td>-</td>
-								<td>-</td>
+								<td></td>
+								<td></td>
+								<td></td>
 								<td>Total: ${orderInfo?.total_amount}</td>
+								<td></td>
 							</tr>
 						</tfoot>
 					</DataTable>
