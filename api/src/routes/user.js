@@ -1,7 +1,7 @@
 const server = require('express').Router();
-const { Op } = require('sequelize');
-const { User, Order, Product } = require('../db.js');
+const { User } = require('../db.js');
 const nodemailer = require('nodemailer');
+const { EMAIL_ACCOUNT, EMAIL_PASSWORD } = process.env;
 const smtpTransport = require('nodemailer-smtp-transport');
 //----------"/users"--------------
 
@@ -19,32 +19,6 @@ server.get('/', (req, res) => {
 		})
 });
 
-// server.get('/:id', (req, res) => {
-// 	const { id } = req.params
-// 	User.findByPk(id)
-// 		.then(foundUser => {
-// 			if (!foundUser) {
-// 				return res.status(404).json({ message: "User not found" });
-// 			}
-// 			return res.status(200).json(foundUser)
-// 		})
-// 		.catch(err => {
-// 			return res.status(500).json({ message: "Internal server error" });
-// 		})
-// })
-
-// server.post('/', (req, res) => {
-
-// 	const newUser = req.body;
-// 	User.create(newUser)
-// 		.then(user => {
-// 			return res.status(200).json(user)
-// 		})
-// 		.catch(err => {
-// 			return res.status(500).json({ message: "Internal server error" });
-// 		})
-// })
-
 server.post('/reset/password', (req, res) => { // <----- testing
 	const { email } = req.body;
 
@@ -56,13 +30,13 @@ server.post('/reset/password', (req, res) => { // <----- testing
 		service: 'gmail',
 		host: 'smtp.gmail.com',
 		auth: {
-			user: 'soygaminghub@gmail.com',
-			pass: 'GamingHub2020'
+			user: EMAIL_ACCOUNT,
+			pass: EMAIL_PASSWORD
 		}
 	}));
 
 	let mailOptions = {
-		from: 'soygaminghub@gmail.com',
+		from: EMAIL_ACCOUNT,
 		to: email,
 		subject: "Password Reset",
 		text: "Here's your code to reset your password:" + reset_code
@@ -120,8 +94,7 @@ server.post('/reset/verification', async (req, res) => {
 
 server.put('/:id', (req, res) => {
 	const { id } = req.params;
-	if (!req.user?.is_admin) return res.sendStatus(401);
-
+	if (!req.user || (!req.user?.is_admin && (req.user.id !== Number(id) || req.body.is_admin))) return res.sendStatus(401);
 	const toUpdate = req.body;
 	delete toUpdate?.reset_code;
 
