@@ -4,7 +4,7 @@ const BearerStrategy = require("passport-http-bearer").Strategy;
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const { User } = require("./db.js");
 const jwt = require("jsonwebtoken");
-const { SECRET } = process.env;
+const { SECRET, DB_HOST, PORT } = process.env;
 
 passport.use(
 	new LocalStrategy(
@@ -54,7 +54,7 @@ passport.deserializeUser(function (user, done) {
 passport.use(new GoogleStrategy({
 	clientID: process.env.CLIENTID,
 	clientSecret: process.env.CLIENTSECRET,
-	callbackURL: "http://localhost:4000/auth/googleCallback"
+	callbackURL: `http://${DB_HOST}:${PORT}/auth/googleCallback`
 }, async function (accessToken, refreshToken, profile, done) {
 	try {
 		const foundUser = await User.findOne({ where: { googleId: profile.id } })
