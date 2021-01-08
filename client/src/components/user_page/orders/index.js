@@ -3,10 +3,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom';
 import { getOrders } from '../../../redux/actions/orders_actions';
 import { DataTable } from '../../styles/styled_global';
+import strings from './strings';
 
 const UserOrders = () => {
 	const history = useHistory();
 	const dispatch = useDispatch();
+	const language = useSelector(state => state.globalReducer.language);
 	const orders = useSelector((state) => state.ordersReducer.orders.list);
 
 	useEffect(() => {
@@ -43,15 +45,15 @@ const UserOrders = () => {
 
 	return (
 		<>
-			<h2>Órdenes</h2>
+			<h2>{strings[language].title}</h2>
 			<DataTable>
 				<thead>
 					<tr onClick={handleSort}>
-						<td id="id" className="cell-small icon active down">Nº Orden</td>
-						<td>Email</td>
-						<td className="cell-small">Total</td>
-						<td id="state" className="icon down">Estado</td>
-						<td id="payment_method" className="icon down">Metodo de Pago</td>
+						<td id="id" className="cell-small icon active down">{strings[language].id}</td>
+						<td>{strings[language].mail}</td>
+						<td className="cell-small">{strings[language].total}</td>
+						<td id="state" className="icon down">{strings[language].state}</td>
+						<td id="payment_method" className="icon down">{strings[language].payment}</td>
 					</tr>
 				</thead>
 				<tbody>

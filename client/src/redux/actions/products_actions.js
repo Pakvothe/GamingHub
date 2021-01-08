@@ -143,7 +143,6 @@ export const getSearchProducts = (payload, options) => {
 		dispatch({ type: LOADING_FILTER_PRODUCTS });
 		return axios.get(`${REACT_APP_API_URL}/products/search?query=${payload}${limit}${offset}`)
 			.then(products => {
-
 				dispatch({
 					type: GET_FILTER_PRODUCTS,
 					payload: { filter: payload, products: products.data.results, count: products.data.count }

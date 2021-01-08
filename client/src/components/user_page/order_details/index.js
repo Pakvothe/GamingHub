@@ -63,16 +63,14 @@ const UserOrderDetail = () => {
 						</thead>
 						<tbody>
 							{products && products.map(prod => {
-								const found = prod.reviews.findIndex(review => review.userId === user.id);
-								console.log(found);
-								console.log(prod.name);
+								const found = prod.reviews.length > 0
 								return (
 									<tr key={prod.id}>
 										<td>{prod.name}</td>
 										<td>{prod.orders_products.quantity}</td>
 										<td>${prod.orders_products.unit_price}</td>
 										<td>${prod.orders_products.quantity * prod.orders_products.unit_price}</td>
-										<td>{found < 0 && (<Link to={`/review/${prod.id}?game=${prod.name}`}><button>Dejar reseña del producto</button></Link>)}</td>
+										<td>{!found && (<Link to={`/review/${prod.id}?game=${prod.name}`}><button>Dejar reseña del producto</button></Link>)}</td>
 									</tr>
 								)
 							})}

@@ -45,7 +45,6 @@ const EditUser = () => {
 
 	const handleSubmit = (ev) => {
 		ev.preventDefault();
-		dispatch(editUser(input));
 
 		Swal.fire({
 			heightAuto: false,
@@ -58,6 +57,7 @@ const EditUser = () => {
 			confirmButtonText: 'Ok',
 		}).then((result) => {
 			if (result.isConfirmed) {
+				dispatch(editUser(input));
 				Swal.fire(
 					strings[language].confirmTitle,
 					strings[language].confirmText,

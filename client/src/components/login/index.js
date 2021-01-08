@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,6 +17,7 @@ const Login = () => {
 	const dispatch = useDispatch();
 	const loginIsOpen = useSelector(state => state.globalReducer.loginIsOpen);
 	const language = useSelector(state => state.globalReducer.language);
+	const user = useSelector((state) => state.usersReducer.user);
 	const theme = useSelector(state => state.globalReducer.theme);
 	const { addToast } = useToasts();
 
@@ -71,8 +72,14 @@ const Login = () => {
 
 	const handleSubmit = (ev) => {
 		ev.preventDefault()
-		dispatch(loginUser(input));
-		addToast(strings[language].login, { appearance: 'success' })
+		dispatch(loginUser(input))
+			.then(data => {
+				if (data.type === 'success') {
+					addToast(strings[language].login, { appearance: 'success' })
+				} else {
+					addToast(strings[language].login_err, { appearance: 'error' })
+				}
+			});
 		closeModal()
 	}
 

@@ -1,27 +1,26 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux';
 
 /* --- Components --- */
 import Profile from './profile'
 
 /* --- Styled --- */
 import { UserCard } from '../styles/styled_user_card'
-import { useDispatch } from 'react-redux'
-import { getUser } from '../../redux/actions/users_actions'
+
+/* --- Strings --- */
+import strings from './strings';
 
 const UserPage = () => {
-	const dispatch = useDispatch()
 
-	useEffect(() => {
-		dispatch(getUser());
-	}, [])
+	const language = useSelector(state => state.globalReducer.language)
 
 	return (
 		<UserCard>
 			<ul>
-				<li><Link to="/edit">Editar Perfil</Link></li>
-				<li><Link to="/orders">Mis Compras</Link></li>
-				<li><Link to="/">Ayuda</Link></li>
+				<li><Link to="/edit">{strings[language].edit} </Link></li>
+				<li><Link to="/orders">{strings[language].orders} </Link></li>
+				<li><Link to="/">{strings[language].help} </Link></li>
 			</ul>
 			<Profile />
 		</UserCard>

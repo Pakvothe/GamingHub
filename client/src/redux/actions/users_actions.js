@@ -6,6 +6,7 @@ import {
 	GET_USERS,
 	DELETE_USER,
 	USERS_ERROR,
+	USER_ERROR,
 	LOADING_USERS,
 	LOGIN_USER,
 	LOGOUT_USER,
@@ -31,6 +32,7 @@ export const getUser = () => {
 				dispatch({
 					type: USERS_ERROR
 				})
+
 			})
 	}
 }
@@ -44,8 +46,12 @@ export const logout = () => {
 
 export const loginUser = (payload) => {
 	return function (dispatch) {
+		dispatch({
+			type: LOADING_USER
+		})
 		return axios.post(`${REACT_APP_API_URL}/auth/login`, payload)
 			.then(user => {
+				console.log(user)
 				const jwt = JSON.stringify(user.data)
 				localStorage.setItem('jwt', jwt);
 				dispatch({
@@ -53,11 +59,19 @@ export const loginUser = (payload) => {
 					payload: user.data
 				})
 				dispatch(getUser());
+				return {
+					type: 'success',
+					code: user.status
+				};
 			})
 			.catch(err => {
 				dispatch({
-					type: USERS_ERROR
+					type: USER_ERROR
 				})
+				return {
+					type: 'error',
+					code: err
+				};
 			})
 	}
 }
@@ -84,13 +98,8 @@ export const addUser = (payload) => {
 export const editUser = (payload) => {
 	return function (dispatch) {
 		return axios.put(`${REACT_APP_API_URL}/users/${payload.id}`, payload, BEARER())
-			.then((user) => {
-				dispatch(
-					{
-						type: EDIT_USER,
-						payload: user.data
-					}
-				)
+			.then(() => {
+				dispatch(getUser())
 			})
 			.catch() //check errors
 	}
@@ -115,7 +124,7 @@ export const getUsers = () => {
 	}
 }
 
-export const deleteUser = (payload) => { //payload = product.id
+export const deleteUser = (payload) => {
 	return function (dispatch) {
 		return axios.delete(`${REACT_APP_API_URL}/users/${payload}`, BEARER())
 			.then((user) => {
@@ -125,8 +134,13 @@ export const deleteUser = (payload) => { //payload = product.id
 						payload: user.data
 					}
 				)
+				dispatch(getUsers())
+				return {
+					type: 'success',
+					code: user.status
+				};
 			})
-			.catch() //check errors
+			.catch(err => ({ type: 'error', code: err }))
 	}
 }
 

@@ -84,7 +84,8 @@ server.get('/:orderId', (req, res) => {
 				include: [
 					{
 						model: Review,
-						required: false
+						required: false,
+						where: { userId: req.user.id }
 					}
 				]
 			}
