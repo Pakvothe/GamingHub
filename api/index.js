@@ -95,6 +95,12 @@ conn.sync({ force: true }).then(() => {
 				unit_price: 40.72,
 				quantity: 1
 			})
+			Orders_products.create({
+				productId: 4,
+				orderId: 2,
+				unit_price: 40.72,
+				quantity: 1
+			})
 			console.log('Ordenes cargadas exitosamente')
 			return;
 		})

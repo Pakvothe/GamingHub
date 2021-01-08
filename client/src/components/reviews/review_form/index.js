@@ -12,6 +12,8 @@ const { REACT_APP_API_URL } = process.env;
 
 const ReviewForm = () => {
 	const theme = useSelector(state => state.globalReducer.theme);
+	const user = useSelector(state => state.usersReducer.user.info);
+
 	const location = useLocation();
 	const history = useHistory();
 	const { id } = useParams();
@@ -42,7 +44,7 @@ const ReviewForm = () => {
 				addToast('Your review was sent', {
 					appearance: 'success'
 				})
-				history.push('/orders')
+				history.goBack();
 			})
 			.catch(() => {
 				addToast('Ocurrió un error al enviar tu review. Intenta de nuevo', {

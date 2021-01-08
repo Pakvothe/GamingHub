@@ -10,6 +10,7 @@ const UserOrderDetail = () => {
 	const dispatch = useDispatch();
 	const { id } = useParams();
 
+	const user = useSelector(state => state.usersReducer.user.info);
 	const orderInfo = useSelector(state => state.ordersReducer.order.info);
 	const products = orderInfo?.products;
 
@@ -61,15 +62,20 @@ const UserOrderDetail = () => {
 							</tr>
 						</thead>
 						<tbody>
-							{products && products.map(prod => (
-								<tr key={prod.id}>
-									<td>{prod.name}</td>
-									<td>{prod.orders_products.quantity}</td>
-									<td>${prod.orders_products.unit_price}</td>
-									<td>${prod.orders_products.quantity * prod.orders_products.unit_price}</td>
-									<td><Link to={`/review/${prod.id}?game=${prod.name}`}><button>Dejar reseña del producto</button></Link></td>
-								</tr>
-							))}
+							{products && products.map(prod => {
+								const found = prod.reviews.findIndex(review => review.userId === user.id);
+								console.log(found);
+								console.log(prod.name);
+								return (
+									<tr key={prod.id}>
+										<td>{prod.name}</td>
+										<td>{prod.orders_products.quantity}</td>
+										<td>${prod.orders_products.unit_price}</td>
+										<td>${prod.orders_products.quantity * prod.orders_products.unit_price}</td>
+										<td>{found < 0 && (<Link to={`/review/${prod.id}?game=${prod.name}`}><button>Dejar reseña del producto</button></Link>)}</td>
+									</tr>
+								)
+							})}
 						</tbody>
 						<tfoot>
 							<tr>
