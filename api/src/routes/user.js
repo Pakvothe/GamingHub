@@ -120,7 +120,7 @@ server.post('/reset/verification', async (req, res) => {
 
 server.put('/:id', (req, res) => {
 	const { id } = req.params;
-	if (!req.user || req.user.id !== Number(id)) return res.sendStatus(401);
+	if (!req.user?.is_admin) return res.sendStatus(401);
 
 	const toUpdate = req.body;
 	delete toUpdate?.reset_code;
