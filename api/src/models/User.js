@@ -26,7 +26,6 @@ module.exports = (sequelize) => {
 		},
 		password: {
 			type: D.STRING,
-			allowNull: false,
 			set(value) {
 				if (value) {
 					const salt = bcrypt.genSaltSync(10);
@@ -36,12 +35,14 @@ module.exports = (sequelize) => {
 			}
 		},
 		language: {
-			type: D.ENUM('en', 'es'),
-			allowNull: false
+			type: D.ENUM('en', 'es')
 		},
 		is_admin: {
 			type: D.BOOLEAN,
 			allowNull: false
+		},
+		googleId: {
+			type: D.STRING,
 		}
 	})
 

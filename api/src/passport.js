@@ -1,6 +1,7 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const BearerStrategy = require("passport-http-bearer").Strategy;
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const { User } = require("./db.js");
 const jwt = require("jsonwebtoken");
 const { SECRET } = process.env;
@@ -41,5 +42,37 @@ passport.use(
 		});
 	})
 );
+
+passport.serializeUser(function (user, done) {
+	done(null, user);
+});
+
+passport.deserializeUser(function (user, done) {
+	done(null, user);
+});
+
+passport.use(new GoogleStrategy({
+	clientID: process.env.CLIENTID,
+	clientSecret: process.env.CLIENTSECRET,
+	callbackURL: "http://localhost:4000/auth/googleCallback"
+}, async function (accessToken, refreshToken, profile, done) {
+	try {
+		const foundUser = await User.findOne({ where: { googleId: profile.id } })
+		if (foundUser) done(null, foundUser)
+		else {
+			const user = {
+				first_name: profile.name.givenName,
+				last_name: profile.name.familyName,
+				email: profile.emails[0].value,
+				is_admin: false,
+				googleId: profile.id
+			}
+			const createdUser = await User.create(user)
+			done(null, createdUser)
+		}
+	} catch (err) {
+		done(err, null)
+	}
+}));
 
 module.exports = passport;
