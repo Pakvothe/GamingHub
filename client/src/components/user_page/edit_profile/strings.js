@@ -1,7 +1,6 @@
 const strings = {
 	en: {
 		title: 'Edit User',
-		username: 'Username:',
 		password: 'Password:',
 		email: 'Email:',
 		name: 'Name:',
@@ -16,7 +15,6 @@ const strings = {
 	},
 	es: {
 		title: 'Editar Usuario',
-		username: 'Usuario:',
 		password: 'Contraseña:',
 		email: 'Correo:',
 		name: 'Nombre:',

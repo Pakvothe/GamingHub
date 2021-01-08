@@ -384,7 +384,7 @@ server.get('/:id', (req, res) => {
 				model: Review,
 				include: [{
 					model: User,
-					attributes: ['first_name', 'last_name', 'username']
+					attributes: ['first_name', 'last_name']
 				}]
 			}
 		]
