@@ -18,6 +18,7 @@ import EditUser from '../components/user_page/edit_profile';
 import { getProducts } from '../redux/actions/products_actions';
 import { getCategories } from '../redux/actions/categories_actions';
 import { toggleCart } from '../redux/actions/global_actions';
+import Reset from './../components/reset/index';
 
 function HomeRoutes() {
 
@@ -64,6 +65,7 @@ function HomeRoutes() {
 					<Step3 cart={cart} />
 				</Route>
 				<Route exact path='/user' component={UserPage} />
+				<Route exact path='/reset' component={Reset} />
 				<Route exact path='/signup' component={SignUp} />
 				<Route exact path='/edit' component={EditUser} />
 			</main>
