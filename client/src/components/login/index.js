@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { openLogin } from '../../redux/actions/global_actions';
-import { FormStyled, Btn, StyledSVG } from '../styles/styled_global';
+import { FormStyled, Btn, SocialLogin, StyledSVG } from '../styles/styled_global';
 import { LoginStyled } from '../styles/styled_login';
 import CloseButton from '../../assets/img/close-filled-purple.svg';
 import strings from './strings';
@@ -124,8 +124,15 @@ const Login = () => {
 					</div>
 					<Btn type='submit' className='btn-ppal'>Ok</Btn>
 				</FormStyled>
+				<SocialLogin>
+					<button className="social-btn google-icon" onClick={signGoogle}>
+						{strings[language].google}
+					</button>
+					<button className="social-btn facebook-icon">
+						{strings[language].facebook}
+					</button>
+				</SocialLogin>
 			</LoginStyled>
-			<button onClick={signGoogle}>SIGN IN WITH GOOGLE</button>
 		</Modal >
 	)
 }

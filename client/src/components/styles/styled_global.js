@@ -4,7 +4,7 @@ import arrow from '../../assets/img/arrow-down.svg';
 import checkboxUnchecked from '../../assets/img/checkbox-unchecked-purple.svg'
 import checkboxChecked from '../../assets/img/checkbox-checked-purple.svg'
 import LoadingOverlay from 'react-loading-overlay';
-
+import facebook from '../../assets/img/facebook.svg'
 
 // Estilos globales para habilitar el dark mode:
 export const GlobalStyle = createGlobalStyle`
@@ -769,6 +769,51 @@ export const QuantityButton = styled.button`
 		width: 20px;
 		height: 20px;
 	}
+`
+export const SocialLogin = styled.div`
+	margin: 1em;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+
+	button:last-child{
+		margin-left: 1em;
+	}
+
+	.social-btn {
+		display: block;
+		width: auto;
+		margin: 0 auto;
+		border: none;
+		border-radius: 10px;
+		box-shadow: 0 3px 4px 0 rgba(0,0,0,.25);
+		cursor: pointer;
+	
+		
+		text-align: right;
+		padding: 1em 1em 1em 4em;
+
+		&:hover {
+			box-shadow: 0 0 6px var(--clr-primary);
+		}
+		&:active {
+			background: var(--clr-secondary);
+		}
+	}
+	
+	.facebook-icon {
+		background: url(${facebook}) no-repeat;
+		background-size: 25px;
+		background-position: left 1em top 50%;
+		background-color: var(--clr-white); 
+	}
+	.google-icon{
+		background: url(https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg) no-repeat;
+		background-size: 25px;
+		background-position: left 1em top 50%;
+		background-color: var(--clr-white);
+	}
+
 `
 
 export const StyledSVG = styled(SVG)`
