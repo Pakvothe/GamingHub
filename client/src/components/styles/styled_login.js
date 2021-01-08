@@ -30,8 +30,14 @@ export const LoginStyled = styled.div`
 	}
 }
 
+label {
+	left: 50%;
+	transform: translateX(-50%);
+}
+
 .btn-ppal{
 	margin-left: 25%;
+	margin-top: 1em;
 	width: 50%;
 }
 .ReactModal__Overlay {
