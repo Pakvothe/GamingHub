@@ -76,7 +76,7 @@ server.post('/reset/password', (req, res) => { // <----- testing
 				if (error) {
 					res.status(400).json({ message: "Mail could not be sent" })
 				} else {
-					res.status(200).json({ message: "Code sent" })
+					res.status(200).json({ message: "Code sent", ok: true })
 				}
 			});
 		})
@@ -94,7 +94,7 @@ server.post('/reset/verification', async (req, res) => {
 		switch (step) {
 			case "1":
 				if (match) {
-					return res.status(200).json({ message: 'Code accepted' });
+					return res.status(200).json({ message: 'Code accepted', ok: true });
 				} else {
 					return res.status(400).json({ message: 'Code denied' });
 				}
@@ -104,7 +104,7 @@ server.post('/reset/verification', async (req, res) => {
 
 					let updateRes = await user.update({ password, reset_code: null })
 					if (updateRes) {
-						return res.status(200).json({ message: 'Password changed successfully' })
+						return res.status(200).json({ message: 'Password changed successfully', ok: true })
 					}
 				} else {
 					return res.status(400).json({ message: 'Bad request' });

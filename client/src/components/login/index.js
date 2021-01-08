@@ -115,7 +115,7 @@ const Login = () => {
 							value={input.password}
 							required />
 					</label>
-					<div className='link_container' onClick={() => dispatch(openLogin(false))}>
+					<div className='link_container'>
 						<Link to="/reset" onClick={closeModal}>{strings[language].olvi}</Link>
 						<Link to="/signup" onClick={closeModal}>{strings[language].create}</Link>
 					</div>
