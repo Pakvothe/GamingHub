@@ -4,6 +4,8 @@ import Reset_steps from './reset_steps/index';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import strings from './reset_steps/strings';
 const { REACT_APP_API_URL } = process.env;
 
 const Reset = () => {
@@ -43,8 +45,16 @@ const Reset = () => {
 				axios.post(`${REACT_APP_API_URL}/users/reset/verification`, { email: data.email, reset_code: data.reset_code, step: '2', password: input })
 					.then(res => {
 						if (res.data.ok) {
-							alert("PASSWORD CAMBIADA(sweet alert)");
-							history.push('/');
+							Swal.fire({
+								heightAuto: false,
+								title: strings[language].alertTitle,
+								text: strings[language].alertText,
+								icon: 'success',
+								confirmButtonColor: '#3085d6',
+								confirmButtonText: 'Ok',
+							}).then((result) => {
+								history.push('/');
+							})
 						}
 					})
 				break;
@@ -55,7 +65,7 @@ const Reset = () => {
 
 	return (
 		<>
-			<h2>Password Reset</h2>
+			<h2>{strings[language].title}</h2>
 			<Reset_steps handleSubmit={handleSubmits} step={data.step} language={language} />
 		</>
 	)

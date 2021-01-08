@@ -1,20 +1,23 @@
 export default {
 	en: {
 		description: {
-			1: 'MISSING',
-			2: 'MISSING',
-			3: 'MISSING'
+			1: 'Enter your email and we will send you a code to reset your password',
+			2: 'Enter the code that we have sent to your email to reset your password',
+			3: 'Enter your new password'
 		},
 		label: {
-			1: 'MISSING',
-			2: 'MISSING',
-			3: 'MISSING'
+			1: 'Email',
+			2: 'Code',
+			3: 'New Password'
 		},
 		button: {
-			1: 'MISSING',
-			2: 'MISSING',
-			3: 'MISSING'
-		}
+			1: 'Send Code',
+			2: 'Verify Code',
+			3: 'Change Password'
+		},
+		alertTitle: 'Success',
+		alertText: 'Password changed correctly',
+		title: 'Reset Password',
 	},
 	es: {
 		description: {
@@ -31,6 +34,10 @@ export default {
 			1: 'Enviar Codigo',
 			2: 'Comprobar Codigo',
 			3: 'Cambiar Contraseña'
-		}
+		},
+		alertTitle: 'Éxito',
+		alertText: 'Contraseña restablecida correctamente',
+		title: 'Cambiar contraseña',
+
 	}
 }
