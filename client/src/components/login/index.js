@@ -11,6 +11,9 @@ import { loginUser } from '../../redux/actions/users_actions';
 import { useToasts } from 'react-toast-notifications';
 
 const Login = () => {
+
+	const { REACT_APP_API_URL } = process.env;
+
 	const dispatch = useDispatch();
 	const loginIsOpen = useSelector(state => state.globalReducer.loginIsOpen);
 	const language = useSelector(state => state.globalReducer.language);
@@ -74,7 +77,7 @@ const Login = () => {
 	}
 
 	const signGoogle = () => {
-		window.location.href = 'http://localhost:4000/auth/google'
+		window.location.href = `${REACT_APP_API_URL}/auth/google`
 	}
 
 	return (

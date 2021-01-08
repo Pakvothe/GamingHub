@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
 import { GlobalStyle } from './components/styles/styled_global';
 import { lightTheme, darkTheme } from './components/styles/themes';
-import { Route, Switch, useLocation } from 'react-router-dom';
+import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import HomeRoutes from './routes/HomeRoutes'
 import AdminRoutes from './routes/AdminRoutes'
 import { setCart } from './redux/actions/cart_actions';
@@ -14,6 +14,7 @@ function App() {
 	const theme = useSelector(state => state.globalReducer.theme);
 	const dispatch = useDispatch();
 	const location = useLocation();
+	const history = useHistory();
 
 	useEffect(() => {
 		if (localStorage.getItem('jwt')) dispatch(getUser())
@@ -22,6 +23,7 @@ function App() {
 		if (parsed.jwt) {
 			localStorage.setItem('jwt', JSON.stringify(parsed.jwt));
 			dispatch(getUser());
+			history.push('/')
 		}
 	}, [])
 
