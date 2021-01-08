@@ -37,6 +37,9 @@ module.exports = (sequelize) => {
 		googleId: {
 			type: D.STRING
 		},
+		facebookId: {
+			type: D.STRING
+		},
 		reset_code: {
 			type: D.STRING,
 			set(value) {

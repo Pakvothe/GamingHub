@@ -2,9 +2,10 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const BearerStrategy = require("passport-http-bearer").Strategy;
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const FacebookStrategy = require('passport-facebook').Strategy;
 const { User } = require("./db.js");
 const jwt = require("jsonwebtoken");
-const { SECRET, DB_HOST, PORT } = process.env;
+const { SECRET, DB_HOST, PORT, CLIENTID, CLIENTSECRET, FACEBOOK_APP_ID, FACEBOOK_APP_SECRET } = process.env;
 
 passport.use(
 	new LocalStrategy(
@@ -52,8 +53,8 @@ passport.deserializeUser(function (user, done) {
 });
 
 passport.use(new GoogleStrategy({
-	clientID: process.env.CLIENTID,
-	clientSecret: process.env.CLIENTSECRET,
+	clientID: CLIENTID,
+	clientSecret: CLIENTSECRET,
 	callbackURL: `http://${DB_HOST}:${PORT}/auth/googleCallback`
 }, async function (accessToken, refreshToken, profile, done) {
 	try {
@@ -74,5 +75,33 @@ passport.use(new GoogleStrategy({
 		done(err, null)
 	}
 }));
+
+//FACEBOOK
+
+passport.use(
+	new FacebookStrategy({
+		clientID: FACEBOOK_APP_ID,
+		clientSecret: FACEBOOK_APP_SECRET,
+		callbackURL: `http://${DB_HOST}:${PORT}/auth/facebookCallback`,
+		profileFields: ['id', 'emails', 'name']
+	}, async function (accessToken, refreshToken, profile, done) {
+		try {
+			const foundUser = await User.findOne({ where: { facebookId: profile.id } })
+			if (foundUser) done(null, foundUser)
+			else {
+				const user = {
+					first_name: profile.name.givenName,
+					last_name: profile.name.familyName,
+					email: profile.emails[0].value,
+					is_admin: false,
+					facebookId: profile.id
+				}
+				const createdUser = await User.create(user)
+				done(null, createdUser)
+			}
+		} catch (err) {
+			done(err, null)
+		}
+	}));
 
 module.exports = passport;
