@@ -8,7 +8,9 @@ server.get("/me", async (req, res, next) => {
 	try {
 		if (req.user) {
 			const { id } = req.user;
-			const result = await User.findByPk(id, { attributes: { exclude: ['password'] } });
+			const result = await User.findByPk(id, {
+				attributes: ['id', 'first_name', 'last_name', 'email', 'is_admin', 'updatedAt']
+			});
 			if (req.user.updatedAt === result.updatedAt.toISOString()) {
 				return res.json(result);
 			} else {
@@ -61,5 +63,27 @@ server.post("/login", function (req, res, next) {
 		else return res.send(jwt.sign(user, SECRET));
 	})(req, res, next);
 });
+
+server.get("/google", passport.authenticate('google', {
+	scope: ['profile', 'email']
+}));
+
+server.get('/googleCallback',
+	passport.authenticate('google'),
+	function (req, res) {
+		const { id, first_name, last_name, email, is_admin, updatedAt } = req.user.dataValues;
+		const token = jwt.sign(
+			{
+				id,
+				first_name,
+				last_name,
+				email,
+				is_admin,
+				updatedAt
+			},
+			SECRET
+		)
+		res.redirect(`${process.env.FRONT}?jwt=${token}`);
+	});
 
 module.exports = server;

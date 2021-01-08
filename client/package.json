@@ -10,6 +10,7 @@
     "embla-carousel": "^4.1.2",
     "firebase": "^8.2.1",
     "prop-types": "^15.7.2",
+    "query-string": "^6.13.8",
     "react": "^16.13.1",
     "react-credit-cards": "^0.8.3",
     "react-dom": "^16.13.1",
