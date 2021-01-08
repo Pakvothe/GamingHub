@@ -20,7 +20,7 @@ const UserPage = () => {
 		<UserCard>
 			<ul>
 				<li><Link to="/edit">Editar Perfil</Link></li>
-				<li><Link to="/">Mis Compras</Link></li>
+				<li><Link to="/orders">Mis Compras</Link></li>
 				<li><Link to="/">Ayuda</Link></li>
 			</ul>
 			<Profile />
