@@ -98,13 +98,8 @@ export const addUser = (payload) => {
 export const editUser = (payload) => {
 	return function (dispatch) {
 		return axios.put(`${REACT_APP_API_URL}/users/${payload.id}`, payload, BEARER())
-			.then((user) => {
-				dispatch(
-					{
-						type: EDIT_USER,
-						payload: user.data
-					}
-				)
+			.then(() => {
+				dispatch(getUser())
 			})
 			.catch() //check errors
 	}
