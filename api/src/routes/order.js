@@ -65,7 +65,10 @@ server.get('/', (req, res) => {
 });
 
 server.get('/:orderId', (req, res) => {
+	if (!req.user) return res.sendStatus(401);
+
 	const { orderId } = req.params
+
 	Order.findOne({
 		where: {
 			id: orderId
