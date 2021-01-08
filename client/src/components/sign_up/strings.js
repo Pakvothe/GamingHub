@@ -1,7 +1,6 @@
 const strings = {
 	en: {
 		signUp: 'Sign Up',
-		username: 'Username:',
 		password: 'Password:',
 		email: 'Email:',
 		name: 'Name:',
@@ -11,7 +10,6 @@ const strings = {
 	},
 	es: {
 		signUp: 'Registrarse',
-		username: 'Usuario:',
 		password: 'Contraseña:',
 		email: 'Correo:',
 		name: 'Nombre:',

@@ -2,7 +2,6 @@ const users = [
 	{
 		first_name: 'Emiliano',
 		last_name: 'Alfonso',
-		username: 'Emiliano',
 		email: 'emi@mail.com',
 		password: '1234',
 		language: 'es',
@@ -11,7 +10,6 @@ const users = [
 	{
 		first_name: 'Cosme',
 		last_name: 'Fulatino',
-		username: 'cosme1234',
 		email: 'cosme@mail.com',
 		password: '1234',
 		language: 'es',
@@ -20,7 +18,6 @@ const users = [
 	{
 		first_name: 'Nacho',
 		last_name: 'Contreras',
-		username: 'nc-devw',
 		email: 'nacho@mail.com',
 		password: '12345678',
 		language: 'es',
@@ -29,7 +26,6 @@ const users = [
 	{
 		first_name: 'Tincho',
 		last_name: 'Sanchez',
-		username: 'Tincho',
 		email: 'tinsanchez000@gmail.com',
 		password: '1337',
 		language: 'es',
@@ -38,7 +34,6 @@ const users = [
 	{
 		first_name: 'Paco',
 		last_name: 'Ortiz',
-		username: 'pavothe',
 		email: 'paco@mail.com',
 		password: 'linux',
 		language: 'es',

@@ -10,7 +10,6 @@ const SignUp = () => {
 	const history = useHistory();
 	const language = useSelector((state) => state.globalReducer.language);
 	let [input, setInput] = useState({
-		username: '',
 		password: '',
 		email: '',
 		first_name: '',
@@ -38,10 +37,6 @@ const SignUp = () => {
 		<>
 			<FormStyled onSubmit={handleSubmit} autoComplete="off">
 				<h1 className='form__title'>{strings[language].signUp}</h1>
-				<label>
-					<span>{strings[language].username}</span>
-					<input type="text" value={input.username} name="username" onChange={handleChange} required />
-				</label>
 				<label>
 					<span>{strings[language].password}</span>
 					<input type="password" value={input.password} name="password" onChange={handleChange} required />

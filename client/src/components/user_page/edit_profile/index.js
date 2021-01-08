@@ -14,7 +14,6 @@ const EditUser = () => {
 
 	let [input, setInput] = useState({
 		id: '',
-		username: '',
 		password: '',
 		email: '',
 		first_name: '',
@@ -26,7 +25,6 @@ const EditUser = () => {
 			setInput(
 				{
 					id: user.id,
-					username: user.username,
 					password: '',
 					email: user.email,
 					first_name: user.first_name,
@@ -85,12 +83,8 @@ const EditUser = () => {
 					<input type="text" value={input.last_name} name="last_name" onChange={handleChange} required />
 				</label>
 				<label>
-					<span>{strings[language].username}</span>
-					<input type="text" value={input.username} name="username" onChange={handleChange} required />
-				</label>
-				<label>
 					<span>{strings[language].password}</span>
-					<input type="password" value={input.password} name="password" onChange={handleChange} required />
+					<input type="password" value={input.password} name="password" onChange={handleChange} />
 				</label>
 				<label>
 					<span>{strings[language].email}</span>

@@ -12,10 +12,6 @@ module.exports = (sequelize) => {
 			type: D.STRING,
 			allowNull: false
 		},
-		username: {
-			type: D.STRING,
-			unique: true
-		},
 		email: {
 			type: D.STRING,
 			allowNull: false,
@@ -33,9 +29,6 @@ module.exports = (sequelize) => {
 					this.setDataValue('password', hash);
 				}
 			}
-		},
-		language: {
-			type: D.ENUM('en', 'es')
 		},
 		is_admin: {
 			type: D.BOOLEAN,
