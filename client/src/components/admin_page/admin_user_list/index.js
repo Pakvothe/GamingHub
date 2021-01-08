@@ -34,16 +34,6 @@ const AdminUserList = ({ users }) => {
 							<td>{user.id}</td>
 							<td>{user.first_name}</td>
 							<td>{user.last_name}</td>
-							{/* <td>
-								<CheckboxLabel className="no-shadow check" checked={input.is_active[prod.id]}>
-								<input
-								type='checkbox'
-										value={input.is_active[prod.id]}
-										onChange={handleInput}
-										name='is_active'
-										/>
-										</CheckboxLabel>
-									</td> */}
 							<td><input type="checkbox" checked={user.is_admin} onChange={() => handleInput(user.id, !user.is_admin)} /></td>
 							<td>{user.email}</td>
 						</tr>
