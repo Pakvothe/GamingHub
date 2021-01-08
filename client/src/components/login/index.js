@@ -73,6 +73,10 @@ const Login = () => {
 		closeModal()
 	}
 
+	const signGoogle = () => {
+		window.location.href = 'http://localhost:4000/auth/google'
+	}
+
 	return (
 		<Modal
 			isOpen={loginIsOpen}
@@ -118,6 +122,7 @@ const Login = () => {
 					<Btn type='submit' className='btn-ppal'>Ok</Btn>
 				</FormStyled>
 			</LoginStyled>
+			<button onClick={signGoogle}>SIGN IN WITH GOOGLE</button>
 		</Modal >
 	)
 }
