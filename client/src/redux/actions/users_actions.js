@@ -6,6 +6,7 @@ import {
 	GET_USERS,
 	DELETE_USER,
 	USERS_ERROR,
+	USER_ERROR,
 	LOADING_USERS,
 	LOGIN_USER,
 	LOGOUT_USER,
@@ -31,6 +32,7 @@ export const getUser = () => {
 				dispatch({
 					type: USERS_ERROR
 				})
+
 			})
 	}
 }
@@ -44,8 +46,12 @@ export const logout = () => {
 
 export const loginUser = (payload) => {
 	return function (dispatch) {
+		dispatch({
+			type: LOADING_USER
+		})
 		return axios.post(`${REACT_APP_API_URL}/auth/login`, payload)
 			.then(user => {
+				console.log(user)
 				const jwt = JSON.stringify(user.data)
 				localStorage.setItem('jwt', jwt);
 				dispatch({
@@ -53,11 +59,19 @@ export const loginUser = (payload) => {
 					payload: user.data
 				})
 				dispatch(getUser());
+				return {
+					type: 'success',
+					code: user.status
+				};
 			})
 			.catch(err => {
 				dispatch({
-					type: USERS_ERROR
+					type: USER_ERROR
 				})
+				return {
+					type: 'error',
+					code: err
+				};
 			})
 	}
 }
