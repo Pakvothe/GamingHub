@@ -12,6 +12,9 @@ module.exports = (sequelize) => {
 			type: D.STRING,
 			allowNull: false
 		},
+		profile_pic: {
+			type: D.TEXT,
+		},
 		email: {
 			type: D.STRING,
 			allowNull: false,
@@ -27,6 +30,8 @@ module.exports = (sequelize) => {
 					const salt = bcrypt.genSaltSync(10);
 					const hash = bcrypt.hashSync(value, salt);
 					this.setDataValue('password', hash);
+				} else {
+					this.setDataValue('password', null)
 				}
 			}
 		},
@@ -53,7 +58,8 @@ module.exports = (sequelize) => {
 	})
 
 	User.prototype.compare = function (password, isReset) {	//compares resetcode when isReset is true
-		return bcrypt.compareSync(password.toString(), isReset ? this.reset_code : this.password);
+		if (this.password) return bcrypt.compareSync(password.toString(), isReset ? this.reset_code : this.password);
+		else return false
 	}
 
 }

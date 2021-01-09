@@ -51,7 +51,6 @@ export const loginUser = (payload) => {
 		})
 		return axios.post(`${REACT_APP_API_URL}/auth/login`, payload)
 			.then(user => {
-				console.log(user)
 				const jwt = JSON.stringify(user.data)
 				localStorage.setItem('jwt', jwt);
 				dispatch({
@@ -124,24 +123,21 @@ export const getUsers = () => {
 	}
 }
 
-export const deleteUser = (payload) => {
+export const deleteUser = (payload, isAdmin = false) => {
 	return function (dispatch) {
 		return axios.delete(`${REACT_APP_API_URL}/users/${payload}`, BEARER())
 			.then((user) => {
-				localStorage.removeItem('jwt');
 				dispatch(
 					{
 						type: DELETE_USER,
 						payload: user.data
 					}
 				)
-				dispatch(getUsers())
-				return {
-					type: 'success',
-					code: user.status
-				};
+				if (isAdmin) dispatch(getUsers())
+				else localStorage.removeItem('jwt');
+				return user.status
 			})
-			.catch(err => ({ type: 'error', code: err }))
+			.catch((err) => err.response.status)
 	}
 }
 
