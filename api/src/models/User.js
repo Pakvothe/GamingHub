@@ -12,6 +12,9 @@ module.exports = (sequelize) => {
 			type: D.STRING,
 			allowNull: false
 		},
+		profile_pic: {
+			type: D.STRING,
+		},
 		email: {
 			type: D.STRING,
 			allowNull: false,

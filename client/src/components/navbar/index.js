@@ -118,7 +118,11 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 								</ul>
 							</Dropdown>
 							<Dropdown>
-								<StyledSVG src={userPic} />
+								{
+									user.first_name // Para poder hacer la compbrobación de que esté logueado y después la comprobación de que tenga foto de perfil abajo
+										? (<div className="navbar__profile-pic"><img src={user.profile_pic || "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmlsZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80"} alt="Imagen de perfil" /></div>)
+										: <StyledSVG src={userPic} />
+								}
 								<span>{strings[language].user}</span>
 								<ul>
 									{

@@ -51,7 +51,6 @@ export const loginUser = (payload) => {
 		})
 		return axios.post(`${REACT_APP_API_URL}/auth/login`, payload)
 			.then(user => {
-				console.log(user)
 				const jwt = JSON.stringify(user.data)
 				localStorage.setItem('jwt', jwt);
 				dispatch({

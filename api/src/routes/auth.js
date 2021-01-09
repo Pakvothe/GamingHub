@@ -9,17 +9,18 @@ server.get("/me", async (req, res, next) => {
 		if (req.user) {
 			const { id } = req.user;
 			const result = await User.findByPk(id, {
-				attributes: ['id', 'first_name', 'last_name', 'email', 'is_admin', 'updatedAt']
+				attributes: ['id', 'first_name', 'last_name', 'profile_pic', 'email', 'is_admin', 'updatedAt']
 			});
 			if (req.user.updatedAt === result.updatedAt.toISOString()) {
 				return res.json(result);
 			} else {
-				const { id, first_name, last_name, email, is_admin, updatedAt } = result;
+				const { id, first_name, last_name, profile_pic, email, is_admin, updatedAt } = result;
 				result.dataValues.jwt = jwt.sign(
 					{
 						id,
 						first_name,
 						last_name,
+						profile_pic,
 						email,
 						is_admin,
 						updatedAt
@@ -71,12 +72,13 @@ server.get("/google", passport.authenticate('google', {
 server.get('/googleCallback',
 	passport.authenticate('google'),
 	function (req, res) {
-		const { id, first_name, last_name, email, is_admin, updatedAt } = req.user.dataValues;
+		const { id, first_name, last_name, profile_pic, email, is_admin, updatedAt } = req.user.dataValues;
 		const token = jwt.sign(
 			{
 				id,
 				first_name,
 				last_name,
+				profile_pic,
 				email,
 				is_admin,
 				updatedAt
@@ -93,12 +95,13 @@ server.get("/facebook", passport.authenticate('facebook', {
 server.get('/facebookCallback',
 	passport.authenticate('facebook'),
 	function (req, res) {
-		const { id, first_name, last_name, email, is_admin, updatedAt } = req.user.dataValues;
+		const { id, first_name, last_name, profile_pic, email, is_admin, updatedAt } = req.user.dataValues;
 		const token = jwt.sign(
 			{
 				id,
 				first_name,
 				last_name,
+				profile_pic,
 				email,
 				is_admin,
 				updatedAt
