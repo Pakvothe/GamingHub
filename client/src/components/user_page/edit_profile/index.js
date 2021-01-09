@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { FormStyled, Btn } from '../../styles/styled_global';
-import { editUser } from '../../../redux/actions/users_actions';
+import { FormStyled, Btn, Flex, Hr } from '../../styles/styled_global';
+import { editUser, deleteUser } from '../../../redux/actions/users_actions';
 import Swal from 'sweetalert2';
 import { useHistory } from 'react-router-dom';
 import strings from './strings'
+import { useToasts } from 'react-toast-notifications';
 
 const EditUser = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const language = useSelector((state) => state.globalReducer.language);
 	const user = useSelector((state) => state.usersReducer.user.info);
+	const { addToast } = useToasts()
 
 	let [input, setInput] = useState({
 		id: '',
@@ -70,30 +72,69 @@ const EditUser = () => {
 		//Falta manejar el error
 	}
 
+	const handleDelete = (ev, id) => {
+		Swal.fire({
+			heightAuto: false,
+			title: strings[language].deleteAlertTitle,
+			text: strings[language].deleteAlertText,
+			icon: 'error',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			showLoaderOnConfirm: true,
+			confirmButtonText: 'Ok',
+			preConfirm: () => dispatch(deleteUser(id)),
+		}).then((data) => {
+			if (data.isConfirmed) {
+				if (data.value.type === 'success') {
+					Swal.fire(
+						strings[language].confirmDeletedUserTitle,
+						strings[language].confirmDeletedUserText,
+						'success',
+						history.push('/')
+					)
+				} else {
+					addToast(strings[language].deleteUserErrorText, { appearance: 'error' })
+				}
+			}
+		});
+	}
+
 	return (
-		<>
-			<FormStyled onSubmit={handleSubmit} autoComplete="off">
-				<h1 className='form__title'>{strings[language].title}</h1>
-				<label>
-					<span>{strings[language].name}</span>
-					<input type="text" value={input.first_name} name="first_name" onChange={handleChange} required />
-				</label>
-				<label>
-					<span>{strings[language].lastName}</span>
-					<input type="text" value={input.last_name} name="last_name" onChange={handleChange} required />
-				</label>
-				<label>
-					<span>{strings[language].password}</span>
-					<input type="password" value={input.password} name="password" onChange={handleChange} />
-				</label>
-				<label>
-					<span>{strings[language].email}</span>
-					<input type="email" value={input.email} name="email" onChange={handleChange} required />
-				</label>
-				<Btn type="submit" className="btn-ppal">{strings[language].button}</Btn>
-				<Btn onClick={() => history.push('/user')} className="btn-sec">{strings[language].button2}</Btn >
-			</FormStyled>
-		</>
+		<Flex>
+			<div>
+				<FormStyled onSubmit={handleSubmit} autoComplete="off">
+					<h1 className='form__title'>{strings[language].title}</h1>
+					<label>
+						<span>{strings[language].name}</span>
+						<input type="text" value={input.first_name} name="first_name" onChange={handleChange} required />
+					</label>
+					<label>
+						<span>{strings[language].lastName}</span>
+						<input type="text" value={input.last_name} name="last_name" onChange={handleChange} required />
+					</label>
+					<label>
+						<span>{strings[language].password}</span>
+						<input type="password" value={input.password} name="password" onChange={handleChange} />
+					</label>
+					<label>
+						<span>{strings[language].email}</span>
+						<input type="email" value={input.email} name="email" onChange={handleChange} required />
+					</label>
+					<div className="text-center">
+						<Btn type="submit" className="btn-ppal mr-1">{strings[language].button}</Btn>
+						<Btn onClick={() => history.push('/user')} className="btn-sec">{strings[language].button2}</Btn >
+					</div>
+				</FormStyled>
+
+				<Hr />
+				<section>
+					<h3>Eliminar mi cuenta</h3>
+					<p>Esta acción no se puede deshacer.</p>
+					<Btn onClick={(ev) => handleDelete(ev, user.id)} className="btn btn-danger">{strings[language].deleteAccount}</Btn >
+				</section>
+			</div>
+		</Flex>
 	)
 }
 

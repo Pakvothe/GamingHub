@@ -23,15 +23,17 @@ const AdminUserList = ({ users }) => {
 			showLoaderOnConfirm: true,
 			confirmButtonText: strings[language].admin_button,
 			preConfirm: () => dispatch(deleteUser(id)),
-		}).then(({ value: data }) => {
-			if (data.type === 'success') {
-				Swal.fire(
-					strings[language].admin_delete_user_2,
-					strings[language].admin_delete_user_text2,
-					'success',
-				)
-			} else {
-				addToast(strings[language].admin_error_text, { appearance: 'error' })
+		}).then((data) => {
+			if (data.isConfirmed) {
+				if (data.value.type === 'success') {
+					Swal.fire(
+						strings[language].admin_delete_user_2,
+						strings[language].admin_delete_user_text2,
+						'success',
+					)
+				} else {
+					addToast(strings[language].admin_error_text, { appearance: 'error' })
+				}
 			}
 		});
 	}

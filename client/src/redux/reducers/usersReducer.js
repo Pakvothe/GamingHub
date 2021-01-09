@@ -93,9 +93,9 @@ const usersReducer = (state = initialState, action) => {
 		case DELETE_USER: {
 			return {
 				...state,
-				users: {
-					...state.users,
-					list: state.users.list.filter(user => user.id !== action.payload.id)
+				user: {
+					...state.user,
+					info: {}
 				}
 			}
 		}

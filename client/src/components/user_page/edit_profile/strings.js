@@ -11,7 +11,12 @@ const strings = {
 		confirmText: 'User has been edited successfully',
 		editq: 'Are you sure?',
 		editText: 'This action will edit your user data',
-
+		deleteAccount: 'Delete my account',
+		deleteAlertTitle: 'Are you sure you want to delete your account?',
+		deleteAlertText: 'This action is irreversible.',
+		confirmDeletedUserTitle: 'Your account was deleted.',
+		confirmDeletedUserText: 'We are going to miss you 😥',
+		deleteUserErrorText: 'There was an error trying to perform the action. Try again later.',
 	},
 	es: {
 		title: 'Editar Usuario',
@@ -25,6 +30,12 @@ const strings = {
 		confirmText: 'El usuario ha sido editado correctamente ',
 		editq: '¿Estás seguro?',
 		editText: 'Esta accion editará los datos de tu usuario',
+		deleteAccount: 'Eliminar mi cuenta',
+		deleteAlertTitle: '¿Estás seguro de querer eliminar tu cuenta?',
+		deleteAlertText: 'Esta acción es irreversible.',
+		confirmDeletedUserTitle: 'Tu cuenta fue eliminada.',
+		confirmDeletedUserText: 'Te vamos a extrañar 😥',
+		deleteUserErrorText: 'Hubo un error al ejecutar la acción. Intentalo de nuevo más tarde.',
 	}
 };
 

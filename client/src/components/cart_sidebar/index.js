@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { useDispatch } from 'react-redux';
 import { StyledSidebarCart, StyledCloseBtn } from '../styles/styled_sidebar_cart';
-import { Btn } from '../styles/styled_global';
+import { Btn, Hr } from '../styles/styled_global';
 import BigCloseButton from '../../assets/img/close-transparent.svg';
 import Mini from '../product_card/mini';
 import strings from './strings';
@@ -50,7 +50,7 @@ const CartSideBar = ({ language, cart, show, closeCallback }) => {
 							<Mini productDetail={purchase} key={purchase.id} />
 						)
 					})}
-					<hr />
+					<Hr />
 					<div className='modal__subtotal'>
 						<p>Subtotal:</p>
 						<p>${subtotal.toFixed(2)}</p>

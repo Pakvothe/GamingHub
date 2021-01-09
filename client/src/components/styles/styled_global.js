@@ -91,6 +91,13 @@ export const Flex = styled.div`
 	align-items: ${props => props.align || 'center'};
 `
 
+export const Hr = styled.hr`
+	height: 1px;
+	margin: 3em auto;
+	border: none;
+	background: #CCC;
+`
+
 
 // Styled components globales:
 export const Btn = styled.button`
@@ -122,6 +129,17 @@ export const Btn = styled.button`
 	&.btn-sec:hover {
 		color: var(--clr-white);
 		background-color: var(--clr-primary);
+	}
+
+	&.btn-danger {
+		color: var(--clr-error);
+		border-color: var(--clr-error);
+		box-shadow: 2px 2px 0px rgba(0,0,0,.15);
+
+		&:hover {
+			color: var(--clr-white);
+			background-color: var(--clr-error);
+		}
 	}
 
 	&.btn-img {

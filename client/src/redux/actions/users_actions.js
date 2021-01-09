@@ -128,6 +128,7 @@ export const deleteUser = (payload) => {
 	return function (dispatch) {
 		return axios.delete(`${REACT_APP_API_URL}/users/${payload}`, BEARER())
 			.then((user) => {
+				localStorage.removeItem('jwt');
 				dispatch(
 					{
 						type: DELETE_USER,
