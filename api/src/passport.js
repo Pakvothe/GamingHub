@@ -58,17 +58,21 @@ passport.use(new GoogleStrategy({
 	callbackURL: `http://${DB_HOST}:${PORT}/auth/googleCallback`
 }, async function (accessToken, refreshToken, profile, done) {
 	try {
-		const foundUser = await User.findOne({ where: { googleId: profile.id } })
-		if (foundUser) done(null, foundUser)
+		const user = {
+			first_name: profile.name.givenName,
+			last_name: profile.name.familyName,
+			email: profile.emails[0].value,
+			is_admin: false,
+			googleId: profile.id,
+			profile_pic: profile.photos[0].value.replace('s96-c', 's300-c'),
+			password: null
+		}
+		const foundUser = await User.findOne({ where: { email: profile.emails[0].value } })
+		if (foundUser) {
+			const updatedUser = await foundUser.update(user);
+			done(null, updatedUser)
+		}
 		else {
-			const user = {
-				first_name: profile.name.givenName,
-				last_name: profile.name.familyName,
-				email: profile.emails[0].value,
-				is_admin: false,
-				googleId: profile.id,
-				profile_pic: profile.photos[0].value
-			}
 			const createdUser = await User.create(user)
 			done(null, createdUser)
 		}

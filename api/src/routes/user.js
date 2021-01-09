@@ -122,9 +122,11 @@ server.put('/:id', (req, res) => {
 });
 
 server.delete('/:userId', (req, res) => {
-	if (!req.user?.is_admin && (req.user.id !== Number(id))) return res.sendStatus(401);
 
 	const { userId } = req.params;
+
+	if (!req.user?.is_admin && (req.user.id !== Number(userId))) return res.sendStatus(401);
+
 	var user = {};
 
 	User.findOne({

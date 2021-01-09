@@ -123,18 +123,18 @@ export const getUsers = () => {
 	}
 }
 
-export const deleteUser = (payload) => {
+export const deleteUser = (payload, isAdmin = false) => {
 	return function (dispatch) {
 		return axios.delete(`${REACT_APP_API_URL}/users/${payload}`, BEARER())
 			.then((user) => {
-				localStorage.removeItem('jwt');
 				dispatch(
 					{
 						type: DELETE_USER,
 						payload: user.data
 					}
 				)
-				dispatch(getUsers())
+				if (isAdmin) dispatch(getUsers())
+				else localStorage.removeItem('jwt');
 				return {
 					type: 'success',
 					code: user.status

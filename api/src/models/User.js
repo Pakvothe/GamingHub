@@ -30,6 +30,8 @@ module.exports = (sequelize) => {
 					const salt = bcrypt.genSaltSync(10);
 					const hash = bcrypt.hashSync(value, salt);
 					this.setDataValue('password', hash);
+				} else {
+					this.setDataValue('password', null)
 				}
 			}
 		},

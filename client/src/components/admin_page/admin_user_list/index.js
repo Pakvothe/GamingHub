@@ -22,7 +22,7 @@ const AdminUserList = ({ users }) => {
 			cancelButtonColor: '#d33',
 			showLoaderOnConfirm: true,
 			confirmButtonText: strings[language].admin_button,
-			preConfirm: () => dispatch(deleteUser(id)),
+			preConfirm: () => dispatch(deleteUser(id, true)),
 		}).then((data) => {
 			if (data.isConfirmed) {
 				if (data.value.type === 'success') {
