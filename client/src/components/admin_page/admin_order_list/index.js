@@ -33,7 +33,7 @@ const AdminProductList = ({ orders }) => {
 				}
 			}
 			setOrderSort(object)
-			dispatch(getOrders({ name: ev.target.id, order: object[ev.target.id] }))
+			dispatch(getOrders({ name: ev.target.id, order: object[ev.target.id], all: true }))
 		}
 	}
 

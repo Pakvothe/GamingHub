@@ -38,10 +38,12 @@ server.post('/', async (req, res) => {
 
 server.get('/', (req, res) => {
 	if (!req.user) return res.sendStatus(401);
-	const { name, order } = req.query;
+	const { name, order, all } = req.query;
+
+
 
 	Order.findAll({
-		where: !req.user.is_admin && { userId: req.user.id },
+		where: !(req.user.is_admin && all) && { userId: req.user.id }, //when admin and all is true theres no 'where'
 		include: [
 			{
 				model: Product,
