@@ -88,7 +88,7 @@ passport.use(
 		clientID: FACEBOOK_APP_ID,
 		clientSecret: FACEBOOK_APP_SECRET,
 		callbackURL: `http://${DB_HOST}:${PORT}/auth/facebookCallback`,
-		profileFields: ['id', 'emails', 'name', 'picture.type(large)']
+		profileFields: ['id', 'emails', 'name', 'picture.width(300)']
 	}, async function (accessToken, refreshToken, profile, done) {
 		try {
 			const user = {
