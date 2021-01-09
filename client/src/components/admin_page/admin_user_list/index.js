@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteUser, toggleAdmin } from '../../../redux/actions/users_actions';
 import { Btn, DataTable } from '../../styles/styled_global';
@@ -25,17 +25,19 @@ const AdminUserList = ({ users }) => {
 			preConfirm: () => dispatch(deleteUser(id, true)),
 		}).then((data) => {
 			if (data.isConfirmed) {
-				if (data.value.type === 'success') {
+				if (data.value === 200) {
 					Swal.fire(
 						strings[language].admin_delete_user_2,
 						strings[language].admin_delete_user_text2,
 						'success',
 					)
+				} else if (data.value === 500) {
+					addToast('Internal Server Error', { appearance: 'error' })
 				} else {
 					addToast(strings[language].admin_error_text, { appearance: 'error' })
 				}
 			}
-		});
+		})
 	}
 
 	const handleInput = (id, is_admin) => {

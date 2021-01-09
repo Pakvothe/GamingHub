@@ -135,12 +135,9 @@ export const deleteUser = (payload, isAdmin = false) => {
 				)
 				if (isAdmin) dispatch(getUsers())
 				else localStorage.removeItem('jwt');
-				return {
-					type: 'success',
-					code: user.status
-				};
+				return user.status
 			})
-			.catch(err => ({ type: 'error', code: err }))
+			.catch((err) => err.response.status)
 	}
 }
 

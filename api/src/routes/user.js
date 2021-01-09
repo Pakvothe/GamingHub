@@ -22,7 +22,7 @@ server.get('/', (req, res) => {
 server.post('/reset/password', (req, res) => { // <----- testing
 	const { email } = req.body;
 
-	if (!email) res.status(400).json({ message: 'Bad request' });
+	if (!email) return res.status(400).json({ message: 'Bad request' });
 
 	let reset_code = Math.random().toString().slice(2, 7);
 
@@ -44,7 +44,7 @@ server.post('/reset/password', (req, res) => { // <----- testing
 
 	User.update({ reset_code }, { where: { email } })
 		.then(resp => {
-			if (!resp[0]) res.status(404).json({ message: "User not found" })
+			if (!resp[0]) return res.status(404).json({ message: "User not found" })
 
 			transporter.sendMail(mailOptions, function (error, info) {
 				if (error) {
@@ -58,7 +58,7 @@ server.post('/reset/password', (req, res) => { // <----- testing
 
 server.post('/reset/verification', async (req, res) => {
 	const { email, reset_code, step, password } = req.body;
-	if (!email || !reset_code) res.status(400).json({ message: 'Bad request' });
+	if (!email || !reset_code) return res.status(400).json({ message: 'Bad request' });
 
 	try {
 		var user = await User.findOne({ where: { email } });
