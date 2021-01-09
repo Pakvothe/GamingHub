@@ -14,9 +14,11 @@ const SignUp = () => {
 		email: '',
 		first_name: '',
 		last_name: '',
-		language,
 		is_admin: false,
-	})
+	});
+
+	let [passwordMessage, setPasswordMessage] = useState(false);
+	let [emailMessage, setEmailMessage] = useState(false);
 
 	const handleChange = (ev) => {
 		ev.persist()
@@ -28,23 +30,23 @@ const SignUp = () => {
 
 	const handleSubmit = (ev) => {
 		ev.preventDefault();
-		dispatch(addUser(input));
-		//Falta manejar el error
-		history.push('/');
+		if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$/.test(input.password)) {
+			dispatch(addUser(input))
+				.then(() => history.push('/'))
+				.catch((err) => {
+					setPasswordMessage(false);
+					if (err.message === 'email must be unique') setEmailMessage(true);
+				})
+		} else {
+			setPasswordMessage(true);
+			setEmailMessage(false);
+		};
 	}
 
 	return (
 		<>
 			<FormStyled onSubmit={handleSubmit} autoComplete="off">
 				<h1 className='form__title'>{strings[language].signUp}</h1>
-				<label>
-					<span>{strings[language].password}</span>
-					<input type="password" value={input.password} name="password" onChange={handleChange} required />
-				</label>
-				<label>
-					<span>{strings[language].email}</span>
-					<input type="email" value={input.email} name="email" onChange={handleChange} required />
-				</label>
 				<label>
 					<span>{strings[language].name}</span>
 					<input type="text" value={input.first_name} name="first_name" onChange={handleChange} required />
@@ -53,6 +55,16 @@ const SignUp = () => {
 					<span>{strings[language].lastName}</span>
 					<input type="text" value={input.last_name} name="last_name" onChange={handleChange} required />
 				</label>
+				<label>
+					<span>{strings[language].email}</span>
+					<input type="email" value={input.email} name="email" onChange={handleChange} required />
+				</label>
+				{emailMessage && strings[language].inUse}
+				<label>
+					<span>{strings[language].password}</span>
+					<input type="password" value={input.password} name="password" onChange={handleChange} required />
+				</label>
+				{passwordMessage && strings[language].passwordMessage}<br />
 				<Btn type="submit" className="btn-ppal">Registrarse</Btn>
 			</FormStyled>
 		</>
