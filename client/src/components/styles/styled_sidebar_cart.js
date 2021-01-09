@@ -45,13 +45,6 @@ export const StyledSidebarCart = styled.div`
 			text-align: center;
 		}
 
-		hr {
-			height: 1px;
-			margin: 3em auto;
-			border: none;
-			background: #CCC;
-		}
-
 		.modal__subtotal {
 			display: flex;
 			justify-content: space-between;
