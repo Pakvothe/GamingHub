@@ -13,7 +13,7 @@ module.exports = (sequelize) => {
 			allowNull: false
 		},
 		profile_pic: {
-			type: D.STRING,
+			type: D.TEXT,
 		},
 		email: {
 			type: D.STRING,
@@ -58,7 +58,8 @@ module.exports = (sequelize) => {
 	})
 
 	User.prototype.compare = function (password, isReset) {	//compares resetcode when isReset is true
-		return bcrypt.compareSync(password.toString(), isReset ? this.reset_code : this.password);
+		if (this.password) return bcrypt.compareSync(password.toString(), isReset ? this.reset_code : this.password);
+		else return false
 	}
 
 }
