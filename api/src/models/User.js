@@ -27,9 +27,13 @@ module.exports = (sequelize) => {
 			type: D.STRING,
 			set(value) {
 				if (value) {
-					const salt = bcrypt.genSaltSync(10);
-					const hash = bcrypt.hashSync(value, salt);
-					this.setDataValue('password', hash);
+					if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$/.test(value)) {
+						const salt = bcrypt.genSaltSync(10);
+						const hash = bcrypt.hashSync(value, salt);
+						this.setDataValue('password', hash);
+					} else {
+						throw new Error('Invalid password');
+					}
 				} else {
 					this.setDataValue('password', null)
 				}

@@ -88,9 +88,11 @@ export const addUser = (payload) => {
 					}
 				)
 				dispatch(getUser());
+				return user;
 			})
 			.catch(err => {
-			}) //check errors
+				throw new Error(err.response.data.message)
+			})
 	}
 }
 
