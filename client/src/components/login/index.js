@@ -153,7 +153,7 @@ const Login = () => {
 						<Link to="/reset" onClick={closeModal}>{strings[language].olvi}</Link>
 						<Link to="/signup" onClick={closeModal}>{strings[language].create}</Link>
 					</div>
-					<Btn type='submit' className='btn-ppal'>{isLoading && <i className="mr-1 fas fa-circle-notch fa-spin"></i>} Ok</Btn>
+					<Btn type='submit' className='btn-ppal'>{isLoading && <i className="mr-1 fas fa-circle-notch fa-spin"></i>} {strings[language].loginButton}</Btn>
 				</FormStyled>
 				<SocialLogin>
 					<button className="social-btn google-icon" onClick={signGoogle}>

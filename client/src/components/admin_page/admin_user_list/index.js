@@ -21,7 +21,7 @@ const AdminUserList = ({ users }) => {
 			confirmButtonColor: '#3085d6',
 			cancelButtonColor: '#d33',
 			showLoaderOnConfirm: true,
-			confirmButtonText: strings[language].admin_button,
+			confirmButtonText: strings[language].admin_button_2,
 			preConfirm: () => dispatch(deleteUser(id, true)),
 		}).then((data) => {
 			if (data.isConfirmed) {
@@ -65,13 +65,13 @@ const AdminUserList = ({ users }) => {
 
 	return (
 		<>
-			<h1 className='admin-h1'>usuarios</h1>
+			<h1 className='admin-h1'>{strings[language].title}</h1>
 			<DataTable>
 				<thead>
 					<tr>
 						<td className="cell-small">ID</td>
-						<td>Nombre</td>
-						<td>Apellido</td>
+						<td>{strings[language].tableFirstName}</td>
+						<td>{strings[language].tableLastName}</td>
 						<td className="cell-small">Admin</td>
 						<td>Email</td>
 						<td></td>
@@ -85,7 +85,7 @@ const AdminUserList = ({ users }) => {
 							<td>{user.last_name}</td>
 							<td><input type="checkbox" checked={user.is_admin} onChange={() => handleInput(user.id, !user.is_admin)} /></td>
 							<td>{user.email}</td>
-							<td><button onClick={() => handleDelete(user.id)}>Eliminar</button></td>
+							<td><button onClick={() => handleDelete(user.id)}>{strings[language].tableDeleteButton}</button></td>
 						</tr>
 					))}
 				</tbody>

@@ -3,6 +3,7 @@ const strings = {
 		title: 'Order #',
 		subtitleDetails: 'Order Details',
 		subtitleProducts: 'Products',
+		orderMadeBy: 'Made by:',
 		orderDate: 'Date:',
 		orderTotalAmount: 'Total amount:',
 		orderStatus: 'Status:',
@@ -12,14 +13,13 @@ const strings = {
 		tableQuantity: 'Quantity',
 		tableUnitPrice: 'Unit Price',
 		tableTotalPrice: 'Total Price',
-		goBack: 'Go back',
-		review: 'Leave a review for this product'
 	},
 
 	es: {
 		title: 'Orden N°',
 		subtitleDetails: 'Detalles de la orden',
 		subtitleProducts: 'Productos',
+		orderMadeBy: 'Realizada por:',
 		orderDate: 'Fecha:',
 		orderTotalAmount: 'Precio total:',
 		orderStatus: 'Estado:',
@@ -29,8 +29,6 @@ const strings = {
 		tableQuantity: 'Cantidad',
 		tableUnitPrice: 'Precio unitario',
 		tableTotalPrice: 'Precio total',
-		goBack: 'Volver',
-		review: 'Dejar una reseña del producto'
 	}
 };
 

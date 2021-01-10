@@ -3,8 +3,9 @@ export default {
 		title: 'Log In',
 		email: 'Email:',
 		pass: 'Password:',
-		olvi: 'Forgot my Password',
+		olvi: 'I forgot my Password',
 		create: 'Create an Account',
+		loginButton: 'Log in',
 		login: 'Sign in Successful!',
 		login_err: 'Login Error!',
 		google: 'Sign in with Google',
@@ -14,16 +15,17 @@ export default {
 
 	},
 	es: {
-		title: 'Iniciar Sesión',
+		title: 'Iniciar sesión',
 		email: 'Correo:',
 		pass: 'Contraseña:',
-		olvi: 'Olvidé mi Contraseña',
-		create: 'Crear una Cuenta',
-		login: 'Sesión iniciada correctamente!',
-		login_err: 'Error al inciar sesión!',
-		google: 'Ingresa con Google',
-		facebook: 'Ingresa con Facebook',
+		olvi: 'Olvidé mi contraseña',
+		loginButton: 'Iniciar sesión',
+		create: 'Crear una cuenta',
+		login: '¡Sesión iniciada correctamente!',
+		login_err: '¡Error al iniciar sesión!',
+		google: 'Ingresar con Google',
+		facebook: 'Ingresar con Facebook',
 		error401: 'Correo o contraseña incorrectos',
-		error500: 'Ocurrio un error. Por favor vuelva a intentarlo mas tarde'
+		error500: 'Ocurrió un error. Por favor vuelve a intentarlo más tarde.'
 	}
 }

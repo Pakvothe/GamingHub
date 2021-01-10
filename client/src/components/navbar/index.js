@@ -108,11 +108,11 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 								<ul onClick={(e) => handleClick(e)}>
 									<li>
 										<a id='en' className={language === 'en' ? 'selected' : null}>
-											{strings[language].language_en}
+											English
 										</a> </li>
 									<li>
 										<a id='es' className={language === 'es' ? 'selected' : null}>
-											{strings[language].language_es}
+											Español
 										</a>
 									</li>
 								</ul>

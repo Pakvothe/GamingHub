@@ -52,7 +52,7 @@ export const ProductDetail = ({ product }) => {
 			stock: product.stock
 		};
 		dispatch(editStock(payload));
-		addToast(`${product.name} added to cart x${quantity}`, { appearance: 'success' })
+		addToast(`${product.name} x${quantity} ${strings[language].toast}`, { appearance: 'success' })
 		setQuantity(1);
 	}
 
