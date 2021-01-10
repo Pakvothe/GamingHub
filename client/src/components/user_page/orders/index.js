@@ -40,7 +40,7 @@ const UserOrders = () => {
 	}
 
 	const handleClick = (id) => {
-		history.push(`/order/${id}`)
+		history.push(`/orders/${id}`)
 	}
 
 	return (

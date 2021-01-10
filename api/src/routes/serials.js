@@ -1,10 +1,10 @@
 const server = require('express').Router();
 // const { Op } = require('sequelize');
 const { Serial, Product } = require('../db.js');
+const { isAdmin } = require('../../utils/customMiddlewares');
 //----------"/users"--------------
 
-server.get('/:id', (req, res) => {
-	if (!req.user?.is_admin) return res.sendStatus(401);
+server.get('/:id', isAdmin, (req, res) => {
 	const { id } = req.params;
 
 	Serial.findAll({
@@ -21,8 +21,7 @@ server.get('/:id', (req, res) => {
 		.catch(() => res.status(500).json({ message: 'Internal server error' }));
 });
 
-server.delete('/:id', (req, res) => {
-	if (!req.user?.is_admin) return res.sendStatus(401);
+server.delete('/:id', isAdmin, (req, res) => {
 	const { id } = req.params;
 
 	Serial.findByPk(id)
@@ -34,8 +33,7 @@ server.delete('/:id', (req, res) => {
 		.catch(() => res.status(500).json({ message: 'Internal server error' }));
 });
 
-server.post('/:id', (req, res) => {
-	if (!req.user?.is_admin) return res.sendStatus(401);
+server.post('/:id', isAdmin, (req, res) => {
 	const { id } = req.params;
 	let { serials } = req.body;
 
@@ -55,8 +53,7 @@ server.post('/:id', (req, res) => {
 		});
 })
 
-server.put('/:id', (req, res) => {
-	if (!req.user?.is_admin) return res.sendStatus(401);
+server.put('/:id', isAdmin, (req, res) => {
 	const { id } = req.params;
 	let { serial } = req.body;
 
