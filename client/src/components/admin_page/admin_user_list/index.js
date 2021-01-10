@@ -33,7 +33,7 @@ const AdminUserList = ({ users }) => {
 						'success',
 					)
 				} else if (data.value === 500) {
-					addToast('Internal Server Error', { appearance: 'error' })
+					addToast(s.toastError, { appearance: 'error' })
 				} else {
 					addToast(s.admin_error_text, { appearance: 'error' })
 				}
