@@ -1,16 +1,42 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import StarRatings from "react-star-ratings";
 import ShowMoreText from 'react-show-more-text';
 import { Btn, StyledTitle } from '../styles/styled_global';
 import { StyledReviews } from '../styles/styled_reviews';
 import strings from './strings'
+import { getProduct, getReviews } from '../../redux/actions/products_actions';
 
-function Reviews({ reviews }) {
+function Reviews({ id }) {
+
+	const dispatch = useDispatch()
+
+	useEffect(() => {
+		dispatch(getReviews(id))
+	}, [])
+
 	const theme = useSelector(state => state.globalReducer.theme)
 	const language = useSelector(state => state.globalReducer.language)
+	const reviews = useSelector(state => state.productsReducer.reviews.list)
+
 	const [showMore, setShowMore] = useState(false);
 	const [loading, setLoading] = useState(false);
+
+	const filters = {
+		recent: {
+			name: 'updatedAt',
+			order: 'DESC'
+		},
+		high: {
+			name: 'score',
+			order: 'DESC'
+		},
+		low: {
+			name: 'score',
+			order: 'ASC'
+		}
+
+	}
 
 	const handleClick = () => {
 		setLoading(true);
@@ -23,13 +49,25 @@ function Reviews({ reviews }) {
 			})
 	}
 
+	const handleFilter = (ev) => {
+		for (const key in filters) {
+			let element = document.getElementById(key);
+			if (ev.target.id === key) {
+				element.classList.toggle('filter__selected', true)
+			} else {
+				element.classList.remove('filter__selected');
+			}
+		}
+		dispatch(getReviews(id, { name: filters[ev.target.id].name, order: filters[ev.target.id].order }))
+	}
+
 	return (
 		<StyledReviews>
 			<StyledTitle><span>{strings[language].reviews}</span></StyledTitle>
-			<p className="reviews__filter">{strings[language].order}
-				<button className="filter__recent filter__selected">{strings[language].recent}</button>
-				<button className="filter__high">{strings[language].higher}</button>
-				<button className="filter__low">{strings[language].lower}</button>
+			<p className="reviews__filter" onClick={handleFilter}>{strings[language].order}
+				<button id="recent" className="filter__recent filter__selected">{strings[language].recent}</button>
+				<button id="high" className="filter__high">{strings[language].higher}</button>
+				<button id="low" className="filter__low">{strings[language].lower}</button>
 			</p>
 			<div className="reviews__container">
 				{

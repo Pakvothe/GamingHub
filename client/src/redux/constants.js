@@ -57,6 +57,8 @@ export const DELETE_SERIAL = 'DELETE_SERIAL';
 export const ERROR_SERIAL = 'ERROR_SERIAL';
 export const CLEAR_ERROR_SERIAL = 'ERROR_SERIAL';
 
+export const GET_REVIEWS = 'GET_REVIEWS';
+
 //Category actions =>
 export const GET_CATEGORIES = 'GET_CATEGORIES';
 export const GET_CATEGORY = 'GET_CATEGORY';

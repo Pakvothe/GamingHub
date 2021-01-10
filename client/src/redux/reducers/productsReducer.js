@@ -14,6 +14,7 @@ import {
 	LOADING_FILTER_PRODUCTS,
 	TOGGLE_ACTIVE_PRODUCT,
 	GET_SERIALS,
+	GET_REVIEWS,
 	ERROR_SERIAL,
 	CLEAR_ERROR_SERIAL
 } from '../constants.js';
@@ -36,6 +37,11 @@ const initialState = {
 		filter: 'todos'
 	},
 	serials: {
+		isLoading: false,
+		list: [],
+		error: false
+	},
+	reviews: {
 		isLoading: false,
 		list: [],
 		error: false
@@ -214,6 +220,15 @@ const productsReducer = (state = initialState, action) => {
 				serials: {
 					...state.serials,
 					error: false
+				}
+			}
+		case GET_REVIEWS:
+			return {
+				...state,
+				reviews: {
+					isLoading: false,
+					error: false,
+					list: action.payload
 				}
 			}
 		default: return state;
