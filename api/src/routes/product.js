@@ -359,12 +359,6 @@ server.get('/:id', (req, res) => {
 				through: { attributes: [] }
 			}, {
 				model: Image
-			}, {
-				model: Review,
-				include: [{
-					model: User,
-					attributes: ['first_name', 'last_name']
-				}]
 			}
 		]
 	})
