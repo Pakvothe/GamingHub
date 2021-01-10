@@ -72,7 +72,7 @@ function HomeRoutes() {
 				<Route exact path='/signup' component={SignUp} />
 				<Route exact path='/edit' component={EditUser} />
 				<Route exact path='/orders' component={UserOrders} />
-				<Route exact path='/order/:id' component={UserOrderDetail} />
+				<Route exact path='/orders/:id' component={UserOrderDetail} />
 				<Route exact path='/review/:id' component={ReviewForm} />
 			</main>
 			<Footer />

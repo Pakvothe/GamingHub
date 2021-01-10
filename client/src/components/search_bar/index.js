@@ -7,7 +7,6 @@ import { useHistory } from 'react-router-dom';
 import { getSearchProducts } from '../../redux/actions/products_actions';
 import { resetCurrentPage } from '../../redux/actions/global_actions';
 
-
 const SearchBar = () => {
 
 	const [inputText, setInputText] = useState('');
@@ -36,12 +35,6 @@ const SearchBar = () => {
 			</button>
 		</FormSearchBar>
 	)
-};
-
-SearchBar.defaultProps = {
-	propFunction: function (text) {
-		alert(`Escribiste: ${text}`)
-	}
 };
 
 export default SearchBar;
