@@ -200,6 +200,18 @@ export const getProducts = (payload) => {
 	}
 }
 
+export const deleteImage = (payload) => { //payload = product.id
+	return function (dispatch) {
+		return axios.delete(`${REACT_APP_API_URL}/products/image/${payload.id}`, BEARER())
+			.then(() => {
+				dispatch(getProduct(payload.productId))
+			})
+			.catch() //check errors
+	}
+}
+
+//DISCOUNT ACTIONS
+
 export const getDiscounts = () => {
 	return function (dispatch) {
 		dispatch({ type: LOADING_DISCOUNTS });
@@ -218,13 +230,54 @@ export const getDiscounts = () => {
 	}
 }
 
-export const deleteImage = (payload) => { //payload = product.id
+export const addDiscount = (payload) => {
 	return function (dispatch) {
-		return axios.delete(`${REACT_APP_API_URL}/products/image/${payload.id}`, BEARER())
-			.then(() => {
-				dispatch(getProduct(payload.productId))
+		// dispatch({ type: LOADING_DISCOUNTS });
+		return axios.post(`${REACT_APP_API_URL}/products/discounts/${payload.id}`, payload.body, BEARER())
+			.then((data) => {
+				dispatch(getDiscounts());
+				return data.status;
 			})
-			.catch() //check errors
+			.catch((err) => {
+				// dispatch({
+				// 	type: GET_DISCOUNTS_ERROR
+				// })
+				return err.response.status;
+			})
+	}
+}
+
+export const editDiscount = (payload) => {
+	return function (dispatch) {
+		// dispatch({ type: LOADING_DISCOUNTS });
+		return axios.put(`${REACT_APP_API_URL}/products/discounts/${payload.id}`, payload.body, BEARER())
+			.then((data) => {
+				dispatch(getDiscounts());
+				return data.status;
+			})
+			.catch((err) => {
+				// dispatch({
+				// 	type: GET_DISCOUNTS_ERROR
+				// })
+				return err.response.status;
+			})
+	}
+}
+
+export const deleteDiscount = (payload) => {
+	return function (dispatch) {
+		// dispatch({ type: LOADING_DISCOUNTS });
+		return axios.delete(`${REACT_APP_API_URL}/products/discounts/${payload}`, BEARER())
+			.then((data) => {
+				dispatch(getDiscounts());
+				return data.status;
+			})
+			.catch((err) => {
+				// dispatch({
+				// 	type: GET_DISCOUNTS_ERROR
+				// })
+				return err.response.status;
+			})
 	}
 }
 

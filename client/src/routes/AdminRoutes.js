@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Route, useHistory, Redirect } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { getProducts } from '../redux/actions/products_actions';
+import { getProducts, getDiscounts } from '../redux/actions/products_actions';
 import { getCategories } from './../redux/actions/categories_actions';
 import { getOrders } from '../redux/actions/orders_actions';
 import { getUsers } from '../redux/actions/users_actions';
@@ -19,19 +19,21 @@ import AdminProductStockForm from './../components/admin_page/admin_product_stoc
 import AdminOrderList from './../components/admin_page/admin_order_list';
 import AdminUserList from './../components/admin_page/admin_user_list';
 import AdminOrderDetail from './../components/admin_page/admin_order_detail/index';
+import AdminProductOfferList from './../components/admin_page/admin_product_offers/list';
+import AdminProductOfferForm from './../components/admin_page/admin_product_offers/form/';
 
 
 function AdminRoutes() {
 	const history = useHistory()
 	const dispatch = useDispatch();
 	const products = useSelector((state) => state.productsReducer.products.productList);
+	const discounts = useSelector(state => state.productsReducer.productsDiscount.list);
 	const categories = useSelector((state) => state.categoriesReducer.categories.list);
 	const orders = useSelector((state) => state.ordersReducer.orders.list);
 	const users = useSelector((state) => state.usersReducer.users.list);
 	const user = useSelector((state) => state.usersReducer.user.info);
 	const userLoading = useSelector((state) => state.usersReducer.user.isLoading);
 	const language = useSelector((state) => state.globalReducer.language);
-	const s = strings[language];
 
 	useEffect(() => {
 		if (!JSON.parse(localStorage.getItem('jwt'))) history.push('/');
@@ -41,6 +43,7 @@ function AdminRoutes() {
 		if (user.is_admin === false) return history.push('/');
 		if (user.is_admin === true) {
 			dispatch(getProducts({ isActive: true }));
+			dispatch(getDiscounts());
 			dispatch(getCategories());
 			dispatch(getOrders({ all: true }));
 			dispatch(getUsers());
@@ -51,7 +54,7 @@ function AdminRoutes() {
 	if (userLoading) return <StyledLoader
 		active={userLoading}
 		spinner
-		text={s.loading}
+		text={strings[language].loading}
 		className='loading__overlay'
 		classNamePrefix='loading__'
 	/>
@@ -77,7 +80,15 @@ function AdminRoutes() {
 				</Route>
 
 				<Route exact path='/admin/product/:id/stock/new'>
-					<AdminProductStockForm categories={categories} />
+					<AdminProductStockForm />
+				</Route>
+
+				<Route exact path='/admin/product/offer/list'>
+					<AdminProductOfferList products={discounts} />
+				</Route>
+
+				<Route exact path='/admin/product/:id/offer/new'>
+					<AdminProductOfferForm />
 				</Route>
 
 				<Route exact path='/admin/categories'>

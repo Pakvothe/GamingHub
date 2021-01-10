@@ -1,22 +1,23 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { PrevButton, NextButton } from "./Buttons";
+import { useDispatch, useSelector } from 'react-redux';
 
 //Assets
-import Cyberpunk from '../../assets/img/slider_img/Cyberpunk.png';
-import FFVII from '../../assets/img/slider_img/FFVII.jpg';
-import Fifa2021 from '../../assets/img/slider_img/Fifa2021.jpg';
 import cart from '../../assets/img/cart.svg';
 import strings from './strings'
 
 //Styles
 import { StyledCarousel } from '../styles/styled_carousel';
-import { Btn, StyledSVG } from '../styles/styled_global';
+import { Badge, Btn, StyledSVG } from '../styles/styled_global';
 import Fade from 'react-reveal/Fade'
 
 //Embla
 import { useEmblaCarousel } from 'embla-carousel/react'
 import { useRecursiveTimeout } from "./useRecursiveTimeout";
+import { addItemCart, editStock } from '../../redux/actions/cart_actions';
+import { useToasts } from 'react-toast-notifications';
+import { toggleCart } from '../../redux/actions/global_actions';
+
 const AUTOPLAY_INTERVAL = 3500;
 
 const Carousel = ({ products }) => {
@@ -25,6 +26,9 @@ const Carousel = ({ products }) => {
 	const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
 	const language = useSelector(state => state.globalReducer.language);
 	const s = strings[language];
+	const dispatch = useDispatch();
+	const stock = useSelector(state => state.cartReducer.cart.stock);
+	const { addToast } = useToasts();
 
 	const scrollPrev = useCallback(() => embla && embla.scrollPrev(), [embla]);
 	const scrollNext = useCallback(() => embla && embla.scrollNext(), [embla]);
@@ -63,6 +67,24 @@ const Carousel = ({ products }) => {
 		play();
 	}, [play]);
 
+	const handleClick = (product) => {
+		if (!stock[product.id] && stock[product.id] !== 0) {
+			let gameToDispatch = { ...product }
+			gameToDispatch.quantity = 1;
+			dispatch(addItemCart(gameToDispatch));
+			let payload = {
+				id: product.id,
+				quantity: 1,
+				stock: product.stock
+			}
+			dispatch(editStock(payload));
+			addToast(`${product.name} ${s.toast}`, { appearance: 'success' });
+
+		} else {
+			dispatch(toggleCart());
+		}
+	};
+
 	if (!products.length) return <h1>Loading</h1>
 
 	return (
@@ -74,77 +96,24 @@ const Carousel = ({ products }) => {
 							{products.map(prod =>
 								<div className="embla__slide" key={prod.id}>
 									<div className="embla__slide__inner">
-										<img className="embla__slide__img" src={prod.images[0].url} alt={prod.name} />
+										<img className="embla__slide__img" src={prod.banner_image} alt={prod.name} />
 										<div className="embla__slide__detail">
 											<div className="slide__details__left">
 												<h3 className="slide__title">{prod.name}</h3>
 											</div>
 											<div className="slide__details__right">
-												<span className="slide__discount">-{100 - Math.round(((prod.price / prod.realPrice) * 100))}%</span>
+												<span className="slide__discount">-{100 - Math.round(((prod.price / prod.real_price) * 100))}%</span>
 												<span className="slide__price">${prod.price}</span>
-												<Btn className="btn btn-ppal btn-img slide__btn">
-													{strings[language].addToCart}
-													<StyledSVG src={cart} />
-												</Btn>
+												{prod.stock ?
+													<Btn className="btn-ppal btn-img slide__btn" onClick={() => handleClick(prod)}>
+														{stock[prod.id] >= 0 ? s.already_in_cart : s.add_to_cart}
+														<StyledSVG src={cart} />
+													</Btn> : <Badge className="card__noStock error">Sin stock</Badge>}
 											</div>
 										</div>
 									</div>
 								</div>
 							)}
-							{/* <div className="embla__slide">
-								<div className="embla__slide__inner">
-									<img className="embla__slide__img" src={FFVII} alt="A cool cat." />
-									<div className="embla__slide__detail">
-										<div className="slide__details__left">
-											<h3 className="slide__title">Final Fantasy VII</h3>
-										</div>
-										<div className="slide__details__right">
-											<span className="slide__discount">-20%</span>
-											<span className="slide__price">$10.99</span>
-											<Btn className="btn btn-ppal btn-img slide__btn">
-												{s.addToCart}
-												<StyledSVG src={cart} />
-											</Btn>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div className="embla__slide">
-								<div className="embla__slide__inner">
-									<img className="embla__slide__img" src={Cyberpunk} alt="A cool cat." />
-									<div className="embla__slide__detail">
-										<div className="slide__details__left">
-											<h3 className="slide__title">Cyberpunk 2077</h3>
-										</div>
-										<div className="slide__details__right">
-											<span className="slide__discount">-15%</span>
-											<span className="slide__price">$1050.99</span>
-											<Btn className="btn btn-ppal btn-img slide__btn">
-												{s.addToCart}
-												<StyledSVG src={cart} />
-											</Btn>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div className="embla__slide">
-								<div className="embla__slide__inner">
-									<img className="embla__slide__img" src={Fifa2021} alt="A cool cat." />
-									<div className="embla__slide__detail">
-										<div className="slide__details__left">
-											<h3 className="slide__title">Fifa 2021</h3>
-										</div>
-										<div className="slide__details__right">
-											<span className="slide__discount">-10%</span>
-											<span className="slide__price">$0.99</span>
-											<Btn className="btn btn-ppal btn-img slide__btn">
-												{s.addToCart}
-												<StyledSVG src={cart} />
-											</Btn>
-										</div>
-									</div>
-								</div>
-							</div> */}
 						</div>
 					</div>
 					<PrevButton onClick={scrollPrev} enabled={prevBtnEnabled} />

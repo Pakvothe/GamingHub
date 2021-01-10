@@ -69,8 +69,8 @@ const SignUp = () => {
 			let randomID = uuidv4();
 			const uploadTask = storage.ref(`/profilePics/${randomID}`).put(imageAsFile)
 			uploadTask.on('state_changed',
-				(snapShot) => { console.log(snapShot) },
-				(err) => { alert('Error en la subida de la imagen') },
+				(snapShot) => { },
+				(err) => { alert(s.imageError) },
 				() => {
 					storage.ref('profilePics').child(randomID).getDownloadURL()
 						.then(fireBaseUrl => {
