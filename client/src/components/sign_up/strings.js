@@ -3,11 +3,11 @@ const strings = {
 		signUp: 'Sign Up',
 		password: 'Password:',
 		email: 'Email:',
-		name: 'Name:',
-		lastName: 'Last name:',
+		name: 'First Name:',
+		lastName: 'Last Name:',
 		button: 'Sign up',
-		inUse: '*Email is already in use',
-		passwordMessage: '*Password must contain a number, a lowercase letter, a uppercase letter and special character'
+		inUse: '* That email is already in use.',
+		passwordMessage: '* The password must contain a number, a lowercase letter, an uppercase letter and a special character.'
 	},
 	es: {
 		signUp: 'Registrarse',
@@ -16,8 +16,8 @@ const strings = {
 		name: 'Nombre:',
 		lastName: 'Apellido:',
 		button: 'Registrarse',
-		inUse: '*Correo electrónico ya está en uso',
-		passwordMessage: '*La contraseña debe incluir un número, una minúscula, una mayúscula y un caracter especial'
+		inUse: '* El correo electrónico ya está en uso.',
+		passwordMessage: '* La contraseña debe incluir un número, una letra minúscula, una mayúscula y un caracter especial.'
 	}
 };
 

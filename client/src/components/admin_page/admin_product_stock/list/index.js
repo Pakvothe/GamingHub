@@ -6,10 +6,12 @@ import { getSerials, deleteSerial, editSerial, clearErrorSerial } from './../../
 import { Link } from 'react-router-dom';
 import SearchBar from './../../admin_search_bar/index';
 import Swal from 'sweetalert2';
+import strings from './strings';
 
 const AdminProductStockList = () => {
 	const { id } = useParams();
 	const dispatch = useDispatch();
+	const language = useSelector(state => state.globalReducer.language);
 	const serials = useSelector(state => state.productsReducer.serials.list);
 	const error = useSelector(state => state.productsReducer.serials.error);
 
@@ -29,12 +31,12 @@ const AdminProductStockList = () => {
 	useEffect(() => {
 		error && Swal.fire({
 			heightAuto: false,
-			title: '¡Serial repetido!',
-			text: `¡El serial ${error.value} ya existe!`,
+			title: strings[language].alertTitle,
+			text: `${strings[language].alertText} ${error.value}`,
 			icon: 'warning',
 			confirmButtonColor: '#3085d6',
 			cancelButtonColor: '#d33',
-			confirmButtonText: 'OK',
+			confirmButtonText: strings[language].alertButton,
 		}).then(() => {
 			dispatch(clearErrorSerial())
 		})
@@ -43,18 +45,19 @@ const AdminProductStockList = () => {
 	const handleDelete = (serialId) => {
 		Swal.fire({
 			heightAuto: false,
-			title: 'Delete serial?',
-			text: 'This action cannot be reversed.',
+			title: strings[language].swDeleteTitle,
+			text: strings[language].swDeleteText,
 			icon: 'warning',
 			showCancelButton: true,
 			confirmButtonColor: '#3085d6',
 			cancelButtonColor: '#d33',
-			confirmButtonText: 'Yes, delete it!',
+			confirmButtonText: strings[language].swDeleteConfirmButton,
+			cancelButtonText: strings[language].swDeleteCancelButton,
 		}).then((result) => {
 			if (result.isConfirmed) {
 				Swal.fire(
-					'Deleted!',
-					'The serial has been deleted.',
+					strings[language].swConfirmTitle,
+					strings[language].swConfirmText,
 					'success',
 					dispatch(deleteSerial({ serial: serialId, productId: id }))
 				)
@@ -96,9 +99,10 @@ const AdminProductStockList = () => {
 
 	return (
 		<>
+			<h1 className='admin-h1'>{strings[language].title}</h1>
 			<div style={{ display: 'flex', justifyContent: 'space-between' }}>
 				<Link to={`/admin/product/${id}/stock/new`}>
-					<Btn className="btn-ppal" >Agregar Stock</Btn>
+					<Btn className="btn-ppal">{strings[language].addButton}</Btn>
 				</Link>
 				<SearchBar />
 			</div>
@@ -106,7 +110,7 @@ const AdminProductStockList = () => {
 				<thead>
 					<tr>
 						<td className="cell-small">ID</td>
-						<td>Número</td>
+						<td>{strings[language].tableSerial}</td>
 						<td></td>
 					</tr>
 				</thead>
@@ -128,8 +132,8 @@ const AdminProductStockList = () => {
 							</td>
 							<td>
 								<ul>
-									<li><button onClick={() => handleEdit(serial.id)}>Editar</button></li>
-									<li><button onClick={() => handleDelete(serial.id)}>Eliminar</button></li>
+									<li><button onClick={() => handleEdit(serial.id)}>{strings[language].tableEditButton}</button></li>
+									<li><button onClick={() => handleDelete(serial.id)}>{strings[language].tableDeleteButton}</button></li>
 								</ul>
 							</td>
 						</tr>

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { deleteCategory } from '../../../redux/actions/categories_actions';
 import { Btn, DataTable } from '../../styles/styled_global';
 import Swal from 'sweetalert2';
+import strings from './strings';
 
 const AdminCategoryList = ({ categories, language }) => {
 	const dispatch = useDispatch();
@@ -12,18 +13,19 @@ const AdminCategoryList = ({ categories, language }) => {
 
 		Swal.fire({
 			heightAuto: false,
-			title: 'Confirm!',
-			text: 'Category deleted.',
+			title: strings[language].alertTitle,
+			text: strings[language].alertText,
 			icon: 'warning',
 			showCancelButton: true,
 			confirmButtonColor: '#3085d6',
 			cancelButtonColor: '#d33',
-			confirmButtonText: 'Yes, delete it!',
+			confirmButtonText: strings[language].alertButtonConfirm,
+			cancelButtonText: strings[language].alertButtonCancel
 		}).then((result) => {
 			if (result.isConfirmed) {
 				Swal.fire(
-					'Deleted!',
-					'Your file has been deleted.',
+					strings[language].alertSuccessTitle,
+					strings[language].alertSuccessText,
 					'success',
 					dispatch(deleteCategory(id))
 				)
@@ -33,13 +35,13 @@ const AdminCategoryList = ({ categories, language }) => {
 
 	return (
 		<>
-			<h1 className='admin-h1'>categorías</h1>
-			<Link to="/admin/category"><Btn className="btn-ppal">Agregar Categoria</Btn></Link>
+			<h1 className='admin-h1'>{strings[language].title}</h1>
+			<Link to="/admin/category"><Btn className="btn-ppal">{strings[language].addCategory}</Btn></Link>
 			<DataTable>
 				<thead>
 					<tr>
 						<td className="cell-small">ID</td>
-						<td>Nombre</td>
+						<td>{strings[language].tableName}</td>
 						<td></td>
 					</tr>
 				</thead>
@@ -50,15 +52,14 @@ const AdminCategoryList = ({ categories, language }) => {
 							<td>{category[`name_${language}`]}</td>
 							<td>
 								<ul>
-									<li><Link to={`/admin/category/${category.id}`}><button>Editar</button></Link></li>
-									<li><button onClick={() => handleDelete(category.id)}>Eliminar</button></li>
+									<li><Link to={`/admin/category/${category.id}`}><button>{strings[language].buttonEdit}</button></Link></li>
+									<li><button onClick={() => handleDelete(category.id)}>{strings[language].buttonDelete}</button></li>
 								</ul>
 							</td>
 						</tr>
 					))}
 				</tbody>
 			</DataTable>
-
 		</>
 	);
 };

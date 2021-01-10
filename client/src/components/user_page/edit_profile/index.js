@@ -130,7 +130,7 @@ const EditUser = () => {
 				<Hr />
 				<section>
 					<h3>{strings[language].deleteAccount}</h3>
-					<p>strings[language].deleteAlertText</p>
+					<p>{strings[language].deleteAlertText}</p>
 					<Btn onClick={(ev) => handleDelete(ev, user.id)} className="btn btn-danger">{strings[language].deleteAccount}</Btn >
 				</section>
 			</div>

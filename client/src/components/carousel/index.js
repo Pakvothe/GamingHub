@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { PrevButton, NextButton } from "./Buttons";
 
 //Assets
@@ -6,6 +7,7 @@ import Cyberpunk from '../../assets/img/slider_img/Cyberpunk.png';
 import FFVII from '../../assets/img/slider_img/FFVII.jpg';
 import Fifa2021 from '../../assets/img/slider_img/Fifa2021.jpg';
 import cart from '../../assets/img/cart.svg';
+import strings from './strings'
 
 //Styles
 import { StyledCarousel } from '../styles/styled_carousel';
@@ -21,6 +23,7 @@ const Carousel = () => {
 	const [viewportRef, embla] = useEmblaCarousel({ loop: true, speed: 5 });
 	const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
 	const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
+	const language = useSelector(state => state.globalReducer.language);
 
 	const scrollPrev = useCallback(() => embla && embla.scrollPrev(), [embla]);
 	const scrollNext = useCallback(() => embla && embla.scrollNext(), [embla]);
@@ -76,7 +79,7 @@ const Carousel = () => {
 											<span className="slide__discount">-20%</span>
 											<span className="slide__price">$10.99</span>
 											<Btn className="btn btn-ppal btn-img slide__btn">
-												Agregar al carrito
+												{strings[language].addToCart}
 												<StyledSVG src={cart} />
 											</Btn>
 										</div>
@@ -94,7 +97,7 @@ const Carousel = () => {
 											<span className="slide__discount">-15%</span>
 											<span className="slide__price">$1050.99</span>
 											<Btn className="btn btn-ppal btn-img slide__btn">
-												Agregar al carrito
+												{strings[language].addToCart}
 												<StyledSVG src={cart} />
 											</Btn>
 										</div>
@@ -112,7 +115,7 @@ const Carousel = () => {
 											<span className="slide__discount">-10%</span>
 											<span className="slide__price">$0.99</span>
 											<Btn className="btn btn-ppal btn-img slide__btn">
-												Agregar al carrito
+												{strings[language].addToCart}
 												<StyledSVG src={cart} />
 											</Btn>
 										</div>

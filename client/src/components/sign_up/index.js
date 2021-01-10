@@ -65,7 +65,7 @@ const SignUp = () => {
 					<input type="password" value={input.password} name="password" onChange={handleChange} required />
 				</label>
 				{passwordMessage && strings[language].passwordMessage}<br />
-				<Btn type="submit" className="btn-ppal">Registrarse</Btn>
+				<Btn type="submit" className="btn-ppal">{strings[language].signUp}</Btn>
 			</FormStyled>
 		</>
 	)

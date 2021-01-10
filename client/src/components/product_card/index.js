@@ -27,7 +27,7 @@ const ProductCard = ({ game, language }) => {
 				stock: game.stock
 			}
 			dispatch(editStock(payload));
-			addToast(game.name + ' added to cart', { appearance: 'success' })
+			addToast(`${game.name} ${strings[language].toast}`, { appearance: 'success' })
 
 		} else {
 			dispatch(toggleCart())
