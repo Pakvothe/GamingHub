@@ -49,6 +49,7 @@ const AdminProductOfferForm = () => {
 	}
 
 	const handleImageAsFile = (e) => {
+		if (e.target.files.length === 0) return;
 		const image = e.target.files[0];
 		if (!image.type.includes('image')) {
 			Swal.fire({
