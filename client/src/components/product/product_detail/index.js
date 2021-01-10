@@ -20,6 +20,7 @@ export const ProductDetail = ({ product }) => {
 
 	const [quantity, setQuantity] = useState(1);
 	const language = useSelector(state => state.globalReducer.language);
+	const s = strings[language];
 	const stock = useSelector(state => state.cartReducer.cart.stock);
 	const [currentImg, setCurrentImg] = useState(0);
 	const theme = useSelector(state => state.globalReducer.theme);
@@ -52,7 +53,7 @@ export const ProductDetail = ({ product }) => {
 			stock: product.stock
 		};
 		dispatch(editStock(payload));
-		addToast(`${product.name} x${quantity} ${strings[language].toast}`, { appearance: 'success' })
+		addToast(`${product.name} x${quantity} ${s.toast}`, { appearance: 'success' })
 		setQuantity(1);
 	}
 
@@ -89,7 +90,7 @@ export const ProductDetail = ({ product }) => {
 					{!!product.stock && stock[product.id] !== 0 &&
 						<>
 							<div className="game__quantity">
-								<span>{strings[language].amount}</span>
+								<span>{s.amount}</span>
 								<QuantityButton onClick={() => handleQuantityChange(-1)}>-</QuantityButton>
 								<span className="game__quantityvalue quantitytext">{quantity}</span>
 								<QuantityButton onClick={() => handleQuantityChange(1)}>+</QuantityButton>
@@ -102,11 +103,11 @@ export const ProductDetail = ({ product }) => {
 						{!!product.stock && stock[product.id] !== 0 &&
 							<div className="game__buttons">
 								<Btn className="btn-ppal btn-img">
-									{strings[language].buy_now}
+									{s.buy_now}
 									<StyledSVG src={joystick} />
 								</Btn>
 								<Btn className="btn-sec btn-img" onClick={handleClick}>
-									{strings[language].add_to_cart}
+									{s.add_to_cart}
 									<StyledSVG src={cart} />
 								</Btn>
 							</div>

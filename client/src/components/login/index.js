@@ -17,6 +17,7 @@ const Login = () => {
 	const dispatch = useDispatch();
 	const loginIsOpen = useSelector(state => state.globalReducer.loginIsOpen);
 	const language = useSelector(state => state.globalReducer.language);
+	const s = strings[language];
 	const { isLoading } = useSelector((state) => state.usersReducer.user);
 	const theme = useSelector(state => state.globalReducer.theme);
 	const { addToast } = useToasts();
@@ -83,17 +84,17 @@ const Login = () => {
 			.then(response => {
 				switch (response) {
 					case 200:
-						addToast(strings[language].login, { appearance: 'success' })
+						addToast(s.login, { appearance: 'success' })
 						closeModal()
 						break;
 					case 401:
 						alert.current.classList.replace('d-none', 'd-block')
-						setError(strings[language].error401)
+						setError(s.error401)
 						break;
 					case 500:
 					default:
 						alert.current.classList.replace('d-none', 'd-block')
-						setError(strings[language].error500)
+						setError(s.error500)
 						break;
 				}
 			});
@@ -120,13 +121,13 @@ const Login = () => {
 			<LoginStyled theme={theme}>
 				<button className='button' onClick={closeModal}><StyledSVG src={CloseButton} /></button>
 				<FormStyled onSubmit={handleSubmit}>
-					<h2 className='form__title titulo'>{strings[language].title}</h2>
+					<h2 className='form__title titulo'>{s.title}</h2>
 					<div className="alert d-none" ref={alert}>
 						<button type="button" onClick={closeAlert}><StyledSVG src={CloseButton} /></button>
 						<span>{error}</span>
 					</div>
 					<label>
-						<span>{strings[language].email}</span>
+						<span>{s.email}</span>
 						<input name="email" onChange={handleChange}
 							type='email'
 							style={{
@@ -138,7 +139,7 @@ const Login = () => {
 							required />
 					</label>
 					<label>
-						<span>{strings[language].pass}</span>
+						<span>{s.pass}</span>
 						<input name="password" onChange={handleChange}
 							type='password'
 							style={{
@@ -150,17 +151,17 @@ const Login = () => {
 							required />
 					</label>
 					<div className='link_container'>
-						<Link to="/reset" onClick={closeModal}>{strings[language].olvi}</Link>
-						<Link to="/signup" onClick={closeModal}>{strings[language].create}</Link>
+						<Link to="/reset" onClick={closeModal}>{s.olvi}</Link>
+						<Link to="/signup" onClick={closeModal}>{s.create}</Link>
 					</div>
-					<Btn type='submit' className='btn-ppal'>{isLoading && <i className="mr-1 fas fa-circle-notch fa-spin"></i>} {strings[language].loginButton}</Btn>
+					<Btn type='submit' className='btn-ppal'>{isLoading && <i className="mr-1 fas fa-circle-notch fa-spin"></i>} {s.loginButton}</Btn>
 				</FormStyled>
 				<SocialLogin>
 					<button className="social-btn google-icon" onClick={signGoogle}>
-						{strings[language].google}
+						{s.google}
 					</button>
 					<button className="social-btn facebook-icon" onClick={signFacebook}>
-						{strings[language].facebook}
+						{s.facebook}
 					</button>
 				</SocialLogin>
 			</LoginStyled>

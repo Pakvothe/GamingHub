@@ -9,6 +9,8 @@ const SignUp = () => {
 	const dispatch = useDispatch()
 	const history = useHistory();
 	const language = useSelector((state) => state.globalReducer.language);
+	const s = strings[language];
+
 	let [input, setInput] = useState({
 		password: '',
 		email: '',
@@ -46,26 +48,26 @@ const SignUp = () => {
 	return (
 		<>
 			<FormStyled onSubmit={handleSubmit} autoComplete="off">
-				<h1 className='form__title'>{strings[language].signUp}</h1>
+				<h1 className='form__title'>{s.signUp}</h1>
 				<label>
-					<span>{strings[language].name}</span>
+					<span>{s.name}</span>
 					<input type="text" value={input.first_name} name="first_name" onChange={handleChange} required />
 				</label>
 				<label>
-					<span>{strings[language].lastName}</span>
+					<span>{s.lastName}</span>
 					<input type="text" value={input.last_name} name="last_name" onChange={handleChange} required />
 				</label>
 				<label>
-					<span>{strings[language].email}</span>
+					<span>{s.email}</span>
 					<input type="email" value={input.email} name="email" onChange={handleChange} required />
 				</label>
-				{emailMessage && strings[language].inUse}
+				{emailMessage && s.inUse}
 				<label>
-					<span>{strings[language].password}</span>
+					<span>{s.password}</span>
 					<input type="password" value={input.password} name="password" onChange={handleChange} required />
 				</label>
-				{passwordMessage && strings[language].passwordMessage}<br />
-				<Btn type="submit" className="btn-ppal">{strings[language].signUp}</Btn>
+				{passwordMessage && s.passwordMessage}<br />
+				<Btn type="submit" className="btn-ppal">{s.signUp}</Btn>
 			</FormStyled>
 		</>
 	)

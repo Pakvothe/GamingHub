@@ -10,6 +10,7 @@ const AdminOrderDetail = () => {
 	const dispatch = useDispatch();
 	const { id } = useParams();
 	const language = useSelector(state => state.globalReducer.language);
+	const s = strings[language];
 	const orderInfo = useSelector(state => state.ordersReducer.order.info);
 	const products = orderInfo?.products;
 
@@ -19,48 +20,48 @@ const AdminOrderDetail = () => {
 
 	return (
 		<StyledOrderDetail>
-			<h1 className='admin-h1'>{strings[language].title} {id}</h1>
+			<h1 className='admin-h1'>{s.title} {id}</h1>
 			<div className='tables-container'>
 				<div>
-					<h2>{strings[language].subtitleDetails}</h2>
+					<h2>{s.subtitleDetails}</h2>
 					<DataTable className='table-small'>
 						<tbody>
 							<tr>
-								<td>{strings[language].orderMadeBy}</td>
+								<td>{s.orderMadeBy}</td>
 								<td>{orderInfo?.email}</td>
 							</tr>
 							<tr>
-								<td>{strings[language].orderDate}</td>
+								<td>{s.orderDate}</td>
 								<td>{orderInfo?.createdAt?.split('T')[0]}</td>
 							</tr>
 							<tr>
-								<td>{strings[language].orderTotalAmount}</td>
+								<td>{s.orderTotalAmount}</td>
 								<td>${orderInfo?.total_amount}</td>
 							</tr>
 							<tr>
-								<td>{strings[language].orderStatus}</td>
+								<td>{s.orderStatus}</td>
 								<td>{orderInfo?.state}</td>
 							</tr>
 							<tr>
-								<td>{strings[language].orderPayment}</td>
+								<td>{s.orderPayment}</td>
 								<td>{orderInfo?.payment_method}</td>
 							</tr>
 							<tr>
-								<td>{strings[language].orderQuantity}</td>
+								<td>{s.orderQuantity}</td>
 								<td>{orderInfo?.products?.length}</td>
 							</tr>
 						</tbody>
 					</DataTable>
 				</div>
 				<div>
-					<h2>{strings[language].subtitleProducts}</h2>
+					<h2>{s.subtitleProducts}</h2>
 					<DataTable>
 						<thead>
 							<tr>
-								<td>{strings[language].tableTitle}</td>
-								<td>{strings[language].tableQuantity}</td>
-								<td>{strings[language].tableUnitPrice}</td>
-								<td>{strings[language].tableTotalPrice}</td>
+								<td>{s.tableTitle}</td>
+								<td>{s.tableQuantity}</td>
+								<td>{s.tableUnitPrice}</td>
+								<td>{s.tableTotalPrice}</td>
 							</tr>
 						</thead>
 						<tbody>
