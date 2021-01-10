@@ -18,6 +18,7 @@ export default {
 		alertTitle: 'Success',
 		alertText: 'Password changed correctly',
 		title: 'Reset Password',
+		missing: 'Your password is missing:'
 	},
 	es: {
 		description: {
@@ -38,6 +39,6 @@ export default {
 		alertTitle: 'Éxito',
 		alertText: 'Contraseña restablecida correctamente',
 		title: 'Cambiar contraseña',
-
+		missing: 'A tu contraseña le falta:'
 	}
 }

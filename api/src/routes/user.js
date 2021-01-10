@@ -19,7 +19,7 @@ server.get('/', isAdmin, (req, res) => {
 		})
 });
 
-server.post('/reset/password', isAuthenticated, (req, res) => { // <----- testing
+server.post('/reset/password', (req, res) => { // <----- testing
 	const { email } = req.body;
 
 	if (!email) return res.status(400).json({ message: 'Bad request' });
@@ -56,7 +56,7 @@ server.post('/reset/password', isAuthenticated, (req, res) => { // <----- testin
 		})
 })
 
-server.post('/reset/verification', isAuthenticated, async (req, res) => {
+server.post('/reset/verification', async (req, res) => {
 	const { email, reset_code, step, password } = req.body;
 	if (!email || !reset_code) return res.status(400).json({ message: 'Bad request' });
 
@@ -94,7 +94,7 @@ server.post('/reset/verification', isAuthenticated, async (req, res) => {
 
 server.put('/:id', isAuthenticated, (req, res) => {
 	const { id } = req.params;
-	if ((!req.user.is_admin && (req.user.id !== Number(id) || req.body.is_admin))) return res.sendStatus(401);
+	if (!req.user.is_admin && req.user.id !== Number(id)) return res.sendStatus(401);
 	const toUpdate = req.body;
 	delete toUpdate?.reset_code;
 
