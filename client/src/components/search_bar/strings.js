@@ -3,7 +3,7 @@ const strings = {
 		placeholder: "Search a game..."
 	},
 	es: {
-		placeholder: "Busca un juego..."
+		placeholder: "Buscar un juego..."
 	}
 };
 

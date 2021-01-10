@@ -1,11 +1,10 @@
 const server = require('express').Router();
 const { Op } = require('sequelize');
 const { Product, Category, Image } = require('../db.js');
+const { isAdmin } = require('../../utils/customMiddlewares');
 //----------"/category"--------------
 
-server.post('/', (req, res) => {
-	if (!req.user?.is_admin) return res.sendStatus(401);
-
+server.post('/', isAdmin, (req, res) => {
 	const { name_es, name_en } = req.body
 	if (!name_es && !name_en) {
 		return res.status(400).json({ message: 'Bad Request' })
@@ -64,9 +63,7 @@ server.get('/:catName', (req, res) => {
 		.then(data => res.json({ count, results: data }))
 })
 
-server.put('/:catId', (req, res) => {
-	if (!req.user?.is_admin) return res.sendStatus(401);
-
+server.put('/:catId', isAdmin, (req, res) => {
 	let { catId } = req.params;
 	let { name_es, name_en } = req.body;
 	Category.update({
@@ -82,9 +79,7 @@ server.put('/:catId', (req, res) => {
 		})
 })
 
-server.delete('/:catId', (req, res) => {
-	if (!req.user?.is_admin) return res.sendStatus(401);
-
+server.delete('/:catId', isAdmin, (req, res) => {
 	const { catId } = req.params;
 	var category = {};
 	Category.findOne({

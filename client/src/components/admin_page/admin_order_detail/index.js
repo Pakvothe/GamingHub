@@ -4,11 +4,13 @@ import { getOrder } from '../../../redux/actions/orders_actions';
 import { DataTable } from '../../styles/styled_global';
 import { StyledOrderDetail } from '../../styles/styled_order_detail';
 import { useParams } from 'react-router-dom';
+import strings from './strings';
 
 const AdminOrderDetail = () => {
 	const dispatch = useDispatch();
 	const { id } = useParams();
-
+	const language = useSelector(state => state.globalReducer.language);
+	const s = strings[language];
 	const orderInfo = useSelector(state => state.ordersReducer.order.info);
 	const products = orderInfo?.products;
 
@@ -18,48 +20,48 @@ const AdminOrderDetail = () => {
 
 	return (
 		<StyledOrderDetail>
-			<h1 className='admin-h1'>Orden nº {id}</h1>
+			<h1 className='admin-h1'>{s.title} {id}</h1>
 			<div className='tables-container'>
 				<div>
-					<h2>Detalles de la orden</h2>
+					<h2>{s.subtitleDetails}</h2>
 					<DataTable className='table-small'>
 						<tbody>
 							<tr>
-								<td>Realizada por:</td>
+								<td>{s.orderMadeBy}</td>
 								<td>{orderInfo?.email}</td>
 							</tr>
 							<tr>
-								<td>Fecha:</td>
+								<td>{s.orderDate}</td>
 								<td>{orderInfo?.createdAt?.split('T')[0]}</td>
 							</tr>
 							<tr>
-								<td>Precio Total:</td>
+								<td>{s.orderTotalAmount}</td>
 								<td>${orderInfo?.total_amount}</td>
 							</tr>
 							<tr>
-								<td>Estado:</td>
+								<td>{s.orderStatus}</td>
 								<td>{orderInfo?.state}</td>
 							</tr>
 							<tr>
-								<td>Metodo de Pago:</td>
+								<td>{s.orderPayment}</td>
 								<td>{orderInfo?.payment_method}</td>
 							</tr>
 							<tr>
-								<td>Cantidad comprada:</td>
+								<td>{s.orderQuantity}</td>
 								<td>{orderInfo?.products?.length}</td>
 							</tr>
 						</tbody>
 					</DataTable>
 				</div>
 				<div>
-					<h2>Productos</h2>
+					<h2>{s.subtitleProducts}</h2>
 					<DataTable>
 						<thead>
 							<tr>
-								<td /* onClick={handleSortTitle} */>Título</td>
-								<td>Cantidad</td>
-								<td>Precio Unitario</td>
-								<td>Precio Total</td>
+								<td>{s.tableTitle}</td>
+								<td>{s.tableQuantity}</td>
+								<td>{s.tableUnitPrice}</td>
+								<td>{s.tableTotalPrice}</td>
 							</tr>
 						</thead>
 						<tbody>

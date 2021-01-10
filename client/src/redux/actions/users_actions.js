@@ -58,19 +58,13 @@ export const loginUser = (payload) => {
 					payload: user.data
 				})
 				dispatch(getUser());
-				return {
-					type: 'success',
-					code: user.status
-				};
+				return user.status;
 			})
 			.catch(err => {
 				dispatch({
 					type: USER_ERROR
 				})
-				return {
-					type: 'error',
-					code: err
-				};
+				return err.response.status;
 			})
 	}
 }

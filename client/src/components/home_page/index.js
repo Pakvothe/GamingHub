@@ -25,6 +25,7 @@ const HomePage = () => {
 
 	const dispatch = useDispatch();
 	const language = useSelector(state => state.globalReducer.language);
+	const s = strings[language];
 	const products = useSelector(state => state.productsReducer.products.productList);
 	const productsFilter = useSelector(state => state.productsReducer.productsFilter.productList);
 	const filter = useSelector(state => state.productsReducer.productsFilter.filter)
@@ -76,7 +77,7 @@ const HomePage = () => {
 
 	return (
 		<div>
-			<h1 className="main-title">{strings[language].main_header}</h1>
+			<h1 className="main-title">{s.main_header}</h1>
 			<SelectCategories language={language} categories={categories} handleSelect={handleSelect} />
 			<Catalog products={productsFilter.length ? productsFilter : products}
 				language={language}

@@ -1,7 +1,7 @@
 const strings = {
 	en: {
 		edit: "Edit Profile",
-		orders: "my purchases",
+		orders: "My Purchases",
 		help: "Help",
 	},
 	es: {

@@ -27,26 +27,27 @@ const ordersReducer = (state = initialState, action) => {
 			return {
 				...state,
 				orders: {
-					...state.orders,
 					isLoading: false,
-					list: action.payload
+					list: action.payload,
+					error: false
 				}
 			}
 		case GET_ORDER:
 			return {
 				...state,
 				order: {
-					...state.orders,
 					isLoading: false,
-					info: action.payload
+					info: action.payload,
+					error: false
 				}
 			}
 		case ADD_ORDER:
 			return {
 				...state,
 				order: {
-					...state.order,
-					info: action.payload
+					isLoading: false,
+					info: action.payload,
+					error: false
 				}
 			}
 		case ORDERS_ERROR:
@@ -62,25 +63,27 @@ const ordersReducer = (state = initialState, action) => {
 			return {
 				...state,
 				order: {
-					...state.orders,
+					info: {},
 					isLoading: false,
-					error: action.payload
+					error: true
 				}
 			}
 		case LOADING_ORDERS:
 			return {
 				...state,
 				orders: {
-					...state.orders,
-					isLoading: true
+					list: [],
+					isLoading: true,
+					error: false
 				}
 			}
 		case LOADING_ORDER:
 			return {
 				...state,
 				order: {
-					...state.orders,
-					isLoading: true
+					isLoading: true,
+					info: {},
+					error: false,
 				}
 			}
 		default: return state;

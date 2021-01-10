@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { DataTable } from '../../styles/styled_global';
 import { useHistory } from 'react-router-dom';
 import { getOrders } from '../../../redux/actions/orders_actions';
+import strings from './strings';
 
 const AdminProductList = ({ orders }) => {
 
 	const history = useHistory();
 	const dispatch = useDispatch();
+	const language = useSelector(state => state.globalReducer.language);
+	const s = strings[language];
 
 	const [orderSort, setOrderSort] = useState({
 		id: 'ASC',
@@ -33,21 +36,21 @@ const AdminProductList = ({ orders }) => {
 				}
 			}
 			setOrderSort(object)
-			dispatch(getOrders({ name: ev.target.id, order: object[ev.target.id] }))
+			dispatch(getOrders({ name: ev.target.id, order: object[ev.target.id], all: true }))
 		}
 	}
 
 	return (
 		<>
-			<h1 className='admin-h1'>órdenes</h1>
+			<h1 className='admin-h1'>{s.title}</h1>
 			<DataTable>
 				<thead>
 					<tr onClick={handleSort}>
-						<td id="id" className="cell-small icon active down">Nº Orden</td>
+						<td id="id" className="cell-small icon active down">{s.tableOrderNumber}</td>
 						<td>Email</td>
-						<td className="cell-small">Total</td>
-						<td id="state" className="icon down">Estado</td>
-						<td id="payment_method" className="icon down">Metodo de Pago</td>
+						<td className="cell-small">{s.tableTotal}</td>
+						<td id="state" className="icon down">{s.tableStatus}</td>
+						<td id="payment_method" className="icon down">{s.tablePayment}</td>
 					</tr>
 				</thead>
 				<tbody>
@@ -55,14 +58,13 @@ const AdminProductList = ({ orders }) => {
 						<tr className='row-link' key={order.id} onClick={(ev) => handleClick(order.id)}>
 							<td>{order.id}</td>
 							<td>{order.email}</td>
-							<td>{order.total_amount}</td>
+							<td>${order.total_amount}</td>
 							<td>{order.state}</td>
 							<td>{order.payment_method}</td>
 						</tr>
 					))}
 				</tbody>
 			</DataTable>
-
 		</>
 	);
 };

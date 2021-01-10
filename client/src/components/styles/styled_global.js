@@ -108,6 +108,7 @@ export const Btn = styled.button`
 	transition: transform 25ms ease, box-shadow 25ms ease;
 	min-width: 175px;
 	cursor: pointer;
+	letter-spacing: 0.03em;
 
 	&:active {
 		transform: translate(2px, 2px);

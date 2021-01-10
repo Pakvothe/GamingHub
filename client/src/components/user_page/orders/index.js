@@ -9,6 +9,7 @@ const UserOrders = () => {
 	const history = useHistory();
 	const dispatch = useDispatch();
 	const language = useSelector(state => state.globalReducer.language);
+	const s = strings[language];
 	const orders = useSelector((state) => state.ordersReducer.orders.list);
 
 	useEffect(() => {
@@ -40,20 +41,20 @@ const UserOrders = () => {
 	}
 
 	const handleClick = (id) => {
-		history.push(`/order/${id}`)
+		history.push(`/orders/${id}`)
 	}
 
 	return (
 		<>
-			<h2>{strings[language].title}</h2>
+			<h2>{s.title}</h2>
 			<DataTable>
 				<thead>
 					<tr onClick={handleSort}>
-						<td id="id" className="cell-small icon active down">{strings[language].id}</td>
-						<td>{strings[language].mail}</td>
-						<td className="cell-small">{strings[language].total}</td>
-						<td id="state" className="icon down">{strings[language].state}</td>
-						<td id="payment_method" className="icon down">{strings[language].payment}</td>
+						<td id="id" className="cell-small icon active down">{s.id}</td>
+						<td>{s.mail}</td>
+						<td className="cell-small">{s.total}</td>
+						<td id="state" className="icon down">{s.state}</td>
+						<td id="payment_method" className="icon down">{s.payment}</td>
 					</tr>
 				</thead>
 				<tbody>

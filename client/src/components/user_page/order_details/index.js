@@ -4,6 +4,7 @@ import { getOrder } from '../../../redux/actions/orders_actions';
 import { Btn, DataTable } from '../../styles/styled_global';
 import { StyledOrderDetail } from '../../styles/styled_order_detail';
 import { useParams, useHistory, Link } from 'react-router-dom';
+import strings from './strings';
 
 const UserOrderDetail = () => {
 	const history = useHistory();
@@ -12,52 +13,59 @@ const UserOrderDetail = () => {
 
 	const user = useSelector(state => state.usersReducer.user.info);
 	const orderInfo = useSelector(state => state.ordersReducer.order.info);
+	const orderError = useSelector(state => state.ordersReducer.order.error);
+	const orderLoading = useSelector(state => state.ordersReducer.order.isLoading);
+	const language = useSelector(state => state.globalReducer.language);
+	const s = strings[language];
 	const products = orderInfo?.products;
 
 	useEffect(() => {
-		dispatch(getOrder(id));
-	}, [])
+		dispatch(getOrder(id))
+	}, []);
+
+	if (orderError) return <h1>Orden no encontrada</h1>;
+	if (orderLoading) return <h1>Loading ...</h1>;
 
 	return (
 		<StyledOrderDetail>
-			<h2>Orden nº {id}</h2>
+			<h2>{s.title} {id}</h2>
 			<div className='tables-container'>
 				<div>
-					<h3>Detalles de la orden</h3>
+					<h3>{s.subtitleDetails}</h3>
 					<DataTable className='table-small'>
 						<tbody>
 							<tr>
-								<td>Fecha:</td>
+								<td>{s.orderDate}</td>
 								<td>{orderInfo?.createdAt?.split('T')[0]}</td>
 							</tr>
 							<tr>
-								<td>Precio Total:</td>
+								<td>{s.orderTotalAmount}</td>
 								<td>${orderInfo?.total_amount}</td>
 							</tr>
 							<tr>
-								<td>Estado:</td>
+								<td>{s.orderStatus}</td>
 								<td>{orderInfo?.state}</td>
 							</tr>
 							<tr>
-								<td>Metodo de Pago:</td>
+								<td>{s.orderPayment}</td>
 								<td>{orderInfo?.payment_method}</td>
 							</tr>
 							<tr>
-								<td>Cantidad comprada:</td>
+								<td>{s.orderQuantity}</td>
 								<td>{orderInfo?.products?.length}</td>
 							</tr>
 						</tbody>
 					</DataTable>
 				</div>
 				<div>
-					<h3>Productos</h3>
+					<h3>{s.products}</h3>
 					<DataTable>
 						<thead>
 							<tr>
-								<td>Título</td>
-								<td>Cantidad</td>
-								<td>Precio Unitario</td>
-								<td>Precio Total</td>
+								<td>{s.tableTitle}</td>
+								<td>{s.tableQuantity}</td>
+								<td>{s.tableUnitPrice}</td>
+								<td>{s.tableTotalPrice}</td>
 								<td></td>
 							</tr>
 						</thead>
@@ -70,7 +78,7 @@ const UserOrderDetail = () => {
 										<td>{prod.orders_products.quantity}</td>
 										<td>${prod.orders_products.unit_price}</td>
 										<td>${prod.orders_products.quantity * prod.orders_products.unit_price}</td>
-										<td>{!found && (<Link to={`/review/${prod.id}?game=${prod.name}`}><button>Dejar reseña del producto</button></Link>)}</td>
+										<td>{!found && (<Link to={`/review/${prod.id}?game=${prod.name}`}><button>{s.review}</button></Link>)}</td>
 									</tr>
 								)
 							})}
@@ -80,14 +88,14 @@ const UserOrderDetail = () => {
 								<td></td>
 								<td></td>
 								<td></td>
-								<td>Total: ${orderInfo?.total_amount}</td>
+								<td>{s.total}: ${orderInfo?.total_amount}</td>
 								<td></td>
 							</tr>
 						</tfoot>
 					</DataTable>
 				</div>
 			</div>
-			<Btn className="btn btn-ppal" onClick={() => history.goBack()}><i className="fas fa-caret-left"></i> Volver</Btn>
+			<Btn className="btn btn-ppal" onClick={() => history.goBack()}><i className="fas fa-caret-left"></i> {s.goBack}</Btn>
 		</StyledOrderDetail>
 	)
 }

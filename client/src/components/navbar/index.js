@@ -30,6 +30,7 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 
 	const dispatch = useDispatch();
 	const language = useSelector(state => state.globalReducer.language);
+	const s = strings[language];
 	const categories = useSelector(state => state.categoriesReducer.categories.list);
 	const user = useSelector(state => state.usersReducer.user.info);
 	const theme = useSelector(state => state.globalReducer.theme)
@@ -66,18 +67,18 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 
 		Swal.fire({
 			heightAuto: false,
-			title: strings[language].logout_confirm,
-			text: strings[language].logout_confirm_text,
+			title: s.logout_confirm,
+			text: s.logout_confirm_text,
 			icon: 'warning',
 			showCancelButton: true,
 			confirmButtonColor: '#3085d6',
 			cancelButtonColor: '#d33',
-			confirmButtonText: strings[language].logout_button,
+			confirmButtonText: s.logout_button,
 		}).then((result) => {
 			if (result.isConfirmed) {
 				Swal.fire(
-					strings[language].logout_confirm,
-					strings[language].logout_confirm_text2,
+					s.logout_confirm,
+					s.logout_confirm_text2,
 					'success',
 					dispatch(logout())
 				)
@@ -104,15 +105,15 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 						<ul className='navbar__options'>
 							<Dropdown>
 								<StyledSVG src={languageIcon} />
-								<span>{strings[language].language}</span>
+								<span>{s.language}</span>
 								<ul onClick={(e) => handleClick(e)}>
 									<li>
 										<a id='en' className={language === 'en' ? 'selected' : null}>
-											{strings[language].language_en}
+											English
 										</a> </li>
 									<li>
 										<a id='es' className={language === 'es' ? 'selected' : null}>
-											{strings[language].language_es}
+											Español
 										</a>
 									</li>
 								</ul>
@@ -123,20 +124,20 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 										? (<div className="navbar__profile-pic"><img src={user.profile_pic || "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmlsZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80"} alt="Imagen de perfil" /></div>)
 										: <StyledSVG src={userPic} />
 								}
-								<span>{strings[language].user}</span>
+								<span>{s.user}</span>
 								<ul>
 									{
 										user.first_name ? (
 											<>
 												<li className='dropdown__first-name'><p>{user.first_name}</p></li>
-												<li><Link to='/user'>{strings[language].profile}</Link></li>
-												{user.is_admin && <li><Link to='/admin'>{strings[language].admin}</Link></li>}
-												<li><Link to="/" onClick={handleLogout}>{strings[language].logout}</Link></li>
+												<li><Link to='/user'>{s.profile}</Link></li>
+												{user.is_admin && <li><Link to='/admin'>{s.admin}</Link></li>}
+												<li><Link to="/" onClick={handleLogout}>{s.logout}</Link></li>
 											</>
 										) : (
 												<>
-													<li><Link to="/#" onClick={openLoginModal}>{strings[language].login}</Link></li>
-													<Link to="/signup" >{strings[language].signup}</Link>
+													<li><Link to="/#" onClick={openLoginModal}>{s.login}</Link></li>
+													<li><Link to="/signup" >{s.signup}</Link></li>
 												</>
 											)
 									}
@@ -145,7 +146,7 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 							<li>
 								<button onClick={toggleModal}>
 									<StyledSVG src={cart} />
-									<span>{strings[language].cart}</span>
+									<span>{s.cart}</span>
 									{!!number && <span className='cart__number'>{
 										number >= 100 ? '99+' : number
 									}</span>}
@@ -154,7 +155,7 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 							<li>
 								<button onClick={handleTheme}>
 									<StyledSVG src={theme === 'light' ? sun : moon} />
-									<span>{strings[language].theme}</span>
+									<span>{s.theme}</span>
 								</button>
 							</li>
 						</ul>
@@ -163,7 +164,7 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 					<div className='navbar__bottom'>
 						<ul className='navbar-bottom__menu'>
 							<Dropdown>
-								<span >{strings[language].categories}</span>
+								<span >{s.categories}</span>
 								<ul className='dropdown-columns' onClick={(e) => handleCategories(e)}>
 									<li><HashLink id='todos' to='#catalog'>TODOS</HashLink></li>
 									{!!categories.length && categories.map(category => (
@@ -180,10 +181,10 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 								</ul>
 							</Dropdown>
 							<li>
-								<Link to='/'>{strings[language].offer}</Link>
+								<Link to='/'>{s.offer}</Link>
 							</li>
 							<li>
-								<Link to='/'>{strings[language].about}</Link>
+								<Link to='/'>{s.about}</Link>
 							</li>
 						</ul>
 					</div>

@@ -3,33 +3,32 @@ const { User } = require("../db.js");
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
 const { SECRET } = process.env;
+const { isAuthenticated, isAdmin } = require('../../utils/customMiddlewares');
 
-server.get("/me", async (req, res, next) => {
+server.get("/me", isAuthenticated, async (req, res, next) => {
 	try {
-		if (req.user) {
-			const { id } = req.user;
-			const result = await User.findByPk(id, {
-				attributes: ['id', 'first_name', 'last_name', 'profile_pic', 'email', 'is_admin', 'updatedAt']
-			});
-			if (req.user.updatedAt === result.updatedAt.toISOString()) {
-				return res.json(result);
-			} else {
-				const { id, first_name, last_name, profile_pic, email, is_admin, updatedAt } = result;
-				result.dataValues.jwt = jwt.sign(
-					{
-						id,
-						first_name,
-						last_name,
-						profile_pic,
-						email,
-						is_admin,
-						updatedAt
-					},
-					SECRET
-				)
-				return res.json(result)
-			}
-		} else res.sendStatus(401);
+		const { id } = req.user;
+		const result = await User.findByPk(id, {
+			attributes: ['id', 'first_name', 'last_name', 'profile_pic', 'email', 'is_admin', 'updatedAt']
+		});
+		if (req.user.updatedAt === result.updatedAt.toISOString()) {
+			return res.json(result);
+		} else {
+			const { id, first_name, last_name, profile_pic, email, is_admin, updatedAt } = result;
+			result.dataValues.jwt = jwt.sign(
+				{
+					id,
+					first_name,
+					last_name,
+					profile_pic,
+					email,
+					is_admin,
+					updatedAt
+				},
+				SECRET
+			)
+			return res.json(result)
+		}
 	} catch (error) {
 		next(error);
 	}

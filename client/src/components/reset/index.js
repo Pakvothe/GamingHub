@@ -12,6 +12,7 @@ const Reset = () => {
 
 	const history = useHistory();
 	const language = useSelector(state => state.globalReducer.language);
+	const s = strings[language];
 	const [data, setData] = useState({
 		email: '',
 		reset_code: '',
@@ -47,8 +48,8 @@ const Reset = () => {
 						if (res.data.ok) {
 							Swal.fire({
 								heightAuto: false,
-								title: strings[language].alertTitle,
-								text: strings[language].alertText,
+								title: s.alertTitle,
+								text: s.alertText,
 								icon: 'success',
 								confirmButtonColor: '#3085d6',
 								confirmButtonText: 'Ok',
@@ -65,7 +66,7 @@ const Reset = () => {
 
 	return (
 		<>
-			<h2>{strings[language].title}</h2>
+			<h2>{s.title}</h2>
 			<Reset_steps handleSubmit={handleSubmits} step={data.step} language={language} />
 		</>
 	)
