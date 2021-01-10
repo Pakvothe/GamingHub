@@ -10,6 +10,8 @@ export default {
 		login_err: 'Login Error!',
 		google: 'Sign in with Google',
 		facebook: 'Sign in with Facebook',
+		error401: 'Email or password is incorrect',
+		error500: 'An error occurred. Please try again later'
 
 	},
 	es: {
@@ -23,5 +25,7 @@ export default {
 		login_err: '¡Error al iniciar sesión!',
 		google: 'Ingresar con Google',
 		facebook: 'Ingresar con Facebook',
+		error401: 'Correo o contraseña incorrectos',
+		error500: 'Ocurrió un error. Por favor vuelve a intentarlo más tarde.'
 	}
 }
