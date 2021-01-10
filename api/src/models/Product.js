@@ -39,6 +39,9 @@ module.exports = (sequelize) => {
 		is_active: {
 			type: D.BOOLEAN,
 			allowNull: false
+		},
+		realPrice: {
+			type: D.REAL,
 		}
 	});
 };

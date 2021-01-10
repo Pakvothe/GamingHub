@@ -19,7 +19,7 @@ import { useEmblaCarousel } from 'embla-carousel/react'
 import { useRecursiveTimeout } from "./useRecursiveTimeout";
 const AUTOPLAY_INTERVAL = 3500;
 
-const Carousel = () => {
+const Carousel = ({ products }) => {
 	const [viewportRef, embla] = useEmblaCarousel({ loop: true, speed: 5 });
 	const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
 	const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
@@ -62,13 +62,35 @@ const Carousel = () => {
 		play();
 	}, [play]);
 
+	if (!products.length) return <h1>Loading</h1>
+
 	return (
 		<StyledCarousel>
 			<Fade big>
 				<div className="embla">
 					<div className="embla__viewport" ref={viewportRef}>
 						<div className="embla__container">
-							<div className="embla__slide">
+							{products.map(prod =>
+								<div className="embla__slide" key={prod.id}>
+									<div className="embla__slide__inner">
+										<img className="embla__slide__img" src={prod.images[0].url} alt={prod.name} />
+										<div className="embla__slide__detail">
+											<div className="slide__details__left">
+												<h3 className="slide__title">{prod.name}</h3>
+											</div>
+											<div className="slide__details__right">
+												<span className="slide__discount">-{100 - Math.round(((prod.price / prod.realPrice) * 100))}%</span>
+												<span className="slide__price">${prod.price}</span>
+												<Btn className="btn btn-ppal btn-img slide__btn">
+													{strings[language].addToCart}
+													<StyledSVG src={cart} />
+												</Btn>
+											</div>
+										</div>
+									</div>
+								</div>
+							)}
+							{/* <div className="embla__slide">
 								<div className="embla__slide__inner">
 									<img className="embla__slide__img" src={FFVII} alt="A cool cat." />
 									<div className="embla__slide__detail">
@@ -121,7 +143,7 @@ const Carousel = () => {
 										</div>
 									</div>
 								</div>
-							</div>
+							</div> */}
 						</div>
 					</div>
 					<PrevButton onClick={scrollPrev} enabled={prevBtnEnabled} />

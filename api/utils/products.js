@@ -37,8 +37,9 @@ const products = [
 		stock: 200,
 		description_es: 'Los desarrolladores del juego han tenido años para alcanzar la perfección y, como resultado, hay poco en lo que se ha interferido para arruinar el clásico tan querido. Como siempre, es la licencia lo que atrae a los compradores, y esta edición no es diferente con la asombrosa cantidad de 17,000 jugadores de 700 clubes que juegan en 30 ligas para elegir, intercambiar y transferir. Esto significa que puedes jugar los partidos de una temporada completa sin repetir a un jugador, incluso en el mismo equipo, si así lo deseas.',
 		description_en: 'The game developers have had years to reach perfection and as a result there is little that has been interfered with to ruin the well-loved classic. As always, it is the licensing that attracts buyers, and this edition is no different with a staggering 17,000 players from 700 clubs playing in 30 leagues to choose from, swap and transfer and change the fortunes of! This means you could play out an entire season’s worth of games without repeating a player, even in the same team, if you wanted to! ',
-		price: 40.72,
+		price: 40,
 		is_active: true,
+		realPrice: 50,
 		images: [
 			{
 				url: 'https://i.imgur.com/RKCvcWJ.jpg'
@@ -137,8 +138,9 @@ const products = [
 		stock: 1,
 		description_es: 'Age of Empires II: Definitive Edition para PC es el relanzamiento del clásico de estrategia en tiempo real en su vigésimo aniversario. El juego conserva todo el encanto y la popularidad del original, pero lo combina con veinte años de mejoras en el mundo de los juegos: gráficos de alta definición, jugabilidad y visuales mejorados y cuatro nuevas civilizaciones, así como una nueva campaña para un jugador llamada The Last Khans.',
 		description_en: 'Age of Empires II: Definitive Edition for PC is the re-release of the real-time strategy classic on its 20th anniversary. The game retains all the charm and popularity of the original, but combines it with twenty years of improvements in the gaming world: high definition graphics, improved gameplay and visuals and four new civilizations, as well as a new single-player campaign called The last kans.',
-		price: 9.74,
+		price: 8,
 		is_active: true,
+		realPrice: 20,
 		images: [
 			{
 				url: 'https://store-images.s-microsoft.com/image/apps.55056.13678235101671609.c350aa6a-23e2-407c-94fd-5050e9bedb6f.f8b5d931-11f6-46e3-859f-54981d5b9d1b'
@@ -308,6 +310,7 @@ const products = [
 		description_en: 'The game is a fantasy tale with a strong Japanese surreal influence that gives it a supernatural and spooky vibe. In general, the premise of the game is to kill monsters and take advantage of their souls, which you can accumulate to increase your level.',
 		price: 18.45,
 		is_active: true,
+		realPrice: 25,
 		images: [
 			{
 				url: 'https://i.imgur.com/Y6miBi9.jpg'

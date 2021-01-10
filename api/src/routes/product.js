@@ -157,6 +157,24 @@ server.get('/search', (req, res) => {
 		})
 })
 
+server.get('/discounts', (req, res) => {
+	Product.findAll({
+		where: {
+			realPrice: { [Op.ne]: null }
+		},
+		include: [{
+			model: Image,
+		}],
+		order: [[Image, 'id']]
+	})
+		.then((products) => {
+			res.status(200).json(products);
+		})
+		.catch(() => {
+			res.status(500).json({ message: 'Internal server error', })
+		})
+})
+
 server.put('/:id/active', isAdmin, (req, res) => {
 	const { id } = req.params;
 	Product.findOne({

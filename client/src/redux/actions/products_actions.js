@@ -13,6 +13,9 @@ import {
 	LOADING_PRODUCTS,
 	GET_FILTER_PRODUCTS_ERROR,
 	GET_PRODUCTS_ERROR,
+	LOADING_DISCOUNTS,
+	GET_DISCOUNTS,
+	GET_DISCOUNTS_ERROR,
 	TOGGLE_ACTIVE_PRODUCT,
 	DELETE_IMAGE,
 	GET_SERIALS,
@@ -180,7 +183,6 @@ export const emptyFilter = () => {
 }
 
 export const getProducts = (payload) => {
-
 	return function (dispatch) {
 		dispatch({ type: LOADING_PRODUCTS });
 		return axios.get(`${REACT_APP_API_URL}/products${QUERY_FUNCTION(payload)}`)
@@ -193,6 +195,24 @@ export const getProducts = (payload) => {
 			.catch(err => {
 				dispatch({
 					type: GET_PRODUCTS_ERROR
+				})
+			})
+	}
+}
+
+export const getDiscounts = () => {
+	return function (dispatch) {
+		dispatch({ type: LOADING_DISCOUNTS });
+		return axios.get(`${REACT_APP_API_URL}/products/discounts`)
+			.then(products => {
+				dispatch({
+					type: GET_DISCOUNTS,
+					payload: products.data
+				})
+			})
+			.catch(err => {
+				dispatch({
+					type: GET_DISCOUNTS_ERROR
 				})
 			})
 	}

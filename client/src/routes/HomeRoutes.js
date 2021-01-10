@@ -22,11 +22,13 @@ import { getCategories } from '../redux/actions/categories_actions';
 import { toggleCart } from '../redux/actions/global_actions';
 import Reset from './../components/reset/index';
 import ReviewForm from '../components/reviews/review_form';
+import { getDiscounts } from './../redux/actions/products_actions';
 
 function HomeRoutes() {
 
 	const dispatch = useDispatch();
 	const products = useSelector(state => state.productsReducer.products.productList);
+	const discounts = useSelector(state => state.productsReducer.productsDiscount.list);
 	const cart = useSelector(state => state.cartReducer.cart.list);
 	const categories = useSelector(state => state.categoriesReducer.categories.list);
 	const showCart = useSelector(state => state.globalReducer.showCart);
@@ -41,6 +43,7 @@ function HomeRoutes() {
 	useEffect(() => {
 		if (!products.length) {
 			dispatch(getProducts({ name: 'stock', order: 'DESC', limit: 8 }));
+			dispatch(getDiscounts());
 		}
 		if (!categories.length) {
 			dispatch(getCategories());
@@ -53,7 +56,9 @@ function HomeRoutes() {
 			<Login />
 			<Navbar toggleModal={toggleModal} cartNumber={cart} />
 			<CartSideBar language={language} closeCallback={toggleModal} show={showCart} cart={cart} />
-			<Route exact path='/' component={Carousel} />
+			<Route exact path='/'>
+				<Carousel products={discounts} />
+			</Route>
 			<main className='main-container'>
 				<Route exact path='/' component={HomePage} />
 				<Route exact path='/search' component={SearchPage} />
