@@ -40,8 +40,14 @@ module.exports = (sequelize) => {
 			type: D.BOOLEAN,
 			allowNull: false
 		},
-		realPrice: {
+		real_price: {
 			type: D.REAL,
+		},
+		banner_image: {
+			type: D.STRING,
+			validate: {
+				isUrl: true
+			}
 		}
 	});
 };

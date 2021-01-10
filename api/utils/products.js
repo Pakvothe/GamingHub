@@ -39,7 +39,8 @@ const products = [
 		description_en: 'The game developers have had years to reach perfection and as a result there is little that has been interfered with to ruin the well-loved classic. As always, it is the licensing that attracts buyers, and this edition is no different with a staggering 17,000 players from 700 clubs playing in 30 leagues to choose from, swap and transfer and change the fortunes of! This means you could play out an entire season’s worth of games without repeating a player, even in the same team, if you wanted to! ',
 		price: 40,
 		is_active: true,
-		realPrice: 50,
+		real_price: 50,
+		banner_image: 'https://firebasestorage.googleapis.com/v0/b/ecommerce-456e0.appspot.com/o/bannerImages%2Ff76437e6-06d0-4453-aa0a-31a6c61e575d?alt=media&token=af131adb-b827-45fd-9b62-bf670753f0c4',
 		images: [
 			{
 				url: 'https://i.imgur.com/RKCvcWJ.jpg'
@@ -140,7 +141,8 @@ const products = [
 		description_en: 'Age of Empires II: Definitive Edition for PC is the re-release of the real-time strategy classic on its 20th anniversary. The game retains all the charm and popularity of the original, but combines it with twenty years of improvements in the gaming world: high definition graphics, improved gameplay and visuals and four new civilizations, as well as a new single-player campaign called The last kans.',
 		price: 8,
 		is_active: true,
-		realPrice: 20,
+		real_price: 20,
+		banner_image: 'https://firebasestorage.googleapis.com/v0/b/ecommerce-456e0.appspot.com/o/bannerImages%2Ff67ded9b-fa2d-4be3-b315-8383ce5c566a?alt=media&token=e20457fd-0796-4260-a2cf-a8e6e3b8acc4',
 		images: [
 			{
 				url: 'https://store-images.s-microsoft.com/image/apps.55056.13678235101671609.c350aa6a-23e2-407c-94fd-5050e9bedb6f.f8b5d931-11f6-46e3-859f-54981d5b9d1b'
@@ -304,13 +306,14 @@ const products = [
 		]
 	},
 	{ // 9
-		name: 'Dark Souls 3 Edicion de Lujo',
+		name: 'Dark Souls 3 Deluxe Edition',
 		stock: 500,
 		description_es: 'El juego es un cuento de fantasía con una fuerte influencia surrealista japonesa que le otorga una vibra sobrenatural y espeluznante. En general, la premisa del juego es matar a los monstruos y aprovechar sus almas, las cuales puedes acumular para aumentar de nivel.',
 		description_en: 'The game is a fantasy tale with a strong Japanese surreal influence that gives it a supernatural and spooky vibe. In general, the premise of the game is to kill monsters and take advantage of their souls, which you can accumulate to increase your level.',
 		price: 18.45,
 		is_active: true,
-		realPrice: 25,
+		real_price: 25,
+		banner_image: 'https://firebasestorage.googleapis.com/v0/b/ecommerce-456e0.appspot.com/o/bannerImages%2F1336f561-57f7-4c45-944d-658d65ce4220?alt=media&token=27d6b92f-a4e1-4cac-b729-0064c40c85a4',
 		images: [
 			{
 				url: 'https://i.imgur.com/Y6miBi9.jpg'
