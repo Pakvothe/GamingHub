@@ -15,6 +15,7 @@ const ReviewForm = () => {
 	const theme = useSelector(state => state.globalReducer.theme);
 	const user = useSelector(state => state.usersReducer.user.info);
 	const language = useSelector(state => state.globalReducer.language);
+	const s = strings[language];
 
 	const location = useLocation();
 	const history = useHistory();
@@ -43,13 +44,13 @@ const ReviewForm = () => {
 		ev.preventDefault();
 		axios.post(`${REACT_APP_API_URL}/products/${id}/review`, review, BEARER())
 			.then(() => {
-				addToast(strings[language].toastSuccess, {
+				addToast(s.toastSuccess, {
 					appearance: 'success'
 				})
 				history.goBack();
 			})
 			.catch(() => {
-				addToast(strings[language].toastError, {
+				addToast(s.toastError, {
 					appearance: 'error'
 				})
 			})
@@ -57,10 +58,10 @@ const ReviewForm = () => {
 
 	return (
 		<>
-			<h2>{strings[language].title} {game}</h2>
+			<h2>{s.title} {game}</h2>
 			<Flex>
 				<FormStyled onSubmit={handleSubmit} className="text-center">
-					<span className="mr-1">{strings[language].score}</span>
+					<span className="mr-1">{s.score}</span>
 					<StarRatings
 						rating={review.score}
 						name="ratingStars"
@@ -72,10 +73,10 @@ const ReviewForm = () => {
 						starHoverColor='var(--clr-primary)'
 					/>
 					<label className="mt-1">
-						<span>{strings[language].comment}</span>
+						<span>{s.comment}</span>
 						<textarea onChange={handleInput} value={review.description}></textarea>
 					</label>
-					<Btn className="btn btn-ppal">{strings[language].send}</Btn>
+					<Btn className="btn btn-ppal">{s.send}</Btn>
 				</FormStyled>
 			</Flex>
 		</>

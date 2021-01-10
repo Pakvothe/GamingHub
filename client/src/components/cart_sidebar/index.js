@@ -12,6 +12,7 @@ import Slide from 'react-reveal/Slide';
 
 
 const CartSideBar = ({ language, cart, show, closeCallback }) => {
+	const s = strings[language];
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -44,7 +45,7 @@ const CartSideBar = ({ language, cart, show, closeCallback }) => {
 					<button title='Close' className='modal__close' onClick={closeCallback}>
 						<StyledCloseBtn src={BigCloseButton} />
 					</button>
-					<h2 className='modal__title'>{strings[language].your_cart}</h2>
+					<h2 className='modal__title'>{s.your_cart}</h2>
 					{!!cart.length && cart.map(purchase => {
 						return (
 							<Mini productDetail={purchase} key={purchase.id} />
@@ -57,9 +58,9 @@ const CartSideBar = ({ language, cart, show, closeCallback }) => {
 					</div>
 					<div className="modal__buttons">
 						<Link to="/order" onClick={closeCallback}>
-							<Btn className='btn btn-ppal'>{strings[language].checkout}</Btn>
+							<Btn className='btn btn-ppal'>{s.checkout}</Btn>
 						</Link>
-						<Btn className='btn btn-sec' onClick={() => dispatch(clearCart())}>{strings[language].empty_cart}</Btn>
+						<Btn className='btn btn-sec' onClick={() => dispatch(clearCart())}>{s.empty_cart}</Btn>
 					</div>
 				</div>
 			</Slide>

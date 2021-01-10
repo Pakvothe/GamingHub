@@ -24,6 +24,7 @@ const Carousel = ({ products }) => {
 	const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
 	const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
 	const language = useSelector(state => state.globalReducer.language);
+	const s = strings[language];
 
 	const scrollPrev = useCallback(() => embla && embla.scrollPrev(), [embla]);
 	const scrollNext = useCallback(() => embla && embla.scrollNext(), [embla]);
@@ -101,7 +102,7 @@ const Carousel = ({ products }) => {
 											<span className="slide__discount">-20%</span>
 											<span className="slide__price">$10.99</span>
 											<Btn className="btn btn-ppal btn-img slide__btn">
-												{strings[language].addToCart}
+												{s.addToCart}
 												<StyledSVG src={cart} />
 											</Btn>
 										</div>
@@ -119,7 +120,7 @@ const Carousel = ({ products }) => {
 											<span className="slide__discount">-15%</span>
 											<span className="slide__price">$1050.99</span>
 											<Btn className="btn btn-ppal btn-img slide__btn">
-												{strings[language].addToCart}
+												{s.addToCart}
 												<StyledSVG src={cart} />
 											</Btn>
 										</div>
@@ -137,7 +138,7 @@ const Carousel = ({ products }) => {
 											<span className="slide__discount">-10%</span>
 											<span className="slide__price">$0.99</span>
 											<Btn className="btn btn-ppal btn-img slide__btn">
-												{strings[language].addToCart}
+												{s.addToCart}
 												<StyledSVG src={cart} />
 											</Btn>
 										</div>

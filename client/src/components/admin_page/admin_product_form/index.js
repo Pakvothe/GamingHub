@@ -15,6 +15,7 @@ const AdminProductForm = ({ categories }) => {
 	const { id } = useParams();
 	const dispatch = useDispatch();
 	const language = useSelector(state => state.globalReducer.language);
+	const s = strings[language];
 
 	const [imagesAsFile, setImagesAsFile] = useState([]);
 
@@ -41,7 +42,7 @@ const AdminProductForm = ({ categories }) => {
 	useEffect(() => {
 		if (input.img.length === imagesAsFile.length && input.img.length > 0) {
 			id ? dispatch(editProduct(input)) : dispatch(addProduct(input));
-			addToast(id ? strings[language].toastProductEdited : strings[language].toastProductAdded, { appearance: 'success' })
+			addToast(id ? s.toastProductEdited : s.toastProductAdded, { appearance: 'success' })
 			setToAdmin(true);
 		}
 	}, [input.img]);
@@ -92,7 +93,7 @@ const AdminProductForm = ({ categories }) => {
 		if (invalidFile) {
 			Swal.fire({
 				heightAuto: false,
-				title: strings[language].invalidImgFile,
+				title: s.invalidImgFile,
 				icon: 'warning',
 				confirmButtonColor: '#3085d6',
 				confirmButtonText: 'Ok',
@@ -103,7 +104,7 @@ const AdminProductForm = ({ categories }) => {
 		if (invalidSize) {
 			Swal.fire({
 				heightAuto: false,
-				title: strings[language].invalidImgSize,
+				title: s.invalidImgSize,
 				icon: 'warning',
 				confirmButtonColor: '#3085d6',
 				confirmButtonText: 'Ok',
@@ -129,7 +130,7 @@ const AdminProductForm = ({ categories }) => {
 
 		if (id && !imagesAsFile.length) {
 			dispatch(editProduct(input));
-			addToast(strings[language].toastProductEdited, { appearance: 'success' })
+			addToast(s.toastProductEdited, { appearance: 'success' })
 			return setToAdmin(true);
 		};
 
@@ -154,21 +155,21 @@ const AdminProductForm = ({ categories }) => {
 		})
 	}
 
-	const opciones = id ? strings[language].titleEdit : strings[language].titleAdd;
+	const opciones = id ? s.titleEdit : s.titleAdd;
 
 	const swalDeleteImg = {
 		heightAuto: false,
-		title: strings[language].swDeleteTitle,
-		text: strings[language].swDeleteText,
+		title: s.swDeleteTitle,
+		text: s.swDeleteText,
 		icon: 'warning',
 		showCancelButton: true,
 		confirmButtonColor: '#3085d6',
 		cancelButtonColor: '#d33',
-		confirmButtonText: strings[language].swDeleteConfirmButton,
-		cancelButtonText: strings[language].swDeleteCancelButton
+		confirmButtonText: s.swDeleteConfirmButton,
+		cancelButtonText: s.swDeleteCancelButton
 	};
 
-	if (isLoading) return <h1 className="admin-h1"><i class="fas fa-circle-notch fa-spin"></i> {strings[language].loading}</h1>;
+	if (isLoading) return <h1 className="admin-h1"><i class="fas fa-circle-notch fa-spin"></i> {s.loading}</h1>;
 	if (toAdmin) return <Redirect to='/admin' />
 
 	return (
@@ -178,16 +179,16 @@ const AdminProductForm = ({ categories }) => {
 				<div className='flex-form-container'>
 					<div>
 						<label>
-							<span>{strings[language].inputName}</span>
+							<span>{s.inputName}</span>
 							<input type='text' name='name' value={input.name} onChange={handleInput} required />
 						</label>
 						<label>
-							<span>{strings[language].inputDescES}</span>
+							<span>{s.inputDescES}</span>
 							<textarea type='text' name='description_es' value={input.description_es} onChange={handleInput} required>
 							</textarea>
 						</label>
 						<label>
-							<span>{strings[language].inputDescEN}</span>
+							<span>{s.inputDescEN}</span>
 							<textarea type='text' name='description_en' value={input.description_en} onChange={handleInput} required>
 							</textarea>
 						</label>
@@ -195,11 +196,11 @@ const AdminProductForm = ({ categories }) => {
 
 					<div>
 						<label>
-							<span>{strings[language].inputPrice}</span>
+							<span>{s.inputPrice}</span>
 							<input type='number' step='0.01' name='price' value={input.price} onChange={handleInput} required />
 						</label>
 						<label>
-							<span>{strings[language].inputImage}</span>
+							<span>{s.inputImage}</span>
 							<input ref={fileInput} type='file' name='img' onChange={handleImagesAsFile} multiple required={id ? false : true} />
 						</label>
 						<br />
@@ -207,13 +208,13 @@ const AdminProductForm = ({ categories }) => {
 							{id && product.images?.length > 0 &&
 								product.images.map(image =>
 									<div className='image_thumbnail'>
-										<span className='delete__image'>{strings[language].inputDeleteImage}</span>
+										<span className='delete__image'>{s.inputDeleteImage}</span>
 										<img src={image.url} width='100px' key={image.id} onClick={() => {
 											Swal.fire(swalDeleteImg).then((result) => {
 												if (result.isConfirmed) {
 													Swal.fire(
-														strings[language].swConfirmTitle,
-														strings[language].swConfirmText,
+														s.swConfirmTitle,
+														s.swConfirmText,
 														'success',
 														dispatch(deleteImage(image))
 													)
@@ -232,9 +233,9 @@ const AdminProductForm = ({ categories }) => {
 								onChange={handleInput}
 								name='is_active'
 							/>
-							<span className='no-shadow'>{strings[language].inputActive}</span>
+							<span className='no-shadow'>{s.inputActive}</span>
 						</CheckboxLabel>
-						<span className='form__categorias'>{strings[language].categories}</span>
+						<span className='form__categorias'>{s.categories}</span>
 						<ul>
 							{
 								categories.map(cat => {

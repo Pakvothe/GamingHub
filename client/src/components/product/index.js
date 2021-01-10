@@ -8,6 +8,7 @@ import strings from './strings.js';
 
 const Product = () => {
 	const language = useSelector(state => state.globalReducer.language);
+	const s = strings[language];
 	const { isLoading, product, error } = useSelector(state => state.productsReducer.productDetail);
 	const dispatch = useDispatch();
 	const { id } = useParams();
@@ -18,11 +19,11 @@ const Product = () => {
 
 	return (
 		<>
-			{(error || !product.is_active) && !isLoading && <h1 style={{ margin: "20px", textAlign: "center" }}>{strings[language].exist}</h1>}
+			{(error || !product.is_active) && !isLoading && <h1 style={{ margin: "20px", textAlign: "center" }}>{s.exist}</h1>}
 			{isLoading && <StyledLoader
 				active={isLoading}
 				spinner
-				text={strings[language].loading}
+				text={s.loading}
 				className='loading__overlay'
 				classNamePrefix='loading__'
 			/>}

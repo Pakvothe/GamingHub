@@ -6,22 +6,24 @@ import logo from '../../assets/img/logo-dual.svg';
 import strings from './strings';
 
 const Footer = ({ language }) => {
+	const s = strings[language];
+
 	return (
 		<StyledFooter>
 			<StyledSVG src={logo} />
 			<nav className="navbar__top">
 				<ul>
-					<li><Link to="/categories">{strings[language].categories}</Link></li>
-					<li><Link to="">{strings[language].offers}</Link></li>
+					<li><Link to="/categories">{s.categories}</Link></li>
+					<li><Link to="">{s.offers}</Link></li>
 				</ul>
 			</nav>
 
 			<nav className="navbar__bottom">
 				<ul>
-					<li><Link to="">{strings[language].terms}</Link></li>
-					<li><Link to="">{strings[language].privacy}</Link></li>
-					<li><Link to="">{strings[language].legal}</Link></li>
-					<li><Link to="">{strings[language].contact}</Link></li>
+					<li><Link to="">{s.terms}</Link></li>
+					<li><Link to="">{s.privacy}</Link></li>
+					<li><Link to="">{s.legal}</Link></li>
+					<li><Link to="">{s.contact}</Link></li>
 				</ul>
 			</nav>
 

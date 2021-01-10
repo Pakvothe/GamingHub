@@ -12,6 +12,7 @@ const Mini = ({ productDetail }) => {
 	const dispatch = useDispatch()
 	const [effect, setEffect] = useState(true);
 	const language = useSelector(state => state.globalReducer.language);
+	const s = strings[language];
 
 	const handleClick = () => {
 		setEffect(false);
@@ -53,7 +54,7 @@ const Mini = ({ productDetail }) => {
 					<div className="article__quantitybuttons">
 						<QuantityButton className='quantitybutton-small' onClick={() => handleQuantityChange(-1)}>-</QuantityButton>
 						<span className='quantitytext'> {productDetail.quantity} </span>
-						<span>{strings[language].units} </span>
+						<span>{s.units} </span>
 						<QuantityButton className='quantitybutton-small' onClick={() => handleQuantityChange(1)}>+</QuantityButton>
 					</div>
 				</div>

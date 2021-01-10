@@ -15,6 +15,7 @@ const ProductCard = ({ game, language }) => {
 
 	const dispatch = useDispatch();
 	const stock = useSelector(state => state.cartReducer.cart.stock);
+	const s = strings[language];
 	const { addToast } = useToasts();
 	const handleClick = () => {
 		if (!stock[game.id] && stock[game.id] !== 0) {
@@ -27,7 +28,7 @@ const ProductCard = ({ game, language }) => {
 				stock: game.stock
 			}
 			dispatch(editStock(payload));
-			addToast(`${game.name} ${strings[language].toast}`, { appearance: 'success' })
+			addToast(`${game.name} ${s.toast}`, { appearance: 'success' })
 
 		} else {
 			dispatch(toggleCart())
@@ -48,11 +49,11 @@ const ProductCard = ({ game, language }) => {
 					<p className="card__price">$ {game.price}</p>
 					{game.stock ?
 						<Btn className="btn-ppal btn-img" onClick={handleClick}>
-							{stock[game.id] >= 0 ? strings[language].already_in_cart : strings[language].add_to_cart}
+							{stock[game.id] >= 0 ? s.already_in_cart : s.add_to_cart}
 							<StyledSVG src={cart} />
 						</Btn> : <Badge className="card__noStock error">Sin stock</Badge>}
 				</div>
-				<Link to={`/products/${game.id}`} className="card__link">{strings[language].click_to_see}</Link>
+				<Link to={`/products/${game.id}`} className="card__link">{s.click_to_see}</Link>
 			</ProductCardStyled>
 		</Fade>
 	)

@@ -16,6 +16,7 @@ const UserOrderDetail = () => {
 	const orderError = useSelector(state => state.ordersReducer.order.error);
 	const orderLoading = useSelector(state => state.ordersReducer.order.isLoading);
 	const language = useSelector(state => state.globalReducer.language);
+	const s = strings[language];
 	const products = orderInfo?.products;
 
 	useEffect(() => {
@@ -27,44 +28,44 @@ const UserOrderDetail = () => {
 
 	return (
 		<StyledOrderDetail>
-			<h2>{strings[language].title} {id}</h2>
+			<h2>{s.title} {id}</h2>
 			<div className='tables-container'>
 				<div>
-					<h3>{strings[language].subtitleDetails}</h3>
+					<h3>{s.subtitleDetails}</h3>
 					<DataTable className='table-small'>
 						<tbody>
 							<tr>
-								<td>{strings[language].orderDate}</td>
+								<td>{s.orderDate}</td>
 								<td>{orderInfo?.createdAt?.split('T')[0]}</td>
 							</tr>
 							<tr>
-								<td>{strings[language].orderTotalAmount}</td>
+								<td>{s.orderTotalAmount}</td>
 								<td>${orderInfo?.total_amount}</td>
 							</tr>
 							<tr>
-								<td>{strings[language].orderStatus}</td>
+								<td>{s.orderStatus}</td>
 								<td>{orderInfo?.state}</td>
 							</tr>
 							<tr>
-								<td>{strings[language].orderPayment}</td>
+								<td>{s.orderPayment}</td>
 								<td>{orderInfo?.payment_method}</td>
 							</tr>
 							<tr>
-								<td>{strings[language].orderQuantity}</td>
+								<td>{s.orderQuantity}</td>
 								<td>{orderInfo?.products?.length}</td>
 							</tr>
 						</tbody>
 					</DataTable>
 				</div>
 				<div>
-					<h3>{strings[language].products}</h3>
+					<h3>{s.products}</h3>
 					<DataTable>
 						<thead>
 							<tr>
-								<td>{strings[language].tableTitle}</td>
-								<td>{strings[language].tableQuantity}</td>
-								<td>{strings[language].tableUnitPrice}</td>
-								<td>{strings[language].tableTotalPrice}</td>
+								<td>{s.tableTitle}</td>
+								<td>{s.tableQuantity}</td>
+								<td>{s.tableUnitPrice}</td>
+								<td>{s.tableTotalPrice}</td>
 								<td></td>
 							</tr>
 						</thead>
@@ -77,7 +78,7 @@ const UserOrderDetail = () => {
 										<td>{prod.orders_products.quantity}</td>
 										<td>${prod.orders_products.unit_price}</td>
 										<td>${prod.orders_products.quantity * prod.orders_products.unit_price}</td>
-										<td>{!found && (<Link to={`/review/${prod.id}?game=${prod.name}`}><button>{strings[language].review}</button></Link>)}</td>
+										<td>{!found && (<Link to={`/review/${prod.id}?game=${prod.name}`}><button>{s.review}</button></Link>)}</td>
 									</tr>
 								)
 							})}
@@ -87,14 +88,14 @@ const UserOrderDetail = () => {
 								<td></td>
 								<td></td>
 								<td></td>
-								<td>{strings[language].total}: ${orderInfo?.total_amount}</td>
+								<td>{s.total}: ${orderInfo?.total_amount}</td>
 								<td></td>
 							</tr>
 						</tfoot>
 					</DataTable>
 				</div>
 			</div>
-			<Btn className="btn btn-ppal" onClick={() => history.goBack()}><i className="fas fa-caret-left"></i> {strings[language].goBack}</Btn>
+			<Btn className="btn btn-ppal" onClick={() => history.goBack()}><i className="fas fa-caret-left"></i> {s.goBack}</Btn>
 		</StyledOrderDetail>
 	)
 }

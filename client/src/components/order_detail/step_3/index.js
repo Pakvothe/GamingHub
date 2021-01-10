@@ -9,6 +9,7 @@ import { clearCart } from '../../../redux/actions/cart_actions';
 import strings from './strings';
 
 const Step3 = ({ cart, language }) => {
+	const s = strings[language];
 	const history = useHistory();
 	const dispatch = useDispatch();
 	const [total, setTotal] = useState(0);
@@ -36,7 +37,7 @@ const Step3 = ({ cart, language }) => {
 
 	return (
 		<>
-			<h2>{strings[language].details}</h2>
+			<h2>{s.details}</h2>
 			<StyledSVG src={PurchaseStep3} />
 			<StepTwo>
 				<div>
@@ -44,11 +45,11 @@ const Step3 = ({ cart, language }) => {
 						<h3></h3>
 						<FormStyled>
 							<label>
-								<span>{strings[language].discount}</span>
+								<span>{s.discount}</span>
 								<input type='text' />
 							</label>
 						</FormStyled>
-						<Btn onClick={handleClick} className='btn-ppal'>{strings[language].buy}</Btn>
+						<Btn onClick={handleClick} className='btn-ppal'>{s.buy}</Btn>
 					</aside>
 				</div>
 			</StepTwo>

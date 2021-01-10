@@ -16,7 +16,8 @@ function Reviews({ id }) {
 	}, [])
 
 	const theme = useSelector(state => state.globalReducer.theme)
-	const language = useSelector(state => state.globalReducer.language)
+	const language = useSelector(state => state.globalReducer.language);
+	const s = strings[language];
 	const reviews = useSelector(state => state.productsReducer.reviews.list)
 
 	const [showMore, setShowMore] = useState(false);
@@ -63,11 +64,11 @@ function Reviews({ id }) {
 
 	return (
 		<StyledReviews>
-			<StyledTitle><span>{strings[language].reviews}</span></StyledTitle>
-			<p className="reviews__filter" onClick={handleFilter}>{strings[language].order}
-				<button id="recent" className="filter__recent filter__selected">{strings[language].recent}</button>
-				<button id="high" className="filter__high">{strings[language].higher}</button>
-				<button id="low" className="filter__low">{strings[language].lower}</button>
+			<StyledTitle><span>{s.reviews}</span></StyledTitle>
+			<p className="reviews__filter" onClick={handleFilter}>{s.order}
+				<button id="recent" className="filter__recent filter__selected">{s.recent}</button>
+				<button id="high" className="filter__high">{s.higher}</button>
+				<button id="low" className="filter__low">{s.lower}</button>
 			</p>
 			<div className="reviews__container">
 				{
@@ -84,8 +85,8 @@ function Reviews({ id }) {
 							</span>
 							<ShowMoreText
 								lines={8}
-								more={strings[language].more}
-								less={strings[language].less}
+								more={s.more}
+								less={s.less}
 								className='review__description'
 								expanded={false}
 							>
@@ -97,7 +98,7 @@ function Reviews({ id }) {
 				<div className="w-100 text-center">
 					<Btn className="btn btn-ppal" onClick={handleClick}>
 						{loading && <i className="mr-1 fas fa-circle-notch fa-spin"></i>}
-						{showMore ? strings[language].lessReviews : strings[language].moreReviews}...
+						{showMore ? s.lessReviews : s.moreReviews}...
 						</Btn>
 				</div>
 			</div>
