@@ -1,7 +1,7 @@
 const server = require('express').Router();
 const { Op } = require('sequelize');
 const { Product, Category, Image, Review, User } = require('../db.js');
-
+const { isAuthenticated, isAdmin } = require('../../utils/customMiddlewares');
 //----------"/products"--------------
 
 server.get('/', (req, res, next) => {
@@ -56,9 +56,7 @@ server.post('/cart', (req, res) => {
 		})
 });
 
-server.post('/', (req, res) => {
-	if (!req.user?.is_admin) return res.sendStatus(401);
-
+server.post('/', isAdmin, (req, res) => {
 	const {
 		name,
 		description_es,
@@ -125,52 +123,41 @@ server.post('/', (req, res) => {
 
 server.get('/search', (req, res) => {
 	const { query, limit, offset } = req.query;
-	if (query) {
 
-		let count = 0;
-		Product.count({
-			where: {
-				[Op.or]: [
-					{ name: { [Op.iLike]: `%${query}%` } },
-					{ description_es: { [Op.iLike]: `%${query}%` } },
-					{ description_en: { [Op.iLike]: `%${query}%` } }
-				]
-			}
+	Product.count({
+		where: query !== '' && {
+			[Op.or]: query !== '' && [
+				{ name: { [Op.iLike]: `%${query}%` } },
+				{ description_es: { [Op.iLike]: `%${query}%` } },
+				{ description_en: { [Op.iLike]: `%${query}%` } }
+			]
+		}
+	})
+		.then(count => {
+			Product.findAll({
+				where: query !== '' && {
+					[Op.or]: [
+						{ name: { [Op.iLike]: `%${query}%` } },
+						{ description_es: { [Op.iLike]: `%${query}%` } },
+						{ description_en: { [Op.iLike]: `%${query}%` } }
+					]
+				},
+				include: [{
+					model: Image,
+				}],
+				limit: limit ? limit : null,
+				offset: offset ? offset : null
+			})
+				.then((products) => {
+					res.status(200).json({ count, results: products });
+				})
+				.catch(err => {
+					res.status(500).json({ message: 'Internal server error', })
+				})
 		})
-			.then(data => {
-				count = data;
-			})
-
-
-		Product.findAll({
-			where: {
-				[Op.or]: [
-					{ name: { [Op.iLike]: `%${query}%` } },
-					{ description_es: { [Op.iLike]: `%${query}%` } },
-					{ description_en: { [Op.iLike]: `%${query}%` } }
-				]
-			},
-			include: [{
-				model: Image,
-			}],
-			limit: limit ? limit : null,
-			offset: offset ? offset : null
-		})
-			.then((products) => {
-				res.status(200).json({ count, results: products });
-			})
-			.catch(err => {
-				res.status(500).json({ message: 'Internal server error', })
-			})
-
-	} else {
-		res.status(400).json({ message: "Query is empty" });
-	}
 })
 
-server.put('/:id/active', (req, res) => {
-	if (!req.user?.is_admin) return res.sendStatus(401);
-
+server.put('/:id/active', isAdmin, (req, res) => {
 	const { id } = req.params;
 	Product.findOne({
 		where: { id }
@@ -209,9 +196,7 @@ server.put('/:id/active', (req, res) => {
 		})
 })
 
-server.put('/:id', (req, res) => {
-	if (!req.user?.is_admin) return res.sendStatus(401);
-
+server.put('/:id', isAdmin, (req, res) => {
 	const { id } = req.params;
 	const {
 		name,
@@ -309,9 +294,7 @@ server.put('/:id', (req, res) => {
 })
 
 
-server.post('/:prodId/category/:catId', (req, res) => {
-	if (!req.user?.is_admin) return res.sendStatus(401);
-
+server.post('/:prodId/category/:catId', isAdmin, (req, res) => {
 	let { prodId, catId } = req.params;
 	let prod = Product.findOne({
 		where: { id: prodId }
@@ -326,9 +309,7 @@ server.post('/:prodId/category/:catId', (req, res) => {
 		})
 })
 
-server.delete('/:prodId/category/:catId', (req, res) => {
-	if (!req.user?.is_admin) return res.sendStatus(401);
-
+server.delete('/:prodId/category/:catId', isAdmin, (req, res) => {
 	let { prodId, catId } = req.params;
 	let prod = Product.findOne({
 		where: { id: prodId }
@@ -343,9 +324,7 @@ server.delete('/:prodId/category/:catId', (req, res) => {
 		})
 })
 
-server.delete('/:id', (req, res) => {
-	if (!req.user?.is_admin) return res.sendStatus(401);
-
+server.delete('/:id', isAdmin, (req, res) => {
 	const prodId = req.params.id;
 	Product.destroy({
 		where: {
@@ -404,9 +383,7 @@ server.get('/:id', (req, res) => {
 		});
 });
 
-server.delete('/image/:id', (req, res) => {
-	if (!req.user?.is_admin) return res.sendStatus(401);
-
+server.delete('/image/:id', isAdmin, (req, res) => {
 	const imgId = req.params.id;
 	Image.destroy({
 		where: { id: imgId },
@@ -423,8 +400,7 @@ server.delete('/image/:id', (req, res) => {
 	});
 });
 
-server.post('/:id/review', (req, res) => {
-	if (!req.user) return res.sendStatus(401);
+server.post('/:id/review', isAuthenticated, (req, res) => {
 	const { id: productId } = req.params;
 	const { id: userId } = req.user;
 	const { score, description } = req.body;
@@ -453,10 +429,8 @@ server.post('/:id/review', (req, res) => {
 
 });
 
-server.put('/reviews/:id', (req, res) => {
-	if (!req.user) return res.sendStatus(401);
+server.put('/reviews/:id', isAuthenticated, (req, res) => {
 	const { id } = req.params;
-
 
 	Review.update(req.body, {
 		where: {
@@ -477,8 +451,7 @@ server.put('/reviews/:id', (req, res) => {
 
 });
 
-server.delete('/reviews/:id', (req, res) => {
-	if (!req.user) return res.sendStatus(401);
+server.delete('/reviews/:id', isAuthenticated, (req, res) => {
 	const { id } = req.params;
 
 	Review.destroy({

@@ -1,11 +1,10 @@
 const server = require('express').Router();
 const { Op } = require('sequelize');
 const { Order, Product, Orders_products, Review } = require('../db.js');
+const { isAuthenticated, isAdmin } = require('../../utils/customMiddlewares');
 //----------"/orders"--------------
 
-server.post('/', async (req, res) => {
-	if (!req.user) return res.sendStatus(401);
-
+server.post('/', isAuthenticated, async (req, res) => {
 	const order = req.body;
 	const { products } = order;
 	delete order.products;
@@ -36,8 +35,7 @@ server.post('/', async (req, res) => {
 		})
 });
 
-server.get('/', (req, res) => {
-	if (!req.user) return res.sendStatus(401);
+server.get('/', isAuthenticated, (req, res) => {
 	const { name, order } = req.query;
 
 	Order.findAll({
@@ -64,14 +62,13 @@ server.get('/', (req, res) => {
 		})
 });
 
-server.get('/:orderId', (req, res) => {
-	if (!req.user) return res.sendStatus(401);
-
+server.get('/:orderId', isAuthenticated, (req, res) => {
 	const { orderId } = req.params
 
 	Order.findOne({
 		where: {
-			id: orderId
+			id: orderId,
+			userId: req.user.id
 		},
 		include: [
 			{
@@ -104,7 +101,7 @@ server.get('/:orderId', (req, res) => {
 		})
 })
 
-server.put('/:id', (req, res) => {
+server.put('/:id', isAuthenticated, (req, res) => {
 	const { id } = req.params;
 	const orderToUpdate = req.body;
 	if (!+id) return res.status(400).json({ message: "Bad Request" });
