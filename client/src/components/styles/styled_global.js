@@ -157,6 +157,39 @@ export const Btn = styled.button`
 		height: 25px;
 		fill: currentColor;
 	}
+
+	&.btn-tick {
+		position: relative;
+		&::after {
+			visibility: hidden;
+			position: absolute;
+			content: '\f00c';
+			color: var(--clr-success);
+			font-weight: 400;
+			font-size: 1.2em;
+			font-family: 'font awesome 5 pro';
+			animation: playtick 1.4s;
+			right: -30px;
+		}
+
+		@keyframes playtick {
+			0% {
+				visibility: visible;
+			}
+
+			40% {
+				transform: rotateZ(20deg);
+			}
+			60% {
+				transform: rotateZ(0deg);
+			}
+
+			100%{
+
+				visibility: visible;
+			}
+		}
+	}
 `
 
 export const DataTable = styled.table`
