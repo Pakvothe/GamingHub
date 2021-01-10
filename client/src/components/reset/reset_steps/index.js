@@ -20,7 +20,7 @@ const Reset_steps = ({ handleSubmit, step, language, loading, buttonRef }) => {
 
 	const formSubmit = (ev) => {
 		ev.preventDefault();
-		handleSubmit(input, step);
+		error.length === 0 && handleSubmit(input, step);
 		setInput('');
 	}
 

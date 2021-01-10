@@ -47,9 +47,9 @@ const Reset = () => {
 					})
 					.catch((err) => {
 						if (err.response.status === 404) {
-							alert('Please enter the email linked to your account');
+							swals.WARNING('Please enter the email linked to your account')
 						} else {
-							alert('Oops, something went wrong');
+							swals.OOPS(language);
 						}
 					})
 					.finally(() => setLoading(false));
@@ -67,8 +67,12 @@ const Reset = () => {
 							})
 						}
 					})
-					.catch(() => {
-						alert('Oops, something went wrong')
+					.catch((err) => {
+						if (err.response.status === 400) {
+							swals.WARNING('El dato que ha introducido no es valido')
+						} else {
+							swals.OOPS(language);
+						}
 					})
 					.finally(() => setLoading(false));
 				break;
@@ -83,8 +87,8 @@ const Reset = () => {
 								})
 						}
 					})
-					.catch((err) => {
-						alert(err);
+					.catch(() => {
+						swals.OOPS(language);
 					})
 					.finally(() => setLoading(false));
 				break;

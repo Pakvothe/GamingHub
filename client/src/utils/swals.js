@@ -19,5 +19,12 @@ const WARNING = (title, text, btn = 'Ok') => {
 		confirmButtonText: btn,
 	})
 }
+const OOPS = (language) => {
+	if (language === 'en') {
+		WARNING('Oops, something went wrong');
+	} else {
+		WARNING('Oh, algo ha fallado');
+	}
+}
 
-export default { OK: OK, WARNING: WARNING }
+export default { OK: OK, WARNING: WARNING, OOPS: OOPS }
