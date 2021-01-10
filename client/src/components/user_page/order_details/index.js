@@ -12,6 +12,7 @@ const UserOrderDetail = () => {
 	const { id } = useParams();
 
 	const user = useSelector(state => state.usersReducer.user.info);
+	const language = useSelector(state => state.globalReducer.language);
 	const orderInfo = useSelector(state => state.ordersReducer.order.info);
 	const orderError = useSelector(state => state.ordersReducer.order.error);
 	const orderLoading = useSelector(state => state.ordersReducer.order.isLoading);
@@ -27,30 +28,30 @@ const UserOrderDetail = () => {
 
 	return (
 		<StyledOrderDetail>
-			<h2>{strings[language].orderNumber} {id}</h2>
+			<h2>{strings[language].title} {id}</h2>
 			<div className='tables-container'>
 				<div>
-					<h3>{strings[language].details}</h3>
+					<h3>{strings[language].subtitleDetails}</h3>
 					<DataTable className='table-small'>
 						<tbody>
 							<tr>
-								<td>{strings[language].date}</td>
+								<td>{strings[language].orderDate}</td>
 								<td>{orderInfo?.createdAt?.split('T')[0]}</td>
 							</tr>
 							<tr>
-								<td>{strings[language].totalPrice}</td>
+								<td>{strings[language].orderTotalAmount}</td>
 								<td>${orderInfo?.total_amount}</td>
 							</tr>
 							<tr>
-								<td>{strings[language].state}</td>
+								<td>{strings[language].orderStatus}</td>
 								<td>{orderInfo?.state}</td>
 							</tr>
 							<tr>
-								<td>{strings[language].payment}</td>
+								<td>{strings[language].orderPayment}</td>
 								<td>{orderInfo?.payment_method}</td>
 							</tr>
 							<tr>
-								<td>{strings[language].totalQuantity}</td>
+								<td>{strings[language].orderQuantity}</td>
 								<td>{orderInfo?.products?.length}</td>
 							</tr>
 						</tbody>
@@ -61,10 +62,10 @@ const UserOrderDetail = () => {
 					<DataTable>
 						<thead>
 							<tr>
-								<td>{strings[language].productTitle}</td>
-								<td>{strings[language].productQuantity}</td>
-								<td>{strings[language].unitPrice}</td>
-								<td>{strings[language].price}</td>
+								<td>{strings[language].tableTitle}</td>
+								<td>{strings[language].tableQuantity}</td>
+								<td>{strings[language].tableUnitPrice}</td>
+								<td>{strings[language].tableTotalPrice}</td>
 								<td></td>
 							</tr>
 						</thead>
@@ -94,7 +95,7 @@ const UserOrderDetail = () => {
 					</DataTable>
 				</div>
 			</div>
-			<Btn className="btn btn-ppal" onClick={() => history.goBack()}><i className="fas fa-caret-left"></i> Volver</Btn>
+			<Btn className="btn btn-ppal" onClick={() => history.goBack()}><i className="fas fa-caret-left"></i> {strings[language].goBack}</Btn>
 		</StyledOrderDetail>
 	)
 }

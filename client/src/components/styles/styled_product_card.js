@@ -4,7 +4,7 @@ export const ProductCardStyled = styled.article`
 	font-family: Poppins, sans-serif;
 	font-size: 1.2em;
 	border: 3px solid var(--clr-primary);
-	width: 250px;
+	width: 260px;
 	border-radius: 10px;
 	overflow: hidden;
 	box-shadow: 5px 5px 0px var(--clr-primary);

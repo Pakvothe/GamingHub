@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import { addSerial } from '../../../../redux/actions/products_actions';
+import { addSerial, clearErrorSerial } from '../../../../redux/actions/products_actions';
 import { Btn, FormStyled } from '../../../styles/styled_global'
 import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
-import { clearErrorSerial } from './../../../../redux/actions/products_actions';
+import strings from './strings';
 
 const AdminProductStockForm = () => {
 	const { id } = useParams();
 	const dispatch = useDispatch();
 	const history = useHistory();
+	const language = useSelector(state => state.globalReducer.language);
 	const error = useSelector(state => state.productsReducer.serials.error);
 	const serials = useSelector(state => state.productsReducer.serials.list);
 
@@ -39,12 +40,12 @@ const AdminProductStockForm = () => {
 	useEffect(() => {
 		error && Swal.fire({
 			heightAuto: false,
-			title: 'Serial repetido!',
-			text: `El serial ${error.value} ya existe!`,
+			title: strings[language].alertTitle,
+			text: `${strings[language].alertTitle} ${error.value}`,
 			icon: 'warning',
 			confirmButtonColor: '#3085d6',
 			cancelButtonColor: '#d33',
-			confirmButtonText: 'OK',
+			confirmButtonText: strings[language].alertButton,
 		}).then(() => {
 			dispatch(clearErrorSerial())
 		})
@@ -52,15 +53,15 @@ const AdminProductStockForm = () => {
 
 	return (
 		<>
-			<h1 className="admin-h1">Agregar serials</h1>
-			<p style={{ marginBottom: '2em' }}>Agregar cada serial en una línea distinta.</p>
+			<h1 className="admin-h1">{strings[language].title}</h1>
+			<p style={{ marginBottom: '2em' }}>{strings[language].desc}</p>
 			<FormStyled onSubmit={handleSubmit} method="POST" autoComplete="off">
 				<label>
 					<span>Serials:</span>
 					<textarea type='text' name='serial' value={serial} onChange={handleInput} required>
 					</textarea>
 				</label>
-				<Btn type='submit' className="btn-ppal">Agregar</Btn>
+				<Btn type='submit' className="btn-ppal">{strings[language].addButton}</Btn>
 			</FormStyled>
 		</>
 	)
