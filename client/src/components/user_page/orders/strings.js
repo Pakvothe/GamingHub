@@ -1,19 +1,19 @@
 const strings = {
 	en: {
-		title: "Orders",
-		id: "Nº Order",
+		title: "Your Orders",
+		id: "Order #",
 		mail: "Email",
 		total: "Total",
-		state: "State",
+		state: "Status",
 		payment: "Payment Method",
 	},
 	es: {
-		title: "Órdenes",
+		title: "Tus órdenes",
 		id: "Nº Orden",
 		mail: "Email",
 		total: "Total",
 		state: "Estado",
-		payment: "Metodo de Pago",
+		payment: "Método de Pago",
 	}
 };
 

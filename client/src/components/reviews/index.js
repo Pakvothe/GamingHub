@@ -1,25 +1,78 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import StarRatings from "react-star-ratings";
 import ShowMoreText from 'react-show-more-text';
-import { StyledTitle } from '../styles/styled_global';
+import { Btn, StyledTitle } from '../styles/styled_global';
 import { StyledReviews } from '../styles/styled_reviews';
 import strings from './strings'
-function Reviews({ reviews }) {
+import { getProduct, getReviews } from '../../redux/actions/products_actions';
+
+function Reviews({ id }) {
+
+	const dispatch = useDispatch()
+
+	useEffect(() => {
+		dispatch(getReviews(id))
+	}, [])
+
 	const theme = useSelector(state => state.globalReducer.theme)
-	const language = useSelector(state => state.globalReducer.language)
+	const language = useSelector(state => state.globalReducer.language);
+	const s = strings[language];
+	const reviews = useSelector(state => state.productsReducer.reviews.list)
+
+	const [showMore, setShowMore] = useState(false);
+	const [loading, setLoading] = useState(false);
+
+	const filters = {
+		recent: {
+			name: 'updatedAt',
+			order: 'DESC'
+		},
+		high: {
+			name: 'score',
+			order: 'DESC'
+		},
+		low: {
+			name: 'score',
+			order: 'ASC'
+		}
+
+	}
+
+	const handleClick = () => {
+		setLoading(true);
+		const delay = new Promise(resolve => {
+			setTimeout(() => resolve('finish'), 500);
+		})
+			.then(() => {
+				setShowMore(prev => !prev)
+				setLoading(false);
+			})
+	}
+
+	const handleFilter = (ev) => {
+		for (const key in filters) {
+			let element = document.getElementById(key);
+			if (ev.target.id === key) {
+				element.classList.toggle('filter__selected', true)
+			} else {
+				element.classList.remove('filter__selected');
+			}
+		}
+		dispatch(getReviews(id, { name: filters[ev.target.id].name, order: filters[ev.target.id].order }))
+	}
 
 	return (
 		<StyledReviews>
-			<StyledTitle><span>{strings[language].reviews}</span></StyledTitle>
-			<p className="reviews__filter">{strings[language].order}
-				<button className="filter__recent filter__selected">{strings[language].recent}</button>
-				<button className="filter__high">{strings[language].higher}</button>
-				<button className="filter__low">{strings[language].lower}</button>
+			<StyledTitle><span>{s.reviews}</span></StyledTitle>
+			<p className="reviews__filter" onClick={handleFilter}>{s.order}
+				<button id="recent" className="filter__recent filter__selected">{s.recent}</button>
+				<button id="high" className="filter__high">{s.higher}</button>
+				<button id="low" className="filter__low">{s.lower}</button>
 			</p>
 			<div className="reviews__container">
 				{
-					reviews.map((review, i) => (
+					!!reviews.length && reviews.slice(0, showMore ? reviews.length : 4).map((review, i) => (
 						<div className="review" key={i}>
 							<p className="review__username">{review.user.first_name}</p>
 							<span className="review__stars">
@@ -30,11 +83,10 @@ function Reviews({ reviews }) {
 									starSpacing="0"
 								/>
 							</span>
-							{/* <p className="review__description">{review.description}</p> */}
 							<ShowMoreText
 								lines={8}
-								more={strings[language].more}
-								less={strings[language].less}
+								more={s.more}
+								less={s.less}
 								className='review__description'
 								expanded={false}
 							>
@@ -43,6 +95,12 @@ function Reviews({ reviews }) {
 						</div>
 					))
 				}
+				<div className="w-100 text-center">
+					<Btn className="btn btn-ppal" onClick={handleClick}>
+						{loading && <i className="mr-1 fas fa-circle-notch fa-spin"></i>}
+						{showMore ? s.lessReviews : s.moreReviews}...
+						</Btn>
+				</div>
 			</div>
 		</StyledReviews>
 	)

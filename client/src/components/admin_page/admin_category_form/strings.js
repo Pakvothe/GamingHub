@@ -1,7 +1,7 @@
 const strings = {
 	en: {
-		name_en: "English Name",
-		name_es: "Spanish Name",
+		name_en: "Name in English",
+		name_es: "Name in Spanish",
 		buttonAdd: "Add Category",
 		buttonEdit: "Edit Category"
 	},

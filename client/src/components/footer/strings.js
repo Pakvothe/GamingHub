@@ -8,7 +8,7 @@ const strings = {
 		contact: 'Contact us'
 	},
 	es: {
-		categories: 'Categorias',
+		categories: 'Categorías',
 		offers: 'Ofertas',
 		terms: 'Términos y condiciones',
 		privacy: 'Privacidad',

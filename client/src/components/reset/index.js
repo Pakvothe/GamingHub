@@ -97,7 +97,7 @@ const Reset = () => {
 		<>
 			<ResetMain>
 				<h2>{s.title}</h2>
-				<Reset_steps handleSubmit={handleSubmits} step={3} language={language} loading={loading} buttonRef={buttonRef} />
+				<Reset_steps handleSubmit={handleSubmits} step={data.step} language={language} loading={loading} buttonRef={buttonRef} />
 			</ResetMain>
 		</>
 	)

@@ -12,6 +12,7 @@ import PurchaseStep2 from '../../../assets/img/purchase-steps-2.svg';
 const Step2 = ({ cart, language }) => {
 	const dispatch = useDispatch();
 	const history = useHistory();
+	const s = strings[language];
 
 	const handleSubmit = (e, credCard) => {
 		e.preventDefault();
@@ -30,7 +31,7 @@ const Step2 = ({ cart, language }) => {
 
 	return (
 		<>
-			<h2>{strings[language].details}</h2>
+			<h2>{s.details}</h2>
 			<StyledSVG src={PurchaseStep2} />
 			<StepTwo>
 				<CreditCard language={language} handleSubmit={handleSubmit} />

@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { deleteProduct, toggleActiveProduct, getProductsByName, getProducts } from '../../../redux/actions/products_actions';
 import { Btn, DataTable } from '../../styles/styled_global';
 import { Link } from 'react-router-dom';
 import SearchBar from '../../search_bar';
 import { useToasts } from 'react-toast-notifications';
+import strings from './strings';
 
 const AdminProductList = ({ products }) => {
 	const dispatch = useDispatch();
+	const language = useSelector(state => state.globalReducer.language);
+	const s = strings[language];
 	const { addToast } = useToasts();
 
 	const [orderSort, setOrderSort] = useState({
@@ -17,9 +20,9 @@ const AdminProductList = ({ products }) => {
 	})
 
 	const handleDelete = (prod) => {
-		if (window.confirm(`Are you sure you want to delete ${prod.name}?`)) {
+		if (window.confirm(`${s.swDeleteTitle} ${prod.name}?`)) {
 			dispatch(deleteProduct(prod.id));
-			addToast(`product deleted successfully`, { appearance: 'info' })
+			addToast(s.toastProductDeleted, { appearance: 'success' })
 		}
 	}
 
@@ -48,16 +51,16 @@ const AdminProductList = ({ products }) => {
 
 	return (
 		<>
-			<h1 className='admin-h1'>productos</h1>
+			<h1 className='admin-h1'>{s.title}</h1>
 			<div style={{ display: 'flex', justifyContent: 'space-between' }}>
-				<Link to="/admin/product"><Btn className="btn-ppal" >Agregar Producto</Btn></Link>
+				<Link to="/admin/product"><Btn className="btn-ppal">{s.addProduct}</Btn></Link>
 				<SearchBar />
 			</div>
 			<DataTable>
 				<thead>
 					<tr onClick={handleSort}>
 						<td id="id" className="cell-small icon down active">ID</td>
-						<td id="name" className="icon down">Título</td>
+						<td id="name" className="icon down">{s.tableTitle}</td>
 						<td id="stock" className="cell-small icon down">Stock</td>
 						<td className="cell-small">Visible</td>
 						<td></td>
@@ -73,15 +76,14 @@ const AdminProductList = ({ products }) => {
 							<td>
 								<ul>
 									<li><Link to={`/admin/product/${prod.id}/stock`}><button>Stock</button></Link></li>
-									<li><Link to={`/admin/product/${prod.id}`}><button>Editar</button></Link></li>
-									<li><button onClick={() => handleDelete(prod)}>Eliminar</button></li>
+									<li><Link to={`/admin/product/${prod.id}`}><button>{s.tableEditButton}</button></Link></li>
+									<li><button onClick={() => handleDelete(prod)}>{s.tableDeleteButton}</button></li>
 								</ul>
 							</td>
 						</tr>
 					))}
 				</tbody>
 			</DataTable>
-
 		</>
 	);
 };

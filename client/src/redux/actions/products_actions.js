@@ -18,6 +18,7 @@ import {
 	GET_SERIALS,
 	ERROR_SERIAL,
 	CLEAR_ERROR_SERIAL,
+	GET_REVIEWS,
 	BEARER,
 	QUERY_FUNCTION
 } from './../constants';
@@ -87,10 +88,10 @@ export const toggleActiveProduct = (payload) => {
 	}
 }
 
-export const getProduct = (payload) => {
+export const getProduct = (payload, query) => {
 	return function (dispatch) {
 		dispatch({ type: LOADING_PRODUCT });
-		return axios.get(`${REACT_APP_API_URL}/products/${payload}`)
+		return axios.get(`${REACT_APP_API_URL}/products/${payload}${QUERY_FUNCTION(query)}`)
 			.then(product => {
 				dispatch({
 					type: GET_PRODUCT,
@@ -257,4 +258,16 @@ export const editSerial = (payload) => {
 
 export const clearErrorSerial = () => {
 	return { type: CLEAR_ERROR_SERIAL }
+}
+
+//REVIEWS
+
+export const getReviews = (payload, query) => {
+	return function (dispatch) {
+		return axios.get(`${REACT_APP_API_URL}/reviews/${payload}${QUERY_FUNCTION(query)}`)
+			.then((reviews) => {
+				dispatch({ type: GET_REVIEWS, payload: reviews.data })
+			})
+			.catch() //check errors
+	}
 }

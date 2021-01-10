@@ -31,6 +31,7 @@ function AdminRoutes() {
 	const user = useSelector((state) => state.usersReducer.user.info);
 	const userLoading = useSelector((state) => state.usersReducer.user.isLoading);
 	const language = useSelector((state) => state.globalReducer.language);
+	const s = strings[language];
 
 	useEffect(() => {
 		if (!JSON.parse(localStorage.getItem('jwt'))) history.push('/');
@@ -50,7 +51,7 @@ function AdminRoutes() {
 	if (userLoading) return <StyledLoader
 		active={userLoading}
 		spinner
-		text={strings[language].loading}
+		text={s.loading}
 		className='loading__overlay'
 		classNamePrefix='loading__'
 	/>
