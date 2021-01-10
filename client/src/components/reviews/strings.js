@@ -7,6 +7,8 @@ export default {
 		lower: 'Lowest',
 		more: 'Show more',
 		less: 'Show less',
+		moreReviews: 'Show more reviews',
+		lessReviews: 'Show less reviews'
 	},
 	es: {
 		reviews: 'Reseñas sobre este juego',
@@ -15,6 +17,8 @@ export default {
 		higher: 'Más altas',
 		lower: 'Más bajas',
 		more: 'Ver más',
-		less: 'Ver menos'
+		less: 'Ver menos',
+		moreReviews: 'Mostrar mas reseñas',
+		lessReviews: 'Mostrar menos reseñas'
 	}
 }
