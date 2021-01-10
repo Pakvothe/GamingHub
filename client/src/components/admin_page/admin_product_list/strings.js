@@ -10,7 +10,8 @@ const strings = {
 		swDeleteButtonConfirm: 'Yes, delete it',
 		swDeleteButtonCancel: 'Cancel',
 		toastProductDeleted: 'Product deleted successfully',
-		offers: 'Offers'
+		offers: 'Offers',
+		offer: 'Offer'
 	},
 
 	es: {
@@ -24,7 +25,8 @@ const strings = {
 		swDeleteButtonConfirm: 'Sí, borrarlo',
 		swDeleteButtonCancel: 'Cancelar',
 		toastProductDeleted: 'Producto eliminado correctamente',
-		offers: 'Ofertas'
+		offers: 'Ofertas',
+		offer: 'Oferta'
 	}
 };
 

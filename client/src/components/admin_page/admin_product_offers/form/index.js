@@ -78,37 +78,58 @@ const AdminProductOfferForm = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		let randomID = uuidv4();
-		const uploadTask = storage.ref(`/bannerImages/${randomID}`).put(imageAsFile)
-		uploadTask.on('state_changed',
-			(snapShot) => { },
-			(err) => { alert(s.imageError) },
-			() => {
-				storage.ref('bannerImages').child(randomID).getDownloadURL()
-					.then(fireBaseUrl => {
-						dispatch(addDiscount({
-							body: {
-								...input,
-								banner_image: fireBaseUrl
-							},
-							id
-						}))
-							.then(status => {
-								switch (status) {
-									case 200:
-										addToast(`Offer ${product.real_price ? "edited" : "added"} successfully`, { appearance: 'success' })
-										setToAdmin(true);
-										break;
-									case 404:
-										storage.ref('bannerImages').child(randomID).delete();
-										return addToast(`Product not found`, { appearance: 'error' })
-									case 500:
-									default:
-										storage.ref('bannerImages').child(randomID).delete();
-										return addToast(`Internal server error`, { appearance: 'error' })
-								}
-							})
-					});
-			})
+		let bannerImage = product.banner_image;
+		if (imageAsFile) {
+			const uploadTask = storage.ref(`/bannerImages/${randomID}`).put(imageAsFile)
+			uploadTask.on('state_changed',
+				(snapShot) => { },
+				(err) => { alert(s.imageError) },
+				() => {
+					storage.ref('bannerImages').child(randomID).getDownloadURL()
+						.then(fireBaseUrl => {
+							dispatch(addDiscount({
+								body: {
+									...input,
+									banner_image: fireBaseUrl
+								},
+								id
+							}))
+								.then(status => {
+									switch (status) {
+										case 200:
+											if (bannerImage) storage.refFromURL(bannerImage).delete();
+											addToast(`Offer ${product.real_price ? "edited" : "added"} successfully`, { appearance: 'success' })
+											setToAdmin(true);
+											break;
+										case 404:
+											storage.ref('bannerImages').child(randomID).delete();
+											return addToast(`Product not found`, { appearance: 'error' })
+										case 500:
+										default:
+											storage.ref('bannerImages').child(randomID).delete();
+											return addToast(`Internal server error`, { appearance: 'error' })
+									}
+								})
+						});
+				})
+		} else {
+			dispatch(addDiscount({ body: { ...input, banner_image: product.banner_image }, id }))
+				.then(status => {
+					switch (status) {
+						case 200:
+							addToast(`Offer ${product.real_price ? "edited" : "added"} successfully`, { appearance: 'success' })
+							setToAdmin(true);
+							break;
+						case 404:
+							storage.ref('bannerImages').child(randomID).delete();
+							return addToast(`Product not found`, { appearance: 'error' })
+						case 500:
+						default:
+							storage.ref('bannerImages').child(randomID).delete();
+							return addToast(`Internal server error`, { appearance: 'error' })
+					}
+				})
+		}
 	}
 
 	const swalDeleteImg = {

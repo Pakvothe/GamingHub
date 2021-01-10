@@ -78,7 +78,7 @@ const AdminProductList = ({ products }) => {
 							<td><input type="checkbox" checked={prod.is_active} onChange={handleInput} name={prod.id} /></td>
 							<td>
 								<ul>
-									<li><Link to={`/admin/product/${prod.id}/offer/new`}><button>Oferta</button></Link></li>
+									<li><Link to={`/admin/product/${prod.id}/offer/new`}><button>{s.offer}</button></Link></li>
 									<li><Link to={`/admin/product/${prod.id}/stock`}><button>Stock</button></Link></li>
 									<li><Link to={`/admin/product/${prod.id}`}><button>{s.tableEditButton}</button></Link></li>
 									<li><button onClick={() => handleDelete(prod)}>{s.tableDeleteButton}</button></li>
