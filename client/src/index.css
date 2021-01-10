@@ -3,6 +3,7 @@
 	--clr-primary-2: #763FC7;
 	--clr-secondary: #5630E4;
 	--clr-secondary-2: #4424B9;
+	--clr-secondary-3: #5a50f0;
 	--clr-white: #F5F4F8;
 	--clr-middle: #7E7E7E;
 	--clr-dark: #1B1A1F;
@@ -168,4 +169,119 @@ body {
 .star-container svg {
 	stroke: rgba(0,0,0,0.2);
 	stroke-width: 2px;
+}
+
+
+/*
+
+---------- Sweet Alert 2 -----------
+Algunas cosas tienen más especificidad de la deseada,
+así que para customizar las alertas a veces hay que
+ser más específicos con los selectores.
+
+Clase del overlay del fondo: .swal-backdrop-show
+*/
+
+div.swal2-container.swal2-backdrop-show {
+	background: rgba(0,0,0,.4);
+}
+
+div.swal2-popup {
+	background-color: var(--clr-white);
+	border-radius: 1em;
+	border: 5px solid var(--clr-primary);
+	box-shadow: 0 0 50px rgba(0,0,0,.2);
+	font-size: 0.85em;
+	padding: 0;
+}
+
+div.swal2-header {
+	padding: 1.5em 1.5em 0;
+}
+
+div.swal2-content {
+	padding: 0 1.5em;
+}
+
+h2.swal2-title {
+	color: var(--clr-dark);
+	font-weight: 900;
+	margin-bottom: .25em;
+}
+
+div.swal2-actions {
+	margin-top: 1.5em;
+	border-top: 1px solid #DDD;
+	padding: 1.5em;
+}
+
+div.swal2-actions button.swal2-styled {
+	font-weight: 700;
+	border: 3px solid;
+	border-radius: 10em;
+	padding: .7em 1.2em;
+	transition: transform 25ms ease, box-shadow 25ms ease;
+	min-width: 100px;
+	cursor: pointer;
+	font-size: 1em;
+	letter-spacing: 0.03em;
+	transition: background-color .3s ease,
+				transform .1s ease;
+	box-shadow: 3px 3px 0px rgba(0,0,0,.1);
+}
+
+div.swal2-actions button.swal2-styled:active {
+	transform: translate(3px, 3px);
+	box-shadow: none;
+}
+
+button.swal2-confirm {
+	background: transparent !important;
+	border-color: var(--clr-secondary-3) !important;
+	color: var(--clr-secondary-3) !important;
+}
+
+button.swal2-confirm:hover, button.swal2-confirm:focus  {
+	background-color: var(--clr-secondary-3) !important;
+	color: var(--clr-white) !important;
+
+}
+
+button.swal2-cancel {
+	background: transparent !important;
+	border-color: var(--clr-error) !important;
+	color: var(--clr-error) !important;
+}
+
+button.swal2-cancel:hover, button.swal2-cancel:focus {
+	background-color: var(--clr-error) !important;
+	color: var(--clr-white) !important;
+}
+
+div.swal2-icon {
+	font-family: Poppins, sans-serif;
+	font-weight: 700;
+}
+
+div.swal2-icon.swal2-warning,
+div.swal2-icon.swal2-error {
+	color: var(--clr-error);
+	border-color: var(--clr-error);
+}
+
+.swal2-icon.swal2-error [class^="swal2-x-mark-line"] { background-color: var(--clr-error) !important  }
+
+div.swal2-icon.swal2-info {
+	color: var(--clr-secondary-3);
+	border-color: var(--clr-secondary-3);
+}
+
+div.swal2-icon.swal2-success, div.swal2-icon div.swal2-success-ring {
+	color: var(--clr-success);
+	border-color: var(--clr-success) !important;
+}
+
+div.swal2-icon.swal2-question {
+	color: var(--clr-primary);
+	border-color: var(--clr-primary);
 }

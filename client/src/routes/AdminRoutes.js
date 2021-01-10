@@ -41,7 +41,7 @@ function AdminRoutes() {
 		if (user.is_admin === true) {
 			dispatch(getProducts({ isActive: true }));
 			dispatch(getCategories());
-			dispatch(getOrders());
+			dispatch(getOrders({ all: true }));
 			dispatch(getUsers());
 		}
 	}, [user]);
