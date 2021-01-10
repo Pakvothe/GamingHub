@@ -53,7 +53,10 @@ const AdminProductList = ({ products }) => {
 		<>
 			<h1 className='admin-h1'>{s.title}</h1>
 			<div style={{ display: 'flex', justifyContent: 'space-between' }}>
-				<Link to="/admin/product"><Btn className="btn-ppal">{s.addProduct}</Btn></Link>
+				<div>
+					<Link to="/admin/product"><Btn className="btn-ppal mr-1">{s.addProduct}</Btn></Link>
+					<Link to="/admin/product/offer/list"><Btn className="btn-ppal">{s.offers}</Btn></Link>
+				</div>
 				<SearchBar />
 			</div>
 			<DataTable>
@@ -75,6 +78,7 @@ const AdminProductList = ({ products }) => {
 							<td><input type="checkbox" checked={prod.is_active} onChange={handleInput} name={prod.id} /></td>
 							<td>
 								<ul>
+									<li><Link to={`/admin/product/${prod.id}/offer/new`}><button>{s.offer}</button></Link></li>
 									<li><Link to={`/admin/product/${prod.id}/stock`}><button>Stock</button></Link></li>
 									<li><Link to={`/admin/product/${prod.id}`}><button>{s.tableEditButton}</button></Link></li>
 									<li><button onClick={() => handleDelete(prod)}>{s.tableDeleteButton}</button></li>

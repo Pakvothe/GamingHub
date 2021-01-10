@@ -141,8 +141,8 @@ const AdminProductForm = ({ categories }) => {
 			}
 			const uploadTask = storage.ref(`/images/${imageAsFile.name}`).put(imageAsFile)
 			uploadTask.on('state_changed',
-				(snapShot) => { console.log(snapShot) },
-				(err) => { console.log(err) },
+				(snapShot) => { },
+				(err) => { },
 				() => {
 					storage.ref('images').child(imageAsFile.name).getDownloadURL()
 						.then(fireBaseUrl => {

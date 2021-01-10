@@ -12,6 +12,9 @@ import {
 	GET_FILTER_PRODUCTS_ERROR,
 	EMPTY_FILTER,
 	LOADING_FILTER_PRODUCTS,
+	GET_DISCOUNTS,
+	LOADING_DISCOUNTS,
+	GET_DISCOUNTS_ERROR,
 	TOGGLE_ACTIVE_PRODUCT,
 	GET_SERIALS,
 	GET_REVIEWS,
@@ -35,6 +38,11 @@ const initialState = {
 		productList: [],
 		error: false,
 		filter: 'todos'
+	},
+	productsDiscount: {
+		isLoading: false,
+		list: [],
+		error: false,
 	},
 	serials: {
 		isLoading: false,
@@ -186,6 +194,33 @@ const productsReducer = (state = initialState, action) => {
 					filter: action.payload.filter
 				},
 				count: action.payload.count
+			}
+		case GET_DISCOUNTS:
+			return {
+				...state,
+				productsDiscount: {
+					isLoading: true,
+					list: action.payload,
+					error: false
+				}
+			}
+		case LOADING_DISCOUNTS:
+			return {
+				...state,
+				productsDiscount: {
+					isLoading: true,
+					list: [],
+					error: false
+				}
+			}
+		case GET_DISCOUNTS_ERROR:
+			return {
+				...state,
+				productsDiscount: {
+					isLoading: false,
+					list: [],
+					error: true
+				}
 			}
 		case EMPTY_FILTER:
 			return {

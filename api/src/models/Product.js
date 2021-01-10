@@ -39,6 +39,15 @@ module.exports = (sequelize) => {
 		is_active: {
 			type: D.BOOLEAN,
 			allowNull: false
+		},
+		real_price: {
+			type: D.REAL,
+		},
+		banner_image: {
+			type: D.STRING,
+			validate: {
+				isUrl: true
+			}
 		}
 	});
 };

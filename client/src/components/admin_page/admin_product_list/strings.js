@@ -9,7 +9,9 @@ const strings = {
 		swDeleteText: 'This action cannot be undone.',
 		swDeleteButtonConfirm: 'Yes, delete it',
 		swDeleteButtonCancel: 'Cancel',
-		toastProductDeleted: 'Product deleted successfully'
+		toastProductDeleted: 'Product deleted successfully',
+		offers: 'Offers',
+		offer: 'Offer'
 	},
 
 	es: {
@@ -22,7 +24,9 @@ const strings = {
 		swDeleteText: 'Esta acción no se puede deshacer.',
 		swDeleteButtonConfirm: 'Sí, borrarlo',
 		swDeleteButtonCancel: 'Cancelar',
-		toastProductDeleted: 'Producto eliminado correctamente'
+		toastProductDeleted: 'Producto eliminado correctamente',
+		offers: 'Ofertas',
+		offer: 'Oferta'
 	}
 };
 

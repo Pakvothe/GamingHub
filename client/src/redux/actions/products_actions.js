@@ -13,6 +13,9 @@ import {
 	LOADING_PRODUCTS,
 	GET_FILTER_PRODUCTS_ERROR,
 	GET_PRODUCTS_ERROR,
+	LOADING_DISCOUNTS,
+	GET_DISCOUNTS,
+	GET_DISCOUNTS_ERROR,
 	TOGGLE_ACTIVE_PRODUCT,
 	DELETE_IMAGE,
 	GET_SERIALS,
@@ -180,7 +183,6 @@ export const emptyFilter = () => {
 }
 
 export const getProducts = (payload) => {
-
 	return function (dispatch) {
 		dispatch({ type: LOADING_PRODUCTS });
 		return axios.get(`${REACT_APP_API_URL}/products${QUERY_FUNCTION(payload)}`)
@@ -205,6 +207,77 @@ export const deleteImage = (payload) => { //payload = product.id
 				dispatch(getProduct(payload.productId))
 			})
 			.catch() //check errors
+	}
+}
+
+//DISCOUNT ACTIONS
+
+export const getDiscounts = () => {
+	return function (dispatch) {
+		dispatch({ type: LOADING_DISCOUNTS });
+		return axios.get(`${REACT_APP_API_URL}/products/discounts`)
+			.then(products => {
+				dispatch({
+					type: GET_DISCOUNTS,
+					payload: products.data
+				})
+			})
+			.catch(err => {
+				dispatch({
+					type: GET_DISCOUNTS_ERROR
+				})
+			})
+	}
+}
+
+export const addDiscount = (payload) => {
+	return function (dispatch) {
+		// dispatch({ type: LOADING_DISCOUNTS });
+		return axios.post(`${REACT_APP_API_URL}/products/discounts/${payload.id}`, payload.body, BEARER())
+			.then((data) => {
+				dispatch(getDiscounts());
+				return data.status;
+			})
+			.catch((err) => {
+				// dispatch({
+				// 	type: GET_DISCOUNTS_ERROR
+				// })
+				return err.response.status;
+			})
+	}
+}
+
+export const editDiscount = (payload) => {
+	return function (dispatch) {
+		// dispatch({ type: LOADING_DISCOUNTS });
+		return axios.put(`${REACT_APP_API_URL}/products/discounts/${payload.id}`, payload.body, BEARER())
+			.then((data) => {
+				dispatch(getDiscounts());
+				return data.status;
+			})
+			.catch((err) => {
+				// dispatch({
+				// 	type: GET_DISCOUNTS_ERROR
+				// })
+				return err.response.status;
+			})
+	}
+}
+
+export const deleteDiscount = (payload) => {
+	return function (dispatch) {
+		// dispatch({ type: LOADING_DISCOUNTS });
+		return axios.delete(`${REACT_APP_API_URL}/products/discounts/${payload}`, BEARER())
+			.then((data) => {
+				dispatch(getDiscounts());
+				return data.status;
+			})
+			.catch((err) => {
+				// dispatch({
+				// 	type: GET_DISCOUNTS_ERROR
+				// })
+				return err.response.status;
+			})
 	}
 }
 

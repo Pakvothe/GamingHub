@@ -157,6 +157,74 @@ server.get('/search', (req, res) => {
 		})
 })
 
+server.get('/discounts', (req, res) => {
+	Product.findAll({
+		where: {
+			real_price: { [Op.ne]: null }
+		},
+		include: [Image],
+		order: [[Image, 'id']]
+	})
+		.then((products) => {
+			res.status(200).json(products);
+		})
+		.catch(() => {
+			res.status(500).json({ message: 'Internal server error', })
+		})
+})
+
+server.post('/discounts/:id', isAdmin, (req, res) => {
+	const { id } = req.params;
+
+	Product.update(req.body, {
+		where: { id }
+	})
+		.then((editedProduct) => {
+			if (!editedProduct[0]) return res.status(404).json({ message: 'Product not found' })
+			return res.json({ message: 'Offer added!' });
+		})
+		.catch(() => {
+			res.status(500).json({ message: 'Internal server error', })
+		})
+})
+
+server.put('/discounts/:id', isAdmin, (req, res) => {
+	const { id } = req.params;
+
+	Product.update(req.body, {
+		where: { id }
+	})
+		.then((editedProduct) => {
+			if (!editedProduct[0]) return res.status(404).json({ message: 'Product not found' });
+			return res.json({ message: 'Offer updated!' });
+		})
+		.catch(() => {
+			res.status(500).json({ message: 'Internal server error', });
+		})
+})
+
+server.delete('/discounts/:id', isAdmin, (req, res) => {
+	const { id } = req.params;
+
+	Product.findOne({
+		where: { id }
+	})
+		.then((product) => {
+			if (!product) return res.status(404).json({ message: 'Product not found' });
+			return product.update({
+				price: product.real_price,
+				real_price: null,
+				banner_image: null
+			})
+		})
+		.then(() => {
+			return res.json({ message: 'Offer deleted!' })
+		})
+		.catch(() => {
+			res.status(500).json({ message: 'Internal server error', })
+		})
+})
+
 server.put('/:id/active', isAdmin, (req, res) => {
 	const { id } = req.params;
 	Product.findOne({
