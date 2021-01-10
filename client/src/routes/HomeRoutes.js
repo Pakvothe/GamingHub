@@ -59,13 +59,13 @@ function HomeRoutes() {
 				<Route exact path='/search' component={SearchPage} />
 				<Route path='/products/:id' component={Product} />
 				<Route exact path='/order'>
-					<Step1 cart={cart} />
+					<Step1 language={language} cart={cart} />
 				</Route>
 				<Route exact path='/order/payment'>
-					<Step2 cart={cart} />
+					<Step2 language={language} cart={cart} />
 				</Route>
 				<Route exact path='/order/detail'>
-					<Step3 cart={cart} />
+					<Step3 language={language} cart={cart} />
 				</Route>
 				<Route exact path='/user' component={UserPage} />
 				<Route exact path='/reset' component={Reset} />
@@ -75,7 +75,7 @@ function HomeRoutes() {
 				<Route exact path='/orders/:id' component={UserOrderDetail} />
 				<Route exact path='/review/:id' component={ReviewForm} />
 			</main>
-			<Footer />
+			<Footer language={language} />
 		</>
 	);
 }

@@ -11,11 +11,11 @@ function Reviews({ reviews }) {
 
 	return (
 		<StyledReviews>
-			<StyledTitle><span>Reseñas sobre este juego</span></StyledTitle>
-			<p className="reviews__filter">Ordenar por:
-				<button className="filter__recent filter__selected">Recientes</button>
-				<button className="filter__high">Más altas</button>
-				<button className="filter__low">Más bajas</button>
+			<StyledTitle><span>{strings[language].reviews}</span></StyledTitle>
+			<p className="reviews__filter">{strings[language].order}
+				<button className="filter__recent filter__selected">{strings[language].recent}</button>
+				<button className="filter__high">{strings[language].higher}</button>
+				<button className="filter__low">{strings[language].lower}</button>
 			</p>
 			<div className="reviews__container">
 				{

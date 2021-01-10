@@ -3,11 +3,13 @@ import { useDispatch } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
 import CreditCard from '../step_2/CreditCard';
 import { addCreditCard } from '../../../redux/actions/global_actions';
+import strings from './strings';
 //------>Styles
 import { StyledSVG, StepTwo } from '../../styles/styled_order_detail';
 import PurchaseStep2 from '../../../assets/img/purchase-steps-2.svg';
 
-const Step2 = ({ cart }) => {
+
+const Step2 = ({ cart, language }) => {
 	const dispatch = useDispatch();
 	const history = useHistory();
 
@@ -28,10 +30,10 @@ const Step2 = ({ cart }) => {
 
 	return (
 		<>
-			<h2>Datos de pago</h2>
+			<h2>{strings[language].details}</h2>
 			<StyledSVG src={PurchaseStep2} />
 			<StepTwo>
-				<CreditCard handleSubmit={handleSubmit} />
+				<CreditCard language={language} handleSubmit={handleSubmit} />
 			</StepTwo>
 		</>
 	)

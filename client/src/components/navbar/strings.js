@@ -27,7 +27,7 @@ const strings = {
 		cart: 'Carrito',
 		categories: 'Categorias',
 		offer: 'Ofertas',
-		about: 'Conocenos',
+		about: 'Conócenos',
 		theme: 'Tema',
 		logout_confirm: 'Cerrar Sesión!',
 		logout_confirm_text: '¿Estás Seguro?',

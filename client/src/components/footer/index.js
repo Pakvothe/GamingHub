@@ -2,25 +2,26 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import StyledFooter from '../styles/styled_footer';
 import { StyledSVG } from '../styles/styled_global';
-import logo from '../../assets/img/logo-dual.svg'
+import logo from '../../assets/img/logo-dual.svg';
+import strings from './strings';
 
-const Footer = () => {
+const Footer = ({ language }) => {
 	return (
 		<StyledFooter>
 			<StyledSVG src={logo} />
 			<nav className="navbar__top">
 				<ul>
-					<li><Link to="/categories">Categorias</Link></li>
-					<li><Link to="">Ofertas</Link></li>
+					<li><Link to="/categories">{strings[language].categories}</Link></li>
+					<li><Link to="">{strings[language].offers}</Link></li>
 				</ul>
 			</nav>
 
 			<nav className="navbar__bottom">
 				<ul>
-					<li><Link to="">Términos y condiciones</Link></li>
-					<li><Link to="">Privacidad</Link></li>
-					<li><Link to="">Legal</Link></li>
-					<li><Link to="">Contacto</Link></li>
+					<li><Link to="">{strings[language].terms}</Link></li>
+					<li><Link to="">{strings[language].privacy}</Link></li>
+					<li><Link to="">{strings[language].legal}</Link></li>
+					<li><Link to="">{strings[language].contact}</Link></li>
 				</ul>
 			</nav>
 

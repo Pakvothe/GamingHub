@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import Cards from 'react-credit-cards';
+import strings from './strings';
 //-------> Styles
 import { CreditCardStyled } from '../../styles/styled_credit_card';
 import { FormStyled, Btn } from '../../styles/styled_global';
 
-const CreditCard = ({ handleSubmit }) => {
+const CreditCard = ({ handleSubmit, language }) => {
 
 	const [credCard, setCredCard] = useState({
 		cvc: '',
@@ -47,7 +48,7 @@ const CreditCard = ({ handleSubmit }) => {
 				<FormStyled onSubmit={(e) => handleSubmit(e, credCard)}>
 					<div className='label__container'>
 						<label>
-							<span>Card Number</span>
+							<span>{strings[language].cardNumber}</span>
 							<input
 								type='number'
 								name='number'
@@ -61,7 +62,7 @@ const CreditCard = ({ handleSubmit }) => {
 					</div>
 					<div className='label__container'>
 						<label>
-							<span>Full Name</span>
+							<span>{strings[language].name}</span>
 							<input
 								type='text'
 								name='name'
@@ -75,7 +76,7 @@ const CreditCard = ({ handleSubmit }) => {
 					</div>
 					<div className='label__container'>
 						<label>
-							<span>Expiry Date</span>
+							<span>{strings[language].expiry}</span>
 							<input
 								type='number'
 								name='expiry'
@@ -102,7 +103,7 @@ const CreditCard = ({ handleSubmit }) => {
 						</label>
 					</div>
 					<div className='button__container'>
-						<Btn type='submit' className='btn-ppal'>Siguiente</Btn>
+						<Btn type='submit' className='btn-ppal'>{strings[language].next}</Btn>
 					</div>
 				</FormStyled>
 				<Cards
