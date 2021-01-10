@@ -143,6 +143,330 @@ const reviews = [
 		productId: 3
 	},
 	{
+		description: `No recomiendo que compren este juego SI:
+
+		-no tienen una PC muy potente que cumpla los requerimientos (i7 7ma/Ryzen 5, placa de video, disco SSD mejor, etc.)
+		
+		-no tienen una referencia minima del juego de mesa que le da origen (hay muchos PJ con historias geniales)
+		
+		-no son tolerantes a juegos llenos de bugs o errores
+		
+		La posta, esperen un poco hasta que lo terminen. Lo sacaron verde y los primeros minutos hasta que te acostumbras a los errores, son insoportables. Despues se juega.
+		
+		Mas alla de todo, la historia es un 10 y graficamente es un 1000.
+		
+		Pero esperen un poco todavia.`,
+		score: 3,
+		userId: 3,
+		productId: 3
+	},
+	{
+		description: `No recomiendo que compren este juego SI:
+
+		-no tienen una PC muy potente que cumpla los requerimientos (i7 7ma/Ryzen 5, placa de video, disco SSD mejor, etc.)
+		
+		-no tienen una referencia minima del juego de mesa que le da origen (hay muchos PJ con historias geniales)
+		
+		-no son tolerantes a juegos llenos de bugs o errores
+		
+		La posta, esperen un poco hasta que lo terminen. Lo sacaron verde y los primeros minutos hasta que te acostumbras a los errores, son insoportables. Despues se juega.
+		
+		Mas alla de todo, la historia es un 10 y graficamente es un 1000.
+		
+		Pero esperen un poco todavia.`,
+		score: 3,
+		userId: 3,
+		productId: 3
+	},
+	{
+		description: `No recomiendo que compren este juego SI:
+
+		-no tienen una PC muy potente que cumpla los requerimientos (i7 7ma/Ryzen 5, placa de video, disco SSD mejor, etc.)
+		
+		-no tienen una referencia minima del juego de mesa que le da origen (hay muchos PJ con historias geniales)
+		
+		-no son tolerantes a juegos llenos de bugs o errores
+		
+		La posta, esperen un poco hasta que lo terminen. Lo sacaron verde y los primeros minutos hasta que te acostumbras a los errores, son insoportables. Despues se juega.
+		
+		Mas alla de todo, la historia es un 10 y graficamente es un 1000.
+		
+		Pero esperen un poco todavia.`,
+		score: 3,
+		userId: 3,
+		productId: 3
+	},
+	{
+		description: `No recomiendo que compren este juego SI:
+
+		-no tienen una PC muy potente que cumpla los requerimientos (i7 7ma/Ryzen 5, placa de video, disco SSD mejor, etc.)
+		
+		-no tienen una referencia minima del juego de mesa que le da origen (hay muchos PJ con historias geniales)
+		
+		-no son tolerantes a juegos llenos de bugs o errores
+		
+		La posta, esperen un poco hasta que lo terminen. Lo sacaron verde y los primeros minutos hasta que te acostumbras a los errores, son insoportables. Despues se juega.
+		
+		Mas alla de todo, la historia es un 10 y graficamente es un 1000.
+		
+		Pero esperen un poco todavia.`,
+		score: 3,
+		userId: 3,
+		productId: 3
+	},
+	{
+		description: `No recomiendo que compren este juego SI:
+
+		-no tienen una PC muy potente que cumpla los requerimientos (i7 7ma/Ryzen 5, placa de video, disco SSD mejor, etc.)
+		
+		-no tienen una referencia minima del juego de mesa que le da origen (hay muchos PJ con historias geniales)
+		
+		-no son tolerantes a juegos llenos de bugs o errores
+		
+		La posta, esperen un poco hasta que lo terminen. Lo sacaron verde y los primeros minutos hasta que te acostumbras a los errores, son insoportables. Despues se juega.
+		
+		Mas alla de todo, la historia es un 10 y graficamente es un 1000.
+		
+		Pero esperen un poco todavia.`,
+		score: 3,
+		userId: 3,
+		productId: 3
+	},
+	{
+		description: `No recomiendo que compren este juego SI:
+
+		-no tienen una PC muy potente que cumpla los requerimientos (i7 7ma/Ryzen 5, placa de video, disco SSD mejor, etc.)
+		
+		-no tienen una referencia minima del juego de mesa que le da origen (hay muchos PJ con historias geniales)
+		
+		-no son tolerantes a juegos llenos de bugs o errores
+		
+		La posta, esperen un poco hasta que lo terminen. Lo sacaron verde y los primeros minutos hasta que te acostumbras a los errores, son insoportables. Despues se juega.
+		
+		Mas alla de todo, la historia es un 10 y graficamente es un 1000.
+		
+		Pero esperen un poco todavia.`,
+		score: 3,
+		userId: 3,
+		productId: 3
+	},
+	{
+		description: `No recomiendo que compren este juego SI:
+
+		-no tienen una PC muy potente que cumpla los requerimientos (i7 7ma/Ryzen 5, placa de video, disco SSD mejor, etc.)
+		
+		-no tienen una referencia minima del juego de mesa que le da origen (hay muchos PJ con historias geniales)
+		
+		-no son tolerantes a juegos llenos de bugs o errores
+		
+		La posta, esperen un poco hasta que lo terminen. Lo sacaron verde y los primeros minutos hasta que te acostumbras a los errores, son insoportables. Despues se juega.
+		
+		Mas alla de todo, la historia es un 10 y graficamente es un 1000.
+		
+		Pero esperen un poco todavia.`,
+		score: 3,
+		userId: 3,
+		productId: 3
+	},
+	{
+		description: `No recomiendo que compren este juego SI:
+
+		-no tienen una PC muy potente que cumpla los requerimientos (i7 7ma/Ryzen 5, placa de video, disco SSD mejor, etc.)
+		
+		-no tienen una referencia minima del juego de mesa que le da origen (hay muchos PJ con historias geniales)
+		
+		-no son tolerantes a juegos llenos de bugs o errores
+		
+		La posta, esperen un poco hasta que lo terminen. Lo sacaron verde y los primeros minutos hasta que te acostumbras a los errores, son insoportables. Despues se juega.
+		
+		Mas alla de todo, la historia es un 10 y graficamente es un 1000.
+		
+		Pero esperen un poco todavia.`,
+		score: 3,
+		userId: 3,
+		productId: 3
+	},
+	{
+		description: `No recomiendo que compren este juego SI:
+
+		-no tienen una PC muy potente que cumpla los requerimientos (i7 7ma/Ryzen 5, placa de video, disco SSD mejor, etc.)
+		
+		-no tienen una referencia minima del juego de mesa que le da origen (hay muchos PJ con historias geniales)
+		
+		-no son tolerantes a juegos llenos de bugs o errores
+		
+		La posta, esperen un poco hasta que lo terminen. Lo sacaron verde y los primeros minutos hasta que te acostumbras a los errores, son insoportables. Despues se juega.
+		
+		Mas alla de todo, la historia es un 10 y graficamente es un 1000.
+		
+		Pero esperen un poco todavia.`,
+		score: 3,
+		userId: 3,
+		productId: 3
+	},
+	{
+		description: `No recomiendo que compren este juego SI:
+
+		-no tienen una PC muy potente que cumpla los requerimientos (i7 7ma/Ryzen 5, placa de video, disco SSD mejor, etc.)
+		
+		-no tienen una referencia minima del juego de mesa que le da origen (hay muchos PJ con historias geniales)
+		
+		-no son tolerantes a juegos llenos de bugs o errores
+		
+		La posta, esperen un poco hasta que lo terminen. Lo sacaron verde y los primeros minutos hasta que te acostumbras a los errores, son insoportables. Despues se juega.
+		
+		Mas alla de todo, la historia es un 10 y graficamente es un 1000.
+		
+		Pero esperen un poco todavia.`,
+		score: 3,
+		userId: 3,
+		productId: 3
+	},
+	{
+		description: `No recomiendo que compren este juego SI:
+
+		-no tienen una PC muy potente que cumpla los requerimientos (i7 7ma/Ryzen 5, placa de video, disco SSD mejor, etc.)
+		
+		-no tienen una referencia minima del juego de mesa que le da origen (hay muchos PJ con historias geniales)
+		
+		-no son tolerantes a juegos llenos de bugs o errores
+		
+		La posta, esperen un poco hasta que lo terminen. Lo sacaron verde y los primeros minutos hasta que te acostumbras a los errores, son insoportables. Despues se juega.
+		
+		Mas alla de todo, la historia es un 10 y graficamente es un 1000.
+		
+		Pero esperen un poco todavia.`,
+		score: 3,
+		userId: 3,
+		productId: 3
+	},
+	{
+		description: `No recomiendo que compren este juego SI:
+
+		-no tienen una PC muy potente que cumpla los requerimientos (i7 7ma/Ryzen 5, placa de video, disco SSD mejor, etc.)
+		
+		-no tienen una referencia minima del juego de mesa que le da origen (hay muchos PJ con historias geniales)
+		
+		-no son tolerantes a juegos llenos de bugs o errores
+		
+		La posta, esperen un poco hasta que lo terminen. Lo sacaron verde y los primeros minutos hasta que te acostumbras a los errores, son insoportables. Despues se juega.
+		
+		Mas alla de todo, la historia es un 10 y graficamente es un 1000.
+		
+		Pero esperen un poco todavia.`,
+		score: 3,
+		userId: 3,
+		productId: 3
+	},
+	{
+		description: `No recomiendo que compren este juego SI:
+
+		-no tienen una PC muy potente que cumpla los requerimientos (i7 7ma/Ryzen 5, placa de video, disco SSD mejor, etc.)
+		
+		-no tienen una referencia minima del juego de mesa que le da origen (hay muchos PJ con historias geniales)
+		
+		-no son tolerantes a juegos llenos de bugs o errores
+		
+		La posta, esperen un poco hasta que lo terminen. Lo sacaron verde y los primeros minutos hasta que te acostumbras a los errores, son insoportables. Despues se juega.
+		
+		Mas alla de todo, la historia es un 10 y graficamente es un 1000.
+		
+		Pero esperen un poco todavia.`,
+		score: 3,
+		userId: 3,
+		productId: 3
+	},
+	{
+		description: `No recomiendo que compren este juego SI:
+
+		-no tienen una PC muy potente que cumpla los requerimientos (i7 7ma/Ryzen 5, placa de video, disco SSD mejor, etc.)
+		
+		-no tienen una referencia minima del juego de mesa que le da origen (hay muchos PJ con historias geniales)
+		
+		-no son tolerantes a juegos llenos de bugs o errores
+		
+		La posta, esperen un poco hasta que lo terminen. Lo sacaron verde y los primeros minutos hasta que te acostumbras a los errores, son insoportables. Despues se juega.
+		
+		Mas alla de todo, la historia es un 10 y graficamente es un 1000.
+		
+		Pero esperen un poco todavia.`,
+		score: 3,
+		userId: 3,
+		productId: 3
+	},
+	{
+		description: `No recomiendo que compren este juego SI:
+
+		-no tienen una PC muy potente que cumpla los requerimientos (i7 7ma/Ryzen 5, placa de video, disco SSD mejor, etc.)
+		
+		-no tienen una referencia minima del juego de mesa que le da origen (hay muchos PJ con historias geniales)
+		
+		-no son tolerantes a juegos llenos de bugs o errores
+		
+		La posta, esperen un poco hasta que lo terminen. Lo sacaron verde y los primeros minutos hasta que te acostumbras a los errores, son insoportables. Despues se juega.
+		
+		Mas alla de todo, la historia es un 10 y graficamente es un 1000.
+		
+		Pero esperen un poco todavia.`,
+		score: 3,
+		userId: 3,
+		productId: 3
+	},
+	{
+		description: `No recomiendo que compren este juego SI:
+
+		-no tienen una PC muy potente que cumpla los requerimientos (i7 7ma/Ryzen 5, placa de video, disco SSD mejor, etc.)
+		
+		-no tienen una referencia minima del juego de mesa que le da origen (hay muchos PJ con historias geniales)
+		
+		-no son tolerantes a juegos llenos de bugs o errores
+		
+		La posta, esperen un poco hasta que lo terminen. Lo sacaron verde y los primeros minutos hasta que te acostumbras a los errores, son insoportables. Despues se juega.
+		
+		Mas alla de todo, la historia es un 10 y graficamente es un 1000.
+		
+		Pero esperen un poco todavia.`,
+		score: 3,
+		userId: 3,
+		productId: 3
+	},
+	{
+		description: `No recomiendo que compren este juego SI:
+
+		-no tienen una PC muy potente que cumpla los requerimientos (i7 7ma/Ryzen 5, placa de video, disco SSD mejor, etc.)
+		
+		-no tienen una referencia minima del juego de mesa que le da origen (hay muchos PJ con historias geniales)
+		
+		-no son tolerantes a juegos llenos de bugs o errores
+		
+		La posta, esperen un poco hasta que lo terminen. Lo sacaron verde y los primeros minutos hasta que te acostumbras a los errores, son insoportables. Despues se juega.
+		
+		Mas alla de todo, la historia es un 10 y graficamente es un 1000.
+		
+		Pero esperen un poco todavia.`,
+		score: 3,
+		userId: 3,
+		productId: 3
+	},
+	{
+		description: `No recomiendo que compren este juego SI:
+
+		-no tienen una PC muy potente que cumpla los requerimientos (i7 7ma/Ryzen 5, placa de video, disco SSD mejor, etc.)
+		
+		-no tienen una referencia minima del juego de mesa que le da origen (hay muchos PJ con historias geniales)
+		
+		-no son tolerantes a juegos llenos de bugs o errores
+		
+		La posta, esperen un poco hasta que lo terminen. Lo sacaron verde y los primeros minutos hasta que te acostumbras a los errores, son insoportables. Despues se juega.
+		
+		Mas alla de todo, la historia es un 10 y graficamente es un 1000.
+		
+		Pero esperen un poco todavia.`,
+		score: 3,
+		userId: 3,
+		productId: 3
+	},
+	{
 		description: `Después de dedicarle más de 180 horas al juego esta es mi evaluación (juego base sin mods o addons):
 
 		- Cumple con las expectativas en base a lo que promocionaron durante su desarrollo? : NO.
