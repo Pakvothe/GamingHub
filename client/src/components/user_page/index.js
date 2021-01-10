@@ -13,14 +13,15 @@ import strings from './strings';
 
 const UserPage = () => {
 
-	const language = useSelector(state => state.globalReducer.language)
+	const language = useSelector(state => state.globalReducer.language);
+	const s = strings[language];
 
 	return (
 		<UserCard>
 			<ul>
-				<li><Link to="/edit">{strings[language].edit} </Link></li>
-				<li><Link to="/orders">{strings[language].orders} </Link></li>
-				<li><Link to="/">{strings[language].help} </Link></li>
+				<li><Link to="/edit">{s.edit} </Link></li>
+				<li><Link to="/orders">{s.orders} </Link></li>
+				<li><Link to="/">{s.help} </Link></li>
 			</ul>
 			<Profile />
 		</UserCard>

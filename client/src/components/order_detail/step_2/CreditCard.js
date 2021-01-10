@@ -6,7 +6,7 @@ import { CreditCardStyled } from '../../styles/styled_credit_card';
 import { FormStyled, Btn } from '../../styles/styled_global';
 
 const CreditCard = ({ handleSubmit, language }) => {
-
+	const s = strings[language];
 	const [credCard, setCredCard] = useState({
 		cvc: '',
 		expiry: '',
@@ -48,7 +48,7 @@ const CreditCard = ({ handleSubmit, language }) => {
 				<FormStyled onSubmit={(e) => handleSubmit(e, credCard)}>
 					<div className='label__container'>
 						<label>
-							<span>{strings[language].cardNumber}</span>
+							<span>{s.cardNumber}</span>
 							<input
 								type='number'
 								name='number'
@@ -62,7 +62,7 @@ const CreditCard = ({ handleSubmit, language }) => {
 					</div>
 					<div className='label__container'>
 						<label>
-							<span>{strings[language].name}</span>
+							<span>{s.name}</span>
 							<input
 								type='text'
 								name='name'
@@ -76,7 +76,7 @@ const CreditCard = ({ handleSubmit, language }) => {
 					</div>
 					<div className='label__container'>
 						<label>
-							<span>{strings[language].expiry}</span>
+							<span>{s.expiry}</span>
 							<input
 								type='number'
 								name='expiry'
@@ -103,7 +103,7 @@ const CreditCard = ({ handleSubmit, language }) => {
 						</label>
 					</div>
 					<div className='button__container'>
-						<Btn type='submit' className='btn-ppal'>{strings[language].next}</Btn>
+						<Btn type='submit' className='btn-ppal'>{s.next}</Btn>
 					</div>
 				</FormStyled>
 				<Cards

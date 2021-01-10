@@ -9,23 +9,24 @@ import strings from './strings';
 
 const AdminCategoryList = ({ categories, language }) => {
 	const dispatch = useDispatch();
-	const handleDelete = (id) => {
+	const s = strings[language];
 
+	const handleDelete = (id) => {
 		Swal.fire({
 			heightAuto: false,
-			title: strings[language].alertTitle,
-			text: strings[language].alertText,
+			title: s.alertTitle,
+			text: s.alertText,
 			icon: 'warning',
 			showCancelButton: true,
 			confirmButtonColor: '#3085d6',
 			cancelButtonColor: '#d33',
-			confirmButtonText: strings[language].alertButtonConfirm,
-			cancelButtonText: strings[language].alertButtonCancel
+			confirmButtonText: s.alertButtonConfirm,
+			cancelButtonText: s.alertButtonCancel
 		}).then((result) => {
 			if (result.isConfirmed) {
 				Swal.fire(
-					strings[language].alertSuccessTitle,
-					strings[language].alertSuccessText,
+					s.alertSuccessTitle,
+					s.alertSuccessText,
 					'success',
 					dispatch(deleteCategory(id))
 				)
@@ -35,13 +36,13 @@ const AdminCategoryList = ({ categories, language }) => {
 
 	return (
 		<>
-			<h1 className='admin-h1'>{strings[language].title}</h1>
-			<Link to="/admin/category"><Btn className="btn-ppal">{strings[language].addCategory}</Btn></Link>
+			<h1 className='admin-h1'>{s.title}</h1>
+			<Link to="/admin/category"><Btn className="btn-ppal">{s.addCategory}</Btn></Link>
 			<DataTable>
 				<thead>
 					<tr>
 						<td className="cell-small">ID</td>
-						<td>{strings[language].tableName}</td>
+						<td>{s.tableName}</td>
 						<td></td>
 					</tr>
 				</thead>
@@ -52,8 +53,8 @@ const AdminCategoryList = ({ categories, language }) => {
 							<td>{category[`name_${language}`]}</td>
 							<td>
 								<ul>
-									<li><Link to={`/admin/category/${category.id}`}><button>{strings[language].buttonEdit}</button></Link></li>
-									<li><button onClick={() => handleDelete(category.id)}>{strings[language].buttonDelete}</button></li>
+									<li><Link to={`/admin/category/${category.id}`}><button>{s.buttonEdit}</button></Link></li>
+									<li><button onClick={() => handleDelete(category.id)}>{s.buttonDelete}</button></li>
 								</ul>
 							</td>
 						</tr>

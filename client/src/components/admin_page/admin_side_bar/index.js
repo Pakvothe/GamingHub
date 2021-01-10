@@ -13,6 +13,7 @@ const AdminSideBar = () => {
 	const [buttonToggle, setButtonToggle] = useState(true);
 	const dispatch = useDispatch();
 	const language = useSelector(state => state.globalReducer.language);
+	const s = strings[language];
 
 	const toggleMenu = () => {
 		setButtonToggle((prev) => !prev)
@@ -33,10 +34,10 @@ const AdminSideBar = () => {
 					<StyledSVG src={arrowLeft} />
 				</SideBarButton>
 				<ul>
-					<li><NavLink exact activeClassName="active" to="/admin">{strings[language].products}</NavLink></li>
-					<li><NavLink activeClassName="active" to="/admin/categories">{strings[language].categories}</NavLink></li>
-					<li><NavLink activeClassName="active" to="/admin/orders">{strings[language].orders}</NavLink></li>
-					<li><NavLink activeClassName="active" to="/admin/users">{strings[language].users}</NavLink></li>
+					<li><NavLink exact activeClassName="active" to="/admin">{s.products}</NavLink></li>
+					<li><NavLink activeClassName="active" to="/admin/categories">{s.categories}</NavLink></li>
+					<li><NavLink activeClassName="active" to="/admin/orders">{s.orders}</NavLink></li>
+					<li><NavLink activeClassName="active" to="/admin/users">{s.users}</NavLink></li>
 				</ul>
 			</SideBarContainer>
 		</>

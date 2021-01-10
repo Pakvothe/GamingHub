@@ -11,6 +11,7 @@ const AdminProductStockForm = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const language = useSelector(state => state.globalReducer.language);
+	const s = strings[language];
 	const error = useSelector(state => state.productsReducer.serials.error);
 	const serials = useSelector(state => state.productsReducer.serials.list);
 
@@ -40,12 +41,12 @@ const AdminProductStockForm = () => {
 	useEffect(() => {
 		error && Swal.fire({
 			heightAuto: false,
-			title: strings[language].alertTitle,
-			text: `${strings[language].alertTitle} ${error.value}`,
+			title: s.alertTitle,
+			text: `${s.alertTitle} ${error.value}`,
 			icon: 'warning',
 			confirmButtonColor: '#3085d6',
 			cancelButtonColor: '#d33',
-			confirmButtonText: strings[language].alertButton,
+			confirmButtonText: s.alertButton,
 		}).then(() => {
 			dispatch(clearErrorSerial())
 		})
@@ -53,15 +54,15 @@ const AdminProductStockForm = () => {
 
 	return (
 		<>
-			<h1 className="admin-h1">{strings[language].title}</h1>
-			<p style={{ marginBottom: '2em' }}>{strings[language].desc}</p>
+			<h1 className="admin-h1">{s.title}</h1>
+			<p style={{ marginBottom: '2em' }}>{s.desc}</p>
 			<FormStyled onSubmit={handleSubmit} method="POST" autoComplete="off">
 				<label>
 					<span>Serials:</span>
 					<textarea type='text' name='serial' value={serial} onChange={handleInput} required>
 					</textarea>
 				</label>
-				<Btn type='submit' className="btn-ppal">{strings[language].addButton}</Btn>
+				<Btn type='submit' className="btn-ppal">{s.addButton}</Btn>
 			</FormStyled>
 		</>
 	)

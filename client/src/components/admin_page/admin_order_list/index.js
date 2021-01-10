@@ -9,7 +9,8 @@ const AdminProductList = ({ orders }) => {
 
 	const history = useHistory();
 	const dispatch = useDispatch();
-	const language = useSelector(state => state.globalReducer.language)
+	const language = useSelector(state => state.globalReducer.language);
+	const s = strings[language];
 
 	const [orderSort, setOrderSort] = useState({
 		id: 'ASC',
@@ -41,15 +42,15 @@ const AdminProductList = ({ orders }) => {
 
 	return (
 		<>
-			<h1 className='admin-h1'>{strings[language].title}</h1>
+			<h1 className='admin-h1'>{s.title}</h1>
 			<DataTable>
 				<thead>
 					<tr onClick={handleSort}>
-						<td id="id" className="cell-small icon active down">{strings[language].tableOrderNumber}</td>
+						<td id="id" className="cell-small icon active down">{s.tableOrderNumber}</td>
 						<td>Email</td>
-						<td className="cell-small">{strings[language].tableTotal}</td>
-						<td id="state" className="icon down">{strings[language].tableStatus}</td>
-						<td id="payment_method" className="icon down">{strings[language].tablePayment}</td>
+						<td className="cell-small">{s.tableTotal}</td>
+						<td id="state" className="icon down">{s.tableStatus}</td>
+						<td id="payment_method" className="icon down">{s.tablePayment}</td>
 					</tr>
 				</thead>
 				<tbody>

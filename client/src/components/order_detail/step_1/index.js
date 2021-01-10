@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import strings from './strings';
 
 const Step1 = ({ cart, language }) => {
+	const s = strings[language];
 	const history = useHistory();
 	const dispatch = useDispatch();
 
@@ -39,7 +40,7 @@ const Step1 = ({ cart, language }) => {
 	}
 	return (
 		<>
-			<h2>{strings[language].cart}</h2>
+			<h2>{s.cart}</h2>
 			<StyledSVG src={PurchaseStep1} />
 			<StepOne>
 				<div>
@@ -51,27 +52,27 @@ const Step1 = ({ cart, language }) => {
 				</div>
 				<div>
 					<aside>
-						<h3>{strings[language].detail}</h3>
+						<h3>{s.detail}</h3>
 						<FormStyled>
 							<label>
-								<span>{strings[language].discountCoupon}</span>
+								<span>{s.discountCoupon}</span>
 								<input type='text' />
 							</label>
 						</FormStyled>
 						<div className='aside__subtotal'>
-							<p>{strings[language].subtotal}</p>
+							<p>{s.subtotal}</p>
 							<p>{subtotal.toFixed(2)}</p>
 						</div>
 						<div className='aside__discount'>
-							<p>{strings[language].discount}</p>
+							<p>{s.discount}</p>
 							<p>{discount}%</p>
 						</div>
 						<hr />
 						<div className='aside__total'>
-							<p>{strings[language].total}</p>
+							<p>{s.total}</p>
 							<p>{total}</p>
 						</div>
-						<Btn className='btn-ppal' onClick={handleClick}>{strings[language].next}</Btn>
+						<Btn className='btn-ppal' onClick={handleClick}>{s.next}</Btn>
 					</aside>
 				</div>
 			</StepOne>
