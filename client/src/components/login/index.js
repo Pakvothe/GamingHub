@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Modal from 'react-modal';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,14 +17,17 @@ const Login = () => {
 	const dispatch = useDispatch();
 	const loginIsOpen = useSelector(state => state.globalReducer.loginIsOpen);
 	const language = useSelector(state => state.globalReducer.language);
-	const user = useSelector((state) => state.usersReducer.user);
+	const { isLoading } = useSelector((state) => state.usersReducer.user);
 	const theme = useSelector(state => state.globalReducer.theme);
 	const { addToast } = useToasts();
+
+	const alert = useRef(null);
 
 	const [input, setInput] = useState({
 		email: '',
 		password: ''
 	})
+	const [error, setError] = useState('');
 
 	const customStyles = {
 		overlay: {
@@ -63,6 +66,10 @@ const Login = () => {
 		document.body.style.overflow = 'unset';
 	}
 
+	const closeAlert = () => {
+		alert.current.classList.replace('d-block', 'd-none')
+	}
+
 	const handleChange = (ev) => {
 		setInput({
 			...input,
@@ -73,14 +80,23 @@ const Login = () => {
 	const handleSubmit = (ev) => {
 		ev.preventDefault()
 		dispatch(loginUser(input))
-			.then(data => {
-				if (data.type === 'success') {
-					addToast(strings[language].login, { appearance: 'success' })
-				} else {
-					addToast(strings[language].login_err, { appearance: 'error' })
+			.then(response => {
+				switch (response) {
+					case 200:
+						addToast(strings[language].login, { appearance: 'success' })
+						closeModal()
+						break;
+					case 401:
+						alert.current.classList.replace('d-none', 'd-block')
+						setError(strings[language].error401)
+						break;
+					case 500:
+					default:
+						alert.current.classList.replace('d-none', 'd-block')
+						setError(strings[language].error500)
+						break;
 				}
 			});
-		closeModal()
 	}
 
 	const signGoogle = () => {
@@ -105,6 +121,10 @@ const Login = () => {
 				<button className='button' onClick={closeModal}><StyledSVG src={CloseButton} /></button>
 				<FormStyled onSubmit={handleSubmit}>
 					<h2 className='form__title titulo'>{strings[language].title}</h2>
+					<div className="alert d-none" ref={alert}>
+						<button type="button" onClick={closeAlert}><StyledSVG src={CloseButton} /></button>
+						<span>{error}</span>
+					</div>
 					<label>
 						<span>{strings[language].email}</span>
 						<input name="email" onChange={handleChange}
@@ -133,7 +153,7 @@ const Login = () => {
 						<Link to="/reset" onClick={closeModal}>{strings[language].olvi}</Link>
 						<Link to="/signup" onClick={closeModal}>{strings[language].create}</Link>
 					</div>
-					<Btn type='submit' className='btn-ppal'>Ok</Btn>
+					<Btn type='submit' className='btn-ppal'>{isLoading && <i className="mr-1 fas fa-circle-notch fa-spin"></i>} Ok</Btn>
 				</FormStyled>
 				<SocialLogin>
 					<button className="social-btn google-icon" onClick={signGoogle}>
