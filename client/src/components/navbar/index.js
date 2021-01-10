@@ -136,7 +136,7 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 										) : (
 												<>
 													<li><Link to="/#" onClick={openLoginModal}>{strings[language].login}</Link></li>
-													<Link to="/signup" >{strings[language].signup}</Link>
+													<li><Link to="/signup" >{strings[language].signup}</Link></li>
 												</>
 											)
 									}
