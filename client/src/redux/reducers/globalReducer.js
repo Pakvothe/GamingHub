@@ -10,10 +10,15 @@ import {
 	OPEN_LOGIN
 } from '../constants.js';
 
+const d = new Date();
+const hours = d.getHours();
+const night = hours >= 20 || hours <= 7;
+
+
 const initialState = {
 	language: localStorage.getItem('language') || 'es',
 	showCart: false,
-	theme: localStorage.getItem('theme') || 'light',
+	theme: localStorage.getItem('theme') || (night ? 'dark' : 'light'),
 	credCard: {},
 	currentPage: 0,
 	loginIsOpen: false,
