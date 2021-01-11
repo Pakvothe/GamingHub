@@ -25,6 +25,7 @@ import strings from './strings'
 
 /* --- Products Payload --- */
 import { getProductsPayload } from './../home_page/index';
+import swals from '../../utils/swals';
 
 const Navbar = ({ toggleModal, cartNumber }) => {
 
@@ -64,26 +65,22 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 	}
 
 	const handleLogout = () => {
-
-		Swal.fire({
-			heightAuto: false,
-			title: s.logout_confirm,
-			text: s.logout_confirm_text,
-			icon: 'warning',
-			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
-			confirmButtonText: s.logout_button,
-		}).then((result) => {
-			if (result.isConfirmed) {
-				Swal.fire(
-					s.logout_confirm_text2,
-					s.logout_confirm_2,
-					'success',
-					dispatch(logout())
-				)
-			}
-		})
+		swals.FIRE('warning',
+			s.logout_confirm,
+			s.logout_confirm_text,
+			s.logout_button,
+			true,
+			s.logout_cancel_button_text)
+			.then((result) => {
+				if (result.isConfirmed) {
+					swals.CONFIRMOK(
+						s.logout_confirm_text_2,
+						'',
+						'success',
+						dispatch(logout())
+					)
+				}
+			})
 	}
 
 	return (

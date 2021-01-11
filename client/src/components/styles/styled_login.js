@@ -8,26 +8,6 @@ export const LoginStyled = styled.div`
 	text-align: center;
 }
 
-.alert{
-	background-color: var(--clr-error);
-	position: relative;
-	padding: 1em;
-	border-radius: 1em;
-	margin-bottom: 2em;
-	font-weight: 700;
-	button{
-		position: absolute;
-		top: 10px;
-		right: 10px;
-		background-color: transparent;
-		border: none;
-		svg{
-			width: 20px;
-			height: 20px;
-		}
-	}
-}
-
 .link_container{
 	display:flex;
 	flex-direction: column;

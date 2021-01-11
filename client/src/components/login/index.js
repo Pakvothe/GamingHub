@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { openLogin } from '../../redux/actions/global_actions';
-import { FormStyled, Btn, SocialLogin, StyledSVG } from '../styles/styled_global';
+import { FormStyled, Btn, SocialLogin, StyledSVG, AlertStyled } from '../styles/styled_global';
 import { LoginStyled } from '../styles/styled_login';
 import CloseButton from '../../assets/img/close-filled-purple.svg';
 import strings from './strings';
@@ -122,10 +122,10 @@ const Login = () => {
 				<button className='button' onClick={closeModal}><StyledSVG src={CloseButton} /></button>
 				<FormStyled onSubmit={handleSubmit}>
 					<h2 className='form__title titulo'>{s.title}</h2>
-					<div className="alert d-none" ref={alert}>
+					<AlertStyled className="d-none" maxWidth="400px" ref={alert}>
 						<button type="button" onClick={closeAlert}><StyledSVG src={CloseButton} /></button>
 						<span>{error}</span>
-					</div>
+					</AlertStyled>
 					<label>
 						<span>{s.email}</span>
 						<input name="email" onChange={handleChange}
