@@ -103,10 +103,6 @@ const Carousel = ({ products }) => {
 		}
 	}
 
-
-
-	if (!products.length) return <h1>Loading</h1>
-
 	return (
 		<StyledCarousel>
 			<Fade big>
