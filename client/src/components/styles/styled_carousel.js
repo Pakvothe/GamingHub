@@ -56,6 +56,14 @@ export const StyledCarousel = styled.div`
 		.slide__details__left {
 			text-align: center;
 			margin-right: 1em;
+
+			a {
+				
+				text-decoration: none;
+				color: var(--clr-white);
+				transition: color .2s ease-in-out;
+
+			}
 		}
 
 		.slide__details__right {
@@ -84,6 +92,12 @@ export const StyledCarousel = styled.div`
 		.slide__title {
 			font-size: 3em;
 			text-shadow: 5px 5px 0px var(--clr-primary-2), 0 0 20px rgba(0,0,0,0.5);
+			transition: text-shadow .2s ease-in-out;
+
+			&:hover {
+				transform: translate(3px, 3px);
+				text-shadow: 2px 2px 0px var(--clr-secondary), 0 0 20px rgba(0,0,0,0.5);
+			}
 		}
 
 		.slide__price, .slide__discount {
