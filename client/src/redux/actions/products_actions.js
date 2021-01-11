@@ -13,8 +13,17 @@ import {
 	LOADING_PRODUCTS,
 	GET_FILTER_PRODUCTS_ERROR,
 	GET_PRODUCTS_ERROR,
+	LOADING_DISCOUNTS,
+	GET_DISCOUNTS,
+	GET_DISCOUNTS_ERROR,
 	TOGGLE_ACTIVE_PRODUCT,
-	DELETE_IMAGE
+	DELETE_IMAGE,
+	GET_SERIALS,
+	ERROR_SERIAL,
+	CLEAR_ERROR_SERIAL,
+	GET_REVIEWS,
+	BEARER,
+	QUERY_FUNCTION
 } from './../constants';
 
 const { REACT_APP_API_URL } = process.env;
@@ -23,7 +32,7 @@ const { REACT_APP_API_URL } = process.env;
 
 export const addProduct = (payload) => {
 	return function (dispatch) {
-		return axios.post(`${REACT_APP_API_URL}/products`, payload)
+		return axios.post(`${REACT_APP_API_URL}/products`, payload, BEARER())
 			.then((product) => {
 				dispatch(
 					{
@@ -39,7 +48,7 @@ export const addProduct = (payload) => {
 
 export const deleteProduct = (payload) => { //payload = product.id
 	return function (dispatch) {
-		return axios.delete(`${REACT_APP_API_URL}/products/${payload}`)
+		return axios.delete(`${REACT_APP_API_URL}/products/${payload}`, BEARER())
 			.then(() => {
 				dispatch(
 					{
@@ -54,7 +63,7 @@ export const deleteProduct = (payload) => { //payload = product.id
 
 export const editProduct = (payload) => {
 	return function (dispatch) {
-		return axios.put(`${REACT_APP_API_URL}/products/${payload.id}`, payload)
+		return axios.put(`${REACT_APP_API_URL}/products/${payload.id}`, payload, BEARER())
 			.then((product) => {
 				dispatch(
 					{
@@ -69,7 +78,7 @@ export const editProduct = (payload) => {
 
 export const toggleActiveProduct = (payload) => {
 	return function (dispatch) {
-		return axios.put(`${REACT_APP_API_URL}/products/${payload}/active`, payload)
+		return axios.put(`${REACT_APP_API_URL}/products/${payload}/active`, payload, BEARER())
 			.then((product) => {
 				dispatch(
 					{
@@ -82,10 +91,10 @@ export const toggleActiveProduct = (payload) => {
 	}
 }
 
-export const getProduct = (payload) => {
+export const getProduct = (payload, query) => {
 	return function (dispatch) {
 		dispatch({ type: LOADING_PRODUCT });
-		return axios.get(`${REACT_APP_API_URL}/products/${payload}`)
+		return axios.get(`${REACT_APP_API_URL}/products/${payload}${QUERY_FUNCTION(query)}`)
 			.then(product => {
 				dispatch({
 					type: GET_PRODUCT,
@@ -138,14 +147,12 @@ export const getSearchProducts = (payload, options) => {
 		dispatch({ type: LOADING_FILTER_PRODUCTS });
 		return axios.get(`${REACT_APP_API_URL}/products/search?query=${payload}${limit}${offset}`)
 			.then(products => {
-
 				dispatch({
 					type: GET_FILTER_PRODUCTS,
 					payload: { filter: payload, products: products.data.results, count: products.data.count }
 				})
 			})
 			.catch(err => {
-				console.log('error', err);
 				dispatch({
 					type: GET_FILTER_PRODUCTS_ERROR
 				})
@@ -176,18 +183,9 @@ export const emptyFilter = () => {
 }
 
 export const getProducts = (payload) => {
-	let queries = '', order = '', limit = '', offset = '', isActive = '';
-
-	if (payload) {
-		queries = payload.query ? '?query=' + payload.query : queries;
-		order = payload.order ? '&order=' + payload.order : order;
-		limit = payload.limit ? '&limit=' + payload.limit : limit;
-		offset = payload.offset ? '&offset=' + payload.offset : offset;
-		isActive = payload.isActive ? '?isActive=' + payload.isActive : isActive;
-	}
 	return function (dispatch) {
 		dispatch({ type: LOADING_PRODUCTS });
-		return axios.get(`${REACT_APP_API_URL}/products${queries}${order}${limit}${offset}${isActive}`)
+		return axios.get(`${REACT_APP_API_URL}/products${QUERY_FUNCTION(payload)}`)
 			.then(product => {
 				dispatch({
 					type: GET_PRODUCTS,
@@ -204,9 +202,144 @@ export const getProducts = (payload) => {
 
 export const deleteImage = (payload) => { //payload = product.id
 	return function (dispatch) {
-		return axios.delete(`${REACT_APP_API_URL}/products/image/${payload.id}`)
+		return axios.delete(`${REACT_APP_API_URL}/products/image/${payload.id}`, BEARER())
 			.then(() => {
 				dispatch(getProduct(payload.productId))
+			})
+			.catch() //check errors
+	}
+}
+
+//DISCOUNT ACTIONS
+
+export const getDiscounts = () => {
+	return function (dispatch) {
+		dispatch({ type: LOADING_DISCOUNTS });
+		return axios.get(`${REACT_APP_API_URL}/products/discounts`)
+			.then(products => {
+				dispatch({
+					type: GET_DISCOUNTS,
+					payload: products.data
+				})
+			})
+			.catch(err => {
+				dispatch({
+					type: GET_DISCOUNTS_ERROR
+				})
+			})
+	}
+}
+
+export const addDiscount = (payload) => {
+	return function (dispatch) {
+		// dispatch({ type: LOADING_DISCOUNTS });
+		return axios.post(`${REACT_APP_API_URL}/products/discounts/${payload.id}`, payload.body, BEARER())
+			.then((data) => {
+				dispatch(getDiscounts());
+				return data.status;
+			})
+			.catch((err) => {
+				// dispatch({
+				// 	type: GET_DISCOUNTS_ERROR
+				// })
+				return err.response.status;
+			})
+	}
+}
+
+export const editDiscount = (payload) => {
+	return function (dispatch) {
+		// dispatch({ type: LOADING_DISCOUNTS });
+		return axios.put(`${REACT_APP_API_URL}/products/discounts/${payload.id}`, payload.body, BEARER())
+			.then((data) => {
+				dispatch(getDiscounts());
+				return data.status;
+			})
+			.catch((err) => {
+				// dispatch({
+				// 	type: GET_DISCOUNTS_ERROR
+				// })
+				return err.response.status;
+			})
+	}
+}
+
+export const deleteDiscount = (payload) => {
+	return function (dispatch) {
+		// dispatch({ type: LOADING_DISCOUNTS });
+		return axios.delete(`${REACT_APP_API_URL}/products/discounts/${payload}`, BEARER())
+			.then((data) => {
+				dispatch(getDiscounts());
+				return data.status;
+			})
+			.catch((err) => {
+				// dispatch({
+				// 	type: GET_DISCOUNTS_ERROR
+				// })
+				return err.response.status;
+			})
+	}
+}
+
+//SERIALS ACTIONS
+
+export const getSerials = (payload) => {
+	return function (dispatch) {
+		return axios.get(`${REACT_APP_API_URL}/serials/${payload}`, BEARER())
+			.then((serials) => {
+				dispatch({ type: GET_SERIALS, payload: serials.data })
+			})
+			.catch() //check errors
+	}
+}
+
+export const deleteSerial = (payload) => {
+	return function (dispatch) {
+		return axios.delete(`${REACT_APP_API_URL}/serials/${payload.serial}`, BEARER())
+			.then(() => {
+				dispatch(getSerials(payload.productId));
+				dispatch(getProducts({ isActive: true }));
+			})
+			.catch() //check errors
+	}
+}
+
+export const addSerial = (payload) => {
+	return function (dispatch) {
+		return axios.post(`${REACT_APP_API_URL}/serials/${payload.productId}`, { serials: payload.serials }, BEARER())
+			.then((a) => {
+				dispatch(getProducts({ isActive: true }));
+				dispatch(getSerials(payload.productId));
+			})
+			.catch(err => {
+				dispatch({ type: ERROR_SERIAL, payload: err.response.data })
+			}) //check errors
+	}
+}
+
+export const editSerial = (payload) => {
+	return function (dispatch) {
+		return axios.put(`${REACT_APP_API_URL}/serials/${payload.id}`, { serial: payload.serial }, BEARER())
+			.then((a) => {
+				dispatch(getSerials(payload.productId));
+			})
+			.catch(err => {
+				dispatch({ type: ERROR_SERIAL, payload: err.response.data })
+			}) //check errors
+	}
+}
+
+export const clearErrorSerial = () => {
+	return { type: CLEAR_ERROR_SERIAL }
+}
+
+//REVIEWS
+
+export const getReviews = (payload, query) => {
+	return function (dispatch) {
+		return axios.get(`${REACT_APP_API_URL}/reviews/${payload}${QUERY_FUNCTION(query)}`)
+			.then((reviews) => {
+				dispatch({ type: GET_REVIEWS, payload: reviews.data })
 			})
 			.catch() //check errors
 	}

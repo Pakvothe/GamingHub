@@ -2,7 +2,10 @@ import {
 	GET_ORDERS,
 	LOADING_ORDERS,
 	ORDERS_ERROR,
-	ADD_ORDER
+	ADD_ORDER,
+	ORDER_ERROR,
+	GET_ORDER,
+	LOADING_ORDER
 } from '../constants.js';
 
 const initialState = {
@@ -24,17 +27,27 @@ const ordersReducer = (state = initialState, action) => {
 			return {
 				...state,
 				orders: {
-					...state.orders,
 					isLoading: false,
-					list: action.payload
+					list: action.payload,
+					error: false
+				}
+			}
+		case GET_ORDER:
+			return {
+				...state,
+				order: {
+					isLoading: false,
+					info: action.payload,
+					error: false
 				}
 			}
 		case ADD_ORDER:
 			return {
 				...state,
 				order: {
-					...state.order,
-					info: action.payload
+					isLoading: false,
+					info: action.payload,
+					error: false
 				}
 			}
 		case ORDERS_ERROR:
@@ -46,12 +59,31 @@ const ordersReducer = (state = initialState, action) => {
 					error: action.payload
 				}
 			}
+		case ORDER_ERROR:
+			return {
+				...state,
+				order: {
+					info: {},
+					isLoading: false,
+					error: true
+				}
+			}
 		case LOADING_ORDERS:
 			return {
 				...state,
 				orders: {
-					...state.orders,
-					isLoading: true
+					list: [],
+					isLoading: true,
+					error: false
+				}
+			}
+		case LOADING_ORDER:
+			return {
+				...state,
+				order: {
+					isLoading: true,
+					info: {},
+					error: false,
 				}
 			}
 		default: return state;

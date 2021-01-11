@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import { SideBarContainer, SideBarButton, StyledSVG } from '../../styles/styled_admin_sidebar';
 import logo from '../../../assets/img/logo.svg'
 import arrowLeft from '../../../assets/img/arrow-left.svg'
+import strings from './strings';
 
 import { emptyFilter, getProducts } from "../../../redux/actions/products_actions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const AdminSideBar = () => {
 	const [buttonToggle, setButtonToggle] = useState(true);
 	const dispatch = useDispatch();
+	const language = useSelector(state => state.globalReducer.language);
+	const s = strings[language];
 
 	const toggleMenu = () => {
 		setButtonToggle((prev) => !prev)
@@ -22,7 +25,7 @@ const AdminSideBar = () => {
 				<div>
 					<Link to="/" className="logo-link" onClick={() => {
 						dispatch(emptyFilter())
-						dispatch(getProducts({ query: 'stock', order: 'DESC', limit: 8 }))
+						dispatch(getProducts({ name: 'stock', order: 'DESC', limit: 8 }))
 					}}>
 						<StyledSVG src={logo} />
 					</Link>
@@ -31,10 +34,10 @@ const AdminSideBar = () => {
 					<StyledSVG src={arrowLeft} />
 				</SideBarButton>
 				<ul>
-					<li><Link to="/admin">Productos</Link></li>
-					<li><Link to="/admin/categories">Categorias</Link></li>
-					<li><Link to="/admin/orders">Ordenes</Link></li>
-					<li><Link to="/admin/users">Usuarios</Link></li>
+					<li><NavLink exact activeClassName="active" to="/admin">{s.products}</NavLink></li>
+					<li><NavLink activeClassName="active" to="/admin/categories">{s.categories}</NavLink></li>
+					<li><NavLink activeClassName="active" to="/admin/orders">{s.orders}</NavLink></li>
+					<li><NavLink activeClassName="active" to="/admin/users">{s.users}</NavLink></li>
 				</ul>
 			</SideBarContainer>
 		</>

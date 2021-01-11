@@ -1,10 +1,11 @@
 const server = require('express').Router();
 const { Op } = require('sequelize');
-const { Product, Category, Image } = require('../db.js');
+const { Product, Category, Image, Review, User } = require('../db.js');
+const { isAuthenticated, isAdmin } = require('../../utils/customMiddlewares');
 //----------"/products"--------------
 
 server.get('/', (req, res, next) => {
-	const { query, order, limit, offset, isActive } = req.query;
+	const { name, order, limit, offset, isActive } = req.query;
 
 	let count = 0;
 	Product.count()
@@ -18,7 +19,7 @@ server.get('/', (req, res, next) => {
 					}
 				],
 				order: [
-					(query && [query, order || 'ASC']) || ['id', 'ASC'],
+					(name && [name, order || 'ASC']) || ['id', 'ASC'],
 					[Image, 'id', 'ASC']
 				],
 				limit: limit ? limit : null,
@@ -55,7 +56,7 @@ server.post('/cart', (req, res) => {
 		})
 });
 
-server.post('/', (req, res) => {
+server.post('/', isAdmin, (req, res) => {
 	const {
 		name,
 		description_es,
@@ -122,49 +123,109 @@ server.post('/', (req, res) => {
 
 server.get('/search', (req, res) => {
 	const { query, limit, offset } = req.query;
-	if (query) {
 
-		let count = 0;
-		Product.count({
-			where: {
-				[Op.or]: [
-					{ name: { [Op.iLike]: `%${query}%` } },
-					{ description_es: { [Op.iLike]: `%${query}%` } },
-					{ description_en: { [Op.iLike]: `%${query}%` } }
-				]
-			}
+	Product.count({
+		where: query !== '' && {
+			[Op.or]: query !== '' && [
+				{ name: { [Op.iLike]: `%${query}%` } },
+				{ description_es: { [Op.iLike]: `%${query}%` } },
+				{ description_en: { [Op.iLike]: `%${query}%` } }
+			]
+		}
+	})
+		.then(count => {
+			Product.findAll({
+				where: query !== '' && {
+					[Op.or]: [
+						{ name: { [Op.iLike]: `%${query}%` } },
+						{ description_es: { [Op.iLike]: `%${query}%` } },
+						{ description_en: { [Op.iLike]: `%${query}%` } }
+					]
+				},
+				include: [{
+					model: Image,
+				}],
+				limit: limit ? limit : null,
+				offset: offset ? offset : null
+			})
+				.then((products) => {
+					res.status(200).json({ count, results: products });
+				})
+				.catch(err => {
+					res.status(500).json({ message: 'Internal server error', })
+				})
 		})
-			.then(data => {
-				count = data;
-			})
-
-
-		Product.findAll({
-			where: {
-				[Op.or]: [
-					{ name: { [Op.iLike]: `%${query}%` } },
-					{ description_es: { [Op.iLike]: `%${query}%` } },
-					{ description_en: { [Op.iLike]: `%${query}%` } }
-				]
-			},
-			include: [{
-				model: Image,
-			}],
-			limit: limit ? limit : null,
-			offset: offset ? offset : null
-		})
-			.then((products) => {
-				res.status(200).json({ count, results: products });
-			})
-			.catch(err => {
-				res.status(500).json({ message: 'Internal server error', })
-			})
-
-	} else {
-		res.status(400).json({ message: "Query is empty" });
-	}
 })
-server.put('/:id/active', (req, res) => {
+
+server.get('/discounts', (req, res) => {
+	Product.findAll({
+		where: {
+			real_price: { [Op.ne]: null }
+		},
+		include: [Image],
+		order: [[Image, 'id']]
+	})
+		.then((products) => {
+			res.status(200).json(products);
+		})
+		.catch(() => {
+			res.status(500).json({ message: 'Internal server error', })
+		})
+})
+
+server.post('/discounts/:id', isAdmin, (req, res) => {
+	const { id } = req.params;
+
+	Product.update(req.body, {
+		where: { id }
+	})
+		.then((editedProduct) => {
+			if (!editedProduct[0]) return res.status(404).json({ message: 'Product not found' })
+			return res.json({ message: 'Offer added!' });
+		})
+		.catch(() => {
+			res.status(500).json({ message: 'Internal server error', })
+		})
+})
+
+server.put('/discounts/:id', isAdmin, (req, res) => {
+	const { id } = req.params;
+
+	Product.update(req.body, {
+		where: { id }
+	})
+		.then((editedProduct) => {
+			if (!editedProduct[0]) return res.status(404).json({ message: 'Product not found' });
+			return res.json({ message: 'Offer updated!' });
+		})
+		.catch(() => {
+			res.status(500).json({ message: 'Internal server error', });
+		})
+})
+
+server.delete('/discounts/:id', isAdmin, (req, res) => {
+	const { id } = req.params;
+
+	Product.findOne({
+		where: { id }
+	})
+		.then((product) => {
+			if (!product) return res.status(404).json({ message: 'Product not found' });
+			return product.update({
+				price: product.real_price,
+				real_price: null,
+				banner_image: null
+			})
+		})
+		.then(() => {
+			return res.json({ message: 'Offer deleted!' })
+		})
+		.catch(() => {
+			res.status(500).json({ message: 'Internal server error', })
+		})
+})
+
+server.put('/:id/active', isAdmin, (req, res) => {
 	const { id } = req.params;
 	Product.findOne({
 		where: { id }
@@ -203,7 +264,7 @@ server.put('/:id/active', (req, res) => {
 		})
 })
 
-server.put('/:id', (req, res) => {
+server.put('/:id', isAdmin, (req, res) => {
 	const { id } = req.params;
 	const {
 		name,
@@ -301,7 +362,7 @@ server.put('/:id', (req, res) => {
 })
 
 
-server.post('/:prodId/category/:catId', (req, res) => {
+server.post('/:prodId/category/:catId', isAdmin, (req, res) => {
 	let { prodId, catId } = req.params;
 	let prod = Product.findOne({
 		where: { id: prodId }
@@ -316,7 +377,7 @@ server.post('/:prodId/category/:catId', (req, res) => {
 		})
 })
 
-server.delete('/:prodId/category/:catId', (req, res) => {
+server.delete('/:prodId/category/:catId', isAdmin, (req, res) => {
 	let { prodId, catId } = req.params;
 	let prod = Product.findOne({
 		where: { id: prodId }
@@ -331,7 +392,7 @@ server.delete('/:prodId/category/:catId', (req, res) => {
 		})
 })
 
-server.delete('/:id', (req, res) => {
+server.delete('/:id', isAdmin, (req, res) => {
 	const prodId = req.params.id;
 	Product.destroy({
 		where: {
@@ -376,14 +437,15 @@ server.get('/:id', (req, res) => {
 				return res.json(prod);
 			}
 		})
-		.catch(() => {
+		.catch((err) => {
+			console.log(err)
 			res.status(500).json({
 				message: 'Internal server error',
 			});
 		});
 });
 
-server.delete('/image/:id', (req, res) => {
+server.delete('/image/:id', isAdmin, (req, res) => {
 	const imgId = req.params.id;
 	Image.destroy({
 		where: { id: imgId },
@@ -399,5 +461,75 @@ server.delete('/image/:id', (req, res) => {
 		})
 	});
 });
+
+server.post('/:id/review', isAuthenticated, (req, res) => {
+	const { id: productId } = req.params;
+	const { id: userId } = req.user;
+	const { score, description } = req.body;
+
+	if (!+productId) {
+		return res.status(400).json({
+			message: 'Bad Request'
+		});
+	};
+
+	Product.findByPk(productId)
+		.then((prod) => {
+			if (!prod) return res.status(404).json({ message: 'Product not found.' });
+
+			return Review.create({ score, description, productId, userId })
+		})
+		.then(() => {
+			return res.status(201).json({ message: 'Review created' });
+		})
+		.catch((err) => {
+			console.error(err);
+			res.status(500).json({
+				message: 'Internal server error',
+			})
+		})
+
+});
+
+server.put('/reviews/:id', isAuthenticated, (req, res) => {
+	const { id } = req.params;
+
+	Review.update(req.body, {
+		where: {
+			id, userId: req.user.id
+		},
+		individualHooks: true
+	})
+		.then(resp => {
+			if (!resp[0]) return res.status(404).json({ message: 'Review not found.' });
+
+			return res.status(200).json({ message: 'Review Updated.' })
+		})
+		.catch(() => {
+			res.status(500).json({
+				message: 'Internal server error',
+			})
+		})
+
+});
+
+server.delete('/reviews/:id', isAuthenticated, (req, res) => {
+	const { id } = req.params;
+
+	Review.destroy({
+		where: req.user.is_admin ? { id } : { id, userId: req.user.id },
+		individualHooks: true
+	})
+		.then(resp => {
+			if (!resp) return res.status(404).json({ message: 'Review not found.' });
+
+			return res.status(200).json({ message: 'Review Deleted.' })
+		})
+		.catch(() => {
+			res.status(500).json({
+				message: 'Internal server error',
+			})
+		})
+})
 
 module.exports = server;

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { useDispatch } from 'react-redux';
 import { StyledSidebarCart, StyledCloseBtn } from '../styles/styled_sidebar_cart';
-import { Btn } from '../styles/styled_global';
+import { Btn, Hr } from '../styles/styled_global';
 import BigCloseButton from '../../assets/img/close-transparent.svg';
 import Mini from '../product_card/mini';
 import strings from './strings';
@@ -12,6 +12,7 @@ import Slide from 'react-reveal/Slide';
 
 
 const CartSideBar = ({ language, cart, show, closeCallback }) => {
+	const s = strings[language];
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -44,22 +45,22 @@ const CartSideBar = ({ language, cart, show, closeCallback }) => {
 					<button title='Close' className='modal__close' onClick={closeCallback}>
 						<StyledCloseBtn src={BigCloseButton} />
 					</button>
-					<h2 className='modal__title'>{strings[language].your_cart}</h2>
+					<h2 className='modal__title'>{s.your_cart}</h2>
 					{!!cart.length && cart.map(purchase => {
 						return (
 							<Mini productDetail={purchase} key={purchase.id} />
 						)
 					})}
-					<hr />
+					<Hr />
 					<div className='modal__subtotal'>
 						<p>Subtotal:</p>
 						<p>${subtotal.toFixed(2)}</p>
 					</div>
 					<div className="modal__buttons">
 						<Link to="/order" onClick={closeCallback}>
-							<Btn className='btn btn-ppal'>{strings[language].checkout}</Btn>
+							<Btn className='btn btn-ppal'>{s.checkout}</Btn>
 						</Link>
-						<Btn className='btn btn-sec' onClick={() => dispatch(clearCart())}>{strings[language].empty_cart}</Btn>
+						<Btn className='btn btn-sec' onClick={() => dispatch(clearCart())}>{s.empty_cart}</Btn>
 					</div>
 				</div>
 			</Slide>

@@ -12,7 +12,9 @@ export const NavbarStyled = styled.nav`
 		color: currentColor;
 		font-weight: 500;
 
-		&:hover { color: var(--clr-primary) }
+		&:hover {
+			color: var(--clr-primary);
+		}
 	}
 
 	svg  { fill: currentColor; }
@@ -38,8 +40,23 @@ export const NavbarStyled = styled.nav`
 			align-items: center;
 			flex-basis: 300px;
 
+			.navbar__profile-pic {
+				width: 40px;
+				height: 40px;
+				border: 3px solid var(--clr-white);
+				border-radius: 50%;
+				overflow: hidden;
+
+				img {
+					width: 100%;
+					height: 100%;
+					object-fit: cover;
+				}
+			}
+
 			& > li {
 				position: relative;
+				cursor: pointer;
 			}
 
 			& > li + li { margin-left: 3em; }
@@ -49,9 +66,17 @@ export const NavbarStyled = styled.nav`
 				flex-direction: column;
 				align-items: center;
 				justify-content: center;
+				cursor: pointer;
 			}
 
-			li:hover { color: var(--clr-primary); }
+			li:hover {
+				color: var(--clr-primary);
+
+				.navbar__profile-pic {
+					border-color: var(--clr-primary);
+				}
+			
+			}
 
 			.cart__number {
 				font-size: 0.8em;

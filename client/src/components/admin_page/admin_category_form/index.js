@@ -10,7 +10,8 @@ import { ADD_PRODUCT } from '../../../redux/constants';
 
 const AdminCategoryForm = () => {
 	const { id } = useParams();
-	const language = useSelector(state => state.globalReducer.language)
+	const language = useSelector(state => state.globalReducer.language);
+	const s = strings[language];
 	const category = useSelector(state => state.categoriesReducer.category.info)
 	const dispatch = useDispatch();
 	const { addToast } = useToasts();
@@ -43,11 +44,11 @@ const AdminCategoryForm = () => {
 		e.preventDefault();
 		if (id) dispatch(editCategory(input))
 		else dispatch(addCategory(input))
-		addToast(`category ${id ? "edited" : "added"} successfully`, { appearance: 'success' })
+		addToast(id ? s.toastEdited : s.toastAdded, { appearance: 'success' })
 		setToAdmin(true);
 	}
 
-	const opciones = id ? strings[language].buttonEdit : strings[language].buttonAdd;
+	const opciones = id ? s.buttonEdit : s.buttonAdd;
 
 	if (toAdmin) return <Redirect to="/admin/categories" />
 	return (
@@ -55,11 +56,11 @@ const AdminCategoryForm = () => {
 			<h1 className="admin-h1">{opciones}</h1>
 			<FormStyled onSubmit={handleSubmit} method="POST" autoComplete="off">
 				<label>
-					<span>{strings[language].name_es}:</span>
+					<span>{s.name_es}:</span>
 					<input type='text' name='name_es' value={input.name_es} onChange={handleChange} required />
 				</label>
 				<label>
-					<span>{strings[language].name_en}:</span>
+					<span>{s.name_en}:</span>
 					<input type='text' name='name_en' value={input.name_en} onChange={handleChange} required />
 				</label>
 				<Btn type='submit' className="btn-ppal">{opciones}</Btn>

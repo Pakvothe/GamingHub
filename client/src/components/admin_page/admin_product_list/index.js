@@ -1,19 +1,28 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { deleteProduct, toggleActiveProduct, getProductsByName } from '../../../redux/actions/products_actions';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteProduct, toggleActiveProduct, getProductsByName, getProducts } from '../../../redux/actions/products_actions';
 import { Btn, DataTable } from '../../styles/styled_global';
 import { Link } from 'react-router-dom';
 import SearchBar from '../../search_bar';
 import { useToasts } from 'react-toast-notifications';
+import strings from './strings';
 
 const AdminProductList = ({ products }) => {
 	const dispatch = useDispatch();
-
+	const language = useSelector(state => state.globalReducer.language);
+	const s = strings[language];
 	const { addToast } = useToasts();
+
+	const [orderSort, setOrderSort] = useState({
+		id: 'ASC',
+		name: 'ASC',
+		stock: 'ASC'
+	})
+
 	const handleDelete = (prod) => {
-		if (window.confirm(`Are you sure you want to delete ${prod.name}?`)) {
+		if (window.confirm(`${s.swDeleteTitle} ${prod.name}?`)) {
 			dispatch(deleteProduct(prod.id));
-			addToast(`product deleted successfully`, { appearance: 'info' })
+			addToast(s.toastProductDeleted, { appearance: 'success' })
 		}
 	}
 
@@ -22,22 +31,40 @@ const AdminProductList = ({ products }) => {
 		dispatch(toggleActiveProduct(ev.target.name))
 	}
 
-	const handleOrder = () => {
-		dispatch(getProductsByName());
+	const handleSort = (ev) => {
+		if (orderSort.hasOwnProperty(ev.target.id)) {
+			const object = { ...orderSort }
+			object[ev.target.id] = object[ev.target.id] === 'ASC' ? 'DESC' : 'ASC'
+			for (const key in object) {
+				let element = document.getElementById(key);
+				if (ev.target.id === key) {
+					object[element.id] === 'ASC' ? element.classList.replace('up', 'down') : element.classList.replace('down', 'up')
+					element.classList.toggle('active', true)
+				} else {
+					element.classList.remove('active');
+				}
+			}
+			setOrderSort(object)
+			dispatch(getProducts({ name: ev.target.id, order: object[ev.target.id] }))
+		}
 	}
 
 	return (
 		<>
+			<h1 className='admin-h1'>{s.title}</h1>
 			<div style={{ display: 'flex', justifyContent: 'space-between' }}>
-				<Link to="/admin/product"><Btn className="btn-ppal" >Agregar Producto</Btn></Link>
+				<div>
+					<Link to="/admin/product"><Btn className="btn-ppal mr-1">{s.addProduct}</Btn></Link>
+					<Link to="/admin/product/offer/list"><Btn className="btn-ppal">{s.offers}</Btn></Link>
+				</div>
 				<SearchBar />
 			</div>
 			<DataTable>
 				<thead>
-					<tr>
-						<td className="cell-small">ID</td>
-						<td onClick={handleOrder}>Título</td>
-						<td className="cell-small">Stock</td>
+					<tr onClick={handleSort}>
+						<td id="id" className="cell-small icon down active">ID</td>
+						<td id="name" className="icon down">{s.tableTitle}</td>
+						<td id="stock" className="cell-small icon down">Stock</td>
 						<td className="cell-small">Visible</td>
 						<td></td>
 					</tr>
@@ -48,28 +75,19 @@ const AdminProductList = ({ products }) => {
 							<td>{prod.id}</td>
 							<td>{prod.name}</td>
 							<td>{prod.stock}</td>
-							{/* <td>
-								<CheckboxLabel className="no-shadow check" checked={input.is_active[prod.id]}>
-									<input
-										type='checkbox'
-										value={input.is_active[prod.id]}
-										onChange={handleInput}
-										name='is_active'
-									/>
-								</CheckboxLabel>
-							</td> */}
 							<td><input type="checkbox" checked={prod.is_active} onChange={handleInput} name={prod.id} /></td>
 							<td>
 								<ul>
-									<li><Link to={`/admin/product/${prod.id}`}><button>Editar</button></Link></li>
-									<li><button onClick={() => handleDelete(prod)}>Eliminar</button></li>
+									<li><Link to={`/admin/product/${prod.id}/offer/new`}><button>{s.offer}</button></Link></li>
+									<li><Link to={`/admin/product/${prod.id}/stock`}><button>Stock</button></Link></li>
+									<li><Link to={`/admin/product/${prod.id}`}><button>{s.tableEditButton}</button></Link></li>
+									<li><button onClick={() => handleDelete(prod)}>{s.tableDeleteButton}</button></li>
 								</ul>
 							</td>
 						</tr>
 					))}
 				</tbody>
 			</DataTable>
-
 		</>
 	);
 };

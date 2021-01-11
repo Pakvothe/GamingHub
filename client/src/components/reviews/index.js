@@ -1,26 +1,81 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import StarRatings from "react-star-ratings";
-import { StyledTitle } from '../styles/styled_global';
+import ShowMoreText from 'react-show-more-text';
+import { Btn, StyledTitle } from '../styles/styled_global';
 import { StyledReviews } from '../styles/styled_reviews';
+import strings from './strings'
+import { getProduct, getReviews } from '../../redux/actions/products_actions';
 
+function Reviews({ id }) {
 
-function Reviews({ reviews }) {
+	const dispatch = useDispatch()
+
+	useEffect(() => {
+		dispatch(getReviews(id))
+	}, [])
+
 	const theme = useSelector(state => state.globalReducer.theme)
+	const language = useSelector(state => state.globalReducer.language);
+	const s = strings[language];
+	const reviews = useSelector(state => state.productsReducer.reviews.list)
+
+	const [showMore, setShowMore] = useState(false);
+	const [loading, setLoading] = useState(false);
+
+	const filters = {
+		recent: {
+			name: 'updatedAt',
+			order: 'DESC'
+		},
+		high: {
+			name: 'score',
+			order: 'DESC'
+		},
+		low: {
+			name: 'score',
+			order: 'ASC'
+		}
+
+	}
+
+	const handleClick = () => {
+		setLoading(true);
+		const delay = new Promise(resolve => {
+			setTimeout(() => resolve('finish'), 500);
+		})
+			.then(() => {
+				setShowMore(prev => !prev)
+				setLoading(false);
+			})
+	}
+
+	const handleFilter = (ev) => {
+		let eventoId = ev.target.id // Porque dio problemas, lo guardamos en un closure
+		for (const key in filters) {
+			let element = document.getElementById(key);
+			if (eventoId === key) {
+				element.classList.toggle('filter__selected', true)
+			} else {
+				element.classList.remove('filter__selected');
+			}
+		}
+		dispatch(getReviews(id, { name: filters[eventoId].name, order: filters[eventoId].order }))
+	}
 
 	return (
 		<StyledReviews>
-			<StyledTitle><span>Reseñas sobre este juego</span></StyledTitle>
-			<p className="reviews__filter">Ordenar por:
-				<button className="filter__recent filter__selected">Recientes</button>
-				<button className="filter__high">Más altas</button>
-				<button className="filter__low">Más bajas</button>
+			<StyledTitle><span>{s.reviews}</span></StyledTitle>
+			<p className="reviews__filter" onClick={handleFilter}>{s.order}
+				<button id="recent" className="filter__recent filter__selected">{s.recent}</button>
+				<button id="high" className="filter__high">{s.higher}</button>
+				<button id="low" className="filter__low">{s.lower}</button>
 			</p>
 			<div className="reviews__container">
 				{
-					reviews.map(review => (
-						<div className="review">
-							<p className="review__username">{review.user.name}</p>
+					!!reviews.length && reviews.slice(0, showMore ? reviews.length : 4).map((review, i) => (
+						<div className="review" key={i}>
+							<p className="review__username">{review.user.first_name}</p>
 							<span className="review__stars">
 								<StarRatings
 									rating={review.score}
@@ -29,70 +84,27 @@ function Reviews({ reviews }) {
 									starSpacing="0"
 								/>
 							</span>
-							<p className="review__description">{review.description}</p>
+							<ShowMoreText
+								lines={8}
+								more={s.more}
+								less={s.less}
+								className='review__description'
+								expanded={false}
+							>
+								{review.description}
+							</ShowMoreText>
 						</div>
 					))
 				}
+				<div className="w-100 text-center">
+					<Btn className="btn btn-ppal" onClick={handleClick}>
+						{loading && <i className="mr-1 fas fa-circle-notch fa-spin"></i>}
+						{showMore ? s.lessReviews : s.moreReviews}...
+						</Btn>
+				</div>
 			</div>
 		</StyledReviews>
 	)
-}
-
-Reviews.defaultProps = {
-	reviews: [
-		{
-			score: 5,
-			date: '30-12-2020',
-			description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore quae debitis quidem necessitatibus. Facere illo explicabo obcaecati nostrum natus quasi, id reprehenderit magnam ducimus sequi delectus animi unde! Dolores, eligendi?',
-			product: {
-				id: 2
-			},
-			user: {
-				id: 1,
-				name: 'Emi',
-				mail: 'emi@emi.com'
-			}
-		},
-		{
-			score: 5,
-			date: '30-12-2020',
-			description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore quae debitis quidem necessitatibus. Facere illo explicabo obcaecati nostrum natus quasi, id reprehenderit magnam ducimus sequi delectus animi unde! Dolores, eligendi?',
-			product: {
-				id: 2
-			},
-			user: {
-				id: 1,
-				name: 'Emi',
-				mail: 'emi@emi.com'
-			}
-		},
-		{
-			score: 1.5,
-			date: '30-12-2020',
-			description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore quae debitis quidem necessitatibus. Facere illo explicabo obcaecati nostrum natus quasi, id reprehenderit magnam ducimus sequi delectus animi unde! Dolores, eligendi?',
-			product: {
-				id: 2
-			},
-			user: {
-				id: 1,
-				name: 'Emi',
-				mail: 'emi@emi.com'
-			}
-		},
-		{
-			score: 3,
-			date: '30-12-2020',
-			description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore quae debitis quidem necessitatibus. Facere illo explicabo obcaecati nostrum natus quasi, id reprehenderit magnam ducimus sequi delectus animi unde! Dolores, eligendi?',
-			product: {
-				id: 2
-			},
-			user: {
-				id: 1,
-				name: 'Emi',
-				mail: 'emi@emi.com'
-			}
-		}
-	]
 }
 
 export default Reviews

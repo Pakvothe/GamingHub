@@ -6,15 +6,23 @@ import {
 	GET_USERS,
 	DELETE_USER,
 	USERS_ERROR,
-	LOADING_USERS
+	USER_ERROR,
+	LOADING_USERS,
+	LOGIN_USER,
+	LOGOUT_USER,
+	LOADING_USER,
+	BEARER,
 } from '../constants';
 
 const { REACT_APP_API_URL } = process.env;
 
-export const getUser = (payload) => {
+export const getUser = () => {
 	return function (dispatch) {
-		return axios.get(`${REACT_APP_API_URL}/users/${payload}`)
+		dispatch({ type: LOADING_USER })
+		return axios.get(`${REACT_APP_API_URL}/auth/me`, BEARER())
 			.then(user => {
+				if (user.data.jwt) localStorage.setItem('jwt', JSON.stringify(user.data.jwt));
+				delete user.data.jwt
 				dispatch({
 					type: GET_USER,
 					payload: user.data
@@ -24,36 +32,69 @@ export const getUser = (payload) => {
 				dispatch({
 					type: USERS_ERROR
 				})
+
+			})
+	}
+}
+
+export const logout = () => {
+	localStorage.removeItem('jwt');
+	return {
+		type: LOGOUT_USER
+	}
+}
+
+export const loginUser = (payload) => {
+	return function (dispatch) {
+		dispatch({
+			type: LOADING_USER
+		})
+		return axios.post(`${REACT_APP_API_URL}/auth/login`, payload)
+			.then(user => {
+				const jwt = JSON.stringify(user.data)
+				localStorage.setItem('jwt', jwt);
+				dispatch({
+					type: LOGIN_USER,
+					payload: user.data
+				})
+				dispatch(getUser());
+				return user.status;
+			})
+			.catch(err => {
+				dispatch({
+					type: USER_ERROR
+				})
+				return err.response.status;
 			})
 	}
 }
 
 export const addUser = (payload) => {
 	return function (dispatch) {
-		return axios.post(`${REACT_APP_API_URL}/users`, payload)
+		return axios.post(`${REACT_APP_API_URL}/auth/register`, payload)
 			.then((user) => {
+				const jwt = JSON.stringify(user.data)
+				localStorage.setItem('jwt', jwt);
 				dispatch(
 					{
 						type: ADD_USER,
 						payload: user.data
 					}
 				)
+				dispatch(getUser());
+				return user;
 			})
 			.catch(err => {
-			}) //check errors
+				throw new Error(err.response.data.message)
+			})
 	}
 }
 
 export const editUser = (payload) => {
 	return function (dispatch) {
-		return axios.put(`${REACT_APP_API_URL}/users/${payload.id}`, payload)
-			.then((user) => {
-				dispatch(
-					{
-						type: EDIT_USER,
-						payload: user.data
-					}
-				)
+		return axios.put(`${REACT_APP_API_URL}/users/${payload.id}`, payload, BEARER())
+			.then(() => {
+				dispatch(getUser())
 			})
 			.catch() //check errors
 	}
@@ -63,7 +104,7 @@ export const editUser = (payload) => {
 export const getUsers = () => {
 	return function (dispatch) {
 		dispatch({ type: LOADING_USERS });
-		return axios.get(`${REACT_APP_API_URL}/users`)
+		return axios.get(`${REACT_APP_API_URL}/users`, BEARER())
 			.then(users => {
 				dispatch({
 					type: GET_USERS,
@@ -78,9 +119,9 @@ export const getUsers = () => {
 	}
 }
 
-export const deleteUser = (payload) => { //payload = product.id
+export const deleteUser = (payload, isAdmin = false) => {
 	return function (dispatch) {
-		return axios.delete(`${REACT_APP_API_URL}/users/${payload}`)
+		return axios.delete(`${REACT_APP_API_URL}/users/${payload}`, BEARER())
 			.then((user) => {
 				dispatch(
 					{
@@ -88,14 +129,17 @@ export const deleteUser = (payload) => { //payload = product.id
 						payload: user.data
 					}
 				)
+				if (isAdmin) dispatch(getUsers())
+				else localStorage.removeItem('jwt');
+				return user.status
 			})
-			.catch() //check errors
+			.catch((err) => err.response.status)
 	}
 }
 
 export const toggleAdmin = (payload) => {
 	return function (dispatch) {
-		return axios.put(`${REACT_APP_API_URL}/users/${payload.id}`, { is_admin: payload.is_admin })
+		return axios.put(`${REACT_APP_API_URL}/users/${payload.id}`, { is_admin: payload.is_admin }, BEARER())
 			.then(() => {
 				dispatch(
 					getUsers()

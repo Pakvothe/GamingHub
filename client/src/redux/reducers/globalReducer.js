@@ -6,15 +6,22 @@ import {
 	LOADING,
 	ERROR,
 	RESET_CURRENT_PAGE,
-	CHANGE_CURRENT_PAGE
+	CHANGE_CURRENT_PAGE,
+	OPEN_LOGIN
 } from '../constants.js';
+
+const d = new Date();
+const hours = d.getHours();
+const night = hours >= 20 || hours <= 7;
+
 
 const initialState = {
 	language: localStorage.getItem('language') || 'es',
 	showCart: false,
-	theme: localStorage.getItem('theme') || 'light',
+	theme: localStorage.getItem('theme') || (night ? 'dark' : 'light'),
 	credCard: {},
-	currentPage: 0
+	currentPage: 0,
+	loginIsOpen: false,
 };
 
 const productsReducer = (state = initialState, action) => {
@@ -52,6 +59,11 @@ const productsReducer = (state = initialState, action) => {
 			return {
 				...state,
 				currentPage: action.payload
+			}
+		case OPEN_LOGIN:
+			return {
+				...state,
+				loginIsOpen: action.payload
 			}
 		default: return state;
 	}

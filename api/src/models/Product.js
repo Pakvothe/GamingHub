@@ -11,6 +11,7 @@ module.exports = (sequelize) => {
 		},
 		stock: {
 			type: D.INTEGER,
+			defaultValue: 0,
 			allowNull: false
 		},
 		description_es: {
@@ -27,15 +28,26 @@ module.exports = (sequelize) => {
 		},
 		score: {
 			type: D.REAL,
+			defaultValue: 0,
 			allowNull: false
 		},
 		sales: {
 			type: D.INTEGER,
+			defaultValue: 0,
 			allowNull: false
 		},
 		is_active: {
 			type: D.BOOLEAN,
 			allowNull: false
+		},
+		real_price: {
+			type: D.REAL,
+		},
+		banner_image: {
+			type: D.STRING,
+			validate: {
+				isUrl: true
+			}
 		}
 	});
 };

@@ -1,15 +1,13 @@
 const server = require('express').Router();
 const { Op } = require('sequelize');
-const { Order, Product, Orders_products } = require('../db.js');
+const { Order, Product, Orders_products, Review } = require('../db.js');
+const { isAuthenticated, isAdmin } = require('../../utils/customMiddlewares');
 //----------"/orders"--------------
 
-server.post('/', async (req, res) => {
+server.post('/', isAuthenticated, async (req, res) => {
 	const order = req.body;
 	const { products } = order;
 	delete order.products;
-	//	trabajo para el front?
-	// let total = products.reduce((acc, prod) => acc + (prod.price * prod.quantity), 0);
-	// order.total_amount = total;
 
 	let idOrder;
 	Order.create(order)
@@ -23,7 +21,7 @@ server.post('/', async (req, res) => {
 					quantity: prod.quantity
 				}
 			});
-			return Orders_products.bulkCreate(formattedProducts)
+			return Orders_products.bulkCreate(formattedProducts, { individualHooks: true })
 		})
 		.then(() => Order.findOne({
 			where: { id: idOrder },
@@ -37,8 +35,11 @@ server.post('/', async (req, res) => {
 		})
 });
 
-server.get('/', (req, res) => {
+server.get('/', isAuthenticated, (req, res) => {
+	const { name, order, all } = req.query;
+
 	Order.findAll({
+		where: !(req.user.is_admin && all) && { userId: req.user.id }, //when admin and all is true theres no 'where'
 		include: [
 			{
 				model: Product,
@@ -48,6 +49,9 @@ server.get('/', (req, res) => {
 					]
 				}
 			}
+		],
+		order: [
+			(name && [name, order || 'ASC']) || ['id', 'ASC']
 		]
 	})
 		.then((orders) => {
@@ -58,12 +62,13 @@ server.get('/', (req, res) => {
 		})
 });
 
-server.get('/:orderId', (req, res) => {
+server.get('/:orderId', isAuthenticated, (req, res) => {
 	const { orderId } = req.params
 
 	Order.findOne({
 		where: {
-			id: orderId
+			id: orderId,
+			userId: req.user.id
 		},
 		include: [
 			{
@@ -72,7 +77,14 @@ server.get('/:orderId', (req, res) => {
 					attributes: [
 						'unit_price', 'quantity'
 					]
-				}
+				},
+				include: [
+					{
+						model: Review,
+						required: false,
+						where: { userId: req.user.id }
+					}
+				]
 			}
 		]
 	})
@@ -84,11 +96,12 @@ server.get('/:orderId', (req, res) => {
 			}
 		})
 		.catch((err) => {
+			console.log(err);
 			res.status(500).json({ message: "Internal server error" });
 		})
 })
 
-server.put('/:id', (req, res) => {
+server.put('/:id', isAuthenticated, (req, res) => {
 	const { id } = req.params;
 	const orderToUpdate = req.body;
 	if (!+id) return res.status(400).json({ message: "Bad Request" });

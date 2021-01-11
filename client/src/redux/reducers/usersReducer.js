@@ -7,12 +7,13 @@ import {
 	GET_USERS,
 	DELETE_USER,
 	LOADING_USERS,
-	USERS_ERROR
+	USERS_ERROR,
+	LOGOUT_USER
 } from '../constants.js';
 
 const initialState = {
 	user: {
-		info: localStorage.getItem('user') || {},
+		info: {},
 		isLoading: false,
 		error: false
 	},
@@ -31,6 +32,7 @@ const usersReducer = (state = initialState, action) => {
 				user: {
 					...state.user,
 					info: action.payload,
+					jwt: action.payload
 				}
 			}
 		}
@@ -91,9 +93,9 @@ const usersReducer = (state = initialState, action) => {
 		case DELETE_USER: {
 			return {
 				...state,
-				users: {
-					...state.users,
-					list: state.users.list.filter(user => user.id !== action.payload.id)
+				user: {
+					...state.user,
+					info: {}
 				}
 			}
 		}
@@ -115,6 +117,17 @@ const usersReducer = (state = initialState, action) => {
 					...state.users,
 					isLoading: false,
 					error: true
+				}
+			}
+		}
+
+		case LOGOUT_USER: {
+			return {
+				...state,
+				user: {
+					info: {},
+					isLoading: false,
+					error: false
 				}
 			}
 		}

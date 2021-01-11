@@ -5,12 +5,14 @@ import { StyledSVG, StepOne } from '../../styles/styled_order_detail';
 import PurchaseStep1 from '../../../assets/img/purchase-steps-1.svg';
 import { Redirect, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import strings from './strings';
 
-const Step1 = ({ cart }) => {
+const Step1 = ({ cart, language }) => {
+	const s = strings[language];
 	const history = useHistory();
 	const dispatch = useDispatch();
 
-	const order = useSelector(state => state.ordersReducer.order.info)
+	const order = useSelector(state => state.ordersReducer.order.info);
 
 	const [total, setTotal] = useState(0.00);
 	const [subtotal, setSubtotal] = useState(0.00);
@@ -38,7 +40,7 @@ const Step1 = ({ cart }) => {
 	}
 	return (
 		<>
-			<h2>Tu carrito de compras:</h2>
+			<h2>{s.cart}</h2>
 			<StyledSVG src={PurchaseStep1} />
 			<StepOne>
 				<div>
@@ -50,27 +52,27 @@ const Step1 = ({ cart }) => {
 				</div>
 				<div>
 					<aside>
-						<h3>Detalles de tu compra</h3>
+						<h3>{s.detail}</h3>
 						<FormStyled>
 							<label>
-								<span>Cupón de descuento</span>
+								<span>{s.discountCoupon}</span>
 								<input type='text' />
 							</label>
 						</FormStyled>
 						<div className='aside__subtotal'>
-							<p>Subtotal:</p>
+							<p>{s.subtotal}</p>
 							<p>{subtotal.toFixed(2)}</p>
 						</div>
 						<div className='aside__discount'>
-							<p>Descuento:</p>
+							<p>{s.discount}</p>
 							<p>{discount}%</p>
 						</div>
 						<hr />
 						<div className='aside__total'>
-							<p>Total:</p>
+							<p>{s.total}</p>
 							<p>{total}</p>
 						</div>
-						<Btn className='btn-ppal' onClick={handleClick}>Siguiente</Btn>
+						<Btn className='btn-ppal' onClick={handleClick}>{s.next}</Btn>
 					</aside>
 				</div>
 			</StepOne>

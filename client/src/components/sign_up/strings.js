@@ -1,22 +1,31 @@
 const strings = {
 	en: {
 		signUp: 'Sign Up',
-		username: 'Username:',
 		password: 'Password:',
 		email: 'Email:',
-		name: 'Name:',
-		lastName: 'Last name:',
-		button: 'Sign up'
-
+		name: 'First Name:',
+		lastName: 'Last Name:',
+		button: 'Sign up',
+		image: 'Image',
+		onlyImages: 'Only images are allowed',
+		imageSize: 'Image size must be lower than 2MB',
+		imageError: 'Upload image error',
+		inUse: '* That email is already in use.',
+		passwordMessage: '* The password must contain a number, a lowercase letter, an uppercase letter and a special character.'
 	},
 	es: {
 		signUp: 'Registrarse',
-		username: 'Usuario:',
 		password: 'Contraseña:',
 		email: 'Correo:',
 		name: 'Nombre:',
 		lastName: 'Apellido:',
-		button: 'Registrarse'
+		button: 'Registrarse',
+		image: 'Imagen',
+		onlyImages: 'Solo se aceptan imágenes',
+		imageSize: 'La imagen debe ser menor a 2MB',
+		imageError: 'Upload image error',
+		inUse: '* El correo electrónico ya está en uso.',
+		passwordMessage: '* La contraseña debe incluir un número, una letra minúscula, una mayúscula y un caracter especial.'
 	}
 };
 

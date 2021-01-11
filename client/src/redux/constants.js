@@ -1,3 +1,23 @@
+export function BEARER() {
+	return {
+		headers: {
+			"Authorization": `Bearer ${JSON.parse(localStorage.getItem('jwt'))}`
+		}
+	}
+}
+
+export function QUERY_FUNCTION(payload) {
+	let string = ''
+
+	if (payload && !!Object.keys(payload).length) {
+		for (const key in payload) {
+			string += `&${key}=${payload[key]}`
+		}
+		string = `?${string.slice(1)}`
+	}
+	return string;
+}
+
 //Global actions =>
 export const CHANGE_LANGUAGE = 'CHANGE_LANGUAGE';
 export const TOGGLE_CART = 'TOGGLE_CART';
@@ -8,6 +28,7 @@ export const LOADING = 'LOADING';
 export const ADD_CREDIT_CARD = 'ADD_CREDIT_CARD';
 export const RESET_CURRENT_PAGE = 'RESET_CURRENT_PAGE';
 export const CHANGE_CURRENT_PAGE = 'CHANGE_CURRENT_PAGE';
+export const OPEN_LOGIN = 'OPEN_LOGIN';
 
 //Product actions =>
 export const GET_PRODUCTS = 'GET_PRODUCTS';
@@ -27,7 +48,24 @@ export const GET_PRODUCT = 'GET_PRODUCT';
 export const TOGGLE_ACTIVE_PRODUCT = 'TOGGLE_ACTIVE_PRODUCT';
 export const GET_PRODUCT_ERROR = 'GET_PRODUCT_ERROR';
 
+export const LOADING_DISCOUNTS = 'LOADING_DISCOUNTS';
+export const GET_DISCOUNTS = 'GET_DISCOUNTS';
+export const GET_DISCOUNTS_ERROR = 'GET_DISCOUNTS_ERROR';
+
+// export const ADD_DISCOUNT = 'ADD_DISCOUNT';
+// export const EDIT_DISCOUNT = 'EDIT_DISCOUNT';
+// export const DELETE_DISCOUNT = 'DELETE_DISCOUNT';
+
 export const DELETE_IMAGE = 'DELETE_IMAGE';
+
+export const GET_SERIALS = 'GET_SERIALS';
+export const ADD_SERIAL = 'ADD_SERIAL';
+export const EDIT_SERIAL = 'EDIT_SERIAL';
+export const DELETE_SERIAL = 'DELETE_SERIAL';
+export const ERROR_SERIAL = 'ERROR_SERIAL';
+export const CLEAR_ERROR_SERIAL = 'ERROR_SERIAL';
+
+export const GET_REVIEWS = 'GET_REVIEWS';
 
 //Category actions =>
 export const GET_CATEGORIES = 'GET_CATEGORIES';
@@ -42,8 +80,13 @@ export const GET_ORDERS = 'GET_ORDERS';
 export const ADD_ORDER = 'ADD_ORDER';
 export const ORDERS_ERROR = 'ORDERS_ERROR';
 export const LOADING_ORDERS = 'LOADING_ORDERS';
+export const GET_ORDER = 'GET_ORDER';
+export const LOADING_ORDER = 'LOADING_ORDER';
+export const ORDER_ERROR = 'ORDER_ERROR';
 
 //User actions =>
+export const LOGIN_USER = 'LOGIN_USER';
+export const LOGOUT_USER = 'LOGOUT_USER';
 export const ADD_USER = 'ADD_USER';
 export const GET_USER = 'GET_USER';
 export const EDIT_USER = 'EDIT_USER';

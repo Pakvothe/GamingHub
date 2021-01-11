@@ -15,14 +15,17 @@ import arrowUp from '../../assets/img/arrow-up.svg';
 
 /* --- Styles --- */
 import { StyledSVG } from '../styles/styled_global';
-import { changeCurrentPage, resetCurrentPage } from '../../redux/actions/global_actions'
+import { changeCurrentPage, resetCurrentPage } from '../../redux/actions/global_actions';
+import { animateScroll, Element } from 'react-scroll';
 
-export const getProductsPayload = { query: 'stock', order: 'DESC', limit: 8 };
+
+export const getProductsPayload = { name: 'stock', order: 'DESC', limit: 8 };
 
 const HomePage = () => {
 
 	const dispatch = useDispatch();
 	const language = useSelector(state => state.globalReducer.language);
+	const s = strings[language];
 	const products = useSelector(state => state.productsReducer.products.productList);
 	const productsFilter = useSelector(state => state.productsReducer.productsFilter.productList);
 	const filter = useSelector(state => state.productsReducer.productsFilter.filter)
@@ -31,9 +34,9 @@ const HomePage = () => {
 	const errorProducts = useSelector(state => state.productsReducer.products.error);
 
 	const scrollButton = useRef();
+	const mainHeader = useRef();
 
 	const limitPerPage = 8;
-
 
 	const handleSelect = (e) => {
 		dispatch(resetCurrentPage())
@@ -59,8 +62,7 @@ const HomePage = () => {
 		}
 	}
 	const scrollToTop = () => {
-		document.body.scrollTop = 0;
-		document.documentElement.scrollTop = 0;
+		animateScroll.scrollToTop();
 	}
 
 	const handlePageChange = (ev) => {
@@ -69,13 +71,14 @@ const HomePage = () => {
 		if (productsFilter.length) {
 			dispatch(getFilterProducts(filter, { limit: limitPerPage, offset }))
 		} else {
-			dispatch(getProducts({ query: 'stock', order: 'DESC', limit: limitPerPage, offset }))
+			dispatch(getProducts({ name: 'stock', order: 'DESC', limit: limitPerPage, offset }))
 		}
+		mainHeader.current.scrollIntoView({ block: 'start', behavior: 'smooth' })
 	}
 
 	return (
-		<div>
-			<h1 className="main-title">{strings[language].main_header}</h1>
+		<div ref={mainHeader}>
+			<h1 className="main-title">{s.main_header}</h1>
 			<SelectCategories language={language} categories={categories} handleSelect={handleSelect} />
 			<Catalog products={productsFilter.length ? productsFilter : products}
 				language={language}

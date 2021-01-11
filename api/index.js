@@ -44,17 +44,17 @@ require('dotenv').config();
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 const { PORT } = process.env;
-const { Product, Category, Image, Serial, User, Order, Orders_products } = require('./src/db.js');
+const { Product, Category, Image, Serial, User, Order, Orders_products, Review } = require('./src/db.js');
 const utilsProd = require("./utils/products");
 const utilsOrder = require("./utils/orders");
 const utilsUser = require("./utils/users");
+const utilsReview = require("./utils/reviews");
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
 	server.listen(PORT, () => {
 		console.log(`%s listening at ${PORT}`); // eslint-disable-line no-console
 	});
-
 	Product.bulkCreate(utilsProd, { hooks: true, include: [Image, Serial] })
 		.then(prod => {
 			prod.map((instance, i) => {
@@ -95,7 +95,20 @@ conn.sync({ force: true }).then(() => {
 				unit_price: 40.72,
 				quantity: 1
 			})
+			Orders_products.create({
+				productId: 4,
+				orderId: 2,
+				unit_price: 40.72,
+				quantity: 1
+			})
 			console.log('Ordenes cargadas exitosamente')
+			return;
+		})
+		.then(() => {
+			return Review.bulkCreate(utilsReview, { hooks: true })
+		})
+		.then(() => {
+			console.log('Reviews cargadas exitosamente')
 		})
 		.catch(err => {
 			console.log(err);

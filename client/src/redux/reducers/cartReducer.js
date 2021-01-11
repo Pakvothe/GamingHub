@@ -62,7 +62,7 @@ const cartReducer = (state = initialState, action) => {
 				}
 			}
 		case EDIT_STOCK:
-			if (state.cart.stock[action.payload.id]) {
+			if (state.cart.stock[action.payload.id] >= 0) {
 				return {
 					...state,
 					cart: {

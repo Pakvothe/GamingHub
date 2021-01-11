@@ -9,10 +9,13 @@ import { Redirect, useParams } from 'react-router-dom';
 import { storage } from '../../../firebase/';
 import { useToasts } from 'react-toast-notifications';
 import Swal from 'sweetalert2';
+import strings from './strings';
 
 const AdminProductForm = ({ categories }) => {
 	const { id } = useParams();
 	const dispatch = useDispatch();
+	const language = useSelector(state => state.globalReducer.language);
+	const s = strings[language];
 
 	const [imagesAsFile, setImagesAsFile] = useState([]);
 
@@ -23,6 +26,8 @@ const AdminProductForm = ({ categories }) => {
 	const { addToast } = useToasts();
 
 	const fileInput = useRef(null);
+
+
 
 	let [input, setInput] = useState({
 		name: '',
@@ -37,7 +42,7 @@ const AdminProductForm = ({ categories }) => {
 	useEffect(() => {
 		if (input.img.length === imagesAsFile.length && input.img.length > 0) {
 			id ? dispatch(editProduct(input)) : dispatch(addProduct(input));
-			addToast(`product ${id ? 'edited' : 'added'} successfully`, { appearance: 'success' })
+			addToast(id ? s.toastProductEdited : s.toastProductAdded, { appearance: 'success' })
 			setToAdmin(true);
 		}
 	}, [input.img]);
@@ -88,7 +93,7 @@ const AdminProductForm = ({ categories }) => {
 		if (invalidFile) {
 			Swal.fire({
 				heightAuto: false,
-				title: 'Solo se aceptan imágenes',
+				title: s.invalidImgFile,
 				icon: 'warning',
 				confirmButtonColor: '#3085d6',
 				confirmButtonText: 'Ok',
@@ -99,7 +104,7 @@ const AdminProductForm = ({ categories }) => {
 		if (invalidSize) {
 			Swal.fire({
 				heightAuto: false,
-				title: 'Sólo imágenes menores a 2mb',
+				title: s.invalidImgSize,
 				icon: 'warning',
 				confirmButtonColor: '#3085d6',
 				confirmButtonText: 'Ok',
@@ -125,19 +130,19 @@ const AdminProductForm = ({ categories }) => {
 
 		if (id && !imagesAsFile.length) {
 			dispatch(editProduct(input));
-			addToast(`product edited successfully`, { appearance: 'success' })
+			addToast(s.toastProductEdited, { appearance: 'success' })
 			return setToAdmin(true);
 		};
 
 		imagesAsFile.map(imageAsFile => {
 
 			if (imageAsFile === '') {
-				console.error(`not an image, the image file is a ${typeof (imageAsFile)}`)
+				console.error(`Not an image. That file is a ${typeof (imageAsFile)}`)
 			}
 			const uploadTask = storage.ref(`/images/${imageAsFile.name}`).put(imageAsFile)
 			uploadTask.on('state_changed',
-				(snapShot) => { console.log(snapShot) },
-				(err) => { console.log(err) },
+				(snapShot) => { },
+				(err) => { },
 				() => {
 					storage.ref('images').child(imageAsFile.name).getDownloadURL()
 						.then(fireBaseUrl => {
@@ -150,9 +155,21 @@ const AdminProductForm = ({ categories }) => {
 		})
 	}
 
-	const opciones = id ? 'Editar producto' : 'Agregar producto';
+	const opciones = id ? s.titleEdit : s.titleAdd;
 
-	if (isLoading) return <h1>Loading...</h1>;
+	const swalDeleteImg = {
+		heightAuto: false,
+		title: s.swDeleteTitle,
+		text: s.swDeleteText,
+		icon: 'warning',
+		showCancelButton: true,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		confirmButtonText: s.swDeleteConfirmButton,
+		cancelButtonText: s.swDeleteCancelButton
+	};
+
+	if (isLoading) return <h1 className="admin-h1"><i class="fas fa-circle-notch fa-spin"></i> {s.loading}</h1>;
 	if (toAdmin) return <Redirect to='/admin' />
 
 	return (
@@ -162,51 +179,41 @@ const AdminProductForm = ({ categories }) => {
 				<div className='flex-form-container'>
 					<div>
 						<label>
-							<span>Nombre:</span>
+							<span>{s.inputName}</span>
 							<input type='text' name='name' value={input.name} onChange={handleInput} required />
 						</label>
 						<label>
-							<span>Descripción en español:</span>
+							<span>{s.inputDescES}</span>
 							<textarea type='text' name='description_es' value={input.description_es} onChange={handleInput} required>
 							</textarea>
 						</label>
 						<label>
-							<span>Descripción en inglés:</span>
+							<span>{s.inputDescEN}</span>
 							<textarea type='text' name='description_en' value={input.description_en} onChange={handleInput} required>
 							</textarea>
 						</label>
 					</div>
-					<div>
 
+					<div>
 						<label>
-							<span>Precio:</span>
+							<span>{s.inputPrice}</span>
 							<input type='number' step='0.01' name='price' value={input.price} onChange={handleInput} required />
 						</label>
 						<label>
-							<span>Imagen:</span>
+							<span>{s.inputImage}</span>
 							<input ref={fileInput} type='file' name='img' onChange={handleImagesAsFile} multiple required={id ? false : true} />
 						</label>
-						<br />
 						<div className='image__container'>
 							{id && product.images?.length > 0 &&
 								product.images.map(image =>
 									<div className='image_thumbnail'>
-										<span className='delete__image'>ELIMINAR</span>
+										<span className='delete__image'>{s.inputDeleteImage}</span>
 										<img src={image.url} width='100px' key={image.id} onClick={() => {
-											Swal.fire({
-												heightAuto: false,
-												title: 'Borrar imagen?',
-												text: 'Esta imagen se borrará permanentemente',
-												icon: 'warning',
-												showCancelButton: true,
-												confirmButtonColor: '#3085d6',
-												cancelButtonColor: '#d33',
-												confirmButtonText: 'Si, borrarla!',
-											}).then((result) => {
+											Swal.fire(swalDeleteImg).then((result) => {
 												if (result.isConfirmed) {
 													Swal.fire(
-														'Borrada!',
-														'La imagen ha sido funada.',
+														s.swConfirmTitle,
+														s.swConfirmText,
 														'success',
 														dispatch(deleteImage(image))
 													)
@@ -216,24 +223,22 @@ const AdminProductForm = ({ categories }) => {
 									</div>
 								)}
 						</div>
-						<br />
-						<br />
-						<CheckboxLabel className='no-shadow check' checked={input.is_active}>
+						<CheckboxLabel className='no-shadow check mt-2' role="checkbox" aria-checked={input.is_active} checked={input.is_active}>
 							<input
 								type='checkbox'
 								value={input.is_active}
 								onChange={handleInput}
 								name='is_active'
 							/>
-							<span className='no-shadow'>Activo</span>
+							<span className='no-shadow'>{s.inputActive}</span>
 						</CheckboxLabel>
-						<span className='form__categorias'>Categorías:</span>
+						<span className='form__categorias'>{s.categories}</span>
 						<ul>
 							{
 								categories.map(cat => {
 									return (
 										<li key={cat.id}>
-											<CheckboxLabel className='no-shadow check' checked={input.categories[cat.id]}>
+											<CheckboxLabel className='no-shadow check' role="checkbox" aria-checked={input.categories[cat.id]} checked={input.categories[cat.id]}>
 												<input
 													type='checkbox'
 													name={cat.name_es}
@@ -241,7 +246,6 @@ const AdminProductForm = ({ categories }) => {
 													onChange={handleCategories}
 												/>
 												<span className='no-shadow'>{cat.name_es}</span>
-
 											</CheckboxLabel>
 										</li>
 									)

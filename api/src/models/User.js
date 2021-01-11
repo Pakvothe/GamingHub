@@ -3,11 +3,6 @@ const D = DataTypes;
 const bcrypt = require("bcrypt");
 
 module.exports = (sequelize) => {
-	const hashPassword = async (user, save) => {
-		const salt = await bcrypt.genSalt(10);
-		user.password = await bcrypt.hash(user.password, salt)
-		if (save) user.save();
-	};
 	const User = sequelize.define('user', {
 		first_name: {
 			type: D.STRING,
@@ -17,10 +12,8 @@ module.exports = (sequelize) => {
 			type: D.STRING,
 			allowNull: false
 		},
-		username: {
-			type: D.STRING,
-			allowNull: false,
-			unique: true
+		profile_pic: {
+			type: D.TEXT,
 		},
 		email: {
 			type: D.STRING,
@@ -32,24 +25,45 @@ module.exports = (sequelize) => {
 		},
 		password: {
 			type: D.STRING,
-			allowNull: false,
-		},
-		language: {
-			type: D.ENUM('en', 'es'),
-			allowNull: false
+			set(value) {
+				if (value) {
+					if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$/.test(value)) {
+						const salt = bcrypt.genSaltSync(10);
+						const hash = bcrypt.hashSync(value, salt);
+						this.setDataValue('password', hash);
+					} else {
+						throw new Error('Invalid password');
+					}
+				} else {
+					this.setDataValue('password', null)
+				}
+			}
 		},
 		is_admin: {
 			type: D.BOOLEAN,
 			allowNull: false
-		}
-	}, {
-		hooks: {
-			beforeCreate: hashPassword,
-			beforeUpdate: hashPassword,
-			beforeBulkCreate: (users) => users.map((user) => hashPassword(user, "save"))
+		},
+		googleId: {
+			type: D.STRING
+		},
+		facebookId: {
+			type: D.STRING
+		},
+		reset_code: {
+			type: D.STRING,
+			set(value) {
+				if (value) {
+					const salt = bcrypt.genSaltSync(10);
+					const hash = bcrypt.hashSync(value, salt);
+					this.setDataValue('reset_code', hash);
+				}
+			}
 		}
 	})
-	User.prototype.validPassword = function (password) {
-		return bcrypt.compare(password.toString(), this.password);
+
+	User.prototype.compare = function (password, isReset) {	//compares resetcode when isReset is true
+		if (this.password) return bcrypt.compareSync(password.toString(), isReset ? this.reset_code : this.password);
+		else return false
 	}
+
 }

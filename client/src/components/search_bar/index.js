@@ -7,13 +7,13 @@ import { useHistory } from 'react-router-dom';
 import { getSearchProducts } from '../../redux/actions/products_actions';
 import { resetCurrentPage } from '../../redux/actions/global_actions';
 
-
 const SearchBar = () => {
 
 	const [inputText, setInputText] = useState('');
 	const history = useHistory()
 	const dispatch = useDispatch()
-	const language = useSelector(state => state.globalReducer.language)
+	const language = useSelector(state => state.globalReducer.language);
+	const s = strings[language];
 
 	const limitPerPage = 8;
 
@@ -30,18 +30,12 @@ const SearchBar = () => {
 	};
 	return (
 		<FormSearchBar onSubmit={handleSubmit}>
-			<input onChange={handleChange} type="text" placeholder={strings[language].placeholder} value={inputText} />
+			<input onChange={handleChange} type="text" placeholder={s.placeholder} value={inputText} />
 			<button type="submit">
 				<img src={loupe} alt="" />
 			</button>
 		</FormSearchBar>
 	)
-};
-
-SearchBar.defaultProps = {
-	propFunction: function (text) {
-		alert(`Escribiste: ${text}`)
-	}
 };
 
 export default SearchBar;

@@ -4,7 +4,7 @@ import arrow from '../../assets/img/arrow-down.svg';
 import checkboxUnchecked from '../../assets/img/checkbox-unchecked-purple.svg'
 import checkboxChecked from '../../assets/img/checkbox-checked-purple.svg'
 import LoadingOverlay from 'react-loading-overlay';
-
+import facebook from '../../assets/img/facebook.svg'
 
 // Estilos globales para habilitar el dark mode:
 export const GlobalStyle = createGlobalStyle`
@@ -85,6 +85,20 @@ export const GlobalStyle = createGlobalStyle`
 `
 
 
+export const Flex = styled.div`
+	display: flex;
+	justify-content: ${props => props.justify || 'center'};
+	align-items: ${props => props.align || 'center'};
+`
+
+export const Hr = styled.hr`
+	height: 1px;
+	margin: 3em auto;
+	border: none;
+	background: #CCC;
+`
+
+
 // Styled components globales:
 export const Btn = styled.button`
 	font-weight: 900;
@@ -94,6 +108,7 @@ export const Btn = styled.button`
 	transition: transform 25ms ease, box-shadow 25ms ease;
 	min-width: 175px;
 	cursor: pointer;
+	letter-spacing: 0.03em;
 
 	&:active {
 		transform: translate(2px, 2px);
@@ -117,6 +132,17 @@ export const Btn = styled.button`
 		background-color: var(--clr-primary);
 	}
 
+	&.btn-danger {
+		color: var(--clr-error);
+		border-color: var(--clr-error);
+		box-shadow: 2px 2px 0px rgba(0,0,0,.15);
+
+		&:hover {
+			color: var(--clr-white);
+			background-color: var(--clr-error);
+		}
+	}
+
 	&.btn-img {
 		position: relative;
 		padding: 1em 4em 1em 1.2em;
@@ -131,6 +157,39 @@ export const Btn = styled.button`
 		height: 25px;
 		fill: currentColor;
 	}
+
+	&.btn-tick {
+		position: relative;
+		&::after {
+			visibility: hidden;
+			position: absolute;
+			content: '\f00c';
+			color: var(--clr-success);
+			font-weight: 400;
+			font-size: 1.2em;
+			font-family: 'font awesome 5 pro';
+			animation: playtick 1.4s;
+			right: -30px;
+		}
+
+		@keyframes playtick {
+			0% {
+				visibility: visible;
+			}
+
+			40% {
+				transform: rotateZ(20deg);
+			}
+			60% {
+				transform: rotateZ(0deg);
+			}
+
+			100%{
+
+				visibility: visible;
+			}
+		}
+	}
 `
 
 export const DataTable = styled.table`
@@ -143,6 +202,15 @@ export const DataTable = styled.table`
 	box-shadow: 8px 8px 0px rgba(0,0,0,.05);
 	table-layout: fixed;
 	width: 100%;
+	transition: box-shadow .25s ease;
+
+	&:hover {
+		box-shadow: 9px 9px 0px rgba(0,0,0,.07);
+	}
+
+	&.table-small {
+		max-width: 400px;
+	}
 
 	thead {
 		font-weight: 900;
@@ -155,12 +223,35 @@ export const DataTable = styled.table`
 	ID - Stock - Visible quiero que tengan ancho fijo. Las demás no me importan por el momento, que ocupen lo que sobra.
 	*/
 	thead .cell-small {
-		width: 75px;
+		width: 90px;
 	}
 
 	td {
+		position: relative;
 		padding: .75em 1em;
 		border-bottom: 1px solid #CCC;
+		user-select: none;
+		cursor: default;
+	}
+
+	.icon {
+		cursor: pointer;
+		&::after{
+			font-family: "Font Awesome 5 Pro";
+			font-weight: 700;
+		}
+
+		&.up::after{
+			content: " \f077";
+		}
+
+		&.down::after{
+			content: " \f078";
+		}
+	}
+
+	.active::after{
+		color: var(--clr-primary);
 	}
 
 	tbody tr:last-of-type td { border-bottom: 0; }
@@ -183,6 +274,45 @@ export const DataTable = styled.table`
 		transform: scale(0.95);
 	}
 
+	tfoot td {
+		border-top: 1px solid #CCC;
+		border-bottom: none;
+		font-size: 1.2em;
+		font-weight: 700;
+	}
+
+	.row-link {
+		cursor: pointer;
+		
+		&:hover {
+			outline: 1px solid var(--clr-primary);
+		}
+	}
+	.serial-form {
+		max-width: 180px;
+		margin: 0 auto;
+
+		input {
+			font-family: Poppins, Raleway, Arial, sans-serif;
+			font-size: 1em;
+			background: none;
+			border-radius: .3em;
+			border: 1px solid transparent;
+			width: 100%;
+			padding: .5em 1em;
+
+			&:focus {
+				outline: none;
+				border: 1px solid var(--clr-primary);
+			}
+
+			&[disabled] {
+				border: 1px solid transparent;
+				color: inherit;
+			}
+		}
+	}
+
 
 	@media (max-width: 1000px) {
 		font-size: .7em;
@@ -201,6 +331,18 @@ export const FormStyled = styled.form`
 
 	.image__container {
 		width: 400px;
+
+		@media (max-width: 600px) {
+				&.container__banner { max-width: 100% }
+			}
+
+		p.thumbnail__preview {
+			font-size: 0.75em;
+			font-weight: 700;
+			margin-top: 2em;
+			margin-bottom: -0.5em;
+			text-transform: uppercase;
+		}
 	}
 
 	.image_thumbnail {
@@ -213,6 +355,17 @@ export const FormStyled = styled.form`
 		overflow: hidden;
 		border-radius: 10px;
 		cursor: pointer;
+
+		&.thumbnail__banner {
+			background: var(--clr-middle);
+			width: 100%;
+			height: 7em;
+			margin-top: 1em;
+			border: 3px solid var(--clr-primary);
+			box-shadow: 0 5px 15px -10px black;
+			cursor: default;
+			margin-right: 0;
+		}
 
 		.delete__image {
 			pointer-events: none;
@@ -268,6 +421,10 @@ export const FormStyled = styled.form`
 			display: block;
 			position: relative;
 			width: 400px;
+
+			@media (max-width: 600px) {
+				width: 100%;
+			}
 		
 			& > span:not(.no-shadow) {
 				position: absolute;
@@ -481,6 +638,7 @@ export const MiniCard = styled.article`
 			width: 25px;
 			height: 25px;
 			fill: var(--clr-primary);
+			cursor: pointer;
 		}
 
 	&:hover svg {
@@ -552,7 +710,8 @@ export const Dropdown = styled.li`
 		& li {
 			margin: 0;
 			width: 100%;
-		
+			cursor: pointer;
+			
 			&:last-of-type a {
 				border-radius: 0 0 .3em .3em;
 			}
@@ -672,6 +831,69 @@ export const StyledTitle = styled.h2`
 		}
 `
 
+export const QuantityButton = styled.button`
+	color: var(--clr-white);
+	background-color: var(--clr-primary);
+	border-radius: 100%;
+	border: none;
+	width: 25px;
+	height: 25px;
+	font-weight: 400;
+
+	&:active {
+		background-color: var(--clr-primary-2);
+	}
+
+	&.quantitybutton-small {
+		width: 20px;
+		height: 20px;
+	}
+`
+export const SocialLogin = styled.div`
+	margin: 1em;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+
+	button:last-child{
+		margin-left: 1em;
+	}
+
+	.social-btn {
+		display: block;
+		width: auto;
+		margin: 0 auto;
+		border: none;
+		border-radius: 10px;
+		box-shadow: 0 3px 4px 0 rgba(0,0,0,.25);
+		cursor: pointer;
+	
+		
+		text-align: right;
+		padding: 1em 1em 1em 4em;
+
+		&:hover {
+			box-shadow: 0 0 6px var(--clr-primary);
+		}
+		&:active {
+			background: var(--clr-secondary);
+		}
+	}
+	
+	.facebook-icon {
+		background: url(${facebook}) no-repeat;
+		background-size: 25px;
+		background-position: left 1em top 50%;
+		background-color: var(--clr-white); 
+	}
+	.google-icon{
+		background: url(https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg) no-repeat;
+		background-size: 25px;
+		background-position: left 1em top 50%;
+		background-color: var(--clr-white);
+	}
+
+`
 
 export const StyledSVG = styled(SVG)`
 `

@@ -1,26 +1,19 @@
 const strings = {
 	en: {
-		language: 'Language',
-		language_en: "English",
-		language_es: "Spanish",
-		user: 'User',
-		cart: 'Cart',
 		categories: 'Categories',
-		offer: 'Offer',
-		about: 'About',
-		theme: 'Theme'
+		offers: 'Offers',
+		terms: 'Terms of service',
+		privacy: 'Privacy',
+		legal: 'Legal',
+		contact: 'Contact us'
 	},
 	es: {
-		language: 'Idioma',
-		language_en: "Inglés",
-		language_es: "Español",
-		user: 'Usuario',
-		cart: 'Carrito',
-		categories: 'Categorias',
-		offer: 'Ofertas',
-		about: 'Conocenos',
-		theme: 'Tema'
+		categories: 'Categorías',
+		offers: 'Ofertas',
+		terms: 'Términos y condiciones',
+		privacy: 'Privacidad',
+		legal: 'Legal',
+		contact: 'Contáctanos'
 	}
-};
-
+}
 export default strings;

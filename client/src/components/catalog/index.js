@@ -13,16 +13,17 @@ import { StyledLoader, StyledSVG } from '../styles/styled_global';
 const Catalog = ({ products, isLoading, error, language, handlePageChange }) => {
 	const count = useSelector(state => state.productsReducer.count)
 	const currentPage = useSelector(state => state.globalReducer.currentPage);
+	const s = strings[language];
 
 	if (error) return <h1 className="main-title">ERROR</h1>
 
-	if (!isLoading && !products.length) return <h1 className="main-title">{strings[language].no_products}</h1>
+	if (!isLoading && !products.length) return <h1 className="main-title">{s.no_products}</h1>
 	return (
 		<>
 			<StyledLoader
 				active={isLoading}
 				spinner
-				text={strings[language].loading}
+				text={s.loading}
 				className='loading__overlay'
 				classNamePrefix='loading__'
 			>
