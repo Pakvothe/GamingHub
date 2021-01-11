@@ -8,6 +8,7 @@ const strings = {
 		admin_confirm: 'Change this user\'s permissions?',
 		admin_confirm_text: 'Are you sure you want to change this user\'s current permissions?',
 		admin_button: 'Yes, change them',
+		admin_cancel_button: 'Cancel',
 		admin_confirm_2: 'Done!',
 		admin_confirm_text2: 'User permissions changed successfully',
 
@@ -29,6 +30,7 @@ const strings = {
 		admin_confirm: '¿Editar permisos del usuario?',
 		admin_confirm_text: '¿Estás seguro de querer cambiar los permisos actuales de este usuario?',
 		admin_button: 'Sí, cambiarlos',
+		admin_cancel_button: 'Cancelar',
 		admin_confirm_2: '¡Listo!',
 		admin_confirm_text2: 'Permisos cambiados correctamente.',
 
