@@ -13,7 +13,9 @@ const strings = {
 		tableUnitPrice: 'Unit Price',
 		tableTotalPrice: 'Total Price',
 		goBack: 'Go back',
-		review: 'Leave a review for this product'
+		review: 'Leave a review for this product',
+		orderNotFound: 'Order not found',
+		loading: 'Loading...'
 	},
 
 	es: {
@@ -30,7 +32,9 @@ const strings = {
 		tableUnitPrice: 'Precio unitario',
 		tableTotalPrice: 'Precio total',
 		goBack: 'Volver',
-		review: 'Dejar una reseña del producto'
+		review: 'Dejar una reseña del producto',
+		orderNotFound: 'Orden no encontrada',
+		loading: 'Cargando...'
 	}
 };
 

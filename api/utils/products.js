@@ -40,7 +40,7 @@ const products = [
 		price: 40,
 		is_active: true,
 		real_price: 50,
-		banner_image: 'https://firebasestorage.googleapis.com/v0/b/ecommerce-456e0.appspot.com/o/bannerImages%2Ff76437e6-06d0-4453-aa0a-31a6c61e575d?alt=media&token=af131adb-b827-45fd-9b62-bf670753f0c4',
+		banner_image: 'https://firebasestorage.googleapis.com/v0/b/ecommerce-456e0.appspot.com/o/bannerImages%2F91b8fc2f-d555-4d0d-a5d2-6c57445f5a87?alt=media&token=cab75f23-9150-45d7-b37a-a8a325355d9b',
 		images: [
 			{
 				url: 'https://i.imgur.com/RKCvcWJ.jpg'

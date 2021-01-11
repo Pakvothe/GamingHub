@@ -99,7 +99,7 @@ const AdminProductOfferForm = () => {
 									switch (status) {
 										case 200:
 											if (bannerImage) storage.refFromURL(bannerImage).delete();
-											addToast(product.real_price ? s.toastEdited : s.toastAdded, { appearance: 'success' })
+											addToast(product.real_price ? s.toastOfferEdited : s.toastOfferAdded, { appearance: 'success' })
 											setToAdmin(true);
 											break;
 										case 404:
@@ -118,7 +118,7 @@ const AdminProductOfferForm = () => {
 				.then(status => {
 					switch (status) {
 						case 200:
-							addToast(product.real_price ? s.toastEdited : s.toastAdded, { appearance: 'success' })
+							addToast(product.real_price ? s.toastOfferEdited : s.toastOfferAdded, { appearance: 'success' })
 							setToAdmin(true);
 							break;
 						case 404:
