@@ -331,6 +331,18 @@ export const FormStyled = styled.form`
 
 	.image__container {
 		width: 400px;
+
+		@media (max-width: 600px) {
+				&.container__banner { max-width: 100% }
+			}
+
+		p.thumbnail__preview {
+			font-size: 0.75em;
+			font-weight: 700;
+			margin-top: 2em;
+			margin-bottom: -0.5em;
+			text-transform: uppercase;
+		}
 	}
 
 	.image_thumbnail {
@@ -343,6 +355,17 @@ export const FormStyled = styled.form`
 		overflow: hidden;
 		border-radius: 10px;
 		cursor: pointer;
+
+		&.thumbnail__banner {
+			background: var(--clr-middle);
+			width: 100%;
+			height: 7em;
+			margin-top: 1em;
+			border: 3px solid var(--clr-primary);
+			box-shadow: 0 5px 15px -10px black;
+			cursor: default;
+			margin-right: 0;
+		}
 
 		.delete__image {
 			pointer-events: none;
@@ -398,6 +421,10 @@ export const FormStyled = styled.form`
 			display: block;
 			position: relative;
 			width: 400px;
+
+			@media (max-width: 600px) {
+				width: 100%;
+			}
 		
 			& > span:not(.no-shadow) {
 				position: absolute;

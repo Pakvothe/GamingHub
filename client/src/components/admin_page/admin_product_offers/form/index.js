@@ -162,9 +162,10 @@ const AdminProductOfferForm = () => {
 					<span>{s.banner_image}</span>
 					<input ref={fileInput} type='file' name='banner_img' onChange={handleImageAsFile} required={!product.real_price} />
 				</label>
-				<div className='image__container'>
+				<div className='image__container container__banner'>
+					<p className="thumbnail__preview">{s.preview}</p>
 					{product.banner_image &&
-						<div className='image_thumbnail'>
+						<div className='image_thumbnail thumbnail__banner'>
 							<img src={product.banner_image} width='100px' key={product.id} />
 						</div>
 					}
