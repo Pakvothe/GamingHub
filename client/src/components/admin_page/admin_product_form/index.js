@@ -129,8 +129,10 @@ const AdminProductForm = ({ categories }) => {
 		ev.preventDefault();
 
 		if (id && !imagesAsFile.length) {
-			dispatch(editProduct(input));
-			addToast(s.toastProductEdited, { appearance: 'success' })
+			dispatch(editProduct(input))
+				.then((result) => {
+					addToast(s.toastProductEdited, { appearance: 'success' })
+				})
 			return setToAdmin(true);
 		};
 
