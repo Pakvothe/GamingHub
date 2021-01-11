@@ -28,6 +28,7 @@ export const ProfileStyled = styled.div`
 
 export const ProfileHelp = styled.div`
 	display: flex;
+	height: 100%;
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
@@ -45,5 +46,9 @@ export const ProfileHelp = styled.div`
 		&:hover{
 			color: var(--clr-primary-2);
 		}
+	}
+	.back{
+		color: currentColor;
+		margin-top: 3em;
 	}
 `

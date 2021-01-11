@@ -1,12 +1,14 @@
 const strings = {
 	en: {
 		title: 'Help',
-		text: 'If you need help contact to: '
+		text: 'If you need help contact to: ',
+		volver: 'Go back'
 
 	},
 	es: {
 		title: 'Ayuda',
-		text: 'En caso de ncesitar ayuda contactar a:'
+		text: 'En caso de ncesitar ayuda contactar a:',
+		volver: 'Volver'
 	}
 };
 
