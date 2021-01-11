@@ -57,6 +57,7 @@ export const addOrder = (payload) => {
 					type: ADD_ORDER,
 					payload: response.data
 				})
+				window.location.href = response.data
 			})
 	}
 }

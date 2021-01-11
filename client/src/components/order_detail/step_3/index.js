@@ -32,7 +32,7 @@ const Step3 = ({ cart, language }) => {
 		}
 		dispatch(addOrder(order));
 		dispatch(clearCart());
-		history.push('/');
+		// history.push('/');
 	};
 
 	return (
