@@ -18,6 +18,7 @@ import { addItemCart, editStock } from '../../redux/actions/cart_actions';
 import { useToasts } from 'react-toast-notifications';
 import { toggleCart } from '../../redux/actions/global_actions';
 import { useHistory } from 'react-router-dom';
+import { StyledLoader } from './../styles/styled_global';
 
 const AUTOPLAY_INTERVAL = 3500;
 
@@ -102,6 +103,17 @@ const Carousel = ({ products }) => {
 			}, 60);
 		}
 	}
+
+	if (!products.length) return (
+		<div style={{ height: '60vh' }}>
+			<StyledLoader
+				active={true}
+				spinner
+				text={s.loading}
+				className='loading__overlay'
+				classNamePrefix='loading__'
+			></StyledLoader>
+		</div>)
 
 	return (
 		<StyledCarousel>

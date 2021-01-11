@@ -23,8 +23,8 @@ const UserOrderDetail = () => {
 		dispatch(getOrder(id))
 	}, []);
 
-	if (orderError) return <h1>Orden no encontrada</h1>;
-	if (orderLoading) return <h1>Loading ...</h1>;
+	if (orderError) return <h2>{s.orderNotFound}</h2>;
+	if (orderLoading) return <h2>{s.loading}</h2>;
 
 	return (
 		<StyledOrderDetail>
