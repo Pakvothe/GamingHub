@@ -46,7 +46,7 @@ export const ProductDetail = ({ product }) => {
 			quantity: quantity,
 			stock: product.stock
 		};
-		dispatch(editStock(payload));
+		dispatch(editStock(payload))
 		addToast(`${product.name} x${quantity} ${s.toast}`, { appearance: 'success' })
 		setQuantity(1);
 	}

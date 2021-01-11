@@ -11,7 +11,8 @@ const strings = {
 		swDeleteButtonCancel: 'Cancel',
 		toastProductDeleted: 'Product deleted successfully',
 		offers: 'Offers',
-		offer: 'Offer'
+		offer: 'Offer',
+		err: 'Error, try again later',
 	},
 
 	es: {
@@ -26,7 +27,8 @@ const strings = {
 		swDeleteButtonCancel: 'Cancelar',
 		toastProductDeleted: 'Producto eliminado correctamente',
 		offers: 'Ofertas',
-		offer: 'Oferta'
+		offer: 'Oferta',
+		err: 'Error, intentalo nuevamente más tarde',
 	}
 };
 

@@ -26,6 +26,9 @@ const AdminProductList = ({ products }) => {
 				.then((result) => {
 					addToast(s.toastProductDeleted, { appearance: 'success' })
 				})
+				.catch((err) => {
+					addToast(s.err, { appearance: 'error' })
+				})
 		})
 	}
 

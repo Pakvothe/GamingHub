@@ -82,7 +82,7 @@ const Carousel = ({ products, product = null }) => {
 				quantity: 1,
 				stock: product.stock
 			}
-			dispatch(editStock(payload));
+			dispatch(editStock(payload))
 			addToast(`${product.name} ${s.toast}`, { appearance: 'success' });
 
 		} else {
