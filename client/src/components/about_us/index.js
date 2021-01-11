@@ -22,7 +22,7 @@ const AboutUs = () => {
 				</div>
 				<div className='about_coders_container'>
 					<div className='about_coder'>
-						<h4>Nacho Contreras</h4>
+						<h4>Ignacio Contreras</h4>
 						<div>
 							<img src='https://www.parati.com.ar/wp-content/uploads/2020/10/RICARDO-FORT-DESTACADA.jpg' />
 						</div>
