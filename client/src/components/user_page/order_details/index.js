@@ -62,11 +62,11 @@ const UserOrderDetail = () => {
 					<DataTable>
 						<thead>
 							<tr>
-								<td>{s.tableTitle}</td>
-								<td>{s.tableQuantity}</td>
-								<td>{s.tableUnitPrice}</td>
-								<td>{s.tableTotalPrice}</td>
-								<td></td>
+								<th>{s.tableTitle}</th>
+								<th>{s.tableQuantity}</th>
+								<th>{s.tableUnitPrice}</th>
+								<th>{s.tableTotalPrice}</th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>

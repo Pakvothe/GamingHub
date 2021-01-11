@@ -55,11 +55,11 @@ const UserOrders = () => {
 						<DataTable>
 							<thead>
 								<tr onClick={handleSort}>
-									<td id="id" className="cell-small icon active down">{s.id}</td>
-									<td>{s.mail}</td>
-									<td className="cell-small">{s.total}</td>
-									<td id="state" className="icon down">{s.state}</td>
-									<td id="payment_method" className="icon down">{s.payment}</td>
+									<th id="id" className="cell-small icon active down">{s.id}</th>
+									<th>{s.mail}</th>
+									<th className="cell-small">{s.total}</th>
+									<th id="state" className="icon down">{s.state}</th>
+									<th id="payment_method" className="icon down">{s.payment}</th>
 								</tr>
 							</thead>
 							<tbody>
