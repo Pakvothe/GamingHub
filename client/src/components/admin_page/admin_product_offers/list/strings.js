@@ -5,6 +5,8 @@ const strings = {
 		tableEditButton: 'Edit',
 		tableDeleteButton: 'Delete',
 		toastOfferDeleted: 'Offer deleted successfully',
+		toastNotFound: 'Product not found',
+		toastServerError: 'Internal Server Error',
 		original: 'Original price',
 		discountPrice: 'Discount price',
 		discount: 'Discount'
@@ -16,6 +18,8 @@ const strings = {
 		tableEditButton: 'Editar',
 		tableDeleteButton: 'Eliminar',
 		toastOfferDeleted: 'Oferta eliminada correctamente',
+		toastNotFound: 'Producto no encontrado',
+		toastServerError: 'Error del servidor',
 		discountPrice: 'Precio descuento',
 		discount: 'Descuento'
 	}

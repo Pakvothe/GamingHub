@@ -203,7 +203,6 @@ const AdminProductForm = ({ categories }) => {
 							<span>{s.inputImage}</span>
 							<input ref={fileInput} type='file' name='img' onChange={handleImagesAsFile} multiple required={id ? false : true} />
 						</label>
-						<br />
 						<div className='image__container'>
 							{id && product.images?.length > 0 &&
 								product.images.map(image =>
@@ -224,9 +223,7 @@ const AdminProductForm = ({ categories }) => {
 									</div>
 								)}
 						</div>
-						<br />
-						<br />
-						<CheckboxLabel className='no-shadow check' checked={input.is_active}>
+						<CheckboxLabel className='no-shadow check mt-2' role="checkbox" aria-checked={input.is_active} checked={input.is_active}>
 							<input
 								type='checkbox'
 								value={input.is_active}
@@ -241,7 +238,7 @@ const AdminProductForm = ({ categories }) => {
 								categories.map(cat => {
 									return (
 										<li key={cat.id}>
-											<CheckboxLabel className='no-shadow check' checked={input.categories[cat.id]}>
+											<CheckboxLabel className='no-shadow check' role="checkbox" aria-checked={input.categories[cat.id]} checked={input.categories[cat.id]}>
 												<input
 													type='checkbox'
 													name={cat.name_es}

@@ -44,7 +44,7 @@ const AdminCategoryForm = () => {
 		e.preventDefault();
 		if (id) dispatch(editCategory(input))
 		else dispatch(addCategory(input))
-		addToast(`category ${id ? "edited" : "added"} successfully`, { appearance: 'success' })
+		addToast(id ? s.toastEdited : s.toastAdded, { appearance: 'success' })
 		setToAdmin(true);
 	}
 
