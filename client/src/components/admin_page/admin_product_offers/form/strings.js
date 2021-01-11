@@ -8,7 +8,7 @@ const strings = {
 		onlyImages: 'Only images are allowed',
 		imageSize: 'Image size must be lower than 2MB',
 		imageError: 'Upload image error',
-		preview: 'Preview:',
+		preview: 'Current image:',
 
 		toastNotFound: 'Product not found',
 		toastServerError: 'Internal Server Error',
@@ -24,7 +24,7 @@ const strings = {
 		onlyImages: 'Sólo se permiten imágenes',
 		imageSize: 'La imagen no puede ser mayor a 2MB',
 		imageError: 'Error en la subida de la imagen',
-		preview: 'Previsualización:',
+		preview: 'Imagen actual:',
 
 		toastNotFound: 'Producto no encontrado',
 		toastServerError: 'Error del servidor',
