@@ -56,6 +56,34 @@ server.post('/reset/password', (req, res) => { // <----- testing
 		})
 })
 
+server.post('/mail/send', (req, res) => {
+	const { email, subject, message } = req.body;
+
+	let transporter = nodemailer.createTransport(smtpTransport({
+		service: 'gmail',
+		host: 'smtp.gmail.com',
+		auth: {
+			user: EMAIL_ACCOUNT,
+			pass: EMAIL_PASSWORD
+		}
+	}));
+
+	let mailOptions = {
+		from: EMAIL_ACCOUNT,
+		to: EMAIL_ACCOUNT,
+		subject: `${email} ~ ${subject}`,
+		text: message
+	}
+
+	transporter.sendMail(mailOptions, function (error, info) {
+		if (error) {
+			res.status(400).json({ message: "Mail could not be sent" })
+		} else {
+			res.status(200).json({ message: "Code sent", ok: true })
+		}
+	})
+})
+
 server.post('/reset/verification', async (req, res) => {
 	const { email, reset_code, step, password } = req.body;
 	if (!email || !reset_code) return res.status(400).json({ message: 'Bad request' });
