@@ -1,9 +1,11 @@
 export function BEARER() {
-	return {
-		headers: {
-			"Authorization": `Bearer ${JSON.parse(localStorage.getItem('jwt'))}`
+	if (JSON.parse(localStorage.getItem('jwt'))) {
+		return {
+			headers: {
+				"Authorization": `Bearer ${JSON.parse(localStorage.getItem('jwt'))}`
+			}
 		}
-	}
+	} else return null;
 }
 
 export function QUERY_FUNCTION(payload) {

@@ -31,7 +31,7 @@ const Step3 = ({ cart, language }) => {
 			products: cart
 		}
 		dispatch(addOrder(order));
-		dispatch(clearCart());
+		// dispatch(clearCart());
 		// history.push('/');
 	};
 

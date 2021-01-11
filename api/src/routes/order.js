@@ -6,7 +6,8 @@ const mercadopago = require('mercadopago');
 //----------"/orders"--------------
 
 server.post('/', async (req, res) => {
-	console.log(req)
+	// const { id, topic } = req.query;
+	// console.log('id', id, 'topic', topic)
 	const order = req.body;
 	const { products } = order;
 	delete order.products;
@@ -48,11 +49,12 @@ server.post('/', async (req, res) => {
 					pending: "http://localhost:3000/"
 				},
 				auto_return: "approved",
+				notification_url: "http://26a713f06519.ngrok.io/orders"
 			};
 
 			const resp = await mercadopago.preferences.create(preference)
 			const upOrder = await updatedOrder.update({ mp_id: resp.response.id })
-			console.log(upOrder)
+			console.log(resp)
 			// .then(function (response) {
 			// 	// Este valor reemplazará el string "<%= global.id %>" en tu HTML
 			// 	console.log(response)
