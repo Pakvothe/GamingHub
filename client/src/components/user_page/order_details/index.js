@@ -28,7 +28,7 @@ const UserOrderDetail = () => {
 
 	return (
 		<StyledOrderDetail>
-			<h2>{s.title} {id}</h2>
+			<h2 className="mb-1">{s.title} {id}</h2>
 			<div className='tables-container'>
 				<div>
 					<h3>{s.subtitleDetails}</h3>
@@ -58,7 +58,7 @@ const UserOrderDetail = () => {
 					</DataTable>
 				</div>
 				<div>
-					<h3>{s.products}</h3>
+					<h3>{s.subtitleProducts}</h3>
 					<DataTable>
 						<thead>
 							<tr>
@@ -95,7 +95,7 @@ const UserOrderDetail = () => {
 					</DataTable>
 				</div>
 			</div>
-			<Btn className="btn btn-ppal" onClick={() => history.goBack()}><i className="fas fa-caret-left"></i> {s.goBack}</Btn>
+			<Btn className="btn btn-ppal mt-2" onClick={() => history.goBack()}><i className="fas fa-caret-left"></i> {s.goBack}</Btn>
 		</StyledOrderDetail>
 	)
 }

@@ -211,10 +211,18 @@ export const DataTable = styled.table`
 
 	&.table-small {
 		max-width: 400px;
+
+		& td:first-child {
+			font-weight: 700;
+			text-transform: uppercase;
+			font-size: .85em;
+			letter-spacing: .05em;
+			/* border-right: 1px solid #CCC;  OPCIONAL, Lo saqué porque no me gustó */
+		}
 	}
 
 	thead {
-		font-weight: 900;
+		font-weight: 700;
 		text-transform: uppercase;
 		font-size: .85em;
 		letter-spacing: .05em;
