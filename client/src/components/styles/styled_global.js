@@ -191,6 +191,28 @@ export const Btn = styled.button`
 		}
 	}
 `
+export const AlertStyled = styled.div`
+	background-color: var(--clr-error);
+	max-width: ${props => props.maxWidth || '100%'};
+	position: relative;
+	margin: 0 auto;
+	padding: 1em;
+	border-radius: 1em;
+	margin-bottom: 2em;
+	font-weight: 700;
+	button {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		background-color: transparent;
+		border: none;
+
+		svg {
+			width: 20px;
+			height: 20px;
+		}
+	}
+`
 
 export const DataTable = styled.table`
 	margin-top: 3em;

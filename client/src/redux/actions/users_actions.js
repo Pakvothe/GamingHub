@@ -92,11 +92,15 @@ export const addUser = (payload) => {
 
 export const editUser = (payload) => {
 	return function (dispatch) {
+		dispatch({ type: LOADING_USER });
 		return axios.put(`${REACT_APP_API_URL}/users/${payload.id}`, payload, BEARER())
-			.then(() => {
+			.then((user) => {
 				dispatch(getUser())
+				return user.status
 			})
-			.catch() //check errors
+			.catch(err => {
+				return err.response.status
+			})
 	}
 }
 
