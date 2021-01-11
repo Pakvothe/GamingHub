@@ -15,6 +15,8 @@ import strings from './strings.js';
 import { addItemCart, editStock } from '../../../redux/actions/cart_actions';
 import { useToasts } from 'react-toast-notifications';
 
+import mercadoPagoImg from '../../../assets/img/mercadopago.webp'
+
 export const ProductDetail = ({ product }) => {
 	const dispatch = useDispatch();
 
@@ -113,7 +115,7 @@ export const ProductDetail = ({ product }) => {
 							</div>
 
 						}
-						<img className="game__payment-methods-icons" src="https://d31dn7nfpuwjnm.cloudfront.net/images/valoraciones/0033/3717/Que_tarjetas_acepta_Mercado_Pago.jpg?1552322626" alt="Medios de Pago" />
+						<img className="game__payment-methods-icons" src={mercadoPagoImg} alt="Medios de Pago" />
 					</div>
 				</div>
 			</GameDetail>

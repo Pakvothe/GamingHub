@@ -137,7 +137,7 @@ export const GameDetail = styled.section`
     }
 
 	.game__payment-methods-icons {
-		max-width:200px;
+		max-width:300px;
 		
 		@media(max-width: 500px) {
 			margin-top: 2em;
