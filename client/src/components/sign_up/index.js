@@ -114,7 +114,7 @@ const SignUp = () => {
 					<span>{s.password}</span>
 					<input type="password" value={input.password} name="password" onChange={handleChange} required />
 				</label>
-				{passwordMessage && s.passwordMessage}<br />
+				passwordMessage && <p>s.passwordMessage</p>
 				<Btn type="submit" className="btn-ppal">{s.signUp}</Btn>
 			</FormStyled>
 		</>
