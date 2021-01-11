@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux';
+import Fade from 'react-reveal/Fade';
 
 /* --- Components --- */
 import Profile from './profile'
@@ -17,14 +18,16 @@ const UserPage = () => {
 	const s = strings[language];
 
 	return (
-		<UserCard>
-			<ul>
-				<li><Link to="/edit">{s.edit} </Link></li>
-				<li><Link to="/orders">{s.orders} </Link></li>
-				<li><Link to="/help">{s.help} </Link></li>
-			</ul>
-			<Profile />
-		</UserCard>
+		<Fade>
+			<UserCard>
+				<ul>
+					<li><Link to="/edit">{s.edit} </Link></li>
+					<li><Link to="/orders">{s.orders} </Link></li>
+					<li><Link to="/help">{s.help} </Link></li>
+				</ul>
+				<Profile />
+			</UserCard>
+		</Fade>
 	)
 }
 

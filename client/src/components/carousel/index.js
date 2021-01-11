@@ -17,10 +17,10 @@ import { useRecursiveTimeout } from "./useRecursiveTimeout";
 import { addItemCart, editStock } from '../../redux/actions/cart_actions';
 import { useToasts } from 'react-toast-notifications';
 import { toggleCart } from '../../redux/actions/global_actions';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { StyledLoader } from './../styles/styled_global';
 
-const AUTOPLAY_INTERVAL = 3500;
+const AUTOPLAY_INTERVAL = 4500;
 
 const Carousel = ({ products }) => {
 	const [viewportRef, embla] = useEmblaCarousel({ loop: true, speed: 5 });
@@ -127,7 +127,7 @@ const Carousel = ({ products }) => {
 										<img className="embla__slide__img" src={prod.banner_image} alt={prod.name} onMouseDown={(ev) => handleSlideDown(ev)} onClick={(ev) => handleSlideClick(ev, prod.id)} />
 										<div className="embla__slide__detail">
 											<div className="slide__details__left">
-												<h3 className="slide__title">{prod.name}</h3>
+												<Link to={`/products/${prod.id}`}><h3 className="slide__title">{prod.name}</h3></Link>
 											</div>
 											<div className="slide__details__right">
 												<span className="slide__discount">-{100 - Math.round(((prod.price / prod.real_price) * 100))}%</span>
