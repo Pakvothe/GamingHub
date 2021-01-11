@@ -204,19 +204,33 @@ export const DataTable = styled.table`
 	width: 100%;
 	transition: box-shadow .25s ease;
 
+
 	&:hover {
 		box-shadow: 9px 9px 0px rgba(0,0,0,.07);
 	}
 
 	&.table-small {
 		max-width: 400px;
+
+		& td:first-child {
+			font-weight: 700;
+			text-transform: uppercase;
+			font-size: .85em;
+			letter-spacing: .05em;
+			/* border-right: 1px solid #CCC;  OPCIONAL, Lo saqué porque no me gustó */
+		}
 	}
 
 	thead {
-		font-weight: 900;
+		font-weight: 700;
 		text-transform: uppercase;
 		font-size: .85em;
 		letter-spacing: .05em;
+	}
+
+	th {
+		padding: .75em 1em;
+		border-bottom: 1px solid #CCC;
 	}
 
 	/* Seteamos el ancho de las columnas desde el thead porque en el tbody no puedo:
@@ -255,7 +269,7 @@ export const DataTable = styled.table`
 	}
 
 	tbody tr:last-of-type td { border-bottom: 0; }
-
+	
 	td ul {
 		list-style: none;
 		display: flex;
@@ -282,10 +296,14 @@ export const DataTable = styled.table`
 	}
 
 	.row-link {
-		cursor: pointer;
-		
+		outline: 3px solid transparent;
+		transition: outline-color .2s ease;
+
 		&:hover {
-			outline: 1px solid var(--clr-primary);
+			outline-color: var(--clr-primary);
+		}
+		td {
+			cursor: pointer;
 		}
 	}
 	.serial-form {
@@ -313,6 +331,10 @@ export const DataTable = styled.table`
 		}
 	}
 
+	@media (max-width: 1300px) {
+		td ul { flex-direction: column; }
+		td button { margin: .5em 0; }
+	}
 
 	@media (max-width: 1000px) {
 		font-size: .7em;
@@ -320,10 +342,6 @@ export const DataTable = styled.table`
 		thead .cell-small {
 			width: 50px;
 		}
-
-		td ul { flex-direction: column; }
-
-		td button { margin: .5em 0; }
 	}
 `
 

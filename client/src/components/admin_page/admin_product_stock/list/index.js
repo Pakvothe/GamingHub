@@ -110,9 +110,9 @@ const AdminProductStockList = () => {
 			<DataTable>
 				<thead>
 					<tr>
-						<td className="cell-small">ID</td>
-						<td>{s.tableSerial}</td>
-						<td></td>
+						<th className="cell-small">ID</th>
+						<th>{s.tableSerial}</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>

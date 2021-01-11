@@ -41,9 +41,9 @@ const AdminCategoryList = ({ categories, language }) => {
 			<DataTable>
 				<thead>
 					<tr>
-						<td className="cell-small">ID</td>
-						<td>{s.tableName}</td>
-						<td></td>
+						<th className="cell-small">ID</th>
+						<th>{s.tableName}</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>

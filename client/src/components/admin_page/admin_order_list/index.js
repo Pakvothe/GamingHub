@@ -46,11 +46,11 @@ const AdminProductList = ({ orders }) => {
 			<DataTable>
 				<thead>
 					<tr onClick={handleSort}>
-						<td id="id" className="cell-small icon active down">{s.tableOrderNumber}</td>
-						<td>Email</td>
-						<td className="cell-small">{s.tableTotal}</td>
-						<td id="state" className="icon down">{s.tableStatus}</td>
-						<td id="payment_method" className="icon down">{s.tablePayment}</td>
+						<th id="id" className="cell-small icon active down">{s.tableOrderNumber}</th>
+						<th>Email</th>
+						<th className="cell-small">{s.tableTotal}</th>
+						<th id="state" className="icon down">{s.tableStatus}</th>
+						<th id="payment_method" className="icon down">{s.tablePayment}</th>
 					</tr>
 				</thead>
 				<tbody>
