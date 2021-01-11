@@ -47,7 +47,7 @@ const Reset = () => {
 					})
 					.catch((err) => {
 						if (err.response.status === 404) {
-							swals.WARNING('Please enter the email linked to your account')
+							swals.FIRE('warning', 'Please enter the email linked to your account')
 						} else {
 							swals.OOPS(language);
 						}
@@ -69,7 +69,7 @@ const Reset = () => {
 					})
 					.catch((err) => {
 						if (err.response.status === 400) {
-							swals.WARNING('El dato que ha introducido no es valido')
+							swals.FIRE('warning', 'El dato que ha introducido no es valido')
 						} else {
 							swals.OOPS(language);
 						}
@@ -81,7 +81,7 @@ const Reset = () => {
 				axios.post(`${REACT_APP_API_URL}/users/reset/verification`, { email: data.email, reset_code: data.reset_code, step: '2', password: input })
 					.then(res => {
 						if (res.data.ok) {
-							swals.OK(s.alertTitle, s.alertText)
+							swals.CONFIRMOK(s.alertTitle, s.alertText)
 								.finally(() => {
 									history.push('/');
 								})
