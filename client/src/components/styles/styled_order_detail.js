@@ -7,6 +7,7 @@ export const StyledOrderDetail = styled.div`
 
 		& > div:first-child {
 			flex: 1 0 30%;
+			margin-right: 2em;
 		}
 	}
 

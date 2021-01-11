@@ -52,6 +52,8 @@ export const StyledCarousel = styled.div`
 		justify-content: space-between;
 		align-items: center;
 		padding: 2em 3em;
+		background: transparent;
+		background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.5) 100%);
 
 		.slide__details__left {
 			text-align: center;

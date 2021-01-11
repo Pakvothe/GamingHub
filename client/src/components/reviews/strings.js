@@ -7,8 +7,9 @@ export default {
 		lower: 'Lowest',
 		more: 'Show more',
 		less: 'Show less',
-		moreReviews: 'Show more reviews',
-		lessReviews: 'Show less reviews'
+		allReviews: 'Show all reviews',
+		lessReviews: 'Show less reviews',
+		noReviews: 'This product has no reviews yet'
 	},
 	es: {
 		reviews: 'Reseñas sobre este juego',
@@ -18,7 +19,8 @@ export default {
 		lower: 'Más bajas',
 		more: 'Ver más',
 		less: 'Ver menos',
-		moreReviews: 'Mostrar mas reseñas',
-		lessReviews: 'Mostrar menos reseñas'
+		allReviews: 'Mostrar todas las reseñas',
+		lessReviews: 'Mostrar menos reseñas',
+		noReviews: 'Este producto todavía no tiene reseñas'
 	}
 }

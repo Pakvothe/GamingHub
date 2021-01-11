@@ -70,12 +70,12 @@ const AdminUserList = ({ users }) => {
 			<DataTable>
 				<thead>
 					<tr>
-						<td className="cell-small">ID</td>
-						<td>{s.tableFirstName}</td>
-						<td>{s.tableLastName}</td>
-						<td className="cell-small">Admin</td>
-						<td>Email</td>
-						<td></td>
+						<th className="cell-small">ID</th>
+						<th>{s.tableFirstName}</th>
+						<th>{s.tableLastName}</th>
+						<th className="cell-small">Admin</th>
+						<th>Email</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
