@@ -63,17 +63,20 @@ function Reviews({ id }) {
 		dispatch(getReviews(id, { name: filters[eventoId].name, order: filters[eventoId].order }))
 	}
 
+	// if (reviews.length === 0) return <></>;
+
 	return (
 		<StyledReviews>
 			<StyledTitle><span>{s.reviews}</span></StyledTitle>
-			<p className="reviews__filter" onClick={handleFilter}>{s.order}
-				<button id="recent" className="filter__recent filter__selected">{s.recent}</button>
-				<button id="high" className="filter__high">{s.higher}</button>
-				<button id="low" className="filter__low">{s.lower}</button>
-			</p>
-			<div className="reviews__container">
-				{
-					!!reviews.length && reviews.slice(0, showMore ? reviews.length : 4).map((review, i) => (
+			{reviews.length === 0 && <h3 className="text-center">{s.noReviews}</h3>}
+			{!!reviews.length && <>
+				<p className="reviews__filter" onClick={handleFilter}>{s.order}
+					<button id="recent" className="filter__recent filter__selected">{s.recent}</button>
+					<button id="high" className="filter__high">{s.higher}</button>
+					<button id="low" className="filter__low">{s.lower}</button>
+				</p>
+				<div className="reviews__container">
+					{reviews.slice(0, showMore ? reviews.length : 4).map((review, i) => (
 						<div className="review" key={i}>
 							<p className="review__username">{review.user.first_name}</p>
 							<span className="review__stars">
@@ -94,15 +97,16 @@ function Reviews({ id }) {
 								{review.description}
 							</ShowMoreText>
 						</div>
-					))
-				}
-				<div className="w-100 text-center">
-					<Btn className="btn btn-ppal" onClick={handleClick}>
-						{loading && <i className="mr-1 fas fa-circle-notch fa-spin"></i>}
-						{showMore ? s.lessReviews : s.moreReviews}...
+					))}
+
+					{reviews.length > 4 && <div className="w-100 text-center">
+						<Btn className="btn btn-ppal" onClick={handleClick}>
+							{loading && <i className="mr-1 fas fa-circle-notch fa-spin"></i>}
+							{showMore ? s.lessReviews : s.allReviews}...
 						</Btn>
+					</div>}
 				</div>
-			</div>
+			</>}
 		</StyledReviews>
 	)
 }

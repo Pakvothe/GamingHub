@@ -77,8 +77,8 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 		}).then((result) => {
 			if (result.isConfirmed) {
 				Swal.fire(
-					s.logout_confirm,
 					s.logout_confirm_text2,
+					s.logout_confirm_2,
 					'success',
 					dispatch(logout())
 				)
