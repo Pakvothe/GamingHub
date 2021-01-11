@@ -16,7 +16,9 @@ const strings = {
 		admin_button_2: 'Delete user',
 		admin_delete_user_2: 'Done!',
 		admin_delete_user_text2: 'User deleted successfully.',
-		admin_error_text: 'An error has occurred. Please try again later.'
+		admin_error_text: 'An error has occurred. Please try again later.',
+
+		toastError: 'Internal Server Error'
 	},
 	es: {
 		title: 'Usuarios',
@@ -35,7 +37,9 @@ const strings = {
 		admin_button_2: 'Eliminar usuario',
 		admin_delete_user_2: '¡Listo!',
 		admin_delete_user_text2: 'Usuario eliminado correctamente.',
-		admin_error_text: 'Ha ocurrido un error. Por favor, vuelve a intentarlo más tarde.'
+		admin_error_text: 'Ha ocurrido un error. Por favor, vuelve a intentarlo más tarde.',
+
+		toastError: 'Internal Server Error'
 	}
 };
 

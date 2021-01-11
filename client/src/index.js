@@ -13,7 +13,7 @@ import { ToastProvider } from 'react-toast-notifications'
 ReactDOM.render(
 	<Provider store={store}>
 		<Router>
-			<ToastProvider autoDismiss={true} autoDismissTimeout={3000}>
+			<ToastProvider autoDismiss={true} autoDismissTimeout={4000}>
 				<App />
 			</ToastProvider>
 		</Router>

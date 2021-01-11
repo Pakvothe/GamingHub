@@ -41,7 +41,7 @@ const SignUp = () => {
 		if (!image.type.includes('image')) {
 			Swal.fire({
 				heightAuto: false,
-				title: strings[language].onlyImages,
+				title: s.onlyImages,
 				icon: 'warning',
 				confirmButtonColor: '#3085d6',
 				confirmButtonText: 'Ok',
@@ -52,7 +52,7 @@ const SignUp = () => {
 		if (image.size > 2097152) {
 			Swal.fire({
 				heightAuto: false,
-				title: strings[language].imageSize,
+				title: s.imageSize,
 				icon: 'warning',
 				confirmButtonColor: '#3085d6',
 				confirmButtonText: 'Ok',
@@ -114,7 +114,7 @@ const SignUp = () => {
 					<span>{s.password}</span>
 					<input type="password" value={input.password} name="password" onChange={handleChange} required />
 				</label>
-				{passwordMessage && s.passwordMessage}<br />
+				passwordMessage && <p>s.passwordMessage</p>
 				<Btn type="submit" className="btn-ppal">{s.signUp}</Btn>
 			</FormStyled>
 		</>

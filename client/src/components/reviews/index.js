@@ -51,15 +51,16 @@ function Reviews({ id }) {
 	}
 
 	const handleFilter = (ev) => {
+		let eventoId = ev.target.id // Porque dio problemas, lo guardamos en un closure
 		for (const key in filters) {
 			let element = document.getElementById(key);
-			if (ev.target.id === key) {
+			if (eventoId === key) {
 				element.classList.toggle('filter__selected', true)
 			} else {
 				element.classList.remove('filter__selected');
 			}
 		}
-		dispatch(getReviews(id, { name: filters[ev.target.id].name, order: filters[ev.target.id].order }))
+		dispatch(getReviews(id, { name: filters[eventoId].name, order: filters[eventoId].order }))
 	}
 
 	return (

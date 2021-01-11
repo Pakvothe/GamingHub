@@ -30,10 +30,10 @@ const AdminProductOfferList = ({ products }) => {
 							storage.refFromURL(prod.banner_image).delete();
 							return addToast(s.toastOfferDeleted, { appearance: 'success' });
 						case 404:
-							return addToast('Product not found', { appearance: 'error' });
+							return addToast(s.toastNotFound, { appearance: 'error' });
 						case 500:
 						default:
-							return addToast('Server error', { appearance: 'error' });
+							return addToast(s.toastServerError, { appearance: 'error' });
 					}
 				})
 		}

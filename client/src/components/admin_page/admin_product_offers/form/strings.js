@@ -7,7 +7,12 @@ const strings = {
 		buttonEdit: "Edit Offer",
 		onlyImages: 'Only images are allowed',
 		imageSize: 'Image size must be lower than 2MB',
-		imageError: 'Upload image error'
+		imageError: 'Upload image error',
+
+		toastNotFound: 'Product not found',
+		toastServerError: 'Internal Server Error',
+		toastOfferEdited: 'Offer edited successfully',
+		toastOfferAdded: 'Offer added successfully',
 	},
 	es: {
 		price: "Precio de descuento",
@@ -17,7 +22,12 @@ const strings = {
 		buttonEdit: "Editar oferta",
 		onlyImages: 'Sólo se permiten imágenes',
 		imageSize: 'La imagen no puede ser mayor a 2MB',
-		imageError: 'Error en la subida de la imagen'
+		imageError: 'Error en la subida de la imagen',
+
+		toastNotFound: 'Producto no encontrado',
+		toastServerError: 'Error del servidor',
+		toastOfferEdited: 'Oferta editada correctamente',
+		toastOfferAdded: 'Oferta agregada correctamente',
 	}
 };
 
