@@ -24,6 +24,9 @@ module.exports = (sequelize) => {
 		payment_method: {
 			type: D.ENUM('cash', 'cc', 'mp'),
 			allowNull: false
+		},
+		mp_id: {
+			type: D.STRING,
 		}
 	})
 }

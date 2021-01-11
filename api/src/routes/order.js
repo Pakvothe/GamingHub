@@ -2,9 +2,11 @@ const server = require('express').Router();
 const { Op } = require('sequelize');
 const { Order, Product, Orders_products, Review } = require('../db.js');
 const { isAuthenticated, isAdmin } = require('../../utils/customMiddlewares');
+const mercadopago = require('mercadopago');
 //----------"/orders"--------------
 
-server.post('/', isAuthenticated, async (req, res) => {
+server.post('/', async (req, res) => {
+	console.log(req)
 	const order = req.body;
 	const { products } = order;
 	delete order.products;
@@ -29,8 +31,39 @@ server.post('/', isAuthenticated, async (req, res) => {
 				{ model: Product }
 			]
 		}))
-		.then(updatedOrder => res.json(updatedOrder))
+		.then(async updatedOrder => {
+			mercadopago.configure({
+				access_token: 'TEST-5400134544155678-010923-025e4b3ff8e012c1d3c3224e777cffe2-131738657'
+			});
+
+			let preference = {
+				items: updatedOrder.products.map(product => ({
+					title: product.name,
+					unit_price: product.orders_products.unit_price,
+					quantity: product.orders_products.quantity
+				})),
+				back_urls: {
+					success: "http://localhost:3000/",
+					failure: "http://localhost:3000/",
+					pending: "http://localhost:3000/"
+				},
+				auto_return: "approved",
+			};
+
+			const resp = await mercadopago.preferences.create(preference)
+			const upOrder = await updatedOrder.update({ mp_id: resp.response.id })
+			console.log(upOrder)
+			// .then(function (response) {
+			// 	// Este valor reemplazará el string "<%= global.id %>" en tu HTML
+			// 	console.log(response)
+			// 	// global.id = response.body.id;
+			// }).catch(function (error) {
+			// 	console.log(error);
+			// });
+			res.json(resp.body.init_point)
+		})
 		.catch((err) => {
+			console.log(err)
 			res.status(500).json({ message: "Internal server error" })
 		})
 });
