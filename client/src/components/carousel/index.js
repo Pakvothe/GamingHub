@@ -22,7 +22,7 @@ import { StyledLoader } from './../styles/styled_global';
 
 const AUTOPLAY_INTERVAL = 4500;
 
-const Carousel = ({ products }) => {
+const Carousel = ({ products, product = null }) => {
 	const [viewportRef, embla] = useEmblaCarousel({ loop: true, speed: 5 });
 	const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
 	const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
@@ -67,7 +67,9 @@ const Carousel = ({ products }) => {
 	}, [embla, onSelect, stop]);
 
 	useEffect(() => {
-		play();
+		if (!product) {
+			play();
+		}
 	}, [play]);
 
 	const handleClick = (product) => {
@@ -103,8 +105,7 @@ const Carousel = ({ products }) => {
 			}, 60);
 		}
 	}
-
-	if (!products.length) return (
+	if ((products && !products.length) || (product && Object.keys(product).length === 0)) return (
 		<div style={{ height: '60vh' }}>
 			<StyledLoader
 				active={true}
@@ -114,14 +115,13 @@ const Carousel = ({ products }) => {
 				classNamePrefix='loading__'
 			></StyledLoader>
 		</div>)
-
 	return (
-		<StyledCarousel>
+		<StyledCarousel full={products ? false : true}>
 			<Fade big>
 				<div className="embla">
 					<div className="embla__viewport" ref={viewportRef}>
 						<div className="embla__container">
-							{products.map(prod =>
+							{products && products.map(prod =>
 								<div className="embla__slide" key={prod.id} >
 									<div className="embla__slide__inner">
 										<img className="embla__slide__img" src={prod.banner_image} alt={prod.name} onMouseDown={(ev) => handleSlideDown(ev)} onClick={(ev) => handleSlideClick(ev, prod.id)} />
@@ -139,6 +139,13 @@ const Carousel = ({ products }) => {
 													</Btn> : <Badge className="card__noStock error">Sin stock</Badge>}
 											</div>
 										</div>
+									</div>
+								</div>
+							)}
+							{product && product.images.map(image =>
+								<div className="embla__slide" key={product.id} >
+									<div className="embla__slide__inner">
+										<img className="embla__slide__img" src={image.url} alt={`${product.name} ${image.id}`} />
 									</div>
 								</div>
 							)}

@@ -14,6 +14,7 @@ import { IMAGE_NOT_FOUND } from '../../../utils/constants';
 import strings from './strings.js';
 import { addItemCart, editStock } from '../../../redux/actions/cart_actions';
 import { useToasts } from 'react-toast-notifications';
+import Carousel from '../../carousel';
 
 import mercadoPagoImg from '../../../assets/img/mercadopago.webp'
 
@@ -24,17 +25,8 @@ export const ProductDetail = ({ product }) => {
 	const language = useSelector(state => state.globalReducer.language);
 	const s = strings[language];
 	const stock = useSelector(state => state.cartReducer.cart.stock);
-	const [currentImg, setCurrentImg] = useState(0);
 	const theme = useSelector(state => state.globalReducer.theme);
 	const { addToast } = useToasts();
-
-	function handleImage() {
-		if (currentImg >= product.images.length - 1) {
-			setCurrentImg(0);
-		} else {
-			setCurrentImg(prev => prev + 1)
-		}
-	};
 
 	function handleQuantityChange(amount) {
 		// Amount equals +1 or -1 
@@ -62,13 +54,9 @@ export const ProductDetail = ({ product }) => {
 	return (
 		<>
 			<GameDetail>
-				<Fade duration={700}>
-					<div className="game__img">
-						<img src={product.images[currentImg] ? product.images[currentImg].url
-							: IMAGE_NOT_FOUND} onClick={handleImage} alt={`${product.name}`} />
-					</div>
-				</Fade>
-
+				<div className="game__img">
+					<Carousel product={product} />
+				</div>
 
 				<div className="game__info">
 					<h1 className="game__title">{product.name}</h1>

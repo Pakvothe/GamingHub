@@ -4,7 +4,7 @@ export const StyledCarousel = styled.div`
 
 .embla {
 	position: relative;
-	margin-top: 10px;
+	margin-top: ${props => props.full ? '0' : '10px'};
 }
 
 .embla__viewport {
@@ -32,15 +32,15 @@ export const StyledCarousel = styled.div`
 
 .embla__slide {
 	position: relative;
-	min-width: 80%;
-	padding-left: 30px;
+	min-width: ${props => props.full ? '100%' : '80%'};
+	padding-left: ${props => props.full ? '0' : '30px'};
 }
 
 .embla__slide__inner {
 	position: relative;
 	overflow: hidden;
 	height: 60vh;
-	border-radius: 1em;
+	border-radius: ${props => props.full ? '0' : '1em'};
 
 	.embla__slide__detail {
 		color: var(--clr-white);
