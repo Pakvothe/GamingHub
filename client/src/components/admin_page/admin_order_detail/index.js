@@ -58,10 +58,10 @@ const AdminOrderDetail = () => {
 					<DataTable>
 						<thead>
 							<tr>
-								<td>{s.tableTitle}</td>
-								<td>{s.tableQuantity}</td>
-								<td>{s.tableUnitPrice}</td>
-								<td>{s.tableTotalPrice}</td>
+								<th>{s.tableTitle}</th>
+								<th>{s.tableQuantity}</th>
+								<th>{s.tableUnitPrice}</th>
+								<th>{s.tableTotalPrice}</th>
 							</tr>
 						</thead>
 						<tbody>

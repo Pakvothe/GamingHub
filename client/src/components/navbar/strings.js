@@ -29,6 +29,7 @@ const strings = {
 		logout_confirm: 'Estás por cerrar sesión',
 		logout_confirm_text: '¿Seguro de que quieres hacerlo?',
 		logout_button: 'Sí',
+		logout_confirm_2: '',
 		logout_confirm_text_2: 'Has cerrado sesión correctamente.',
 		logout_cancel_button_text: 'Cancelar',
 		login: 'Iniciar sesión',
