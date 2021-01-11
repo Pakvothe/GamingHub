@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Route } from 'react-router-dom';
 import Product from '../components/product';
 import Navbar from '../components/navbar';
+import AboutUs from '../components/about_us';
 import Footer from '../components/footer';
 import CartSideBar from '../components/cart_sidebar';
 import Carousel from '../components/carousel';
@@ -73,6 +74,7 @@ function HomeRoutes() {
 				<Route exact path='/order/detail'>
 					<Step3 language={language} cart={cart} />
 				</Route>
+				<Route exact path='/about' component={AboutUs} />
 				<Route exact path='/user' component={UserPage} />
 				<Route exact path='/reset' component={Reset} />
 				<Route exact path='/signup' component={SignUp} />
