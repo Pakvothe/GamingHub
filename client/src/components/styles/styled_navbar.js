@@ -56,6 +56,7 @@ export const NavbarStyled = styled.nav`
 
 			& > li {
 				position: relative;
+				cursor: pointer;
 			}
 
 			& > li + li { margin-left: 3em; }
@@ -65,6 +66,7 @@ export const NavbarStyled = styled.nav`
 				flex-direction: column;
 				align-items: center;
 				justify-content: center;
+				cursor: pointer;
 			}
 
 			li:hover {
