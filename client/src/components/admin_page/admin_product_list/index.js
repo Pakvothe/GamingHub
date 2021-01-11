@@ -5,6 +5,7 @@ import { Btn, DataTable } from '../../styles/styled_global';
 import { Link } from 'react-router-dom';
 import SearchBar from '../../search_bar';
 import { useToasts } from 'react-toast-notifications';
+import swals from '../../../utils/swals';
 import strings from './strings';
 
 const AdminProductList = ({ products }) => {
@@ -20,10 +21,12 @@ const AdminProductList = ({ products }) => {
 	})
 
 	const handleDelete = (prod) => {
-		if (window.confirm(`${s.swDeleteTitle} ${prod.name}?`)) {
-			dispatch(deleteProduct(prod.id));
-			addToast(s.toastProductDeleted, { appearance: 'success' })
-		}
+		swals.FIRE('warning', s.swDeleteTitle, s.swDeleteText, s.swDeleteButtonConfirm, true, s.swDeleteButtonCancel, () => {
+			dispatch(deleteProduct(prod.id))
+				.then((result) => {
+					addToast(s.toastProductDeleted, { appearance: 'success' })
+				})
+		})
 	}
 
 	const handleInput = (ev) => {
