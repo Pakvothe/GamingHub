@@ -25,3 +25,25 @@ export const ProfileStyled = styled.div`
 		text-align: center;
 	}
 `
+
+export const ProfileHelp = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+
+	h2, p{
+		margin-bottom: 1em;
+	}
+
+	a{
+		text-decoration: none;
+		font-weight: 700;
+		color: var(--clr-primary);
+		transition: color .2s ease-in-out;
+
+		&:hover{
+			color: var(--clr-primary-2);
+		}
+	}
+`
