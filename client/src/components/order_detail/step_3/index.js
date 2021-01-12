@@ -23,7 +23,7 @@ const Step3 = ({ cart, language }) => {
 
 	const handleClick = () => {
 		const order = {
-			email: "fran231@gmail.com",
+			email: "franfiori29@gmail.com",
 			total_amount: total,
 			state: "created",
 			payment_method: "mp",
