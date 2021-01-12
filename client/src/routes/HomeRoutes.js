@@ -27,6 +27,7 @@ import ReviewForm from '../components/reviews/review_form';
 import { getDiscounts } from './../redux/actions/products_actions';
 import Terms from '../components/terms';
 import Privacy from '../components/privacy';
+import Legal from '../components/legal';
 
 function HomeRoutes() {
 
@@ -87,6 +88,7 @@ function HomeRoutes() {
 				<Route exact path='/review/:id' component={ReviewForm} />
 				<Route exact path='/terms' component={Terms} />
 				<Route exact path='/privacy' component={Privacy} />
+				<Route exact path='/legal' component={Legal} />
 			</main>
 			<Footer language={language} />
 		</>
