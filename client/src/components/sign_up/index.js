@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
 import { addUser, editUser } from '../../redux/actions/users_actions';
 import { FormStyled, Btn } from '../styles/styled_global';
@@ -7,13 +7,15 @@ import strings from './strings';
 import { storage } from '../../firebase/';
 import Swal from 'sweetalert2';
 import { uuidv4 } from '../../utils/constants';
-
+import queryString from 'query-string';
 
 const SignUp = () => {
 	const dispatch = useDispatch()
 	const history = useHistory();
+	const location = useLocation();
 	const language = useSelector((state) => state.globalReducer.language);
 	const s = strings[language];
+	const order = queryString.parse(location.search).order
 
 	let [input, setInput] = useState({
 		password: '',
@@ -75,7 +77,7 @@ const SignUp = () => {
 					storage.ref('profilePics').child(randomID).getDownloadURL()
 						.then(fireBaseUrl => {
 							dispatch(addUser({ ...input, profile_pic: fireBaseUrl }))
-								.then(() => history.push('/'))
+								.then(() => order ? history.push('/order/payment') : history.push('/'))
 								.catch((err) => {
 									storage.ref('profilePics').child(randomID).delete();
 									setPasswordMessage(false);

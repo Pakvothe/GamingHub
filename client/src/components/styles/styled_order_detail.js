@@ -83,6 +83,9 @@ export const StepOne = styled.div`
 
 export const StepTwo = styled.div`
 
+	display: flex;
+	justify-content: space-evenly;
+
 	.button__container {
 		button {
 			margin: 2em auto 0;

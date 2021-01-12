@@ -68,10 +68,7 @@ server.get('/mercadoPago', async (req, res) => {
 				mp_id: req.query['preference_id']
 			}
 		})
-
-		if (order.state === 'completed') {
-			return res.redirect(`http://localhost:3000/orders/${order.id}`)
-		}
+		return res.redirect(`http://localhost:3000/order/detail?order=${req.query.status}`)
 	} catch (err) {
 		console.log(err)
 	}
