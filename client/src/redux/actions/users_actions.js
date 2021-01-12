@@ -37,10 +37,15 @@ export const getUser = () => {
 						'==',
 						user.data.id.toString()).get();
 					const firebaseCart = query.docs[0]?.data();
-					if (firebaseCart) {
-						localStorage.setItem('cart', JSON.stringify(firebaseCart));
-						dispatch(setCart());
+					const localStorageCart = JSON.parse(localStorage.getItem('cart'))
+					if (Object.keys(localStorageCart).length === 0) {
+						if (firebaseCart) {
+							localStorage.setItem('cart', JSON.stringify(firebaseCart));
+						}
+					} else {
+						cart.doc(user.data.id.toString()).set(localStorageCart)
 					}
+					dispatch(setCart());
 				} catch (err) { console.log(err) }
 			})
 			.catch(err => {
