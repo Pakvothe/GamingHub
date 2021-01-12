@@ -1,11 +1,9 @@
 require('dotenv').config();
 const server = require('express').Router();
-const { Op } = require('sequelize');
 const { Order, Product, Orders_products, Review, Serial } = require('../db.js');
 const { isAuthenticated, isAdmin } = require('../../utils/customMiddlewares');
 const mercadopago = require('mercadopago');
 const { NGROK_LINK, MP_KEY, FRONT } = process.env;
-const axios = require('axios');
 mercadopago.configure({
 	access_token: MP_KEY
 });
@@ -38,7 +36,6 @@ server.post('/', async (req, res) => {
 		}))
 		.then(async updatedOrder => {
 
-
 			let preference = {
 				items: updatedOrder.products.map(product => ({
 					title: product.name,
@@ -65,14 +62,17 @@ server.post('/', async (req, res) => {
 });
 
 server.get('/mercadoPago', async (req, res) => {
+	if (!req.query.status === 'approved') return res.redirect('http://localhost:3000/');
 	try {
-		// if (req.query['payment_id']) {
-		// 	const payment = await mercadopago.payment.get(req.query['payment_id']);
-		// 	if (payment.body.status === 'approved') {
-		// const order = await Order.update({ state: 'completed' }, { where: { mp_id: req.query.preference_id }, returning: true });
-		// console.log(order)
-		// }
-		// }
+		const order = await Order.findOne({
+			where: {
+				mp_id: req.query['preference_id']
+			}
+		})
+
+		if (order.state === 'completed') {
+			return res.redirect(`http://localhost:3000/orders/${order.id}`)
+		}
 	} catch (err) {
 		console.log(err)
 	}
@@ -100,12 +100,15 @@ server.post('/mercadoPagoNotifications', async (req, res) => {
 						raw: true
 					}))
 				}
-				let serialsToDelete = serialsArray.reduce((acc, ser) => {
+				let serialsToInactive = serialsArray.reduce((acc, ser) => {
 					ser.map(s => acc.push(s.serial))
 					return acc;
-				}, [])
+				}, []);
 
-				await Serial.destroy({ where: { serial: serialsToDelete }, individualHooks: true });
+				await Serial.update({ is_active: false }, {
+					where: { serial: serialsToInactive },
+					individualHooks: true
+				});
 
 			}
 		}
