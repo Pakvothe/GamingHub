@@ -4,7 +4,7 @@ export const StyledCarousel = styled.div`
 
 .embla {
 	position: relative;
-	margin-top: 10px;
+	margin-top: ${props => props.full ? '0' : '10px'};
 }
 
 .embla__viewport {
@@ -32,15 +32,15 @@ export const StyledCarousel = styled.div`
 
 .embla__slide {
 	position: relative;
-	min-width: 80%;
-	padding-left: 30px;
+	min-width: ${props => props.full ? '100%' : '80%'};
+	padding-left: ${props => props.full ? '0' : '30px'};
 }
 
 .embla__slide__inner {
 	position: relative;
 	overflow: hidden;
 	height: 60vh;
-	border-radius: 1em;
+	border-radius: ${props => props.full ? '0' : '1em'};
 
 	.embla__slide__detail {
 		color: var(--clr-white);
@@ -52,10 +52,20 @@ export const StyledCarousel = styled.div`
 		justify-content: space-between;
 		align-items: center;
 		padding: 2em 3em;
+		background: transparent;
+		background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.5) 100%);
 
 		.slide__details__left {
 			text-align: center;
 			margin-right: 1em;
+
+			a {
+				
+				text-decoration: none;
+				color: var(--clr-white);
+				transition: color .2s ease-in-out;
+
+			}
 		}
 
 		.slide__details__right {
@@ -84,6 +94,12 @@ export const StyledCarousel = styled.div`
 		.slide__title {
 			font-size: 3em;
 			text-shadow: 5px 5px 0px var(--clr-primary-2), 0 0 20px rgba(0,0,0,0.5);
+			transition: text-shadow .15s ease-in-out, transform .15s ease-in-out;
+
+			&:hover {
+				transform: translate(3px, 3px);
+				text-shadow: 2px 2px 0px var(--clr-secondary), 0 0 20px rgba(0,0,0,0.5);
+			}
 		}
 
 		.slide__price, .slide__discount {

@@ -191,6 +191,28 @@ export const Btn = styled.button`
 		}
 	}
 `
+export const AlertStyled = styled.div`
+	background-color: var(--clr-error);
+	max-width: ${props => props.maxWidth || '100%'};
+	position: relative;
+	margin: 0 auto;
+	padding: 1em;
+	border-radius: 1em;
+	margin-bottom: 2em;
+	font-weight: 700;
+	button {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		background-color: transparent;
+		border: none;
+
+		svg {
+			width: 20px;
+			height: 20px;
+		}
+	}
+`
 
 export const DataTable = styled.table`
 	margin-top: 3em;
@@ -204,19 +226,33 @@ export const DataTable = styled.table`
 	width: 100%;
 	transition: box-shadow .25s ease;
 
+
 	&:hover {
 		box-shadow: 9px 9px 0px rgba(0,0,0,.07);
 	}
 
 	&.table-small {
 		max-width: 400px;
+
+		& td:first-child {
+			font-weight: 700;
+			text-transform: uppercase;
+			font-size: .85em;
+			letter-spacing: .05em;
+			/* border-right: 1px solid #CCC;  OPCIONAL, Lo saqué porque no me gustó */
+		}
 	}
 
 	thead {
-		font-weight: 900;
+		font-weight: 700;
 		text-transform: uppercase;
 		font-size: .85em;
 		letter-spacing: .05em;
+	}
+
+	th {
+		padding: .75em 1em;
+		border-bottom: 1px solid #CCC;
 	}
 
 	/* Seteamos el ancho de las columnas desde el thead porque en el tbody no puedo:
@@ -255,7 +291,7 @@ export const DataTable = styled.table`
 	}
 
 	tbody tr:last-of-type td { border-bottom: 0; }
-
+	
 	td ul {
 		list-style: none;
 		display: flex;
@@ -282,10 +318,14 @@ export const DataTable = styled.table`
 	}
 
 	.row-link {
-		cursor: pointer;
-		
+		outline: 3px solid transparent;
+		transition: outline-color .2s ease;
+
 		&:hover {
-			outline: 1px solid var(--clr-primary);
+			outline-color: var(--clr-primary);
+		}
+		td {
+			cursor: pointer;
 		}
 	}
 	.serial-form {
@@ -313,6 +353,10 @@ export const DataTable = styled.table`
 		}
 	}
 
+	@media (max-width: 1300px) {
+		td ul { flex-direction: column; }
+		td button { margin: .5em 0; }
+	}
 
 	@media (max-width: 1000px) {
 		font-size: .7em;
@@ -320,10 +364,6 @@ export const DataTable = styled.table`
 		thead .cell-small {
 			width: 50px;
 		}
-
-		td ul { flex-direction: column; }
-
-		td button { margin: .5em 0; }
 	}
 `
 
@@ -331,6 +371,18 @@ export const FormStyled = styled.form`
 
 	.image__container {
 		width: 400px;
+
+		@media (max-width: 600px) {
+				&.container__banner { max-width: 100% }
+			}
+
+		p.thumbnail__preview {
+			font-size: 0.75em;
+			font-weight: 700;
+			margin-top: 2em;
+			margin-bottom: -0.5em;
+			text-transform: uppercase;
+		}
 	}
 
 	.image_thumbnail {
@@ -343,6 +395,17 @@ export const FormStyled = styled.form`
 		overflow: hidden;
 		border-radius: 10px;
 		cursor: pointer;
+
+		&.thumbnail__banner {
+			background: var(--clr-middle);
+			width: 100%;
+			height: 7em;
+			margin-top: 1em;
+			border: 3px solid var(--clr-primary);
+			box-shadow: 0 5px 15px -10px black;
+			cursor: default;
+			margin-right: 0;
+		}
 
 		.delete__image {
 			pointer-events: none;
@@ -398,6 +461,10 @@ export const FormStyled = styled.form`
 			display: block;
 			position: relative;
 			width: 400px;
+
+			@media (max-width: 600px) {
+				width: 100%;
+			}
 		
 			& > span:not(.no-shadow) {
 				position: absolute;

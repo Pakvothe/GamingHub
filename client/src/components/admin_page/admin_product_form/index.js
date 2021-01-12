@@ -9,6 +9,7 @@ import { Redirect, useParams } from 'react-router-dom';
 import { storage } from '../../../firebase/';
 import { useToasts } from 'react-toast-notifications';
 import Swal from 'sweetalert2';
+import swals from '../../../utils/swals';
 import strings from './strings';
 
 const AdminProductForm = ({ categories }) => {
@@ -91,24 +92,12 @@ const AdminProductForm = ({ categories }) => {
 		let invalidFile = images.some(img => !img.type.includes('image'));
 		let invalidSize = images.some(img => img.size > 2097152);
 		if (invalidFile) {
-			Swal.fire({
-				heightAuto: false,
-				title: s.invalidImgFile,
-				icon: 'warning',
-				confirmButtonColor: '#3085d6',
-				confirmButtonText: 'Ok',
-			})
+			swals.FIRE('warning', s.invalidImgFile, null, 'Ok', false, null,)
 			fileInput.current.value = '';
 			return;
 		}
 		if (invalidSize) {
-			Swal.fire({
-				heightAuto: false,
-				title: s.invalidImgSize,
-				icon: 'warning',
-				confirmButtonColor: '#3085d6',
-				confirmButtonText: 'Ok',
-			})
+			swals.FIRE('warning', s.invalidImgSize, null, 'Ok', false, null,)
 			fileInput.current.value = '';
 			return;
 		}
@@ -129,8 +118,10 @@ const AdminProductForm = ({ categories }) => {
 		ev.preventDefault();
 
 		if (id && !imagesAsFile.length) {
-			dispatch(editProduct(input));
-			addToast(s.toastProductEdited, { appearance: 'success' })
+			dispatch(editProduct(input))
+				.then((result) => {
+					addToast(s.toastProductEdited, { appearance: 'success' })
+				})
 			return setToAdmin(true);
 		};
 
@@ -203,7 +194,6 @@ const AdminProductForm = ({ categories }) => {
 							<span>{s.inputImage}</span>
 							<input ref={fileInput} type='file' name='img' onChange={handleImagesAsFile} multiple required={id ? false : true} />
 						</label>
-						<br />
 						<div className='image__container'>
 							{id && product.images?.length > 0 &&
 								product.images.map(image =>
@@ -224,9 +214,7 @@ const AdminProductForm = ({ categories }) => {
 									</div>
 								)}
 						</div>
-						<br />
-						<br />
-						<CheckboxLabel className='no-shadow check' checked={input.is_active}>
+						<CheckboxLabel className='no-shadow check mt-2' role="checkbox" aria-checked={input.is_active} checked={input.is_active}>
 							<input
 								type='checkbox'
 								value={input.is_active}
@@ -241,7 +229,7 @@ const AdminProductForm = ({ categories }) => {
 								categories.map(cat => {
 									return (
 										<li key={cat.id}>
-											<CheckboxLabel className='no-shadow check' checked={input.categories[cat.id]}>
+											<CheckboxLabel className='no-shadow check' role="checkbox" aria-checked={input.categories[cat.id]} checked={input.categories[cat.id]}>
 												<input
 													type='checkbox'
 													name={cat.name_es}

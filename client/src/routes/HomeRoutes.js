@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Route } from 'react-router-dom';
 import Product from '../components/product';
 import Navbar from '../components/navbar';
+import AboutUs from '../components/about_us';
 import Footer from '../components/footer';
 import CartSideBar from '../components/cart_sidebar';
 import Carousel from '../components/carousel';
@@ -17,6 +18,7 @@ import SignUp from '../components/sign_up';
 import EditUser from '../components/user_page/edit_profile';
 import UserOrders from '../components/user_page/orders';
 import UserOrderDetail from '../components/user_page/order_details';
+import HelpUser from '../components/user_page/help';
 import { getProducts } from '../redux/actions/products_actions';
 import { getCategories } from '../redux/actions/categories_actions';
 import { toggleCart } from '../redux/actions/global_actions';
@@ -72,11 +74,13 @@ function HomeRoutes() {
 				<Route exact path='/order/detail'>
 					<Step3 language={language} cart={cart} />
 				</Route>
+				<Route exact path='/about' component={AboutUs} />
 				<Route exact path='/user' component={UserPage} />
 				<Route exact path='/reset' component={Reset} />
 				<Route exact path='/signup' component={SignUp} />
 				<Route exact path='/edit' component={EditUser} />
 				<Route exact path='/orders' component={UserOrders} />
+				<Route exact path='/help' component={HelpUser} />
 				<Route exact path='/orders/:id' component={UserOrderDetail} />
 				<Route exact path='/review/:id' component={ReviewForm} />
 			</main>

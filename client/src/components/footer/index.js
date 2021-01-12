@@ -23,7 +23,7 @@ const Footer = ({ language }) => {
 					<li><Link to="">{s.terms}</Link></li>
 					<li><Link to="">{s.privacy}</Link></li>
 					<li><Link to="">{s.legal}</Link></li>
-					<li><Link to="">{s.contact}</Link></li>
+					<li><Link to="/help">{s.contact}</Link></li>
 				</ul>
 			</nav>
 

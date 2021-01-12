@@ -5,6 +5,7 @@ import { Btn, DataTable } from '../../styles/styled_global';
 import { Link } from 'react-router-dom';
 import SearchBar from '../../search_bar';
 import { useToasts } from 'react-toast-notifications';
+import swals from '../../../utils/swals';
 import strings from './strings';
 
 const AdminProductList = ({ products }) => {
@@ -20,10 +21,15 @@ const AdminProductList = ({ products }) => {
 	})
 
 	const handleDelete = (prod) => {
-		if (window.confirm(`${s.swDeleteTitle} ${prod.name}?`)) {
-			dispatch(deleteProduct(prod.id));
-			addToast(s.toastProductDeleted, { appearance: 'success' })
-		}
+		swals.FIRE('warning', s.swDeleteTitle, s.swDeleteText, s.swDeleteButtonConfirm, true, s.swDeleteButtonCancel, () => {
+			dispatch(deleteProduct(prod.id))
+				.then((result) => {
+					addToast(s.toastProductDeleted, { appearance: 'success' })
+				})
+				.catch((err) => {
+					addToast(s.err, { appearance: 'error' })
+				})
+		})
 	}
 
 	const handleInput = (ev) => {
@@ -62,11 +68,11 @@ const AdminProductList = ({ products }) => {
 			<DataTable>
 				<thead>
 					<tr onClick={handleSort}>
-						<td id="id" className="cell-small icon down active">ID</td>
-						<td id="name" className="icon down">{s.tableTitle}</td>
-						<td id="stock" className="cell-small icon down">Stock</td>
-						<td className="cell-small">Visible</td>
-						<td></td>
+						<th id="id" className="cell-small icon down active">ID</th>
+						<th id="name" className="icon down">{s.tableTitle}</th>
+						<th id="stock" className="cell-small icon down">Stock</th>
+						<th className="cell-small">Visible</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>

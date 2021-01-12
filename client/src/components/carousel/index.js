@@ -17,10 +17,12 @@ import { useRecursiveTimeout } from "./useRecursiveTimeout";
 import { addItemCart, editStock } from '../../redux/actions/cart_actions';
 import { useToasts } from 'react-toast-notifications';
 import { toggleCart } from '../../redux/actions/global_actions';
+import { Link, useHistory } from 'react-router-dom';
+import { StyledLoader } from './../styles/styled_global';
 
-const AUTOPLAY_INTERVAL = 3500;
+const AUTOPLAY_INTERVAL = 4500;
 
-const Carousel = ({ products }) => {
+const Carousel = ({ products, product = null }) => {
 	const [viewportRef, embla] = useEmblaCarousel({ loop: true, speed: 5 });
 	const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
 	const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
@@ -29,6 +31,7 @@ const Carousel = ({ products }) => {
 	const dispatch = useDispatch();
 	const stock = useSelector(state => state.cartReducer.cart.stock);
 	const { addToast } = useToasts();
+	const history = useHistory();
 
 	const scrollPrev = useCallback(() => embla && embla.scrollPrev(), [embla]);
 	const scrollNext = useCallback(() => embla && embla.scrollNext(), [embla]);
@@ -64,7 +67,9 @@ const Carousel = ({ products }) => {
 	}, [embla, onSelect, stop]);
 
 	useEffect(() => {
-		play();
+		if (!product) {
+			play();
+		}
 	}, [play]);
 
 	const handleClick = (product) => {
@@ -77,7 +82,7 @@ const Carousel = ({ products }) => {
 				quantity: 1,
 				stock: product.stock
 			}
-			dispatch(editStock(payload));
+			dispatch(editStock(payload))
 			addToast(`${product.name} ${s.toast}`, { appearance: 'success' });
 
 		} else {
@@ -85,32 +90,62 @@ const Carousel = ({ products }) => {
 		}
 	};
 
-	if (!products.length) return <h1>Loading</h1>
-
+	const handleSlideClick = (ev, id) => {
+		let slide = ev.target;
+		if (slide.timerOn) {
+			history.push(`/products/${id}`);
+		}
+	}
+	const handleSlideDown = (ev) => {
+		let slide = ev.target;
+		if (!slide.timerOn) {
+			slide.timerOn = true;
+			setTimeout(() => {
+				slide.timerOn = false;
+			}, 60);
+		}
+	}
+	if ((products && !products.length) || (product && Object.keys(product).length === 0)) return (
+		<div style={{ height: '60vh' }}>
+			<StyledLoader
+				active={true}
+				spinner
+				text={s.loading}
+				className='loading__overlay'
+				classNamePrefix='loading__'
+			></StyledLoader>
+		</div>)
 	return (
-		<StyledCarousel>
+		<StyledCarousel full={products ? false : true}>
 			<Fade big>
 				<div className="embla">
 					<div className="embla__viewport" ref={viewportRef}>
 						<div className="embla__container">
-							{products.map(prod =>
-								<div className="embla__slide" key={prod.id}>
+							{products && products.map(prod =>
+								<div className="embla__slide" key={prod.id} >
 									<div className="embla__slide__inner">
-										<img className="embla__slide__img" src={prod.banner_image} alt={prod.name} />
+										<img className="embla__slide__img" src={prod.banner_image} alt={prod.name} onMouseDown={(ev) => handleSlideDown(ev)} onClick={(ev) => handleSlideClick(ev, prod.id)} />
 										<div className="embla__slide__detail">
 											<div className="slide__details__left">
-												<h3 className="slide__title">{prod.name}</h3>
+												<Link to={`/products/${prod.id}`}><h3 className="slide__title">{prod.name}</h3></Link>
 											</div>
 											<div className="slide__details__right">
 												<span className="slide__discount">-{100 - Math.round(((prod.price / prod.real_price) * 100))}%</span>
 												<span className="slide__price">${prod.price}</span>
 												{prod.stock ?
-													<Btn className="btn-ppal btn-img slide__btn" onClick={() => handleClick(prod)}>
+													<Btn className="btn-ppal btn-img slide__btn" onClick={() => handleClick(prod)}  >
 														{stock[prod.id] >= 0 ? s.already_in_cart : s.add_to_cart}
 														<StyledSVG src={cart} />
 													</Btn> : <Badge className="card__noStock error">Sin stock</Badge>}
 											</div>
 										</div>
+									</div>
+								</div>
+							)}
+							{product && product.images.map(image =>
+								<div className="embla__slide" key={product.id} >
+									<div className="embla__slide__inner">
+										<img className="embla__slide__img" src={image.url} alt={`${product.name} ${image.id}`} />
 									</div>
 								</div>
 							)}
@@ -120,7 +155,7 @@ const Carousel = ({ products }) => {
 					<NextButton onClick={scrollNext} enabled={nextBtnEnabled} />
 				</div>
 			</Fade>
-		</StyledCarousel>
+		</StyledCarousel >
 	);
 };
 

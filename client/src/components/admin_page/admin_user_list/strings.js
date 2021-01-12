@@ -8,6 +8,7 @@ const strings = {
 		admin_confirm: 'Change this user\'s permissions?',
 		admin_confirm_text: 'Are you sure you want to change this user\'s current permissions?',
 		admin_button: 'Yes, change them',
+		admin_cancel_button: 'Cancel',
 		admin_confirm_2: 'Done!',
 		admin_confirm_text2: 'User permissions changed successfully',
 
@@ -16,7 +17,9 @@ const strings = {
 		admin_button_2: 'Delete user',
 		admin_delete_user_2: 'Done!',
 		admin_delete_user_text2: 'User deleted successfully.',
-		admin_error_text: 'An error has occurred. Please try again later.'
+		admin_error_text: 'An error has occurred. Please try again later.',
+
+		toastError: 'Internal Server Error'
 	},
 	es: {
 		title: 'Usuarios',
@@ -27,6 +30,7 @@ const strings = {
 		admin_confirm: '¿Editar permisos del usuario?',
 		admin_confirm_text: '¿Estás seguro de querer cambiar los permisos actuales de este usuario?',
 		admin_button: 'Sí, cambiarlos',
+		admin_cancel_button: 'Cancelar',
 		admin_confirm_2: '¡Listo!',
 		admin_confirm_text2: 'Permisos cambiados correctamente.',
 
@@ -35,7 +39,9 @@ const strings = {
 		admin_button_2: 'Eliminar usuario',
 		admin_delete_user_2: '¡Listo!',
 		admin_delete_user_text2: 'Usuario eliminado correctamente.',
-		admin_error_text: 'Ha ocurrido un error. Por favor, vuelve a intentarlo más tarde.'
+		admin_error_text: 'Ha ocurrido un error. Por favor, vuelve a intentarlo más tarde.',
+
+		toastError: 'Internal Server Error'
 	}
 };
 

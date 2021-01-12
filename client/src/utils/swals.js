@@ -1,30 +1,31 @@
 import Swal from 'sweetalert2';
-const OK = (title, text, btn = 'Ok') => {
+const FIRE = (type = 'success', title, text, confirmButtonText = 'Ok', showCancelButton = false, cancelButtonText, preConfirm = null) => {
 	return Swal.fire({
 		heightAuto: false,
-		title: title,
-		text: text,
-		icon: 'success',
-		confirmButtonColor: '#3085d6',
-		confirmButtonText: btn,
+		title,
+		text,
+		showCancelButton,
+		cancelButtonText,
+		icon: type,
+		confirmButtonText,
+		showLoaderOnConfirm: true,
+		preConfirm
 	})
 }
-const WARNING = (title, text, btn = 'Ok') => {
-	return Swal.fire({
-		heightAuto: false,
-		title: title,
-		text: text,
-		icon: 'warning',
-		confirmButtonColor: '#3085d6',
-		confirmButtonText: btn,
-	})
-}
+
 const OOPS = (language) => {
 	if (language === 'en') {
-		WARNING('Oops, something went wrong');
+		FIRE('warning', 'Oops, something went wrong');
 	} else {
-		WARNING('Oh, algo ha fallado');
+		FIRE('warning', 'Oh, algo ha fallado');
 	}
 }
 
-export default { OK: OK, WARNING: WARNING, OOPS: OOPS }
+const CONFIRMOK = (confirmTitle, confirmText, appearance, cb) => Swal.fire(
+	confirmTitle,
+	confirmText,
+	appearance,
+	cb
+)
+
+export default { FIRE, OOPS, CONFIRMOK }

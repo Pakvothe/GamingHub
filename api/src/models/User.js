@@ -62,7 +62,7 @@ module.exports = (sequelize) => {
 	})
 
 	User.prototype.compare = function (password, isReset) {	//compares resetcode when isReset is true
-		if (this.password) return bcrypt.compareSync(password.toString(), isReset ? this.reset_code : this.password);
+		if (this.password || this.reset_code) return bcrypt.compareSync(password.toString(), isReset ? this.reset_code : this.password);
 		else return false
 	}
 

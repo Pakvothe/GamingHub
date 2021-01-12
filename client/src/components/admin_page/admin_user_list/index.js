@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteUser, toggleAdmin } from '../../../redux/actions/users_actions';
 import { Btn, DataTable } from '../../styles/styled_global';
 import Swal from 'sweetalert2';
+import swals from '../../../utils/swals';
 import strings from './strings'
 import { useToasts } from 'react-toast-notifications';
 
@@ -13,54 +14,36 @@ const AdminUserList = ({ users }) => {
 	const { addToast } = useToasts()
 
 	const handleDelete = (id) => {
-		Swal.fire({
-			heightAuto: false,
-			title: s.admin_delete_user,
-			text: s.admin_delete_user_text,
-			icon: 'warning',
-			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
-			showLoaderOnConfirm: true,
-			confirmButtonText: s.admin_button_2,
-			preConfirm: () => dispatch(deleteUser(id, true)),
-		}).then((data) => {
-			if (data.isConfirmed) {
-				if (data.value === 200) {
-					Swal.fire(
-						s.admin_delete_user_2,
-						s.admin_delete_user_text2,
-						'success',
-					)
-				} else if (data.value === 500) {
-					addToast('Internal Server Error', { appearance: 'error' })
-				} else {
-					addToast(s.admin_error_text, { appearance: 'error' })
+		swals.FIRE('warning', s.admin_delete_user, s.admin_delete_user_text, s.admin_button_2, true, s.admin_cancel_button, () => dispatch(deleteUser(id, true)))
+			.then((data) => {
+				if (data.isConfirmed) {
+					if (data.value === 200) {
+						swals.CONFIRMOK(
+							s.admin_delete_user_2,
+							s.admin_delete_user_text2,
+							'success',
+						)
+					} else if (data.value === 500) {
+						addToast(s.toastError, { appearance: 'error' })
+					} else {
+						addToast(s.admin_error_text, { appearance: 'error' })
+					}
 				}
-			}
-		})
+			})
 	}
 
 	const handleInput = (id, is_admin) => {
-		Swal.fire({
-			heightAuto: false,
-			title: s.admin_confirm,
-			text: s.admin_confirm_text,
-			icon: 'warning',
-			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
-			confirmButtonText: s.admin_button,
-		}).then((result) => {
-			if (result.isConfirmed) {
-				Swal.fire(
-					s.admin_confirm_2,
-					s.admin_confirm_text2,
-					'success',
-					dispatch(toggleAdmin({ id, is_admin }))
-				)
-			}
-		})
+		swals.FIRE('warning', s.admin_confirm, s.admin_confirm_text, s.admin_button, true, s.admin_cancel_button)
+			.then((result) => {
+				if (result.isConfirmed) {
+					Swal.fire(
+						s.admin_confirm_2,
+						s.admin_confirm_text2,
+						'success',
+						dispatch(toggleAdmin({ id, is_admin }))
+					)
+				}
+			})
 	}
 
 
@@ -70,12 +53,12 @@ const AdminUserList = ({ users }) => {
 			<DataTable>
 				<thead>
 					<tr>
-						<td className="cell-small">ID</td>
-						<td>{s.tableFirstName}</td>
-						<td>{s.tableLastName}</td>
-						<td className="cell-small">Admin</td>
-						<td>Email</td>
-						<td></td>
+						<th className="cell-small">ID</th>
+						<th>{s.tableFirstName}</th>
+						<th>{s.tableLastName}</th>
+						<th className="cell-small">Admin</th>
+						<th>Email</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>

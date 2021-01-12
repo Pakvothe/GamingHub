@@ -11,10 +11,10 @@ export const GameDetail = styled.section`
   .game__img {
 	flex: 1;
     margin-right: 1.5em;
+	border: 3px solid var(--clr-primary);
 	border-radius: 1em;
 	overflow: hidden;
-	border: 3px solid var(--clr-primary);
-	max-height: 600px;
+	height: 100%;
 	cursor: pointer;
 
 	@media (max-width: 1000px) {
@@ -137,7 +137,7 @@ export const GameDetail = styled.section`
     }
 
 	.game__payment-methods-icons {
-		max-width:200px;
+		max-width:300px;
 		
 		@media(max-width: 500px) {
 			margin-top: 2em;

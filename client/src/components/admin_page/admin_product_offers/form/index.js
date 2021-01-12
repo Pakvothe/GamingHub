@@ -99,16 +99,16 @@ const AdminProductOfferForm = () => {
 									switch (status) {
 										case 200:
 											if (bannerImage) storage.refFromURL(bannerImage).delete();
-											addToast(`Offer ${product.real_price ? "edited" : "added"} successfully`, { appearance: 'success' })
+											addToast(product.real_price ? s.toastOfferEdited : s.toastOfferAdded, { appearance: 'success' })
 											setToAdmin(true);
 											break;
 										case 404:
 											storage.ref('bannerImages').child(randomID).delete();
-											return addToast(`Product not found`, { appearance: 'error' })
+											return addToast(s.toastNotFound, { appearance: 'error' })
 										case 500:
 										default:
 											storage.ref('bannerImages').child(randomID).delete();
-											return addToast(`Internal server error`, { appearance: 'error' })
+											return addToast(s.toastServerError, { appearance: 'error' })
 									}
 								})
 						});
@@ -118,16 +118,16 @@ const AdminProductOfferForm = () => {
 				.then(status => {
 					switch (status) {
 						case 200:
-							addToast(`Offer ${product.real_price ? "edited" : "added"} successfully`, { appearance: 'success' })
+							addToast(product.real_price ? s.toastOfferEdited : s.toastOfferAdded, { appearance: 'success' })
 							setToAdmin(true);
 							break;
 						case 404:
 							storage.ref('bannerImages').child(randomID).delete();
-							return addToast(`Product not found`, { appearance: 'error' })
+							return addToast(s.toastNotFound, { appearance: 'error' })
 						case 500:
 						default:
 							storage.ref('bannerImages').child(randomID).delete();
-							return addToast(`Internal server error`, { appearance: 'error' })
+							return addToast(s.toastServerError, { appearance: 'error' })
 					}
 				})
 		}
@@ -162,9 +162,10 @@ const AdminProductOfferForm = () => {
 					<span>{s.banner_image}</span>
 					<input ref={fileInput} type='file' name='banner_img' onChange={handleImageAsFile} required={!product.real_price} />
 				</label>
-				<div className='image__container'>
+				<div className='image__container container__banner'>
+					<p className="thumbnail__preview">{s.preview}</p>
 					{product.banner_image &&
-						<div className='image_thumbnail'>
+						<div className='image_thumbnail thumbnail__banner'>
 							<img src={product.banner_image} width='100px' key={product.id} />
 						</div>
 					}

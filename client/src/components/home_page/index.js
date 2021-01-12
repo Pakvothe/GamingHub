@@ -16,7 +16,7 @@ import arrowUp from '../../assets/img/arrow-up.svg';
 /* --- Styles --- */
 import { StyledSVG } from '../styles/styled_global';
 import { changeCurrentPage, resetCurrentPage } from '../../redux/actions/global_actions';
-import { animateScroll } from 'react-scroll';
+import { animateScroll, Element } from 'react-scroll';
 
 
 export const getProductsPayload = { name: 'stock', order: 'DESC', limit: 8 };
@@ -34,9 +34,9 @@ const HomePage = () => {
 	const errorProducts = useSelector(state => state.productsReducer.products.error);
 
 	const scrollButton = useRef();
+	const mainHeader = useRef();
 
 	const limitPerPage = 8;
-
 
 	const handleSelect = (e) => {
 		dispatch(resetCurrentPage())
@@ -73,10 +73,11 @@ const HomePage = () => {
 		} else {
 			dispatch(getProducts({ name: 'stock', order: 'DESC', limit: limitPerPage, offset }))
 		}
+		mainHeader.current.scrollIntoView({ block: 'start', behavior: 'smooth' })
 	}
 
 	return (
-		<div>
+		<div ref={mainHeader}>
 			<h1 className="main-title">{s.main_header}</h1>
 			<SelectCategories language={language} categories={categories} handleSelect={handleSelect} />
 			<Catalog products={productsFilter.length ? productsFilter : products}

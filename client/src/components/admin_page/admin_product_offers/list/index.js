@@ -30,10 +30,10 @@ const AdminProductOfferList = ({ products }) => {
 							storage.refFromURL(prod.banner_image).delete();
 							return addToast(s.toastOfferDeleted, { appearance: 'success' });
 						case 404:
-							return addToast('Product not found', { appearance: 'error' });
+							return addToast(s.toastNotFound, { appearance: 'error' });
 						case 500:
 						default:
-							return addToast('Server error', { appearance: 'error' });
+							return addToast(s.toastServerError, { appearance: 'error' });
 					}
 				})
 		}
@@ -63,11 +63,11 @@ const AdminProductOfferList = ({ products }) => {
 			<DataTable>
 				<thead>
 					<tr /*onClick={handleSort}*/>
-						<td id="id" className="cell-small icon down active">ID</td>
-						<td id="name" className="icon down">{s.tableTitle}</td>
-						<td id="stock" className="cell-small icon down">{s.original}</td>
-						<td className="cell-small">{s.discountPrice}</td>
-						<td className="cell-small">{s.discount}</td>
+						<th id="id" className="cell-small icon down active">ID</th>
+						<th id="name" className="icon down">{s.tableTitle}</th>
+						<th id="stock" className="cell-small icon down">{s.original}</th>
+						<th className="cell-small">{s.discountPrice}</th>
+						<th className="cell-small">{s.discount}</th>
 						<td></td>
 					</tr>
 				</thead>
