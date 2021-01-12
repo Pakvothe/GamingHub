@@ -83,7 +83,7 @@ const products = [
 			}, {
 				url: 'https://www.latercera.com/resizer/7JKi_UKjTHZMPlp2tHq4lHEzkEQ=/380x570/smart/www.latercera.com/resizer/zdNSDatPS4ZmzyRK6rRshb2qC3Y=/cloudfront-us-east-1.images.arcpublishing.com/copesa/NQYR57OX5ZANRIL6SNIZVNLXSA.jpg'
 			}, {
-				url: 'https://img.redbull.com/images/c_crop,x_765,y_0,h_2160,w_1728/c_fill,w_860,h_1075/q_auto,f_auto/redbullcom/2019/06/25/859e6f99-2b77-472b-b399-d7831cdd071f/cyberpunk-pacifica-skyline'
+				url: 'https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/media/image/2020/03/cyberpunk-2077-1906669.jpg'
 			}
 		],
 		serials: [
