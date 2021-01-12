@@ -12,7 +12,10 @@ import {
 	EDIT_STOCK,
 	DELETE_ITEM_STOCK
 } from './../constants';
-
+import { firestore } from '../../firebase/';
+// import firebase from 'firebase/app';
+import 'firebase/firestore';
+import jwt_decode from "jwt-decode";
 const { REACT_APP_API_URL } = process.env;
 
 export const setCart = () => {
@@ -56,6 +59,10 @@ export const addItemCart = (payload) => {
 	if (cart[payload.id]) cart[payload.id] = cart[payload.id] + payload.quantity;
 	else cart[payload.id] = payload.quantity;
 	localStorage.setItem('cart', JSON.stringify(cart));
+	if (localStorage.getItem('jwt')) {
+		const user = jwt_decode(JSON.parse(localStorage.getItem('jwt')));
+		firestore.collection('cart').doc(user.id.toString()).set(cart);
+	}
 	return {
 		type: ADD_ITEM_CART,
 		payload
@@ -66,6 +73,12 @@ export const deleteItemCart = (payload) => {
 	const cart = JSON.parse(localStorage.getItem('cart'));
 	delete cart[payload];
 	localStorage.setItem('cart', JSON.stringify(cart));
+	if (localStorage.getItem('jwt')) {
+		const user = jwt_decode(JSON.parse(localStorage.getItem('jwt')));
+		Object.keys(cart).length !== 0 ?
+			firestore.collection('cart').doc(user.id.toString()).set(cart) :
+			firestore.collection('cart').doc(user.id.toString()).delete();
+	}
 	return {
 		type: DELETE_ITEM_CART,
 		payload
@@ -87,7 +100,11 @@ export const deleteItemStock = (payload) => {
 }
 
 export const clearCart = () => {
-	localStorage.setItem('cart', '{}')
+	localStorage.setItem('cart', '{}');
+	if (localStorage.getItem('jwt')) {
+		const user = jwt_decode(JSON.parse(localStorage.getItem('jwt')));
+		firestore.collection('cart').doc(user.id.toString()).delete();
+	}
 	return {
 		type: CLEAR_CART
 	}

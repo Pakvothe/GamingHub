@@ -13,6 +13,10 @@ import {
 	LOADING_USER,
 	BEARER,
 } from '../constants';
+import { setCart } from './cart_actions';
+import { firestore } from '../../firebase/';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 
 const { REACT_APP_API_URL } = process.env;
 
@@ -20,19 +24,35 @@ export const getUser = () => {
 	return function (dispatch) {
 		dispatch({ type: LOADING_USER })
 		return axios.get(`${REACT_APP_API_URL}/auth/me`, BEARER())
-			.then(user => {
+			.then(async user => {
 				if (user.data.jwt) localStorage.setItem('jwt', JSON.stringify(user.data.jwt));
 				delete user.data.jwt
 				dispatch({
 					type: GET_USER,
 					payload: user.data
 				})
+				const cart = firestore.collection("cart");
+				try {
+					const query = await cart.where(firebase.firestore.FieldPath.documentId(),
+						'==',
+						user.data.id.toString()).get();
+					const firebaseCart = query.docs[0]?.data();
+					const localStorageCart = JSON.parse(localStorage.getItem('cart'))
+					if (Object.keys(localStorageCart).length === 0) {
+						if (firebaseCart) {
+							localStorage.setItem('cart', JSON.stringify(firebaseCart));
+						}
+					} else {
+						cart.doc(user.data.id.toString()).set(localStorageCart)
+					}
+					dispatch(setCart());
+				} catch (err) { console.log(err) }
 			})
 			.catch(err => {
+				console.log(err)
 				dispatch({
 					type: USERS_ERROR
 				})
-
 			})
 	}
 }
