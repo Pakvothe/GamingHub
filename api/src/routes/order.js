@@ -56,7 +56,6 @@ server.post('/', async (req, res) => {
 			res.json(resp.body.init_point)
 		})
 		.catch((err) => {
-			console.log(err)
 			n.status(500).json({ message: "Internal server error" })
 		})
 });
@@ -178,7 +177,6 @@ server.get('/:orderId', isAuthenticated, (req, res) => {
 			}
 		})
 		.catch((err) => {
-			console.log(err);
 			res.status(500).json({ message: "Internal server error" });
 		})
 })
