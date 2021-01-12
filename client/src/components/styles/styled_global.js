@@ -932,7 +932,56 @@ export const SocialLogin = styled.div`
 		background-position: left 1em top 50%;
 		background-color: var(--clr-white);
 	}
+`
 
+export const StyledTerms = styled.div`
+	h2 {
+		text-align: center;
+		margin-bottom: 1em;
+		text-transform: uppercase;
+		font-size: 2em;
+	}
+
+	h3 {
+		margin-bottom: 1em;
+		font-weight: 700;
+		text-transform: uppercase;
+	}
+
+	h4 {
+		font-weight: 700;
+		font-size: 1.1em;
+		margin-bottom: .5em;
+	}
+
+	p + h4 { margin-top: 1em }
+
+	a {
+		color: var(--clr-primary);
+		font-weight: 700;
+		text-decoration: none;
+	}
+
+	p { line-height: 1.6 }
+
+	ul {
+		margin: 1em 0 2em 3em;
+	}
+
+	li {
+		margin-top: 0.5em;
+		line-height: 1.6;
+	}
+
+	section, footer { padding: 2rem }
+
+	section > p + p { margin-top: 1em }
+
+	footer {
+		border-top: 3px solid rgba(0, 0, 0, 0.1);
+		font-size: 0.8em;
+		padding-bottom: 0;
+	}
 `
 
 export const StyledSVG = styled(SVG)`

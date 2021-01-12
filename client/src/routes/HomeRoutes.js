@@ -25,6 +25,8 @@ import { toggleCart } from '../redux/actions/global_actions';
 import Reset from './../components/reset/index';
 import ReviewForm from '../components/reviews/review_form';
 import { getDiscounts } from './../redux/actions/products_actions';
+import Terms from '../components/terms';
+import Privacy from '../components/privacy';
 
 function HomeRoutes() {
 
@@ -83,6 +85,8 @@ function HomeRoutes() {
 				<Route exact path='/help' component={HelpUser} />
 				<Route exact path='/orders/:id' component={UserOrderDetail} />
 				<Route exact path='/review/:id' component={ReviewForm} />
+				<Route exact path='/terms' component={Terms} />
+				<Route exact path='/privacy' component={Privacy} />
 			</main>
 			<Footer language={language} />
 		</>
