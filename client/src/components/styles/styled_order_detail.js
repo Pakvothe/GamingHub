@@ -17,6 +17,10 @@ export const StepOne = styled.div`
 	display: flex;
 	justify-content: space-between;
 
+	.nomeimportanada {
+		margin-bottom: 2em !important;
+	}
+
 	& > div:first-child {
 		margin-right: 4em;
 		flex: 1;
@@ -141,5 +145,28 @@ export const StepTwo = styled.div`
 		}
 	}
 `
+
+export const GameClose = styled.button`
+	position: absolute;
+	cursor: pointer;
+	top: 10px;
+	right: 10px;
+	border: none;
+	width: 25px;
+	height: 25px;
+	background: transparent;
+
+	svg {
+		fill: var(--clr-primary);
+		transition: fill .2s ease-in-out;
+		width: 25px;
+		height: 25px;
+	}
+
+	&:hover svg {
+		fill: var(--clr-primary-2);
+	}
+`
+
 
 export const StyledSVG = styled(SVG)``

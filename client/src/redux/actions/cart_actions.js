@@ -10,7 +10,8 @@ import {
 	LOADING_CART,
 	SET_STOCK,
 	EDIT_STOCK,
-	DELETE_ITEM_STOCK
+	DELETE_ITEM_STOCK,
+	SET_DISCOUNT
 } from './../constants';
 import { firestore } from '../../firebase/';
 // import firebase from 'firebase/app';
@@ -107,5 +108,11 @@ export const clearCart = () => {
 	}
 	return {
 		type: CLEAR_CART
+	}
+}
+export const setDiscount = (payload) => {
+	return {
+		type: SET_DISCOUNT,
+		payload
 	}
 }
