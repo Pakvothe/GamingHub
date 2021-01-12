@@ -57,7 +57,7 @@ export const addOrder = (payload) => {
 					type: ADD_ORDER,
 					payload: response.data
 				})
-				window.open(response.data);
+				window.location = response.data;
 			})
 	}
 }

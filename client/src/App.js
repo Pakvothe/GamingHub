@@ -25,9 +25,9 @@ function App() {
 			dispatch(getUser());
 			history.push('/')
 		}
-		if (parsed.status === 'approved') {
-			console.log(parsed.preference_id)
-		}
+		// if (parsed.status === 'approved') {
+		// 	console.log(parsed.preference_id)
+		// }
 	}, [])
 
 	return (
