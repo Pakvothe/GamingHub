@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { getSearchProducts } from '../../redux/actions/products_actions';
 import { resetCurrentPage } from '../../redux/actions/global_actions';
+import commands from './commands';
 
 const SearchBar = () => {
 
@@ -24,9 +25,13 @@ const SearchBar = () => {
 	const handleSubmit = (ev) => {
 		ev.preventDefault();
 		setInputText('');
-		dispatch(getSearchProducts(inputText.trim(), { limit: limitPerPage }));
-		dispatch(resetCurrentPage())
-		history.push(`/search?query=${inputText.trim().toLowerCase()}`);
+		if (inputText.trim()[0] === '!') {
+			commands(inputText);
+		} else {
+			dispatch(getSearchProducts(inputText.trim(), { limit: limitPerPage }));
+			dispatch(resetCurrentPage())
+			history.push(`/search?query=${inputText.trim().toLowerCase()}`);
+		}
 	};
 	return (
 		<FormSearchBar onSubmit={handleSubmit}>
