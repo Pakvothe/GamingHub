@@ -39,6 +39,7 @@ module.exports = (sequelize) => {
 			afterBulkCreate: (serials) => {
 				serials.map(updateStock)
 			},
+			afterDestroy: updateStock,
 		}
 	})
 };

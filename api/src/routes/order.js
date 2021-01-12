@@ -1,13 +1,17 @@
+require('dotenv').config();
 const server = require('express').Router();
 const { Op } = require('sequelize');
-const { Order, Product, Orders_products, Review } = require('../db.js');
+const { Order, Product, Orders_products, Review, Serial } = require('../db.js');
 const { isAuthenticated, isAdmin } = require('../../utils/customMiddlewares');
 const mercadopago = require('mercadopago');
+const { NGROK_LINK, MP_KEY, FRONT } = process.env;
+const axios = require('axios');
+mercadopago.configure({
+	access_token: MP_KEY
+});
 //----------"/orders"--------------
 
 server.post('/', async (req, res) => {
-	// const { id, topic } = req.query;
-	// console.log('id', id, 'topic', topic)
 	const order = req.body;
 	const { products } = order;
 	delete order.products;
@@ -33,9 +37,7 @@ server.post('/', async (req, res) => {
 			]
 		}))
 		.then(async updatedOrder => {
-			mercadopago.configure({
-				access_token: 'TEST-5400134544155678-010923-025e4b3ff8e012c1d3c3224e777cffe2-131738657'
-			});
+
 
 			let preference = {
 				items: updatedOrder.products.map(product => ({
@@ -44,30 +46,72 @@ server.post('/', async (req, res) => {
 					quantity: product.orders_products.quantity
 				})),
 				back_urls: {
-					success: "http://localhost:3000/",
-					failure: "http://localhost:3000/",
-					pending: "http://localhost:3000/"
+					success: 'http://localhost:4000/orders/mercadoPago',
+					failure: 'http://localhost:4000/orders/mercadoPago',
+					pending: 'http://localhost:4000/orders/mercadoPago'
 				},
 				auto_return: "approved",
-				notification_url: "http://26a713f06519.ngrok.io/orders"
+				notification_url: `${NGROK_LINK}/orders/mercadoPagoNotifications`
 			};
 
 			const resp = await mercadopago.preferences.create(preference)
 			const upOrder = await updatedOrder.update({ mp_id: resp.response.id })
-			console.log(resp)
-			// .then(function (response) {
-			// 	// Este valor reemplazará el string "<%= global.id %>" en tu HTML
-			// 	console.log(response)
-			// 	// global.id = response.body.id;
-			// }).catch(function (error) {
-			// 	console.log(error);
-			// });
 			res.json(resp.body.init_point)
 		})
 		.catch((err) => {
 			console.log(err)
-			res.status(500).json({ message: "Internal server error" })
+			n.status(500).json({ message: "Internal server error" })
 		})
+});
+
+server.get('/mercadoPago', async (req, res) => {
+	try {
+		// if (req.query['payment_id']) {
+		// 	const payment = await mercadopago.payment.get(req.query['payment_id']);
+		// 	if (payment.body.status === 'approved') {
+		// const order = await Order.update({ state: 'completed' }, { where: { mp_id: req.query.preference_id }, returning: true });
+		// console.log(order)
+		// }
+		// }
+	} catch (err) {
+		console.log(err)
+	}
+	res.redirect('http://localhost:3000/');
+});
+
+server.post('/mercadoPagoNotifications', async (req, res) => {
+	res.sendStatus(200);
+	try {
+		if (req.query.type === 'payment') {
+			const payment = await mercadopago.payment.get(req.query['data.id']);
+			if (payment.body.status === 'approved') {
+				const merchant = await mercadopago.merchant_orders.get(payment.body.order.id);
+				const order = await Order.findOne({
+					where: { mp_id: merchant.body["preference_id"] },
+					include: [Product]
+				})
+				const updatedOrder = await order.update({ state: 'completed' })
+				let serialsArray = [];
+				for (let prod of order.products) {
+					prod = prod.get();
+					serialsArray.push(await Serial.findAll({
+						where: { productId: prod.id },
+						limit: prod.orders_products.quantity,
+						raw: true
+					}))
+				}
+				let serialsToDelete = serialsArray.reduce((acc, ser) => {
+					ser.map(s => acc.push(s.serial))
+					return acc;
+				}, [])
+
+				await Serial.destroy({ where: { serial: serialsToDelete }, individualHooks: true });
+
+			}
+		}
+	} catch (err) {
+		console.log('error ', err)
+	}
 });
 
 server.get('/', isAuthenticated, (req, res) => {
