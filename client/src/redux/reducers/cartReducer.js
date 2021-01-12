@@ -9,13 +9,15 @@ import {
 	LOADING_CART,
 	SET_STOCK,
 	EDIT_STOCK,
-	DELETE_ITEM_STOCK
+	DELETE_ITEM_STOCK,
+	SET_DISCOUNT
 } from './../constants';
 
 const initialState = {
 	cart: {
 		isLoading: false,
 		list: [],
+		discount: 0,
 		stock: {},
 		error: false
 	},
@@ -164,6 +166,14 @@ const cartReducer = (state = initialState, action) => {
 					...state.cart,
 					list: [],
 					stock: {}
+				}
+			}
+		case SET_DISCOUNT:
+			return {
+				...state,
+				cart: {
+					...state.cart,
+					discount: action.payload,
 				}
 			}
 		default: return state;

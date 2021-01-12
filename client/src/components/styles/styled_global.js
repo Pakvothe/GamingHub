@@ -1,6 +1,7 @@
 import styled, { createGlobalStyle } from 'styled-components';
 import SVG from 'react-inlinesvg';
 import arrow from '../../assets/img/arrow-down.svg';
+import checkMark from '../../assets/img/checkMark.svg';
 import checkboxUnchecked from '../../assets/img/checkbox-unchecked-purple.svg'
 import checkboxChecked from '../../assets/img/checkbox-checked-purple.svg'
 import LoadingOverlay from 'react-loading-overlay';
@@ -368,6 +369,13 @@ export const DataTable = styled.table`
 `
 
 export const FormStyled = styled.form`
+
+	input.checked{
+		background: url(${checkMark}) no-repeat;
+		background-position: top 50% right 10px;
+		background-size: 25px;
+		background-color: var(--clr-white);
+	}
 
 	.image__container {
 		width: 400px;
