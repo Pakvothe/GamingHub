@@ -4,7 +4,8 @@ export default {
 		detail: 'Order detail',
 		discountCoupon: 'Discount coupon',
 		subtotal: 'Subtotal:',
-		discount: 'Discoun:',
+		discount: 'Discount:',
+		discountButton: 'Win a discount code',
 		total: 'Total:',
 		next: 'Next'
 	},
@@ -14,6 +15,7 @@ export default {
 		discountCoupon: 'Cupón de descuento',
 		subtotal: 'Subtotal:',
 		discount: 'Descuento:',
+		discountButton: 'Gana un codigo de descuento',
 		total: 'Total:',
 		next: 'Siguiente'
 	}

@@ -126,7 +126,7 @@ const Step1 = ({ cart, language }) => {
 								<span>{s.discountCoupon}</span>
 								<input className={coupon > 0 && 'checked'} type='text' onChange={handleCoupon} />
 							</label>
-							<Btn className='btn-sec nomeimportanada' onClick={handleGame}>Gana un codigo de descuento</Btn>
+							<Btn className='btn-sec nomeimportanada' onClick={handleGame}>{s.discountButton}</Btn>
 						</FormStyled>
 						<div className='aside__subtotal'>
 							<p>{s.subtotal}</p>

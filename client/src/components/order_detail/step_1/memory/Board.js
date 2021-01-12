@@ -1,14 +1,17 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import Tile from "./Tile";
 import { TILE_COUNT, GRID_SIZE, BOARD_SIZE } from "./constants"
 import { canSwap, shuffle, swap, isSolved } from "./helpers"
 import { StyledMemory } from '../../../styles/styled_memory';
 import { Btn } from '../../../styles/styled_global';
+import strings from './strings';
 
 function Board() {
+  const language = useSelector(state => state.globalReducer.language);
   const [tiles, setTiles] = useState([...Array(TILE_COUNT).keys()]);
   const [isStarted, setIsStarted] = useState(false);
-  console.log('is started:', isStarted)
+  const s = strings[language];
 
   const shuffleTiles = () => {
     const shuffledTiles = shuffle(tiles)
@@ -58,22 +61,22 @@ function Board() {
         ))}
       </ul>
       {
-        hasWon && isStarted &&
-        <div className='win-text'>
-          <h3>Felicidades Ganaste un descuento!</h3>
-          <p>Copia el siguiente codigo de descuento:</p>
-          <p className='Code'>POWERRANGER2021</p>
-        </div>
-      }
+        hasWon && isStarted ?
+          (<div className='win-text'>
+            <h3>{s.congratz}</h3>
+            <p>{s.copy}</p>
+            <p className='Code'>POWERRANGER2021</p>
+          </div>) : (
+            <p className='info-text'>{s.info}</p>
+          )}
       {
         !isStarted ?
           (
             <>
-              <p className='info-text'>Completa el Puzzle para ganar un codigo de descuento!</p>
-              <Btn className='btn-ppal' onClick={() => handleStartClick()}>Start game</Btn>
+              <Btn className='btn-ppal' onClick={() => handleStartClick()}>{s.startButton}</Btn>
             </>
           ) : (
-            <Btn className='btn-ppal' onClick={() => handleShuffleClick()}>Restart game</Btn>
+            <Btn className='btn-ppal' onClick={() => handleShuffleClick()}>{s.resetButton}</Btn>
           )
       }
     </StyledMemory>
