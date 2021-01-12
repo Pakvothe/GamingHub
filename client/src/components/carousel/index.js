@@ -143,7 +143,7 @@ const Carousel = ({ products, product = null }) => {
 								</div>
 							)}
 							{product && product.images.map(image =>
-								<div className="embla__slide" key={product.id} >
+								<div className="embla__slide" key={image.id} >
 									<div className="embla__slide__inner">
 										<img className="embla__slide__img" src={image.url} alt={`${product.name} ${image.id}`} />
 									</div>
