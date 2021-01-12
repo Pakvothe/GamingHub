@@ -20,9 +20,9 @@ const Footer = ({ language }) => {
 
 			<nav className="navbar__bottom">
 				<ul>
-					<li><Link to="">{s.terms}</Link></li>
-					<li><Link to="">{s.privacy}</Link></li>
-					<li><Link to="">{s.legal}</Link></li>
+					<li><Link to="/terms">{s.terms}</Link></li>
+					<li><Link to="/privacy">{s.privacy}</Link></li>
+					<li><Link to="/legal">{s.legal}</Link></li>
 					<li><Link to="/help">{s.contact}</Link></li>
 				</ul>
 			</nav>
