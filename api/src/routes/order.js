@@ -3,6 +3,7 @@ const server = require('express').Router();
 const { Order, Product, Orders_products, Review, Serial, Image } = require('../db.js');
 const { isAuthenticated, isAdmin } = require('../../utils/customMiddlewares');
 const mercadopago = require('mercadopago');
+const { toIsoStringOffset, delayedDays } = require('../../utils/functions.js');
 const { NGROK_LINK, MP_KEY, FRONT } = process.env;
 mercadopago.configure({
 	access_token: MP_KEY
@@ -35,6 +36,8 @@ server.post('/', async (req, res) => {
 			]
 		}))
 		.then(async updatedOrder => {
+			let expiryDate = delayedDays(new Date(), 4);
+			console.log(toIsoStringOffset(expiryDate));
 			let preference = {
 				items: updatedOrder.products.map(product => ({
 					title: product.name,
@@ -52,10 +55,11 @@ server.post('/', async (req, res) => {
 				auto_return: "approved",
 				notification_url: `${NGROK_LINK}/orders/mercadoPagoNotifications`,
 				expires: true,
-				expiration_date_to: '2021-01-13T01:29:33.000-04:00'
+				expiration_date_to: toIsoStringOffset(expiryDate)
 			};
 
 			const resp = await mercadopago.preferences.create(preference)
+			console.log(resp)
 			const upOrder = await updatedOrder.update({ mp_id: resp.response.id })
 			res.json(resp.body.init_point)
 		})

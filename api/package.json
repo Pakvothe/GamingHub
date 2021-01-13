@@ -25,6 +25,7 @@
     "jsonwebtoken": "^8.5.1",
     "mercadopago": "^1.5.3",
     "morgan": "^1.10.0",
+    "node-cron": "^2.0.3",
     "nodemailer": "^6.4.17",
     "nodemailer-smtp-transport": "^2.7.4",
     "passport": "^0.4.1",
