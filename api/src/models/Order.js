@@ -25,7 +25,7 @@ module.exports = (sequelize) => {
 			}
 		},
 		state: {
-			type: D.ENUM('created', 'completed', 'canceled'),
+			type: D.ENUM('created', 'processing', 'completed', 'canceled'),
 			allowNull: false
 		},
 		payment_method: {
@@ -40,6 +40,10 @@ module.exports = (sequelize) => {
 			validate: {
 				isUrl: true
 			}
+		},
+		language: {
+			type: D.STRING,
+			defaultValue: 'es'
 		}
 	})
 }

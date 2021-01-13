@@ -17,6 +17,7 @@ const Step2 = ({ language }) => {
 	const dispatch = useDispatch();
 
 	const user = useSelector(state => state.usersReducer.user.info)
+
 	const { list: cart, discount } = useSelector(state => state.cartReducer.cart);
 
 	const s = strings[language];
@@ -49,7 +50,8 @@ const Step2 = ({ language }) => {
 			state: "created",
 			payment_method: "mp",
 			userId: user?.id ? user.id : 1,
-			products: cart
+			products: cart,
+			language
 		}
 		dispatch(addOrder(order));
 		dispatch(clearCart());

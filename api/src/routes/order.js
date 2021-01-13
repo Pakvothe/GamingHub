@@ -1,10 +1,11 @@
 require('dotenv').config();
 const server = require('express').Router();
-const { Order, Product, Orders_products, Review, Serial, Image } = require('../db.js');
+const { Order, Product, Orders_products, Review, Serial } = require('../db.js');
 const { isAuthenticated, isAdmin } = require('../../utils/customMiddlewares');
 const mercadopago = require('mercadopago');
-const { toIsoStringOffset, delayedDays } = require('../../utils/functions.js');
-const { NGROK_LINK, MP_KEY, FRONT } = process.env;
+const { toIsoStringOffset, delayedDays, sendMail } = require('../../utils/functions.js');
+const { mailOrderCompleted, mailOrderInProcess } = require('../../utils/mails');
+const { NGROK_LINK, MP_KEY } = process.env;
 mercadopago.configure({
 	access_token: MP_KEY
 });
@@ -60,11 +61,14 @@ server.post('/', async (req, res) => {
 
 			const resp = await mercadopago.preferences.create(preference)
 			updatedOrder.update({ mp_id: resp.response.id, payment_link: resp.body.init_point })
-			res.json(resp.body.init_point)
+
+			mailOrderInProcess(updatedOrder);
+
+			return res.json(resp.body.init_point)
 		})
 		.catch((err) => {
 			console.log(err);
-			res.status(500).json({ message: "Internal server error" })
+			return res.status(500).json({ message: "Internal server error" })
 		})
 });
 
@@ -125,6 +129,8 @@ server.post('/mercadoPagoNotifications', async (req, res) => {
 						where: { serial: serialsToInactive },
 						individualHooks: true
 					});
+
+					mailOrderCompleted(updatedOrder);
 
 				}
 			}
