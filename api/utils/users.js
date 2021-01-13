@@ -23,7 +23,7 @@ const users = [
 	{
 		first_name: 'Nacho',
 		last_name: 'Contreras',
-		email: 'nc-devw@gmail.com',
+		email: 'nacho@mail.com',
 		password: '!Qwerty123',
 		is_admin: true
 	},

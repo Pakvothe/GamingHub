@@ -78,7 +78,7 @@ const UserOrderDetail = () => {
 										<td>{prod.orders_products.quantity}</td>
 										<td>${prod.orders_products.unit_price}</td>
 										<td>${prod.orders_products.quantity * prod.orders_products.unit_price}</td>
-										<td>{!found && (<Link to={`/review/${prod.id}?game=${prod.name}`}><button>{s.review}</button></Link>)}</td>
+										<td>{!found && orderInfo.state === 'completed' && (<Link to={`/review/${prod.id}?game=${prod.name}`}><button>{s.review}</button></Link>)}</td>
 									</tr>
 								)
 							})}
@@ -88,7 +88,7 @@ const UserOrderDetail = () => {
 								<td></td>
 								<td></td>
 								<td></td>
-								<td>{s.total}: ${orderInfo?.total_amount}</td>
+								<td>Total: ${orderInfo?.total_amount}</td>
 								<td></td>
 							</tr>
 						</tfoot>

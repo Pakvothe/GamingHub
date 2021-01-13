@@ -381,7 +381,8 @@ export const FormStyled = styled.form`
 		background: url(${checkMark}) no-repeat;
 		background-position: top 50% right 10px;
 		background-size: 25px;
-		background-color: var(--clr-white);
+		background-color: ${props => props.theme === 'dark' ? 'var(--clr-dark)' : 'var(--clr-white)'};
+		color: ${props => props.theme === 'dark' ? 'var(--clr-white)' : 'var(--clr-dark)'};
 	}
 
 	.image__container {

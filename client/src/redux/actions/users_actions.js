@@ -51,7 +51,7 @@ export const getUser = () => {
 			.catch(err => {
 				console.log(err)
 				dispatch({
-					type: USERS_ERROR
+					type: USER_ERROR
 				})
 			})
 	}
