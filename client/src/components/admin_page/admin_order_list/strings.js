@@ -8,10 +8,10 @@ const strings = {
 		tablePayment: 'Payment Method',
 		filterState: 'Filter by state: ',
 		filterAll: 'ALL',
-		filterCompleted: 'COMPLETED',
-		filterCreated: 'CREATED',
-		filterProcessing: 'PROCESSING',
-		filterCanceled: 'CANCELED',
+		completed: 'completed',
+		created: 'created',
+		processing: 'processing',
+		canceled: 'canceled',
 	},
 
 	es: {
@@ -23,10 +23,10 @@ const strings = {
 		tablePayment: 'Método de pago',
 		filterState: 'Filtrar por estado: ',
 		filterAll: 'TODAS',
-		filterCompleted: 'COMPLETADAS',
-		filterCreated: 'CREADAS',
-		filterProcessing: 'EN PROCESO',
-		filterCanceled: 'CANCELADAS',
+		completed: 'completada',
+		created: 'creada',
+		processing: 'en proceso',
+		canceled: 'cancelada',
 	}
 };
 

@@ -61,10 +61,10 @@ const AdminProductList = ({ orders }) => {
 				<span>{s.filterState}</span>
 				<SelectStyled onChange={handleSelect}>
 					<option value="all" >{s.filterAll}</option>
-					<option value="completed" >{s.filterCompleted}</option>
-					<option value="created" >{s.filterCreated}</option>
-					<option value="processing" >{s.filterProcessing}</option>
-					<option value="canceled" >{s.filterCanceled}</option>
+					<option value="completed" >{s.completed}</option>
+					<option value="created" >{s.created}</option>
+					<option value="processing" >{s.processing}</option>
+					<option value="canceled" >{s.canceled}</option>
 				</SelectStyled>
 			</label>
 			<DataTable>
@@ -84,7 +84,7 @@ const AdminProductList = ({ orders }) => {
 								<td>{order.id}</td>
 								<td>{order.email}</td>
 								<td>${order.total_amount}</td>
-								<td>{order.state}</td>
+								<td>{s[order.state]}</td>
 								<td>{order.payment_method}</td>
 							</tr>
 						))
