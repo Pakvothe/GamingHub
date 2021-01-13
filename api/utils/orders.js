@@ -2,28 +2,28 @@ const orders = [
 	{
 		email: 'emi@mail.com',
 		total_amount: 111.14,
-		state: 'created',
+		state: 'completed',
 		payment_method: 'mp',
 		userId: 2
 	},
 	{
 		email: 'cosme@mail.com',
 		total_amount: 2233,
-		state: 'created',
+		state: 'completed',
 		payment_method: 'mp',
 		userId: 3
 	},
 	{
 		email: 'emi@mail.com',
 		total_amount: 12,
-		state: 'processing',
+		state: 'completed',
 		payment_method: 'mp',
 		userId: 2
 	},
 	{
 		email: 'cosme@mail.com',
 		total_amount: 2233,
-		state: 'processing',
+		state: 'completed',
 		payment_method: 'mp',
 		userId: 3
 	},

@@ -11,7 +11,6 @@ const UserOrderDetail = () => {
 	const dispatch = useDispatch();
 	const { id } = useParams();
 
-	const user = useSelector(state => state.usersReducer.user.info);
 	const orderInfo = useSelector(state => state.ordersReducer.order.info);
 	const orderError = useSelector(state => state.ordersReducer.order.error);
 	const orderLoading = useSelector(state => state.ordersReducer.order.isLoading);

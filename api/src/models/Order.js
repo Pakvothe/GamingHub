@@ -25,15 +25,21 @@ module.exports = (sequelize) => {
 			}
 		},
 		state: {
-			type: D.ENUM('created', 'processing', 'completed', 'canceled'),
+			type: D.ENUM('created', 'completed', 'canceled'),
 			allowNull: false
 		},
 		payment_method: {
-			type: D.ENUM('cash', 'cc', 'mp'),
+			type: D.ENUM('mp'),
 			allowNull: false
 		},
 		mp_id: {
 			type: D.STRING,
+		},
+		payment_link: {
+			type: D.STRING,
+			validate: {
+				isUrl: true
+			}
 		}
 	})
 }

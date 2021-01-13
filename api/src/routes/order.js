@@ -59,7 +59,7 @@ server.post('/', async (req, res) => {
 			};
 
 			const resp = await mercadopago.preferences.create(preference)
-			const upOrder = await updatedOrder.update({ mp_id: resp.response.id })
+			updatedOrder.update({ mp_id: resp.response.id, payment_link: resp.body.init_point })
 			res.json(resp.body.init_point)
 		})
 		.catch((err) => {
@@ -99,32 +99,34 @@ server.post('/mercadoPagoNotifications', async (req, res) => {
 	try {
 		if (req.query.type === 'payment') {
 			const payment = await mercadopago.payment.get(req.query['data.id']);
-			if (payment.body.status === 'approved') {
-				const merchant = await mercadopago.merchant_orders.get(payment.body.order.id);
-				const order = await Order.findOne({
-					where: { mp_id: merchant.body["preference_id"] },
-					include: [Product]
-				})
-				const updatedOrder = await order.update({ state: 'completed' })
-				let serialsArray = [];
-				for (let prod of order.products) {
-					prod = prod.get();
-					serialsArray.push(await Serial.findAll({
-						where: { productId: prod.id },
-						limit: prod.orders_products.quantity,
-						raw: true
-					}))
+			switch (payment.body.status) {
+				case 'approved': {
+					const merchant = await mercadopago.merchant_orders.get(payment.body.order.id);
+					const order = await Order.findOne({
+						where: { mp_id: merchant.body["preference_id"] },
+						include: [Product]
+					})
+					const updatedOrder = await order.update({ state: 'completed', payment_link: null })
+					let serialsArray = [];
+					for (let prod of order.products) {
+						prod = prod.get();
+						serialsArray.push(await Serial.findAll({
+							where: { productId: prod.id },
+							limit: prod.orders_products.quantity,
+							raw: true
+						}))
+					}
+					let serialsToInactive = serialsArray.reduce((acc, ser) => {
+						ser.map(s => acc.push(s.serial))
+						return acc;
+					}, []);
+
+					await Serial.update({ is_active: false }, {
+						where: { serial: serialsToInactive },
+						individualHooks: true
+					});
+
 				}
-				let serialsToInactive = serialsArray.reduce((acc, ser) => {
-					ser.map(s => acc.push(s.serial))
-					return acc;
-				}, []);
-
-				await Serial.update({ is_active: false }, {
-					where: { serial: serialsToInactive },
-					individualHooks: true
-				});
-
 			}
 		}
 	} catch (err) {
