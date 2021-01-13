@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { DataTable } from '../../styles/styled_global';
 import { useHistory } from 'react-router-dom';
 import { getOrders } from '../../../redux/actions/orders_actions';
+import { SelectStyled } from '../../styles/styled_catalog';
 import strings from './strings';
 
 const AdminProductList = ({ orders }) => {
@@ -10,6 +11,8 @@ const AdminProductList = ({ orders }) => {
 	const history = useHistory();
 	const dispatch = useDispatch();
 	const language = useSelector(state => state.globalReducer.language);
+	const [filtered, setFiltered] = useState([]);
+	const [all, setAll] = useState(true);
 	const s = strings[language];
 
 	const [orderSort, setOrderSort] = useState({
@@ -40,9 +43,30 @@ const AdminProductList = ({ orders }) => {
 		}
 	}
 
+	const handleSelect = (ev) => {
+		if (ev.target.value === 'all') {
+			setAll(true)
+		}
+		else {
+			setAll(false);
+			const array = orders.filter(order => ev.target.value === order.state)
+			setFiltered(array);
+		}
+	}
+
 	return (
 		<>
 			<h1 className='admin-h1'>{s.title}</h1>
+			<label className="label-select">
+				<span>{s.filterState}</span>
+				<SelectStyled onChange={handleSelect}>
+					<option value="all" >{s.filterAll}</option>
+					<option value="completed" >{s.filterCompleted}</option>
+					<option value="created" >{s.filterCreated}</option>
+					<option value="processing" >{s.filterProcessing}</option>
+					<option value="canceled" >{s.filterCanceled}</option>
+				</SelectStyled>
+			</label>
 			<DataTable>
 				<thead>
 					<tr onClick={handleSort}>
@@ -54,15 +78,17 @@ const AdminProductList = ({ orders }) => {
 					</tr>
 				</thead>
 				<tbody>
-					{orders && orders.map(order => (
-						<tr className='row-link' key={order.id} onClick={(ev) => handleClick(order.id)}>
-							<td>{order.id}</td>
-							<td>{order.email}</td>
-							<td>${order.total_amount}</td>
-							<td>{order.state}</td>
-							<td>{order.payment_method}</td>
-						</tr>
-					))}
+					{
+						(!all ? filtered : orders).map(order => (
+							<tr className='row-link' key={order.id} onClick={(ev) => handleClick(order.id)}>
+								<td>{order.id}</td>
+								<td>{order.email}</td>
+								<td>${order.total_amount}</td>
+								<td>{order.state}</td>
+								<td>{order.payment_method}</td>
+							</tr>
+						))
+					}
 				</tbody>
 			</DataTable>
 		</>

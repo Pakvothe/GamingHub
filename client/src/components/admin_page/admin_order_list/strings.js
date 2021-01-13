@@ -5,7 +5,13 @@ const strings = {
 		tableEmail: 'email',
 		tableTotal: 'Total',
 		tableStatus: 'Status',
-		tablePayment: 'Payment Method'
+		tablePayment: 'Payment Method',
+		filterState: 'Filter by state: ',
+		filterAll: 'ALL',
+		filterCompleted: 'COMPLETED',
+		filterCreated: 'CREATED',
+		filterProcessing: 'PROCESSING',
+		filterCanceled: 'CANCELED',
 	},
 
 	es: {
@@ -14,7 +20,13 @@ const strings = {
 		tableEmail: 'email',
 		tableTotal: 'Total',
 		tableStatus: 'Estado',
-		tablePayment: 'Método de pago'
+		tablePayment: 'Método de pago',
+		filterState: 'Filtrar por estado: ',
+		filterAll: 'TODAS',
+		filterCompleted: 'COMPLETADAS',
+		filterCreated: 'CREADAS',
+		filterProcessing: 'EN PROCESO',
+		filterCanceled: 'CANCELADAS',
 	}
 };
 
