@@ -4,9 +4,14 @@ import StyledFooter from '../styles/styled_footer';
 import { StyledSVG } from '../styles/styled_global';
 import logo from '../../assets/img/logo-dual.svg';
 import strings from './strings';
+import { animateScroll } from 'react-scroll';
 
 const Footer = ({ language }) => {
 	const s = strings[language];
+
+	const handleClick = (ev) => {
+		animateScroll.scrollToTop({ duration: 300 });
+	}
 
 	return (
 		<StyledFooter>
@@ -20,10 +25,10 @@ const Footer = ({ language }) => {
 
 			<nav className="navbar__bottom">
 				<ul>
-					<li><Link to="/terms">{s.terms}</Link></li>
-					<li><Link to="/privacy">{s.privacy}</Link></li>
-					<li><Link to="/legal">{s.legal}</Link></li>
-					<li><Link to="/help">{s.contact}</Link></li>
+					<li><Link onClick={handleClick} to="/terms">{s.terms}</Link></li>
+					<li><Link onClick={handleClick} to="/privacy">{s.privacy}</Link></li>
+					<li><Link onClick={handleClick} to="/legal">{s.legal}</Link></li>
+					<li><Link onClick={handleClick} to="/help">{s.contact}</Link></li>
 				</ul>
 			</nav>
 

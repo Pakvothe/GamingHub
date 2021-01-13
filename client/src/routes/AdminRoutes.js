@@ -64,53 +64,19 @@ function AdminRoutes() {
 		<>
 			<AdminSideBar />
 			<main className="admin-main-container">
-				<Route exact path='/admin'>
-					<AdminProductList products={products} />
-				</Route>
-
-				<Route exact path='/admin/product'>
-					<AdminProductForm categories={categories} />
-				</Route>
-
-				<Route exact path='/admin/product/:id'>
-					<AdminProductForm categories={categories} />
-				</Route>
-
-				<Route exact path='/admin/product/:id/stock'>
-					<AdminProductStockList categories={categories} />
-				</Route>
-
-				<Route exact path='/admin/product/:id/stock/new'>
-					<AdminProductStockForm />
-				</Route>
-
-				<Route exact path='/admin/product/offer/list'>
-					<AdminProductOfferList products={discounts} />
-				</Route>
-
-				<Route exact path='/admin/product/:id/offer/new'>
-					<AdminProductOfferForm />
-				</Route>
-
-				<Route exact path='/admin/categories'>
-					<AdminCategoryList categories={categories} language={language} />
-				</Route>
-
+				<Route exact path='/admin' render={() => <AdminProductList products={products} />} />
+				<Route exact path='/admin/product' render={() => <AdminProductForm categories={categories} />} />
+				<Route exact path='/admin/product/:id' render={() => <AdminProductForm categories={categories} />} />
+				<Route exact path='/admin/product/:id/stock' render={() => <AdminProductStockList categories={categories} />} />
+				<Route exact path='/admin/product/:id/stock/new' component={AdminProductStockForm} />
+				<Route exact path='/admin/product/offer/list' render={() => <AdminProductOfferList products={discounts} />} />
+				<Route exact path='/admin/product/:id/offer/new' component={AdminProductOfferForm} />
+				<Route exact path='/admin/categories' render={() => <AdminCategoryList categories={categories} language={language} />} />
 				<Route exact path='/admin/category' component={AdminCategoryForm} />
-
 				<Route exact path='/admin/category/:id' component={AdminCategoryForm} />
-
-				<Route exact path='/admin/users'>
-					<AdminUserList users={users} />
-				</Route>
-
-				<Route exact path='/admin/orders'>
-					<AdminOrderList orders={orders} />
-				</Route>
-
-				<Route exact path='/admin/order/:id'>
-					<AdminOrderDetail />
-				</Route>
+				<Route exact path='/admin/users' render={() => <AdminUserList users={users} />} />
+				<Route exact path='/admin/orders' render={() => <AdminOrderList orders={orders} />} />
+				<Route exact path='/admin/order/:id' component={AdminOrderDetail} />
 			</main>
 		</>
 	);
