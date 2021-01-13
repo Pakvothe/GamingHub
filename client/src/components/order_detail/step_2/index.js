@@ -15,7 +15,6 @@ import { clearCart } from '../../../redux/actions/cart_actions';
 const Step2 = ({ language }) => {
 
 	const dispatch = useDispatch();
-	const history = useHistory();
 
 	const user = useSelector(state => state.usersReducer.user.info)
 	const { list: cart, discount } = useSelector(state => state.cartReducer.cart);
@@ -49,7 +48,7 @@ const Step2 = ({ language }) => {
 			discount,
 			state: "created",
 			payment_method: "mp",
-			userId: 1,
+			userId: user?.id ? user.id : 1,
 			products: cart
 		}
 		dispatch(addOrder(order));

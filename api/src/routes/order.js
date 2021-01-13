@@ -35,7 +35,6 @@ server.post('/', async (req, res) => {
 			]
 		}))
 		.then(async updatedOrder => {
-			console.log(updatedOrder.products);
 			let preference = {
 				items: updatedOrder.products.map(product => ({
 					title: product.name,
@@ -51,7 +50,9 @@ server.post('/', async (req, res) => {
 					pending: 'http://localhost:4000/orders/mercadoPago'
 				},
 				auto_return: "approved",
-				notification_url: `${NGROK_LINK}/orders/mercadoPagoNotifications`
+				notification_url: `${NGROK_LINK}/orders/mercadoPagoNotifications`,
+				expires: true,
+				expiration_date_to: '2021-01-13T01:29:33.000-04:00'
 			};
 
 			const resp = await mercadopago.preferences.create(preference)
@@ -65,19 +66,31 @@ server.post('/', async (req, res) => {
 });
 
 server.get('/mercadoPago', async (req, res) => {
-	if (!req.query.status === 'approved') return res.redirect('http://localhost:3000/');
+
 	try {
 		const order = await Order.findOne({
 			where: {
 				mp_id: req.query['preference_id']
 			}
 		})
-		return res.redirect(`http://localhost:3000/order/detail?status=${req.query.status}&order=${order.id}`)
-
 	} catch (err) {
 		console.log(err)
 	}
-	res.redirect('http://localhost:3000/');
+
+	switch (order.state) {
+		case 'completed': {
+			return res.redirect(`http://localhost:3000/order/detail?status=${order.state}&order=${order.id}`)
+		}
+		case 'processing': {
+			return res.redirect(`http://localhost:3000`)
+		}
+		case 'canceled': {
+			return res.redirect(`http://localhost:3000`)
+		}
+		default:
+			return res.redirect('http://localhost:3000/')
+	}
+
 });
 
 server.post('/mercadoPagoNotifications', async (req, res) => {
