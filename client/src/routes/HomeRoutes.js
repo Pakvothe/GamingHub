@@ -72,10 +72,10 @@ function HomeRoutes() {
 					<Step1 language={language} cart={cart} />
 				</Route>
 				<Route exact path='/order/payment'>
-					<Step2 language={language} cart={cart} />
+					<Step2 language={language} />
 				</Route>
 				<Route exact path='/order/detail'>
-					<Step3 language={language} cart={cart} />
+					<Step3 language={language} />
 				</Route>
 				<Route exact path='/about' component={AboutUs} />
 				<Route exact path='/user' component={UserPage} />

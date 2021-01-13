@@ -1,6 +1,6 @@
 require('dotenv').config();
 const server = require('express').Router();
-const { Order, Product, Orders_products, Review, Serial } = require('../db.js');
+const { Order, Product, Orders_products, Review, Serial, Image } = require('../db.js');
 const { isAuthenticated, isAdmin } = require('../../utils/customMiddlewares');
 const mercadopago = require('mercadopago');
 const { NGROK_LINK, MP_KEY, FRONT } = process.env;
@@ -31,16 +31,19 @@ server.post('/', async (req, res) => {
 		.then(() => Order.findOne({
 			where: { id: idOrder },
 			include: [
-				{ model: Product }
+				Product
 			]
 		}))
 		.then(async updatedOrder => {
-
+			console.log(updatedOrder.products);
 			let preference = {
 				items: updatedOrder.products.map(product => ({
 					title: product.name,
-					unit_price: product.orders_products.unit_price,
-					quantity: product.orders_products.quantity
+					unit_price: order.discount ?
+						product.orders_products.unit_price * (1 - (order.discount / 100))
+						:
+						(product.orders_products.unit_price),
+					quantity: product.orders_products.quantity,
 				})),
 				back_urls: {
 					success: 'http://localhost:4000/orders/mercadoPago',
@@ -56,7 +59,8 @@ server.post('/', async (req, res) => {
 			res.json(resp.body.init_point)
 		})
 		.catch((err) => {
-			n.status(500).json({ message: "Internal server error" })
+			console.log(err);
+			res.status(500).json({ message: "Internal server error" })
 		})
 });
 
@@ -68,7 +72,8 @@ server.get('/mercadoPago', async (req, res) => {
 				mp_id: req.query['preference_id']
 			}
 		})
-		return res.redirect(`http://localhost:3000/order/detail?order=${req.query.status}`)
+		return res.redirect(`http://localhost:3000/order/detail?status=${req.query.status}&order=${order.id}`)
+
 	} catch (err) {
 		console.log(err)
 	}

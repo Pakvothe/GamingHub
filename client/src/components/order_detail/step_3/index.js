@@ -15,10 +15,11 @@ const Step3 = ({ cart, language }) => {
 	const [total, setTotal] = useState(0);
 
 	useEffect(() => {
-		setTotal(cart.reduce((acc, product) => {
-			acc = acc + (product.price * product.quantity)
-			return acc;
-		}, 0.00));
+		// setTotal(cart.reduce((acc, product) => {
+		// 	acc = acc + (product.price * product.quantity)
+		// 	return acc;
+		// }, 0.00));
+
 	}, [])
 
 	const handleClick = () => {

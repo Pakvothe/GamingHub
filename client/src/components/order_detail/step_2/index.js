@@ -12,12 +12,13 @@ import { addOrder } from '../../../redux/actions/orders_actions';
 import { clearCart } from '../../../redux/actions/cart_actions';
 
 
-const Step2 = ({ cart, language }) => {
+const Step2 = ({ language }) => {
 
 	const dispatch = useDispatch();
 	const history = useHistory();
 
 	const user = useSelector(state => state.usersReducer.user.info)
+	const { list: cart, discount } = useSelector(state => state.cartReducer.cart);
 
 	const s = strings[language];
 
@@ -45,20 +46,19 @@ const Step2 = ({ cart, language }) => {
 		const order = {
 			email: guest ? inputEmail : user.email,
 			total_amount: total,
+			discount,
 			state: "created",
 			payment_method: "mp",
 			userId: 1,
 			products: cart
 		}
-		console.log(order);
 		dispatch(addOrder(order));
 		dispatch(clearCart());
-		history.push('/');
 	}
 
-	if (cart.length < 1) {
-		return <Redirect to='/' />
-	}
+	// if (cart.length < 1) {
+	// 	return <Redirect to='/' />
+	// }
 
 	return (
 		<>
