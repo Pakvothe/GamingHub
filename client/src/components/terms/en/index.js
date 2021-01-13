@@ -57,7 +57,7 @@ const TermsEN = () => {
 			</section>
 
 			<footer>
-				<p>This Terms and Conditions page was created by using <a href="https://www.termsandcondiitionssample.com/">Terms And Conditions Sample</a>.</p>
+				<p>This Terms and Conditions page was created by using <a href="https://www.termsandcondiitionssample.com/" target='_blank' rel='noreferrer'>Terms And Conditions Sample</a>.</p>
 			</footer>
 		</>
 

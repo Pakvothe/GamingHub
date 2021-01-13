@@ -4,6 +4,7 @@ import TermsEN from './en'
 import TermsES from './es'
 import { StyledTerms } from '../styles/styled_global';
 import strings from './strings';
+import Fade from 'react-reveal/Fade';
 
 const Terms = () => {
 	const language = useSelector(state => state.globalReducer.language);
@@ -11,12 +12,14 @@ const Terms = () => {
 
 	return (
 		<StyledTerms>
-			<h2>{s.title}</h2>
-			<div>
-				{
-					language === 'es' ? <TermsES /> : <TermsEN />
-				}
-			</div>
+			<Fade>
+				<h2>{s.title}</h2>
+				<div>
+					{
+						language === 'es' ? <TermsES /> : <TermsEN />
+					}
+				</div>
+			</Fade>
 		</StyledTerms>
 	)
 }

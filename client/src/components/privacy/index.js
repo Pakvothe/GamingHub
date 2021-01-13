@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import PrivacyEN from './en'
 import PrivacyES from './es'
 import { StyledTerms } from '../styles/styled_global';
+import Fade from 'react-reveal/Fade';
 import strings from './strings';
 
 const Privacy = () => {
@@ -11,12 +12,14 @@ const Privacy = () => {
 
 	return (
 		<StyledTerms>
-			<h2>{s.title}</h2>
-			<div>
-				{
-					language === 'es' ? <PrivacyES /> : <PrivacyEN />
-				}
-			</div>
+			<Fade>
+				<h2>{s.title}</h2>
+				<div>
+					{
+						language === 'es' ? <PrivacyES /> : <PrivacyEN />
+					}
+				</div>
+			</Fade>
 		</StyledTerms>
 	)
 }
