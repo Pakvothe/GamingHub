@@ -105,13 +105,13 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 								<span>{s.language}</span>
 								<ul onClick={(e) => handleClick(e)}>
 									<li>
-										<a id='en' className={language === 'en' ? 'selected' : null}>
+										<button id='en' className="dropdown__button">
 											English
-										</a> </li>
+										</button> </li>
 									<li>
-										<a id='es' className={language === 'es' ? 'selected' : null}>
+										<button id='es' className="dropdown__button">
 											Español
-										</a>
+										</button>
 									</li>
 								</ul>
 							</Dropdown>
@@ -133,8 +133,19 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 											</>
 										) : (
 												<>
-													<li><Link to="/#" onClick={openLoginModal}>{s.login}</Link></li>
-													<li><Link to="/signup" >{s.signup}</Link></li>
+													<li>
+														<button
+															className="dropdown__button"
+															onClick={openLoginModal}>
+															{s.login}
+														</button>
+													</li>
+													<li><Link
+														to="/signup"
+														className="dropdown__button">
+														{s.signup}
+													</Link>
+													</li>
 												</>
 											)
 									}

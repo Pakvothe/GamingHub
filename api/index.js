@@ -41,14 +41,17 @@
 //             `/syhs/.                                                      
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~             
 require('dotenv').config();
+const cron = require('node-cron');
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 const { PORT } = process.env;
 const { Product, Category, Image, Serial, User, Order, Orders_products, Review } = require('./src/db.js');
+const { Op } = require('sequelize');
 const utilsProd = require("./utils/products");
 const utilsOrder = require("./utils/orders");
 const utilsUser = require("./utils/users");
 const utilsReview = require("./utils/reviews");
+const orders = require('./utils/orders');
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
@@ -113,4 +116,14 @@ conn.sync({ force: true }).then(() => {
 		.catch(err => {
 			console.log(err);
 		})
+});
+
+cron.schedule('00 00 * * *', () => {
+	var currentTimeMinus24Hours = new Date() - 96 * 60 * 60 * 1000;
+	Order.update({ state: 'canceled' }, {
+		where: {
+			createdAt: { [Op.lt]: currentTimeMinus24Hours },
+			[Op.or]: [{ state: 'created' }, { state: 'processing' }]
+		}
+	}).catch(err => console.log('CRONJOBS', err));
 });

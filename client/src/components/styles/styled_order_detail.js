@@ -87,6 +87,9 @@ export const StepOne = styled.div`
 
 export const StepTwo = styled.div`
 
+	display: flex;
+	justify-content: space-evenly;
+
 	.button__container {
 		button {
 			margin: 2em auto 0;
@@ -143,6 +146,31 @@ export const StepTwo = styled.div`
 			display: block;
 			margin: 0 auto;
 		}
+	}
+`
+
+export const StepThree = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-evenly; 
+	.step__info{
+		text-align: center;
+		p {
+			font-size: 1.5em;
+			line-height: 1.2em;
+		}
+
+		span {
+			font-size: 1.5em;
+			font-weight: 900;
+			color: var(--clr-primary);
+		}
+	}
+	.step__icon{
+		font-size: 10em;
+		color: var(--clr-primary-2);
+		margin-bottom: 20px;
 	}
 `
 

@@ -90,6 +90,7 @@ export const Flex = styled.div`
 	display: flex;
 	justify-content: ${props => props.justify || 'center'};
 	align-items: ${props => props.align || 'center'};
+	flex-direction: ${props => props.direction || 'row'};
 `
 
 export const Hr = styled.hr`
@@ -157,6 +158,12 @@ export const Btn = styled.button`
 		width: 25px;
 		height: 25px;
 		fill: currentColor;
+	}
+
+
+	a {
+		text-decoration: none;
+		color: currentColor;
 	}
 
 	&.btn-tick {
@@ -766,19 +773,22 @@ export const Dropdown = styled.li`
 		}
 
 
-		a {
+		a, .dropdown__button {
 			text-align: center;
 			display: block;
 			width: 100%;
 			padding: 1em 2em;
 			text-decoration: none;
 			color: currentColor;
-
 			&:hover {
-				background-color: var(--clr-primary-2);
-				color: var(--clr-white)
+				background-color: var(--clr-primary-2) !important;
+				color: var(--clr-white)!important;
 			}
 		}
+			/* .dropdown__button:hover {
+				background-color: var(--clr-primary-2);
+				color: var(--clr-white);
+			} */
 
 		.dropdown__first-name {
 			color: var(--clr-primary);

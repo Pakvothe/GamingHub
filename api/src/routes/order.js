@@ -1,8 +1,9 @@
 require('dotenv').config();
 const server = require('express').Router();
-const { Order, Product, Orders_products, Review, Serial } = require('../db.js');
+const { Order, Product, Orders_products, Review, Serial, Image } = require('../db.js');
 const { isAuthenticated, isAdmin } = require('../../utils/customMiddlewares');
 const mercadopago = require('mercadopago');
+const { toIsoStringOffset, delayedDays } = require('../../utils/functions.js');
 const { NGROK_LINK, MP_KEY, FRONT } = process.env;
 mercadopago.configure({
 	access_token: MP_KEY
@@ -31,16 +32,20 @@ server.post('/', async (req, res) => {
 		.then(() => Order.findOne({
 			where: { id: idOrder },
 			include: [
-				{ model: Product }
+				Product
 			]
 		}))
 		.then(async updatedOrder => {
-
+			let expiryDate = delayedDays(new Date(), 4);
+			console.log(toIsoStringOffset(expiryDate));
 			let preference = {
 				items: updatedOrder.products.map(product => ({
 					title: product.name,
-					unit_price: product.orders_products.unit_price,
-					quantity: product.orders_products.quantity
+					unit_price: order.discount ?
+						product.orders_products.unit_price * (1 - (order.discount / 100))
+						:
+						(product.orders_products.unit_price),
+					quantity: product.orders_products.quantity,
 				})),
 				back_urls: {
 					success: 'http://localhost:4000/orders/mercadoPago',
@@ -48,34 +53,48 @@ server.post('/', async (req, res) => {
 					pending: 'http://localhost:4000/orders/mercadoPago'
 				},
 				auto_return: "approved",
-				notification_url: `${NGROK_LINK}/orders/mercadoPagoNotifications`
+				notification_url: `${NGROK_LINK}/orders/mercadoPagoNotifications`,
+				expires: true,
+				expiration_date_to: toIsoStringOffset(expiryDate)
 			};
 
 			const resp = await mercadopago.preferences.create(preference)
+			console.log(resp)
 			const upOrder = await updatedOrder.update({ mp_id: resp.response.id })
 			res.json(resp.body.init_point)
 		})
 		.catch((err) => {
-			n.status(500).json({ message: "Internal server error" })
+			console.log(err);
+			res.status(500).json({ message: "Internal server error" })
 		})
 });
 
 server.get('/mercadoPago', async (req, res) => {
-	if (!req.query.status === 'approved') return res.redirect('http://localhost:3000/');
+
 	try {
 		const order = await Order.findOne({
 			where: {
 				mp_id: req.query['preference_id']
 			}
 		})
-
-		if (order.state === 'completed') {
-			return res.redirect(`http://localhost:3000/orders/${order.id}`)
-		}
 	} catch (err) {
 		console.log(err)
 	}
-	res.redirect('http://localhost:3000/');
+
+	switch (order.state) {
+		case 'completed': {
+			return res.redirect(`http://localhost:3000/order/detail?status=${order.state}&order=${order.id}`)
+		}
+		case 'processing': {
+			return res.redirect(`http://localhost:3000`)
+		}
+		case 'canceled': {
+			return res.redirect(`http://localhost:3000`)
+		}
+		default:
+			return res.redirect('http://localhost:3000/')
+	}
+
 });
 
 server.post('/mercadoPagoNotifications', async (req, res) => {

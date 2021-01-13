@@ -1,10 +1,16 @@
 const users = [
 	{
+		first_name: 'GUEST',
+		last_name: 'GUEST',
+		email: 'guest@soygaminghub.com',
+		password: '!Qwerty123',
+		is_admin: false
+	},
+	{
 		first_name: 'Emiliano',
 		last_name: 'Alfonso',
 		email: 'emi@mail.com',
 		password: '!Qwerty123',
-		language: 'es',
 		is_admin: true
 	},
 	{
@@ -12,15 +18,13 @@ const users = [
 		last_name: 'Fulatino',
 		email: 'cosme@mail.com',
 		password: '!Qwerty123',
-		language: 'es',
 		is_admin: false
 	},
 	{
 		first_name: 'Nacho',
 		last_name: 'Contreras',
-		email: 'nacho@mail.com',
+		email: 'nc-devw@gmail.com',
 		password: '!Qwerty123',
-		language: 'es',
 		is_admin: true
 	},
 	{
@@ -28,7 +32,6 @@ const users = [
 		last_name: 'Sanchez',
 		email: 'tinsanchez000@gmail.com',
 		password: '!Qwerty123',
-		language: 'es',
 		is_admin: true
 	},
 	{
@@ -36,7 +39,6 @@ const users = [
 		last_name: 'Ortiz',
 		email: 'paco@mail.com',
 		password: '!Qwerty123',
-		language: 'es',
 		is_admin: true
 	}
 ]
