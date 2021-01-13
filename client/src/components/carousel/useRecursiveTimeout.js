@@ -7,6 +7,11 @@ export const useRecursiveTimeout = (callback, delay) => {
 	const savedCallback = useRef(callback);
 
 	useEffect(() => {
+		window.onfocus = () => setIsRunning(true);
+		window.onblur = () => setIsRunning(false);
+	}, []);
+
+	useEffect(() => {
 		savedCallback.current = callback;
 	}, [callback]);
 
