@@ -5,10 +5,98 @@ const { isAuthenticated, isAdmin } = require('../../utils/customMiddlewares');
 const mercadopago = require('mercadopago');
 const { toIsoStringOffset, delayedDays } = require('../../utils/functions.js');
 const { NGROK_LINK, MP_KEY, FRONT } = process.env;
+const paypal = require('paypal-rest-sdk');
+const { convertCurrency, getCurrencyRate, getCurrencyRateList } = require('currencies-exchange-rates');
 mercadopago.configure({
 	access_token: MP_KEY
 });
+
 //----------"/orders"--------------
+server.get('/paypalRedirect', (req, res) => {
+
+	// paypal.configure({
+	// 	'mode': 'sandbox', //sandbox or live
+	// 	'client_id': 'AVeYMMLna52Rv9-1uIw3TGzGlNPco4klRBayFg_LG3dTpuWX8LfvIz6tJz3WBXDkh-xy47kjX2wjYm7i',
+	// 	'client_secret': 'EFydCj0OOb5RA11v372v4L6t0XLYr9qDDYHi4PyG79uodbS-cjfZt6_bubU836mCuyX2jZg8AKQivpXh'
+	// });
+	// const payer_id = req.query.PayerID;
+	// const paymentId = req.query.paymentId;
+	// const executePaymentJson = JSON.stringify({
+	// 	payer_id,
+	// 	transactions: [{
+	// 		amount: {
+	// 			currency: 'USD',
+	// 			total: '8.00'
+	// 		}
+	// 	}]
+	// })
+	// paypal.payment.execute(paymentId, executePaymentJson, function (error, payment) {
+	// 	if (error) {
+	// 		console.log(error.response.details.map(el => console.log(el)))
+	// 	} else {
+	// 		console.log(payment)
+	// 	}
+	// })
+	res.redirect('http://localhost:3000')
+})
+
+
+server.post('/paypal', async (req, res) => {
+	res.json('ok')
+	paypal.configure({
+		'mode': 'sandbox', //sandbox or live
+		'client_id': 'AVeYMMLna52Rv9-1uIw3TGzGlNPco4klRBayFg_LG3dTpuWX8LfvIz6tJz3WBXDkh-xy47kjX2wjYm7i',
+		'client_secret': 'EFydCj0OOb5RA11v372v4L6t0XLYr9qDDYHi4PyG79uodbS-cjfZt6_bubU836mCuyX2jZg8AKQivpXh'
+	});
+
+	const order = JSON.stringify({
+		intent: "sale",
+		payer: {
+			payment_method: "paypal"
+		},
+		redirect_urls: {
+			return_url: "http://localhost:4000/orders/paypalRedirect",
+			cancel_url: "http://localhost:3000/"
+		},
+		transactions: [{
+			item_list: {
+				items: [{
+					name: "Diablo 2",
+					sku: "item",
+					price: 2,
+					currency: "USD",
+					quantity: 3
+				}, {
+					name: "WOW",
+					sku: "item",
+					price: 2,
+					currency: "USD",
+					quantity: 1
+				}]
+			},
+			amount: {
+				currency: "USD",
+				total: 8
+			},
+			description: "This is the payment description."
+		}]
+	})
+
+	paypal.payment.create(order, function (error, payment) {
+		if (error) {
+			throw error;
+		} else {
+			console.log("Create Payment Response");
+			console.log(payment);
+		}
+	})
+});
+server.post('/paypalNotification', (req, res) => {
+	res.sendStatus(200)
+	console.log(req.body)
+})
+
+server.get('/paypalNotification', (req, res) => { console.log('si get'); res.send('ok') })
 
 server.post('/', async (req, res) => {
 	const order = req.body;
@@ -37,7 +125,6 @@ server.post('/', async (req, res) => {
 		}))
 		.then(async updatedOrder => {
 			let expiryDate = delayedDays(new Date(), 4);
-			console.log(toIsoStringOffset(expiryDate));
 			let preference = {
 				items: updatedOrder.products.map(product => ({
 					title: product.name,
@@ -46,6 +133,7 @@ server.post('/', async (req, res) => {
 						:
 						(product.orders_products.unit_price),
 					quantity: product.orders_products.quantity,
+					currency_id: 'USD'
 				})),
 				back_urls: {
 					success: 'http://localhost:4000/orders/mercadoPago',
@@ -96,6 +184,8 @@ server.get('/mercadoPago', async (req, res) => {
 
 server.post('/mercadoPagoNotifications', async (req, res) => {
 	res.sendStatus(200);
+	console.log(req.query)
+	console.log(req.body)
 	try {
 		if (req.query.type === 'payment') {
 			const payment = await mercadopago.payment.get(req.query['data.id']);
