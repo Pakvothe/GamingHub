@@ -34,7 +34,7 @@ const TermsES = () => {
 			</section>
 
 			<footer>
-				<p>Esta página de Términos y Condiciones fue creada como un ejemplo por <a href="https://es.jumpseller.com/learn/sample-terms-and-conditions/">Jumpseller</a>.</p>
+				<p>Esta página de Términos y Condiciones fue creada como un ejemplo por <a href="https://es.jumpseller.com/learn/sample-terms-and-conditions/" target='_blank' rel='noreferrer'>Jumpseller</a>.</p>
 			</footer>
 
 

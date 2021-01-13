@@ -33,7 +33,7 @@ const Footer = ({ language }) => {
 			</nav>
 
 			<p>
-				Lorem ipsum dolor, <a href="#">este es un enlace</a> sit amet consectetur adipisicing elit. Sed adipisci magni aliquam sit repellat facilis. Ut labore, eos sint ex maiores quos voluptatum necessitatibus. Tenetur.
+				{s.footerText1} <a href="https://soyhenry.com/" target='_blank' rel='noreferrer'>{s.footerLink}</a>. {s.footerText2}
 			</p>
 		</StyledFooter>
 	)

@@ -33,7 +33,7 @@ const PrivacyES = () => {
 			</section>
 
 			<footer>
-				<p>Esta politica de privacidad se ha generado en <a href="http://politicadeprivacidadplantilla.com">Política de Privacidad Plantilla</a></p>
+				<p>Esta politica de privacidad se ha generado en <a href="http://politicadeprivacidadplantilla.com" target='_blank' rel='noreferrer'>Política de Privacidad Plantilla</a></p>
 			</footer>
 		</>
 	)
