@@ -5,6 +5,7 @@ import { TILE_COUNT, GRID_SIZE, BOARD_SIZE } from "./constants"
 import { canSwap, shuffle, swap, isSolved } from "./helpers"
 import { StyledMemory } from '../../../styles/styled_memory';
 import { Btn } from '../../../styles/styled_global';
+import Pulse from 'react-reveal/Pulse';
 import strings from './strings';
 
 function Board() {
@@ -67,7 +68,10 @@ function Board() {
             <p>{s.copy}</p>
             <p className='Code'>POWERRANGER2021</p>
           </div>) : (
-            <p className='info-text'>{s.info}</p>
+            <div className='win-text'>
+              <p className='info-text'>{s.info}</p>
+              <p className='info-text'>{s.info2}</p>
+            </div>
           )}
       {
         !isStarted ?

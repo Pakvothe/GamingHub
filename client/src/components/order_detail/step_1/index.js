@@ -9,6 +9,7 @@ import { StyledSVG, StepOne, GameClose } from '../../styles/styled_order_detail'
 import PurchaseStep1 from '../../../assets/img/purchase-steps-1.svg';
 import closeCross from '../../../assets/img/close-filled-purple.svg';
 import { setDiscount } from '../../../redux/actions/cart_actions';
+import Fade from 'react-reveal/Fade';
 import strings from './strings';
 
 const Step1 = ({ cart, language }) => {
@@ -97,6 +98,7 @@ const Step1 = ({ cart, language }) => {
 	return (
 		<>
 			{
+
 				<Modal
 					isOpen={memory}
 					style={customStyles}
@@ -105,46 +107,50 @@ const Step1 = ({ cart, language }) => {
 					ariaHideApp={false}
 				>
 					<GameClose onClick={closeGame}><StyledSVG src={closeCross} /></GameClose>
-					<MemoryGame />
+					<Fade big>
+						<MemoryGame />
+					</Fade>
 				</Modal>
 			}
 			<h2>{s.cart}</h2>
 			<StyledSVG src={PurchaseStep1} />
-			<StepOne>
-				<div>
-					{cart.map(purchase => {
-						return (
-							<Mini productDetail={purchase} key={purchase.id} />
-						)
-					})}
-				</div>
-				<div>
-					<aside>
-						<h3>{s.detail}</h3>
-						<FormStyled>
-							<label>
-								<span>{s.discountCoupon}</span>
-								<input className={coupon > 0 && 'checked'} type='text' onChange={handleCoupon} />
-							</label>
-							<Btn className='btn-sec nomeimportanada' onClick={handleGame}>{s.discountButton}</Btn>
-						</FormStyled>
-						<div className='aside__subtotal'>
-							<p>{s.subtotal}</p>
-							<p>{subtotal.toFixed(2)}</p>
-						</div>
-						<div className='aside__discount'>
-							<p>{s.discount}</p>
-							<p>{coupon}%</p>
-						</div>
-						<hr />
-						<div className='aside__total'>
-							<p>{s.total}</p>
-							<p>{total}</p>
-						</div>
-						<Btn className='btn-ppal' onClick={handleClick}>{s.next}</Btn>
-					</aside>
-				</div>
-			</StepOne>
+			<Fade>
+				<StepOne>
+					<div>
+						{cart.map(purchase => {
+							return (
+								<Mini productDetail={purchase} key={purchase.id} />
+							)
+						})}
+					</div>
+					<div>
+						<aside>
+							<h3>{s.detail}</h3>
+							<FormStyled>
+								<label>
+									<span>{s.discountCoupon}</span>
+									<input className={coupon > 0 && 'checked'} type='text' onChange={handleCoupon} />
+								</label>
+								<Btn className='btn-sec nomeimportanada' onClick={handleGame}>{s.discountButton}</Btn>
+							</FormStyled>
+							<div className='aside__subtotal'>
+								<p>{s.subtotal}</p>
+								<p>{subtotal.toFixed(2)}</p>
+							</div>
+							<div className='aside__discount'>
+								<p>{s.discount}</p>
+								<p>{coupon}%</p>
+							</div>
+							<hr />
+							<div className='aside__total'>
+								<p>{s.total}</p>
+								<p>{total}</p>
+							</div>
+							<Btn className='btn-ppal' onClick={handleClick}>{s.next}</Btn>
+						</aside>
+					</div>
+				</StepOne>
+			</Fade>
 		</>
 	)
 }
