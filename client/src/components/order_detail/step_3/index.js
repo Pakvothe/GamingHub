@@ -1,59 +1,43 @@
-import React, { useState, useEffect } from 'react';
-import { Btn, FormStyled } from '../../styles/styled_global';
-import { StyledSVG, StepTwo } from '../../styles/styled_order_detail';
-import PurchaseStep3 from '../../../assets/img/purchase-steps-3.svg';
-import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { addOrder } from '../../../redux/actions/orders_actions';
-import { clearCart } from '../../../redux/actions/cart_actions';
+import React from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
+import queryString from 'query-string';
+
 import strings from './strings';
+import PurchaseStep3 from '../../../assets/img/purchase-steps-3.svg';
 
-const Step3 = ({ cart, language }) => {
-	const s = strings[language];
+import { StepThree, StyledSVG } from '../../styles/styled_order_detail';
+import { Btn } from '../../styles/styled_global';
+
+
+const Step3 = ({ language }) => {
 	const history = useHistory();
-	const dispatch = useDispatch();
-	const [total, setTotal] = useState(0);
-
-	useEffect(() => {
-		setTotal(cart.reduce((acc, product) => {
-			acc = acc + (product.price * product.quantity)
-			return acc;
-		}, 0.00));
-	}, [])
-
-	const handleClick = () => {
-		const order = {
-			email: "franfiori29@gmail.com",
-			total_amount: total,
-			state: "created",
-			payment_method: "mp",
-			userId: 1,
-			products: cart
-		}
-		dispatch(addOrder(order));
-		dispatch(clearCart());
-		history.push('/');
-	};
-
+	const location = useLocation();
+	const queryParams = queryString.parse(location.search);
+	const s = strings[language];
 	return (
-		<>
-			<h2>{s.details}</h2>
-			<StyledSVG src={PurchaseStep3} />
-			<StepTwo>
-				<div>
-					<aside>
-						<h3></h3>
-						<FormStyled>
-							<label>
-								<span>{s.discount}</span>
-								<input type='text' />
-							</label>
-						</FormStyled>
-						<Btn onClick={handleClick} className='btn-ppal'>{s.buy}</Btn>
-					</aside>
-				</div>
-			</StepTwo>
-		</>
+		<StepThree>
+			<h2 className="mb-1">{s.details}</h2>
+			<StyledSVG className="mb-2" src={PurchaseStep3} />
+			{
+				(
+					queryParams.status === 'completed' &&
+					<div className="step__info">
+						<i className="far fa-smile-beam step__icon"></i>
+						<p>Tu compra ha sido realizada con exito</p>
+						<p>Tu numero de orden es <span>{queryParams.order.padStart(4, 0)}</span></p>
+					</div>
+				)
+				||
+				(
+					<div className="step__info">
+						<i className="far fa-sad-tear step__icon"></i>
+						<p>Ocurrio un error</p>
+						<p>Por favor vuelve a intentarlo mas tarde</p>
+					</div>
+				)
+			}
+			<Btn className="btn btn-ppal mt-1" onClick={() => history.push('/')}>Seguir comprando</Btn>
+		</StepThree>
 	)
 }
 export default Step3;

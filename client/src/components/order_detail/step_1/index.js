@@ -124,7 +124,7 @@ const Step1 = ({ cart, language }) => {
 						<FormStyled>
 							<label>
 								<span>{s.discountCoupon}</span>
-								<input className={coupon > 0 && 'checked'} type='text' onChange={handleCoupon} />
+								<input className={coupon > 0 ? 'checked' : ''} type='text' onChange={handleCoupon} />
 							</label>
 							<Btn className='btn-sec nomeimportanada' onClick={handleGame}>{s.discountButton}</Btn>
 						</FormStyled>

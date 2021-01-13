@@ -17,6 +17,13 @@ module.exports = (sequelize) => {
 				isNumeric: true
 			}
 		},
+		discount: {
+			type: D.INTEGER,
+			defaultValue: 0,
+			validate: {
+				isNumeric: true
+			}
+		},
 		state: {
 			type: D.ENUM('created', 'processing', 'completed', 'canceled'),
 			allowNull: false
