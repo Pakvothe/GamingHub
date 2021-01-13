@@ -1,7 +1,7 @@
 const orders = [
 	{
 		email: 'emi@mail.com',
-		total_amount: 12,
+		total_amount: 111.14,
 		state: 'created',
 		payment_method: 'mp',
 		userId: 2

@@ -87,6 +87,12 @@ conn.sync({ force: true }).then(() => {
 				quantity: 2
 			})
 			Orders_products.create({
+				productId: 5,
+				orderId: 1,
+				unit_price: 3.19,
+				quantity: 2
+			})
+			Orders_products.create({
 				productId: 1,
 				orderId: 2,
 				unit_price: 52.38,

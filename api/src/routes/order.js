@@ -59,7 +59,6 @@ server.post('/', async (req, res) => {
 			};
 
 			const resp = await mercadopago.preferences.create(preference)
-			console.log(resp)
 			const upOrder = await updatedOrder.update({ mp_id: resp.response.id })
 			res.json(resp.body.init_point)
 		})
@@ -77,24 +76,22 @@ server.get('/mercadoPago', async (req, res) => {
 				mp_id: req.query['preference_id']
 			}
 		})
+		switch (order.state) {
+			case 'completed': {
+				return res.redirect(`http://localhost:3000/order/detail?status=${order.state}&order=${order.id}`)
+			}
+			case 'processing': {
+				return res.redirect(`http://localhost:3000`)
+			}
+			case 'canceled': {
+				return res.redirect(`http://localhost:3000`)
+			}
+			default:
+				return res.redirect('http://localhost:3000/')
+		}
 	} catch (err) {
 		console.log(err)
 	}
-
-	switch (order.state) {
-		case 'completed': {
-			return res.redirect(`http://localhost:3000/order/detail?status=${order.state}&order=${order.id}`)
-		}
-		case 'processing': {
-			return res.redirect(`http://localhost:3000`)
-		}
-		case 'canceled': {
-			return res.redirect(`http://localhost:3000`)
-		}
-		default:
-			return res.redirect('http://localhost:3000/')
-	}
-
 });
 
 server.post('/mercadoPagoNotifications', async (req, res) => {
