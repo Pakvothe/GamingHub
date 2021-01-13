@@ -24,7 +24,7 @@ const AboutUs = () => {
 					<div className='about_coder'>
 						<h4>Ignacio Contreras</h4>
 						<div>
-							<img src='https://www.parati.com.ar/wp-content/uploads/2020/10/RICARDO-FORT-DESTACADA.jpg' />
+							<img src='https://img.unocero.com/2020/07/Super-Mario-Bros-verdadera-nacionalidad.jpg' />
 						</div>
 						<div className='about_social'>
 							<a href='https://www.linkedin.com/in/ignacio-contreras/' target='_blank' rel='noreferrer'><i className="fab fa-linkedin-in"></i></a>
@@ -34,7 +34,7 @@ const AboutUs = () => {
 					<div className='about_coder'>
 						<h4>Emiliano Alfonso</h4>
 						<div>
-							<img src='https://www.parati.com.ar/wp-content/uploads/2020/10/RICARDO-FORT-DESTACADA.jpg' />
+							<img src='https://img.unocero.com/2020/07/Super-Mario-Bros-verdadera-nacionalidad.jpg' />
 						</div>
 						<div className='about_social'>
 							<a href='https://www.linkedin.com/in/emiliano-alfonso/' target='_blank' rel='noreferrer'><i className="fab fa-linkedin-in"></i></a>
@@ -44,7 +44,7 @@ const AboutUs = () => {
 					<div className='about_coder'>
 						<h4>Franco Ortiz</h4>
 						<div>
-							<img src='https://www.parati.com.ar/wp-content/uploads/2020/10/RICARDO-FORT-DESTACADA.jpg' />
+							<img src='https://img.unocero.com/2020/07/Super-Mario-Bros-verdadera-nacionalidad.jpg' />
 						</div>
 						<div className='about_social'>
 							<a href='https://github.com/Pakvothe' target='_blank' rel='noreferrer'><i className="fab fa-linkedin-in"></i></a>
@@ -54,7 +54,7 @@ const AboutUs = () => {
 					<div className='about_coder'>
 						<h4>Franco Fiori</h4>
 						<div>
-							<img src='https://www.parati.com.ar/wp-content/uploads/2020/10/RICARDO-FORT-DESTACADA.jpg' />
+							<img src='https://img.unocero.com/2020/07/Super-Mario-Bros-verdadera-nacionalidad.jpg' />
 						</div>
 						<div className='about_social'>
 							<a href='https://www.linkedin.com/in/franco-fiori-fullstack/' target='_blank' rel='noreferrer'><i className="fab fa-linkedin-in"></i></a>
@@ -64,7 +64,7 @@ const AboutUs = () => {
 					<div className='about_coder'>
 						<h4>Martin Sanchez</h4>
 						<div>
-							<img src='https://www.parati.com.ar/wp-content/uploads/2020/10/RICARDO-FORT-DESTACADA.jpg' />
+							<img src='https://img.unocero.com/2020/07/Super-Mario-Bros-verdadera-nacionalidad.jpg' />
 						</div>
 						<div className='about_social'>
 							<a href='https://www.linkedin.com/in/martin-sanchez-6973121b7/' target='_blank' rel='noreferrer'><i className="fab fa-linkedin-in"></i></a>
