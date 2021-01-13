@@ -11,9 +11,10 @@ const toIsoStringOffset = function (date) {
 		'T' + pad(date.getHours()) +
 		':' + pad(date.getMinutes()) +
 		':' + pad(date.getSeconds()) +
-		'.' + '000' +
-		dif + pad(tzo / 60) +
-		':' + pad(tzo % 60);
+		'.' + '000-03:00'
+}
+const delayedDays = function (date, num) {
+	return new Date(date.getTime() + (86400000 * num));
 }
 
-module.exports = { toIsoStringOffset }
+module.exports = { toIsoStringOffset, delayedDays }
