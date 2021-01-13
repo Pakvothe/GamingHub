@@ -1,10 +1,11 @@
 require('dotenv').config();
 const server = require('express').Router();
-const { Order, Product, Orders_products, Review, Serial, Image } = require('../db.js');
+const { Order, Product, Orders_products, Review, Serial } = require('../db.js');
 const { isAuthenticated, isAdmin } = require('../../utils/customMiddlewares');
 const mercadopago = require('mercadopago');
-const { toIsoStringOffset, delayedDays } = require('../../utils/functions.js');
-const { NGROK_LINK, MP_KEY, FRONT } = process.env;
+const { toIsoStringOffset, delayedDays, sendMail } = require('../../utils/functions.js');
+const { mailOrderCompleted, mailOrderInProcess } = require('../../utils/mails');
+const { NGROK_LINK, MP_KEY } = process.env;
 mercadopago.configure({
 	access_token: MP_KEY
 });
@@ -59,12 +60,15 @@ server.post('/', async (req, res) => {
 			};
 
 			const resp = await mercadopago.preferences.create(preference)
-			const upOrder = await updatedOrder.update({ mp_id: resp.response.id })
-			res.json(resp.body.init_point)
+			updatedOrder.update({ mp_id: resp.response.id, payment_link: resp.body.init_point })
+
+			mailOrderInProcess(updatedOrder);
+
+			return res.json(resp.body.init_point)
 		})
 		.catch((err) => {
 			console.log(err);
-			res.status(500).json({ message: "Internal server error" })
+			return res.status(500).json({ message: "Internal server error" })
 		})
 });
 
@@ -99,32 +103,36 @@ server.post('/mercadoPagoNotifications', async (req, res) => {
 	try {
 		if (req.query.type === 'payment') {
 			const payment = await mercadopago.payment.get(req.query['data.id']);
-			if (payment.body.status === 'approved') {
-				const merchant = await mercadopago.merchant_orders.get(payment.body.order.id);
-				const order = await Order.findOne({
-					where: { mp_id: merchant.body["preference_id"] },
-					include: [Product]
-				})
-				const updatedOrder = await order.update({ state: 'completed' })
-				let serialsArray = [];
-				for (let prod of order.products) {
-					prod = prod.get();
-					serialsArray.push(await Serial.findAll({
-						where: { productId: prod.id },
-						limit: prod.orders_products.quantity,
-						raw: true
-					}))
+			switch (payment.body.status) {
+				case 'approved': {
+					const merchant = await mercadopago.merchant_orders.get(payment.body.order.id);
+					const order = await Order.findOne({
+						where: { mp_id: merchant.body["preference_id"] },
+						include: [Product]
+					})
+					const updatedOrder = await order.update({ state: 'completed', payment_link: null })
+					let serialsArray = [];
+					for (let prod of order.products) {
+						prod = prod.get();
+						serialsArray.push(await Serial.findAll({
+							where: { productId: prod.id },
+							limit: prod.orders_products.quantity,
+							raw: true
+						}))
+					}
+					let serialsToInactive = serialsArray.reduce((acc, ser) => {
+						ser.map(s => acc.push(s.serial))
+						return acc;
+					}, []);
+
+					await Serial.update({ is_active: false }, {
+						where: { serial: serialsToInactive },
+						individualHooks: true
+					});
+
+					mailOrderCompleted(updatedOrder);
+
 				}
-				let serialsToInactive = serialsArray.reduce((acc, ser) => {
-					ser.map(s => acc.push(s.serial))
-					return acc;
-				}, []);
-
-				await Serial.update({ is_active: false }, {
-					where: { serial: serialsToInactive },
-					individualHooks: true
-				});
-
 			}
 		}
 	} catch (err) {

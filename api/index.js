@@ -126,7 +126,7 @@ conn.sync({ force: true }).then(() => {
 
 cron.schedule('00 00 * * *', () => {
 	var currentTimeMinus24Hours = new Date() - 96 * 60 * 60 * 1000;
-	Order.update({ state: 'canceled' }, {
+	Order.update({ state: 'canceled', payment_link: null }, {
 		where: {
 			createdAt: { [Op.lt]: currentTimeMinus24Hours },
 			[Op.or]: [{ state: 'created' }, { state: 'processing' }]
