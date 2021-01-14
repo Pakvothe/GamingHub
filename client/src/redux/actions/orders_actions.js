@@ -11,13 +11,13 @@ import {
 	QUERY_FUNCTION
 } from '../constants';
 
-const { REACT_APP_API_URL } = process.env;
+const { REACT_APP_API } = process.env;
 
 export const getOrders = (payload = {}) => {
 
 	return function (dispatch) {
 		dispatch({ type: LOADING_ORDERS });
-		return axios.get(`${REACT_APP_API_URL}/orders${QUERY_FUNCTION(payload)}`, BEARER())
+		return axios.get(`${REACT_APP_API}/orders${QUERY_FUNCTION(payload)}`, BEARER())
 			.then(product => {
 				dispatch({
 					type: GET_ORDERS,
@@ -34,7 +34,7 @@ export const getOrders = (payload = {}) => {
 export const getOrder = (payload) => {
 	return function (dispatch) {
 		dispatch({ type: LOADING_ORDER });
-		return axios.get(`${REACT_APP_API_URL}/orders/${payload}`, BEARER())
+		return axios.get(`${REACT_APP_API}/orders/${payload}`, BEARER())
 			.then(product => {
 				dispatch({
 					type: GET_ORDER,
@@ -51,7 +51,7 @@ export const getOrder = (payload) => {
 
 export const addOrder = (payload) => {
 	return function (dispatch) {
-		return axios.post(`${REACT_APP_API_URL}/orders`, payload, BEARER())
+		return axios.post(`${REACT_APP_API}/orders`, payload, BEARER())
 			.then(response => {
 				dispatch({
 					type: ADD_ORDER,

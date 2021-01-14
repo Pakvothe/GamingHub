@@ -5,7 +5,7 @@ const { isAuthenticated, isAdmin } = require('../../utils/customMiddlewares');
 const mercadopago = require('mercadopago');
 const { toIsoStringOffset, delayedDays, sendMail } = require('../../utils/functions.js');
 const { mailOrderCompleted, mailOrderInProcess } = require('../../utils/mails');
-const { NGROK_LINK, MP_KEY } = process.env;
+const { NGROK_LINK, MP_KEY, FRONT, BACK } = process.env;
 mercadopago.configure({
 	access_token: MP_KEY
 });
@@ -49,9 +49,9 @@ server.post('/', async (req, res) => {
 					quantity: product.orders_products.quantity,
 				})),
 				back_urls: {
-					success: 'http://localhost:4000/orders/mercadoPago',
-					failure: 'http://localhost:4000/orders/mercadoPago',
-					pending: 'http://localhost:4000/orders/mercadoPago'
+					success: `${BACK}/orders/mercadoPago`,
+					failure: `${BACK}/orders/mercadoPago`,
+					pending: `${BACK}/orders/mercadoPago`
 				},
 				auto_return: "approved",
 				notification_url: `${NGROK_LINK}/orders/mercadoPagoNotifications`,
@@ -82,16 +82,16 @@ server.get('/mercadoPago', async (req, res) => {
 		})
 		switch (order.state) {
 			case 'completed': {
-				return res.redirect(`http://localhost:3000/order/detail?status=${order.state}&order=${order.id}`)
+				return res.redirect(`${FRONT}/order/detail?status=${order.state}&order=${order.id}`)
 			}
 			case 'processing': {
-				return res.redirect(`http://localhost:3000`)
+				return res.redirect(`${FRONT}`)
 			}
 			case 'canceled': {
-				return res.redirect(`http://localhost:3000`)
+				return res.redirect(`${FRONT}`)
 			}
 			default:
-				return res.redirect('http://localhost:3000/')
+				return res.redirect(`${FRONT}`)
 		}
 	} catch (err) {
 		console.log(err)

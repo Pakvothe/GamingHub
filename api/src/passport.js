@@ -5,7 +5,7 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const { User } = require("./db.js");
 const jwt = require("jsonwebtoken");
-const { SECRET, DB_HOST, PORT, CLIENTID, CLIENTSECRET, FACEBOOK_APP_ID, FACEBOOK_APP_SECRET } = process.env;
+const { SECRET, BACK, CLIENTID, CLIENTSECRET, FACEBOOK_APP_ID, FACEBOOK_APP_SECRET } = process.env;
 
 passport.use(
 	new LocalStrategy(
@@ -55,7 +55,7 @@ passport.deserializeUser(function (user, done) {
 passport.use(new GoogleStrategy({
 	clientID: CLIENTID,
 	clientSecret: CLIENTSECRET,
-	callbackURL: `http://${DB_HOST}:${PORT}/auth/googleCallback`
+	callbackURL: `${BACK}/auth/googleCallback`
 }, async function (accessToken, refreshToken, profile, done) {
 	try {
 		const user = {
@@ -87,7 +87,7 @@ passport.use(
 	new FacebookStrategy({
 		clientID: FACEBOOK_APP_ID,
 		clientSecret: FACEBOOK_APP_SECRET,
-		callbackURL: `http://${DB_HOST}:${PORT}/auth/facebookCallback`,
+		callbackURL: `${BACK}/auth/facebookCallback`,
 		profileFields: ['id', 'emails', 'name', 'picture.width(300)']
 	}, async function (accessToken, refreshToken, profile, done) {
 		try {

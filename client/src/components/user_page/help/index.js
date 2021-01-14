@@ -8,7 +8,7 @@ import { useToasts } from 'react-toast-notifications';
 import Fade from 'react-reveal/Fade';
 
 const HelpUser = () => {
-	const { REACT_APP_API_URL } = process.env;
+	const { REACT_APP_API } = process.env;
 	const history = useHistory();
 	const language = useSelector((state) => state.globalReducer.language);
 	const s = strings[language];
@@ -32,7 +32,7 @@ const HelpUser = () => {
 	const handleSubmit = (ev) => {
 		ev.preventDefault();
 		setIsLoading(true);
-		return axios.post(`${REACT_APP_API_URL}/users/mail/send`, input)
+		return axios.post(`${REACT_APP_API}/users/mail/send`, input)
 			.then((data) => {
 				addToast(s.mailSend, { appearance: 'success' })
 				history.push('/');
