@@ -15,7 +15,7 @@ const AdminOrderDetail = () => {
 	const products = orderInfo?.products;
 
 	useEffect(() => {
-		dispatch(getOrder(id));
+		dispatch(getOrder(id, '?panel=true'));
 	}, [])
 
 	return (
