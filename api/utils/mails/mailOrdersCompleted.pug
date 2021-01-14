@@ -11,7 +11,8 @@
 					each serial in serials
 						if serial.productId === game.id
 							p(style="margin: .5em 0; font-weight: 900;")=serial.serial
-		div(style="text-align: center")
-			a(href=linkReview style="font-weight: 900; border: 3px solid; border-radius: 10em; padding: .5em 2em; transition: transform 25ms ease, box-shadow 25ms ease; min-width: 175px; cursor: pointer; letter-spacing: 0.03em; background-color: #9b5df7; color: #F5F4F8; border-color: #9b5df7; box-shadow: 2px 2px 0px rgba(0,0,0,.15); text-decoration: none;")=strings.reviewText
+		if userId !== 1
+			div(style="text-align: center")
+				a(href=linkReview style="font-weight: 900; border: 3px solid; border-radius: 10em; padding: .5em 2em; transition: transform 25ms ease, box-shadow 25ms ease; min-width: 175px; cursor: pointer; letter-spacing: 0.03em; background-color: #9b5df7; color: #F5F4F8; border-color: #9b5df7; box-shadow: 2px 2px 0px rgba(0,0,0,.15); text-decoration: none;")=strings.reviewText
 		p=strings.slogan
 		p - GamingHUB

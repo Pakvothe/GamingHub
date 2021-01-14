@@ -82,7 +82,7 @@ const Step2 = ({ language }) => {
 
 						<Flex direction="column" justify="space-evenly">
 							<Btn className="btn btn-sec" onClick={openLoginModal}>{s.login}</Btn>
-							<Btn className="btn btn-sec"><Link to="/signup?order=true">{loading ? <i className="fas fa-circle-notch fa-spin"></i> : s.signUp}</Link></Btn>
+							<Btn className="btn btn-sec"><Link to="/signup?order=true">{s.signUp}</Link></Btn>
 						</Flex>
 					</StepTwo>
 					<p className="text-center">{s.warning}</p>
@@ -92,7 +92,7 @@ const Step2 = ({ language }) => {
 					<Flex direction="column">
 						<p>{s.emailParagraph}</p>
 						<h4 className="mb-1">{user.email}</h4>
-						<Btn className="btn btn-ppal mb-1" onClick={handleClick}>{s.next}</Btn>
+						<Btn className="btn btn-ppal mb-1" onClick={handleClick}>{loading ? <i className="fas fa-circle-notch fa-spin"></i> : s.next}</Btn>
 						<p className="text-center">{s.warning}</p>
 					</Flex>
 				)
