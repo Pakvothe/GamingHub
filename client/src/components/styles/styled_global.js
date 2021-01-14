@@ -82,6 +82,11 @@ export const GlobalStyle = createGlobalStyle`
 		 {
 			color: ${({ theme }) => theme.reviewColor};
 		}
+
+		.chart-container {
+			color: ${({ theme }) => theme.chartTextColor};
+			background-color: ${({ theme }) => theme.chartBgColor};
+		}
 	}
 `
 
@@ -91,6 +96,32 @@ export const Flex = styled.div`
 	justify-content: ${props => props.justify || 'center'};
 	align-items: ${props => props.align || 'center'};
 	flex-direction: ${props => props.direction || 'row'};
+
+	@media (max-width: 1000px) {
+		flex-direction: column;
+	}
+`
+
+export const StyledChart = styled.section`
+	flex-basis: 48%;
+	flex-shrink: 1;
+	border: 1px solid var(--clr-primary);
+	border-radius: 1em;
+	padding: 2em;
+
+	@media (max-width: 1000px) {
+		margin-bottom: 2em;
+	}
+
+	h2 {
+		text-align: center;
+		margin-bottom: 1.5em;
+	}
+
+	canvas {
+		width: 100% !important;
+		height: 100% !important;
+	}
 `
 
 export const Hr = styled.hr`

@@ -21,6 +21,7 @@ import AdminUserList from './../components/admin_page/admin_user_list';
 import AdminOrderDetail from './../components/admin_page/admin_order_detail/index';
 import AdminProductOfferList from './../components/admin_page/admin_product_offers/list';
 import AdminProductOfferForm from './../components/admin_page/admin_product_offers/form/';
+import AdminCharts from '../components/admin_page/admin_charts';
 
 
 function AdminRoutes() {
@@ -64,7 +65,8 @@ function AdminRoutes() {
 		<>
 			<AdminSideBar />
 			<main className="admin-main-container">
-				<Route exact path='/admin' render={() => <AdminProductList products={products} />} />
+				<Route exact path='/admin' render={() => <AdminCharts />} />
+				<Route exact path='/admin/products' render={() => <AdminProductList products={products} />} />
 				<Route exact path='/admin/product' render={() => <AdminProductForm categories={categories} />} />
 				<Route exact path='/admin/product/:id' render={() => <AdminProductForm categories={categories} />} />
 				<Route exact path='/admin/product/:id/stock' render={() => <AdminProductStockList categories={categories} />} />

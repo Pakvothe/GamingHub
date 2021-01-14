@@ -6,8 +6,9 @@ const userRouter = require('./user.js')
 const categoryRouter = require('./category.js')
 const categoriesRouter = require('./categories.js')
 const serialsRouter = require('./serials.js')
-const reviewsRouter = require('./reviews.js')
-const authRouter = require('./auth.js')
+const reviewsRouter = require('./reviews.js');
+const authRouter = require('./auth.js');
+const chartsRouter = require('./charts.js');
 
 const router = Router();
 
@@ -22,5 +23,6 @@ router.use('/reviews', reviewsRouter);
 router.use('/categories', categoriesRouter);
 router.use('/serials', serialsRouter);
 router.use('/auth', authRouter);
+router.use('/charts', chartsRouter);
 
 module.exports = router;

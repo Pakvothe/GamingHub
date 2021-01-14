@@ -6,6 +6,7 @@
 	--clr-secondary-3: #5a50f0;
 	--clr-white: #F5F4F8;
 	--clr-middle: #7E7E7E;
+	--clr-middle-2: #EEE;
 	--clr-dark: #1B1A1F;
 	--clr-dark-1: #2C2F31;
 	--clr-dark-2: #35383a;
@@ -87,6 +88,10 @@ body {
 	position: relative;
 }
 
+.skinny-title {
+	font-weight: 500;
+	text-transform: uppercase;
+}
 .w-100 { width: 100% }
 .d-none { display: none }
 .d-block { display: block }
