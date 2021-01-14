@@ -34,7 +34,8 @@ const AdminSideBar = () => {
 					<StyledSVG src={arrowLeft} />
 				</SideBarButton>
 				<ul>
-					<li><NavLink exact activeClassName="active" to="/admin">{s.products}</NavLink></li>
+					<li><NavLink exact activeClassName="active" to="/admin/">{s.charts}</NavLink></li>
+					<li><NavLink exact activeClassName="active" to="/admin/products">{s.products}</NavLink></li>
 					<li><NavLink activeClassName="active" to="/admin/categories">{s.categories}</NavLink></li>
 					<li><NavLink activeClassName="active" to="/admin/orders">{s.orders}</NavLink></li>
 					<li><NavLink activeClassName="active" to="/admin/users">{s.users}</NavLink></li>
