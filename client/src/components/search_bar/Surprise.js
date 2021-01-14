@@ -1,12 +1,35 @@
 import React from 'react'
 import Modal from 'react-modal';
 import { useSelector } from 'react-redux';
-import { Btn } from '../styles/styled_global';
+import styled from 'styled-components';
+import { Btn, StyledSVG } from '../styles/styled_global';
+import closeCross from '../../assets/img/close-filled-purple.svg';
 import YouTube from 'react-youtube'
 
 const Surprise = ({ open, setOpen }) => {
 
 	const theme = useSelector(state => state.globalReducer.theme);
+	const CloseButton = styled.button`
+		position: absolute;
+		cursor: pointer;
+		top: 10px;
+		right: 10px;
+		border: none;
+		width: 40px;
+		height: 40px;
+		background: transparent;
+
+		svg {
+			fill: var(--clr-primary);
+			transition: fill .2s ease-in-out;
+			width: 40px;
+			height: 40px;
+		}
+
+		&:hover svg {
+			fill: var(--clr-primary-2);
+		}
+	`
 
 	const customStyles = {
 		overlay: {
@@ -24,7 +47,7 @@ const Surprise = ({ open, setOpen }) => {
 			right: 'auto',
 			bottom: 'auto',
 			marginRight: '-50%',
-			paddingTop: '2em',
+			paddingTop: '4em',
 			transform: 'translate(-50%, -50%)',
 			border: '2px solid #9b5df7',
 			borderRadius: '10px',
@@ -59,7 +82,7 @@ const Surprise = ({ open, setOpen }) => {
 				portalClassName='ReactModalPortal'
 				ariaHideApp={false}
 			>
-				<Btn onClick={() => setOpen(false)}>x</Btn>
+				<CloseButton className='mb-1' onClick={() => setOpen(false)}><StyledSVG src={closeCross} /></CloseButton>
 				<YouTube videoId='dQw4w9WgXcQ' opts={opts} onPause={handlePause} />
 			</Modal>
 		</>
