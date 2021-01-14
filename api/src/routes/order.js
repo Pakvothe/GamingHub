@@ -1,10 +1,17 @@
+require('dotenv').config();
 const server = require('express').Router();
-const { Op } = require('sequelize');
-const { Order, Product, Orders_products, Review } = require('../db.js');
+const { Order, Product, Orders_products, Review, Serial } = require('../db.js');
 const { isAuthenticated, isAdmin } = require('../../utils/customMiddlewares');
+const mercadopago = require('mercadopago');
+const { toIsoStringOffset, delayedDays, sendMail } = require('../../utils/functions.js');
+const { mailOrderCompleted, mailOrderInProcess } = require('../../utils/mails');
+const { NGROK_LINK, MP_KEY } = process.env;
+mercadopago.configure({
+	access_token: MP_KEY
+});
 //----------"/orders"--------------
 
-server.post('/', isAuthenticated, async (req, res) => {
+server.post('/', async (req, res) => {
 	const order = req.body;
 	const { products } = order;
 	delete order.products;
@@ -26,13 +33,115 @@ server.post('/', isAuthenticated, async (req, res) => {
 		.then(() => Order.findOne({
 			where: { id: idOrder },
 			include: [
-				{ model: Product }
+				Product
 			]
 		}))
-		.then(updatedOrder => res.json(updatedOrder))
-		.catch((err) => {
-			res.status(500).json({ message: "Internal server error" })
+		.then(async updatedOrder => {
+			let expiryDate = delayedDays(new Date(), 4);
+			console.log(toIsoStringOffset(expiryDate));
+			let preference = {
+				items: updatedOrder.products.map(product => ({
+					title: product.name,
+					unit_price: order.discount ?
+						product.orders_products.unit_price * (1 - (order.discount / 100))
+						:
+						(product.orders_products.unit_price),
+					quantity: product.orders_products.quantity,
+				})),
+				back_urls: {
+					success: 'http://localhost:4000/orders/mercadoPago',
+					failure: 'http://localhost:4000/orders/mercadoPago',
+					pending: 'http://localhost:4000/orders/mercadoPago'
+				},
+				auto_return: "approved",
+				notification_url: `${NGROK_LINK}/orders/mercadoPagoNotifications`,
+				expires: true,
+				expiration_date_to: toIsoStringOffset(expiryDate)
+			};
+
+			const resp = await mercadopago.preferences.create(preference)
+			updatedOrder.update({ mp_id: resp.response.id, payment_link: resp.body.init_point })
+
+			mailOrderInProcess(updatedOrder);
+
+			return res.json(resp.body.init_point)
 		})
+		.catch((err) => {
+			console.log(err);
+			return res.status(500).json({ message: "Internal server error" })
+		})
+});
+
+server.get('/mercadoPago', async (req, res) => {
+
+	try {
+		const order = await Order.findOne({
+			where: {
+				mp_id: req.query['preference_id']
+			}
+		})
+		switch (order.state) {
+			case 'completed': {
+				return res.redirect(`http://localhost:3000/order/detail?status=${order.state}&order=${order.id}`)
+			}
+			case 'processing': {
+				return res.redirect(`http://localhost:3000`)
+			}
+			case 'canceled': {
+				return res.redirect(`http://localhost:3000`)
+			}
+			default:
+				return res.redirect('http://localhost:3000/')
+		}
+	} catch (err) {
+		console.log(err)
+	}
+});
+
+server.post('/mercadoPagoNotifications', async (req, res) => {
+	res.sendStatus(200);
+	try {
+		if (req.query.type === 'payment') {
+			const payment = await mercadopago.payment.get(req.query['data.id']);
+			switch (payment.body.status) {
+				case 'approved': {
+					const merchant = await mercadopago.merchant_orders.get(payment.body.order.id);
+					const order = await Order.findOne({
+						where: { mp_id: merchant.body["preference_id"] },
+						include: [Product]
+					})
+					const updatedOrder = await order.update({ state: 'completed', payment_link: null })
+					let serialsArray = [];
+					for (let prod of order.products) {
+						prod = prod.get();
+						serialsArray.push(await Serial.findAll({
+							where: { productId: prod.id },
+							limit: prod.orders_products.quantity,
+							raw: true
+						}))
+					}
+					let serialsToInactive = serialsArray.reduce((acc, ser) => {
+						ser.map(s => acc.push(s.serial))
+						return acc;
+					}, []);
+
+					await Serial.update({ is_active: false }, {
+						where: { serial: serialsToInactive },
+						individualHooks: true
+					});
+
+					const productSerial = serialsArray.reduce((acc, ser) => {
+						ser.map(s => acc.push({ serial: s.serial, productId: s.productId }))
+						return acc;
+					}, [])
+
+					mailOrderCompleted(updatedOrder, productSerial);
+				}
+			}
+		}
+	} catch (err) {
+		console.log('error ', err)
+	}
 });
 
 server.get('/', isAuthenticated, (req, res) => {
@@ -96,7 +205,6 @@ server.get('/:orderId', isAuthenticated, (req, res) => {
 			}
 		})
 		.catch((err) => {
-			console.log(err);
 			res.status(500).json({ message: "Internal server error" });
 		})
 })

@@ -60,6 +60,7 @@ const UserOrders = () => {
 									<th className="cell-small">{s.total}</th>
 									<th id="state" className="icon down">{s.state}</th>
 									<th id="payment_method" className="icon down">{s.payment}</th>
+									<th id="payment_method" className="icon down">{s.payment_link}</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -70,6 +71,14 @@ const UserOrders = () => {
 										<td>{order.total_amount}</td>
 										<td>{order.state}</td>
 										<td>{order.payment_method}</td>
+										{order.payment_link ?
+											<td>
+												<a onClick={(ev) => ev.stopPropagation()} href={order.payment_link}>
+													<Btn className="btn btn-ppal">Link</Btn>
+												</a>
+											</td>
+											:
+											<td></td>}
 									</tr>
 								))}
 							</tbody>

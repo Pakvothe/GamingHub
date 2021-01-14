@@ -17,13 +17,33 @@ module.exports = (sequelize) => {
 				isNumeric: true
 			}
 		},
+		discount: {
+			type: D.INTEGER,
+			defaultValue: 0,
+			validate: {
+				isNumeric: true
+			}
+		},
 		state: {
 			type: D.ENUM('created', 'processing', 'completed', 'canceled'),
 			allowNull: false
 		},
 		payment_method: {
-			type: D.ENUM('cash', 'cc', 'mp'),
+			type: D.ENUM('mp'),
 			allowNull: false
+		},
+		mp_id: {
+			type: D.STRING,
+		},
+		payment_link: {
+			type: D.STRING,
+			validate: {
+				isUrl: true
+			}
+		},
+		language: {
+			type: D.STRING,
+			defaultValue: 'es'
 		}
 	})
 }

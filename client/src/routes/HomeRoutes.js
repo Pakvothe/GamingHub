@@ -25,6 +25,9 @@ import { toggleCart } from '../redux/actions/global_actions';
 import Reset from './../components/reset/index';
 import ReviewForm from '../components/reviews/review_form';
 import { getDiscounts } from './../redux/actions/products_actions';
+import Terms from '../components/terms';
+import Privacy from '../components/privacy';
+import Legal from '../components/legal';
 
 function HomeRoutes() {
 
@@ -69,10 +72,10 @@ function HomeRoutes() {
 					<Step1 language={language} cart={cart} />
 				</Route>
 				<Route exact path='/order/payment'>
-					<Step2 language={language} cart={cart} />
+					<Step2 language={language} />
 				</Route>
 				<Route exact path='/order/detail'>
-					<Step3 language={language} cart={cart} />
+					<Step3 language={language} />
 				</Route>
 				<Route exact path='/about' component={AboutUs} />
 				<Route exact path='/user' component={UserPage} />
@@ -83,6 +86,9 @@ function HomeRoutes() {
 				<Route exact path='/help' component={HelpUser} />
 				<Route exact path='/orders/:id' component={UserOrderDetail} />
 				<Route exact path='/review/:id' component={ReviewForm} />
+				<Route exact path='/terms' component={Terms} />
+				<Route exact path='/privacy' component={Privacy} />
+				<Route exact path='/legal' component={Legal} />
 			</main>
 			<Footer language={language} />
 		</>

@@ -1,9 +1,11 @@
 export function BEARER() {
-	return {
-		headers: {
-			"Authorization": `Bearer ${JSON.parse(localStorage.getItem('jwt'))}`
+	if (JSON.parse(localStorage.getItem('jwt'))) {
+		return {
+			headers: {
+				"Authorization": `Bearer ${JSON.parse(localStorage.getItem('jwt'))}`
+			}
 		}
-	}
+	} else return null;
 }
 
 export function QUERY_FUNCTION(payload) {
@@ -109,3 +111,4 @@ export const LOADING_CART = 'LOADING_CART';
 export const SET_STOCK = 'SET_STOCK';
 export const EDIT_STOCK = 'EDIT_STOCK';
 export const DELETE_ITEM_STOCK = 'DELETE_ITEM_STOCK';
+export const SET_DISCOUNT = 'SET_DISCOUNT';

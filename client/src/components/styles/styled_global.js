@@ -1,6 +1,7 @@
 import styled, { createGlobalStyle } from 'styled-components';
 import SVG from 'react-inlinesvg';
 import arrow from '../../assets/img/arrow-down.svg';
+import checkMark from '../../assets/img/checkMark.svg';
 import checkboxUnchecked from '../../assets/img/checkbox-unchecked-purple.svg'
 import checkboxChecked from '../../assets/img/checkbox-checked-purple.svg'
 import LoadingOverlay from 'react-loading-overlay';
@@ -89,6 +90,7 @@ export const Flex = styled.div`
 	display: flex;
 	justify-content: ${props => props.justify || 'center'};
 	align-items: ${props => props.align || 'center'};
+	flex-direction: ${props => props.direction || 'row'};
 `
 
 export const Hr = styled.hr`
@@ -156,6 +158,12 @@ export const Btn = styled.button`
 		width: 25px;
 		height: 25px;
 		fill: currentColor;
+	}
+
+
+	a {
+		text-decoration: none;
+		color: currentColor;
 	}
 
 	&.btn-tick {
@@ -368,6 +376,14 @@ export const DataTable = styled.table`
 `
 
 export const FormStyled = styled.form`
+
+	input.checked{
+		background: url(${checkMark}) no-repeat;
+		background-position: top 50% right 10px;
+		background-size: 25px;
+		background-color: ${props => props.theme === 'dark' ? 'var(--clr-dark)' : 'var(--clr-white)'};
+		color: ${props => props.theme === 'dark' ? 'var(--clr-white)' : 'var(--clr-dark)'};
+	}
 
 	.image__container {
 		width: 400px;
@@ -758,19 +774,22 @@ export const Dropdown = styled.li`
 		}
 
 
-		a {
+		a, .dropdown__button {
 			text-align: center;
 			display: block;
 			width: 100%;
 			padding: 1em 2em;
 			text-decoration: none;
 			color: currentColor;
-
 			&:hover {
-				background-color: var(--clr-primary-2);
-				color: var(--clr-white)
+				background-color: var(--clr-primary-2) !important;
+				color: var(--clr-white)!important;
 			}
 		}
+			/* .dropdown__button:hover {
+				background-color: var(--clr-primary-2);
+				color: var(--clr-white);
+			} */
 
 		.dropdown__first-name {
 			color: var(--clr-primary);
@@ -932,7 +951,56 @@ export const SocialLogin = styled.div`
 		background-position: left 1em top 50%;
 		background-color: var(--clr-white);
 	}
+`
 
+export const StyledTerms = styled.div`
+	h2 {
+		text-align: center;
+		margin-bottom: 1em;
+		text-transform: uppercase;
+		font-size: 2em;
+	}
+
+	h3 {
+		margin-bottom: 1em;
+		font-weight: 700;
+		text-transform: uppercase;
+	}
+
+	h4 {
+		font-weight: 700;
+		font-size: 1.1em;
+		margin-bottom: .5em;
+	}
+
+	p + h4 { margin-top: 1em }
+
+	a {
+		color: var(--clr-primary);
+		font-weight: 700;
+		text-decoration: none;
+	}
+
+	p { line-height: 1.6 }
+
+	ul {
+		margin: 1em 0 2em 3em;
+	}
+
+	li {
+		margin-top: 0.5em;
+		line-height: 1.6;
+	}
+
+	section, footer { padding: 2rem }
+
+	section > p + p { margin-top: 1em }
+
+	footer {
+		border-top: 3px solid rgba(0, 0, 0, 0.1);
+		font-size: 0.8em;
+		padding-bottom: 0;
+	}
 `
 
 export const StyledSVG = styled(SVG)`

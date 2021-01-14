@@ -17,6 +17,10 @@ export const StepOne = styled.div`
 	display: flex;
 	justify-content: space-between;
 
+	.nomeimportanada {
+		margin-bottom: 2em !important;
+	}
+
 	& > div:first-child {
 		margin-right: 4em;
 		flex: 1;
@@ -83,6 +87,9 @@ export const StepOne = styled.div`
 
 export const StepTwo = styled.div`
 
+	display: flex;
+	justify-content: space-evenly;
+
 	.button__container {
 		button {
 			margin: 2em auto 0;
@@ -141,5 +148,53 @@ export const StepTwo = styled.div`
 		}
 	}
 `
+
+export const StepThree = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-evenly; 
+	.step__info{
+		text-align: center;
+		p {
+			font-size: 1.5em;
+			line-height: 1.2em;
+		}
+
+		span {
+			font-size: 1.5em;
+			font-weight: 900;
+			color: var(--clr-primary);
+		}
+	}
+	.step__icon{
+		font-size: 10em;
+		color: var(--clr-primary-2);
+		margin-bottom: 20px;
+	}
+`
+
+export const GameClose = styled.button`
+	position: absolute;
+	cursor: pointer;
+	top: 10px;
+	right: 10px;
+	border: none;
+	width: 25px;
+	height: 25px;
+	background: transparent;
+
+	svg {
+		fill: var(--clr-primary);
+		transition: fill .2s ease-in-out;
+		width: 25px;
+		height: 25px;
+	}
+
+	&:hover svg {
+		fill: var(--clr-primary-2);
+	}
+`
+
 
 export const StyledSVG = styled(SVG)``

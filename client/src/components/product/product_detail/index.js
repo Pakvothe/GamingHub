@@ -17,9 +17,11 @@ import { useToasts } from 'react-toast-notifications';
 import Carousel from '../../carousel';
 
 import mercadoPagoImg from '../../../assets/img/mercadopago.webp'
+import { useHistory } from 'react-router-dom';
 
 export const ProductDetail = ({ product }) => {
 	const dispatch = useDispatch();
+	const history = useHistory();
 
 	const [quantity, setQuantity] = useState(1);
 	const language = useSelector(state => state.globalReducer.language);
@@ -49,6 +51,19 @@ export const ProductDetail = ({ product }) => {
 		dispatch(editStock(payload))
 		addToast(`${product.name} x${quantity} ${s.toast}`, { appearance: 'success' })
 		setQuantity(1);
+	}
+
+	const handleBuyNow = () => {
+		let productToDipatch = { ...product };
+		productToDipatch.quantity = quantity;
+		dispatch(addItemCart(productToDipatch));
+		let payload = {
+			id: product.id,
+			quantity: quantity,
+			stock: product.stock
+		};
+		dispatch(editStock(payload))
+		history.push('/order')
 	}
 
 	return (
@@ -92,7 +107,7 @@ export const ProductDetail = ({ product }) => {
 						{(!product.stock || stock[product.id] === 0) && <Badge className="error small">Sin stock</Badge>}
 						{!!product.stock && stock[product.id] !== 0 &&
 							<div className="game__buttons">
-								<Btn className="btn-ppal btn-img">
+								<Btn className="btn-ppal btn-img" onClick={handleBuyNow}>
 									{s.buy_now}
 									<StyledSVG src={joystick} />
 								</Btn>

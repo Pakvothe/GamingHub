@@ -6,7 +6,8 @@ const strings = {
 		total: "Total",
 		state: "Status",
 		payment: "Payment Method",
-		empty: "You don't have any orders"
+		empty: "You don't have any orders",
+		payment_link: 'Payment Link'
 	},
 	es: {
 		title: "Tus órdenes",
@@ -15,7 +16,8 @@ const strings = {
 		total: "Total",
 		state: "Estado",
 		payment: "Método de Pago",
-		empty: "No tienes ninguna orden"
+		empty: "No tienes ninguna orden",
+		payment_link: 'Link de pago'
 	}
 };
 
