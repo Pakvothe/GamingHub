@@ -1,6 +1,7 @@
 import Axios from "axios";
+import Swal from 'sweetalert2';
 
-export default (input) => {
+export default (input, addToast, setOpen) => {
 	if (input.length <= 1) return;
 	let command = input.slice(1);
 	let value;
@@ -17,16 +18,23 @@ export default (input) => {
 			break;
 		case 'ricky': ricky();
 			break;
+		case 'surprise': surprise(setOpen);
+			break;
 		default:
+			command = '';
 			break;
 	}
+	if (command) addToast(`The '${command}' command was Activated!`, { appearance: 'success' });
 }
 
 const joke = () => {
 	Axios.get('https://official-joke-api.appspot.com/jokes/programming/random')
 		.then((res) => {
 			let joke = res.data[0];
-			alert(joke.setup + joke.punchline);
+			Swal.fire({
+				title: joke.setup,
+				text: joke.punchline
+			})
 		})
 }
 
@@ -98,4 +106,8 @@ const ricky = () => {
 	imgs.forEach(each => {
 		each.src = rickys.splice(Math.floor(Math.random() * rickys.length), 1)
 	});
+}
+
+const surprise = (setOpen) => {
+	setOpen(true);
 }

@@ -7,14 +7,19 @@ import { useHistory } from 'react-router-dom';
 import { getSearchProducts } from '../../redux/actions/products_actions';
 import { resetCurrentPage } from '../../redux/actions/global_actions';
 import commands from './commands';
+import { useToasts } from 'react-toast-notifications';
+import Modal from 'react-modal';
+import Surprise from './Surprise';
 
 const SearchBar = () => {
 
 	const [inputText, setInputText] = useState('');
+	const [open, setOpen] = useState(false);
 	const history = useHistory()
 	const dispatch = useDispatch()
 	const language = useSelector(state => state.globalReducer.language);
 	const s = strings[language];
+	const { addToast } = useToasts();
 
 	const limitPerPage = 8;
 
@@ -26,7 +31,7 @@ const SearchBar = () => {
 		ev.preventDefault();
 		setInputText('');
 		if (inputText.trim()[0] === '!') {
-			commands(inputText);
+			commands(inputText, addToast, setOpen);
 		} else {
 			dispatch(getSearchProducts(inputText.trim(), { limit: limitPerPage }));
 			dispatch(resetCurrentPage())
@@ -34,12 +39,15 @@ const SearchBar = () => {
 		}
 	};
 	return (
-		<FormSearchBar onSubmit={handleSubmit}>
-			<input onChange={handleChange} type="text" placeholder={s.placeholder} value={inputText} />
-			<button type="submit">
-				<img src={loupe} alt="" />
-			</button>
-		</FormSearchBar>
+		<>
+			<Surprise open={open} setOpen={setOpen} />
+			<FormSearchBar onSubmit={handleSubmit}>
+				<input onChange={handleChange} type="text" placeholder={s.placeholder} value={inputText} />
+				<button type="submit">
+					<img src={loupe} alt="" />
+				</button>
+			</FormSearchBar>
+		</>
 	)
 };
 
