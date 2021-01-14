@@ -130,8 +130,12 @@ server.post('/mercadoPagoNotifications', async (req, res) => {
 						individualHooks: true
 					});
 
-					mailOrderCompleted(updatedOrder);
+					const productSerial = serialsArray.reduce((acc, ser) => {
+						ser.map(s => acc.push({ serial: s.serial, productId: s.productId }))
+						return acc;
+					}, [])
 
+					mailOrderCompleted(updatedOrder, productSerial);
 				}
 			}
 		}
