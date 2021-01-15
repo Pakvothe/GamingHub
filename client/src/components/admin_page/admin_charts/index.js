@@ -5,7 +5,7 @@ import { Line, Doughnut } from 'react-chartjs-2';
 import { Flex, StyledChart } from '../../styles/styled_global';
 import strings from './strings';
 import { BEARER } from '../../../redux/constants';
-const { REACT_APP_API_URL } = process.env;
+const { REACT_APP_API } = process.env;
 
 
 const AdminCharts = () => {
@@ -25,9 +25,9 @@ const AdminCharts = () => {
 	useEffect(() => {
 		let isMounted = true;
 
-		const promiseSales = axios.get(`${REACT_APP_API_URL}/charts/sales`, BEARER())
-		const promiseUser = axios.get(`${REACT_APP_API_URL}/charts/user`, BEARER())
-		const promiseEarnings = axios.get(`${REACT_APP_API_URL}/charts/earnings`, BEARER())
+		const promiseSales = axios.get(`${REACT_APP_API}/charts/sales`, BEARER())
+		const promiseUser = axios.get(`${REACT_APP_API}/charts/user`, BEARER())
+		const promiseEarnings = axios.get(`${REACT_APP_API}/charts/earnings`, BEARER())
 
 		Promise.all([promiseSales, promiseUser, promiseEarnings])
 			.then(dataArray => {

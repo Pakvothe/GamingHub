@@ -8,7 +8,7 @@ import strings from './reset_steps/strings';
 import { ResetMain } from '../styles/styled_reset';
 import swals from './../../utils/swals';
 import { useRef } from 'react';
-const { REACT_APP_API_URL } = process.env;
+const { REACT_APP_API } = process.env;
 
 const Reset = () => {
 
@@ -34,7 +34,7 @@ const Reset = () => {
 		switch (_step) {
 			case 1:
 				setLoading(true);
-				axios.post(`${REACT_APP_API_URL}/users/reset/password`, { email: input })
+				axios.post(`${REACT_APP_API}/users/reset/password`, { email: input })
 					.then(res => {
 						if (res.data.ok) {
 							fireTick()
@@ -56,7 +56,7 @@ const Reset = () => {
 				break;
 			case 2:
 				setLoading(true);
-				axios.post(`${REACT_APP_API_URL}/users/reset/verification`, { email: data.email, reset_code: input.toString(), step: '1' })
+				axios.post(`${REACT_APP_API}/users/reset/verification`, { email: data.email, reset_code: input.toString(), step: '1' })
 					.then(res => {
 						if (res.data.ok) {
 							fireTick();
@@ -78,7 +78,7 @@ const Reset = () => {
 				break;
 			case 3:
 				setLoading(true);
-				axios.post(`${REACT_APP_API_URL}/users/reset/verification`, { email: data.email, reset_code: data.reset_code, step: '2', password: input })
+				axios.post(`${REACT_APP_API}/users/reset/verification`, { email: data.email, reset_code: data.reset_code, step: '2', password: input })
 					.then(res => {
 						if (res.data.ok) {
 							swals.CONFIRMOK(s.alertTitle, s.alertText)

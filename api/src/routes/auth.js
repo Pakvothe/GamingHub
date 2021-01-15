@@ -2,7 +2,7 @@ const server = require("express").Router();
 const { User } = require("../db.js");
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
-const { SECRET } = process.env;
+const { SECRET, FRONT } = process.env;
 const { isAuthenticated, isAdmin } = require('../../utils/customMiddlewares');
 
 server.get("/me", isAuthenticated, async (req, res, next) => {
@@ -88,7 +88,7 @@ server.get('/googleCallback',
 			},
 			SECRET
 		)
-		res.redirect(`${process.env.FRONT}?jwt=${token}`);
+		res.redirect(`${FRONT}/?jwt=${token}`);
 	});
 
 server.get("/facebook", passport.authenticate('facebook', {
@@ -111,7 +111,7 @@ server.get('/facebookCallback',
 			},
 			SECRET
 		)
-		res.redirect(`${process.env.FRONT}?jwt=${token}`);
+		res.redirect(`${FRONT}/?jwt=${token}`);
 	});
 
 module.exports = server;
