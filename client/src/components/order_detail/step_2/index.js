@@ -60,9 +60,9 @@ const Step2 = ({ language }) => {
 		setPayment(ev.target.value);
 	}
 
-	if (cart.length < 1) {
-		return <Redirect to='/' />
-	}
+	// if (cart.length < 1) {
+	// 	return <Redirect to='/' />
+	// }
 	return (
 		<>
 			<h2>{s.details}</h2>
