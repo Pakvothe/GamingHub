@@ -51,7 +51,7 @@ export const getOrder = (payload) => {
 
 export const addOrder = (payload) => {
 	return function (dispatch) {
-		return axios.post(`${REACT_APP_API}/orders`, payload, BEARER())
+		return axios.post(`${REACT_APP_API}/orders/${payload.payment_method}`, payload, BEARER())
 			.then(response => {
 				dispatch({
 					type: ADD_ORDER,

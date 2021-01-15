@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 import { NavbarStyled, StyledSVG } from '../styles/styled_navbar';
 import { Dropdown } from '../styles/styled_global';
@@ -27,7 +27,7 @@ import { getProductsPayload } from './../home_page/index';
 import swals from '../../utils/swals';
 
 const Navbar = ({ toggleModal, cartNumber }) => {
-
+	const history = useHistory();
 	const dispatch = useDispatch();
 	const language = useSelector(state => state.globalReducer.language);
 	const s = strings[language];
@@ -78,7 +78,9 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 						'success',
 						dispatch(logout())
 					)
+					history.push('/');
 				}
+
 			})
 	}
 
@@ -128,7 +130,7 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 												<li className='dropdown__first-name'><p>{user.first_name}</p></li>
 												<li><Link to='/user'>{s.profile}</Link></li>
 												{user.is_admin && <li><Link to='/admin'>{s.admin}</Link></li>}
-												<li><Link to="/" onClick={handleLogout}>{s.logout}</Link></li>
+												<li><button className="dropdown__button" onClick={handleLogout}>{s.logout}</button></li>
 											</>
 										) : (
 												<>
@@ -188,10 +190,10 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 								</ul>
 							</Dropdown>
 							<li>
-								<Link to='/'>{s.offer}</Link>
+								<Link to='/about'>{s.about}</Link>
 							</li>
 							<li>
-								<Link to='/about'>{s.about}</Link>
+								<Link to='/help'>{s.help}</Link>
 							</li>
 						</ul>
 					</div>

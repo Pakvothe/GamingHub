@@ -4,7 +4,6 @@ const strings = {
 		user: 'User',
 		cart: 'Cart',
 		categories: 'Categories',
-		offer: 'Offers',
 		about: 'About us',
 		theme: 'Theme',
 		logout_confirm: 'You are about to log out',
@@ -17,14 +16,14 @@ const strings = {
 		logout: 'Log Out',
 		admin: 'Administration Panel',
 		profile: 'Profile',
+		help: 'Contact us'
 	},
 	es: {
 		language: 'Idioma',
 		user: 'Usuario',
 		cart: 'Carrito',
 		categories: 'Categorías',
-		offer: 'Ofertas',
-		about: 'Conócenos',
+		about: 'Conocenos',
 		theme: 'Tema',
 		logout_confirm: 'Estás por cerrar sesión',
 		logout_confirm_text: '¿Seguro de que quieres hacerlo?',
@@ -37,6 +36,7 @@ const strings = {
 		logout: 'Cerrar sesión',
 		admin: 'Panel de administración',
 		profile: 'Perfil',
+		help: 'Contactanos'
 	}
 };
 
