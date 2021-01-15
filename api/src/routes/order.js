@@ -6,15 +6,15 @@ const mercadopago = require('mercadopago');
 const paypal = require('paypal-rest-sdk');
 const { toIsoStringOffset, delayedDays, sendMail } = require('../../utils/functions.js');
 const { mailOrderCompleted, mailOrderInProcess } = require('../../utils/mails');
-const { NGROK_LINK, MP_KEY, FRONT, BACK } = process.env;
+const { NGROK_LINK, MP_KEY, FRONT, BACK, PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET } = process.env;
 mercadopago.configure({
 	access_token: MP_KEY
 });
 
 paypal.configure({
 	'mode': 'sandbox', //sandbox or live
-	'client_id': 'AVeYMMLna52Rv9-1uIw3TGzGlNPco4klRBayFg_LG3dTpuWX8LfvIz6tJz3WBXDkh-xy47kjX2wjYm7i',
-	'client_secret': 'EFydCj0OOb5RA11v372v4L6t0XLYr9qDDYHi4PyG79uodbS-cjfZt6_bubU836mCuyX2jZg8AKQivpXh'
+	'client_id': PAYPAL_CLIENT_ID,
+	'client_secret': PAYPAL_CLIENT_SECRET
 });
 
 var webhooks = {
@@ -71,8 +71,8 @@ server.post('/paypal', async (req, res) => {
 				intent: "sale",
 				payer: { payment_method: "paypal" },
 				redirect_urls: {
-					return_url: "http://localhost:4000/orders/paypalRedirect",
-					cancel_url: "http://localhost:3000/"
+					return_url: `${BACK}/orders/paypalRedirect`,
+					cancel_url: FRONT
 				},
 				transactions: [{
 					item_list: { items },
@@ -89,8 +89,6 @@ server.post('/paypal', async (req, res) => {
 					console.log(error)
 					return res.status(500).json({ message: "Internal server error" })
 				} else {
-					console.log("Create Payment Response");
-					console.log(payment)
 					await updatedOrder.update({ paypal_id: payment.id, payment_link: payment.links[1].href });
 					mailOrderInProcess(updatedOrder);
 					return res.json(payment.links[1].href);
@@ -107,25 +105,24 @@ server.get('/paypalRedirect', async (req, res) => {
 	const payer_id = req.query.PayerID;
 	const paymentId = req.query.paymentId;
 	const order = await Order.findOne({ where: { paypal_id: paymentId }, include: [Product] });
-	const executePaymentJson = JSON.stringify({
-		payer_id,
-		transactions: [{
-			amount: {
-				currency: 'USD',
-				total: order.get().total_amount.toFixed(2)
-			}
-		}]
-	});
 	const fourDaysAgo = new Date(new Date() - 96 * 60 * 60 * 1000);
 	if (fourDaysAgo > order.createdAt) {
-		res.redirect('http://localhost:3000');
+		res.redirect(FRONT);
 	} else {
+		const executePaymentJson = JSON.stringify({
+			payer_id,
+			transactions: [{
+				amount: {
+					currency: 'USD',
+					total: order.get().total_amount.toFixed(2)
+				}
+			}]
+		});
 		paypal.payment.execute(paymentId, executePaymentJson, async function (error, payment) {
-			if (error) {
-				return res.redirect('http://localhost:3000');
-			} else {
+			if (error) return res.redirect(FRONT);
+			else {
 				if (payment.state === 'approved') {
-					const updatedOrder = await order.update({ state: 'completed', payment_link: null })
+					order.update({ state: 'completed', payment_link: null })
 					let serialsArray = [];
 					for (let prod of order.products) {
 						prod = prod.get();
@@ -151,8 +148,8 @@ server.get('/paypalRedirect', async (req, res) => {
 					}, [])
 
 					mailOrderCompleted(updatedOrder, productSerial);
-					return res.redirect(`http://localhost:3000/order/detail?status=${order.state}&order=${order.id}`)
-				} else return res.redirect('http://localhost:3000');
+					return res.redirect(`${FRONT}/order/detail?status=${order.state}&order=${order.id}`)
+				} else return res.redirect(FRONT);
 			}
 		})
 	}
@@ -160,22 +157,19 @@ server.get('/paypalRedirect', async (req, res) => {
 
 server.post('/paypalNotification', async (req, res) => {
 	res.sendStatus(200);
-	console.log(req.query)
-	console.log(req.body)
 	paypal.payment.get(req.body.resource.parent_payment, async (error, payment) => {
 		if (error) return console.log(error);
 		if (payment === 'approved') {
-			const order = await Order.findOne({ where: { paypal_id: payment.id }, include: [Product] })
+			const order = await Order.findOne({ where: { paypal_id: payment.id }, include: [Product] });
 			if (order.state === 'completed') return;
 			else {
 				const fourDaysAgo = new Date(new Date() - 96 * 60 * 60 * 1000);
-				if (fourDaysAgo > order.createdAt) {
+				if (fourDaysAgo < order.createdAt) {
 					paypal.payment.execute(paymentId, executePaymentJson, async function (error, payment) {
-						if (error) {
-							return res.redirect('http://localhost:3000');
-						} else {
+						if (error) return console.log(error);
+						else {
 							if (payment.state === 'approved') {
-								const updatedOrder = await order.update({ state: 'completed', payment_link: null })
+								order.update({ state: 'completed', payment_link: null })
 								let serialsArray = [];
 								for (let prod of order.products) {
 									prod = prod.get();
@@ -201,7 +195,6 @@ server.post('/paypalNotification', async (req, res) => {
 								}, [])
 
 								mailOrderCompleted(updatedOrder, productSerial);
-								return res.redirect(`http://localhost:3000/order/detail?status=${order.state}&order=${order.id}`)
 							}
 						}
 					})
