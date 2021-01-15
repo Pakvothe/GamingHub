@@ -23,20 +23,21 @@ const Step3 = ({ language }) => {
 					queryParams.status === 'completed' &&
 					<div className="step__info">
 						<i className="far fa-smile-beam step__icon"></i>
-						<p>Tu compra ha sido realizada con exito</p>
-						<p>Tu numero de orden es <span>{queryParams.order.padStart(4, 0)}</span></p>
+						<p>{s.successInfo}</p>
+						<p>{s.successOrder} <span>{queryParams.order.padStart(4, 0)}</span></p>
 					</div>
 				)
 				||
 				(
 					<div className="step__info">
 						<i className="far fa-sad-tear step__icon"></i>
-						<p>Ocurrio un error</p>
-						<p>Por favor vuelve a intentarlo mas tarde</p>
+						<p>{s.err}</p>
+						<p>{s.errText}</p>
+						<p>{s.errInfo}</p>
 					</div>
 				)
 			}
-			<Btn className="btn btn-ppal mt-1" onClick={() => history.push('/')}>Seguir comprando</Btn>
+			<Btn className="btn btn-ppal mt-1" onClick={() => history.push('/')}>{s.btn}</Btn>
 		</StepThree>
 	)
 }
