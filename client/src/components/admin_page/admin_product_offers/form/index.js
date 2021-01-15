@@ -8,7 +8,7 @@ import { useToasts } from 'react-toast-notifications';
 import { getProduct, addDiscount } from './../../../../redux/actions/products_actions';
 import Swal from 'sweetalert2';
 import { storage } from '../../../../firebase';
-import { uuidv4 } from 'uuidv4';
+import { v4 as uuidv4 } from 'uuid';
 
 const AdminProductOfferForm = () => {
 	const { id } = useParams();
