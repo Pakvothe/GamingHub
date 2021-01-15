@@ -6,7 +6,8 @@ const mercadopago = require('mercadopago');
 const paypal = require('paypal-rest-sdk');
 const { toIsoStringOffset, delayedDays, sendMail } = require('../../utils/functions.js');
 const { mailOrderCompleted, mailOrderInProcess } = require('../../utils/mails');
-const { NGROK_LINK, MP_KEY, FRONT, BACK, PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET } = process.env;
+const { NGROK_LINK, MP_KEY, FRONT, BACK, PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET, EXCHANGE_APP_ID } = process.env;
+const axios = require('axios');
 mercadopago.configure({
 	access_token: MP_KEY
 });
@@ -61,16 +62,16 @@ server.post('/paypal', async (req, res) => {
 			]
 		}))
 		.then(async updatedOrder => {
+			const pesosExchange = (await axios.get(`https://openexchangerates.org/api/latest.json?app_id=${EXCHANGE_APP_ID}`)).data.rates.ARS
 			const items = products.map(item => ({
 				name: item.name,
 				price: updatedOrder.discount ?
-					(item.price * (1 - (updatedOrder.discount / 100))).toFixed(2)
+					(item.price * (1 - (updatedOrder.discount / 100)) / pesosExchange).toFixed(2)
 					:
-					item.price.toFixed(2),
+					(item.price / pesosExchange).toFixed(2),
 				quantity: item.quantity,
 				currency: 'USD'
 			}))
-			console.log(items[0]);
 			const order = JSON.stringify({
 				intent: "sale",
 				payer: { payment_method: "paypal" },
@@ -82,7 +83,7 @@ server.post('/paypal', async (req, res) => {
 					item_list: { items },
 					amount: {
 						currency: "USD",
-						total: req.body.total_amount.toFixed(2)
+						total: (req.body.total_amount / pesosExchange).toFixed(2)
 					},
 					description: "Gaminghub"
 				}]
@@ -93,7 +94,7 @@ server.post('/paypal', async (req, res) => {
 					console.log('SOY UN ERROR DE PAYPAL', error.response.details)
 					return res.status(500).json({ message: "Internal server error" })
 				} else {
-					const updatedTwo = await updatedOrder.update({ paypal_id: payment.id, payment_link: payment.links[1].href });
+					const updatedTwo = await updatedOrder.update({ paypal_id: payment.id, payment_link: payment.links[1].href, exchange: pesosExchange });
 					mailOrderInProcess(updatedTwo);
 					return res.json(payment.links[1].href);
 				}
@@ -118,7 +119,7 @@ server.get('/paypalRedirect', async (req, res) => {
 			transactions: [{
 				amount: {
 					currency: 'USD',
-					total: order.get().total_amount.toFixed(2)
+					total: (order.total_amount / order.exchange).toFixed(2)
 				}
 			}]
 		});
@@ -169,6 +170,15 @@ server.post('/paypalNotifications', async (req, res) => {
 			else {
 				const fourDaysAgo = new Date(new Date() - 96 * 60 * 60 * 1000);
 				if (fourDaysAgo < order.createdAt) {
+					const executePaymentJson = JSON.stringify({
+						payer_id,
+						transactions: [{
+							amount: {
+								currency: 'USD',
+								total: (order.total_amount / order.exchange).toFixed(2)
+							}
+						}]
+					});
 					paypal.payment.execute(paymentId, executePaymentJson, async function (error, payment) {
 						if (error) return console.log(error);
 						else {
