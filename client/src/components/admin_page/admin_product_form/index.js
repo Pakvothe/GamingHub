@@ -46,19 +46,19 @@ const AdminProductForm = ({ categories }) => {
 			setToAdmin(true);
 		}
 	}, [
-		// input.img,
-		// addToast,
-		// dispatch,
-		// id,
-		// imagesAsFile,
-		// input,
-		// s.toastProductAdded,
-		// s.toastProductEdited
+		input.img,
+		addToast,
+		dispatch,
+		id,
+		imagesAsFile.length,
+		input,
+		s.toastProductAdded,
+		s.toastProductEdited
 	]);
 
 	useEffect(() => {
 		if (id) dispatch(getProduct(id));
-	}, []);
+	}, [dispatch, id]);
 
 	useEffect(() => {
 		if (id && Object.keys(product).length) {
@@ -78,7 +78,7 @@ const AdminProductForm = ({ categories }) => {
 				categories: newCategories
 			})
 		}
-	}, [product]);
+	}, [product, id]);
 
 	const handleInput = (ev) => {
 		ev.persist();
@@ -151,6 +151,7 @@ const AdminProductForm = ({ categories }) => {
 							}))
 						})
 				})
+			return undefined;
 		})
 	}
 
@@ -207,7 +208,7 @@ const AdminProductForm = ({ categories }) => {
 								product.images.map(image =>
 									<div className='image_thumbnail'>
 										<span className='delete__image'>{s.inputDeleteImage}</span>
-										<img src={image.url} width='100px' key={image.id} onClick={() => {
+										<img src={image.url} width='100px' alt={product.name} key={image.id} onClick={() => {
 											Swal.fire(swalDeleteImg).then((result) => {
 												if (result.isConfirmed) {
 													Swal.fire(

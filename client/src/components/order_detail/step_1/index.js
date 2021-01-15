@@ -18,7 +18,6 @@ const Step1 = ({ cart, language }) => {
 	const dispatch = useDispatch();
 
 	const theme = useSelector(state => state.globalReducer.theme);
-	const order = useSelector(state => state.ordersReducer.order.info);
 
 	const [total, setTotal] = useState(0.00);
 	const [subtotal, setSubtotal] = useState(0.00);

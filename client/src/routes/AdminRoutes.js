@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Route, useHistory, Redirect } from 'react-router-dom';
+import { Route, useHistory } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { getProducts, getDiscounts } from '../redux/actions/products_actions';
@@ -39,7 +39,7 @@ function AdminRoutes() {
 
 	useEffect(() => {
 		if (!JSON.parse(localStorage.getItem('jwt'))) history.push('/');
-	}, []);
+	}, [history]);
 
 	useEffect(() => {
 		if (user.is_admin === false) return history.push('/');
@@ -50,7 +50,7 @@ function AdminRoutes() {
 			dispatch(getOrders({ all: true }));
 			dispatch(getUsers());
 		}
-	}, [user]);
+	}, [user, dispatch, history]);
 
 
 	if (userLoading) return <StyledLoader

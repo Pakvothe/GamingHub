@@ -6,7 +6,7 @@ import { FormStyled, Btn } from '../styles/styled_global';
 import strings from './strings';
 import { storage } from '../../firebase/';
 import Swal from 'sweetalert2';
-import { uuidv4 } from '../../utils/constants';
+import { uuidv4 } from 'uuidv4';
 import queryString from 'query-string';
 
 const SignUp = () => {

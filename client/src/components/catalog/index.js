@@ -31,7 +31,7 @@ const Catalog = ({ products, isLoading, error, language, handlePageChange }) => 
 					{products && products.map(product => {
 						if (product.is_active) {
 							return <ProductCard language={language} game={product} key={product.id} />
-						}
+						} return null;
 					})}
 				</CatalogStyled>
 				<PaginationStyled>
