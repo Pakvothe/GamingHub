@@ -27,8 +27,8 @@ const AboutUs = () => {
 							<img src='https://img.unocero.com/2020/07/Super-Mario-Bros-verdadera-nacionalidad.jpg' />
 						</div>
 						<div className='about_social'>
-							<a href='https://www.linkedin.com/in/ignacio-contreras/' target='_blank' rel='noreferrer'><i className="fab fa-linkedin-in"></i></a>
-							<a href='https://github.com/nc-devw' target='_blank' rel='noreferrer'><i className="fab fa-github"></i></a>
+							<a href='https://www.linkedin.com/in/ignacio-contreras/' target='_blank' rel='noopener noreferrer'><i className="fab fa-linkedin-in"></i></a>
+							<a href='https://github.com/nc-devw' target='_blank' rel='noopener noreferrer'><i className="fab fa-github"></i></a>
 						</div>
 					</div>
 					<div className='about_coder'>
@@ -37,8 +37,8 @@ const AboutUs = () => {
 							<img src='https://img.unocero.com/2020/07/Super-Mario-Bros-verdadera-nacionalidad.jpg' />
 						</div>
 						<div className='about_social'>
-							<a href='https://www.linkedin.com/in/emiliano-alfonso/' target='_blank' rel='noreferrer'><i className="fab fa-linkedin-in"></i></a>
-							<a href='https://github.com/Aglowkeys' target='_blank' rel='noreferrer'><i className="fab fa-github"></i></a>
+							<a href='https://www.linkedin.com/in/emiliano-alfonso/' target='_blank' rel='noopener noreferrer'><i className="fab fa-linkedin-in"></i></a>
+							<a href='https://github.com/Aglowkeys' target='_blank' rel='noopener noreferrer'><i className="fab fa-github"></i></a>
 						</div>
 					</div>
 					<div className='about_coder'>
@@ -47,8 +47,8 @@ const AboutUs = () => {
 							<img src='https://img.unocero.com/2020/07/Super-Mario-Bros-verdadera-nacionalidad.jpg' />
 						</div>
 						<div className='about_social'>
-							<a href='https://github.com/Pakvothe' target='_blank' rel='noreferrer'><i className="fab fa-linkedin-in"></i></a>
-							<a href='https://www.linkedin.com/in/franco-david-ortiz/' target='_blank' rel='noreferrer'><i className="fab fa-github"></i></a>
+							<a href='https://github.com/Pakvothe' target='_blank' rel='noopener noreferrer'><i className="fab fa-linkedin-in"></i></a>
+							<a href='https://www.linkedin.com/in/franco-david-ortiz/' target='_blank' rel='noopener noreferrer'><i className="fab fa-github"></i></a>
 						</div>
 					</div>
 					<div className='about_coder'>
@@ -57,8 +57,8 @@ const AboutUs = () => {
 							<img src='https://img.unocero.com/2020/07/Super-Mario-Bros-verdadera-nacionalidad.jpg' />
 						</div>
 						<div className='about_social'>
-							<a href='https://www.linkedin.com/in/franco-fiori-fullstack/' target='_blank' rel='noreferrer'><i className="fab fa-linkedin-in"></i></a>
-							<a href='https://github.com/franfiori29' target='_blank' rel='noreferrer'><i className="fab fa-github"></i></a>
+							<a href='https://www.linkedin.com/in/franco-fiori-fullstack/' target='_blank' rel='noopener noreferrer'><i className="fab fa-linkedin-in"></i></a>
+							<a href='https://github.com/franfiori29' target='_blank' rel='noopener noreferrer'><i className="fab fa-github"></i></a>
 						</div>
 					</div>
 					<div className='about_coder'>
@@ -67,8 +67,8 @@ const AboutUs = () => {
 							<img src='https://img.unocero.com/2020/07/Super-Mario-Bros-verdadera-nacionalidad.jpg' />
 						</div>
 						<div className='about_social'>
-							<a href='https://www.linkedin.com/in/martin-sanchez-6973121b7/' target='_blank' rel='noreferrer'><i className="fab fa-linkedin-in"></i></a>
-							<a href='https://github.com/tinsanchez00' target='_blank' rel='noreferrer'><i className="fab fa-github"></i></a>
+							<a href='https://www.linkedin.com/in/martin-sanchez-6973121b7/' target='_blank' rel='noopener noreferrer'><i className="fab fa-linkedin-in"></i></a>
+							<a href='https://github.com/tinsanchez00' target='_blank' rel='noopener noreferrer'><i className="fab fa-github"></i></a>
 						</div>
 					</div>
 				</div>

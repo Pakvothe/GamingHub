@@ -39,14 +39,22 @@ const AdminProductForm = ({ categories }) => {
 		is_active: true,
 		categories: {}
 	});
-
 	useEffect(() => {
 		if (input.img.length === imagesAsFile.length && input.img.length > 0) {
 			id ? dispatch(editProduct(input)) : dispatch(addProduct(input));
 			addToast(id ? s.toastProductEdited : s.toastProductAdded, { appearance: 'success' })
 			setToAdmin(true);
 		}
-	}, [input.img]);
+	}, [
+		// input.img,
+		// addToast,
+		// dispatch,
+		// id,
+		// imagesAsFile,
+		// input,
+		// s.toastProductAdded,
+		// s.toastProductEdited
+	]);
 
 	useEffect(() => {
 		if (id) dispatch(getProduct(id));

@@ -53,8 +53,7 @@ function HomeRoutes() {
 		if (!categories.length) {
 			dispatch(getCategories());
 		}
-
-	}, [])
+	}, [dispatch, categories, products])
 
 	return (
 		<>

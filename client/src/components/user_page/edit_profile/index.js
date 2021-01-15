@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { FormStyled, Btn, Flex, Hr } from '../../styles/styled_global';
 import { editUser, deleteUser } from '../../../redux/actions/users_actions';
-import Swal from 'sweetalert2';
 import { useHistory } from 'react-router-dom';
 import strings from './strings'
 import { useToasts } from 'react-toast-notifications';

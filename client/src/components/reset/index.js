@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React from 'react'
-import Reset_steps from './reset_steps/index';
+import ResetSteps from './reset_steps/index';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -101,7 +101,7 @@ const Reset = () => {
 		<>
 			<ResetMain>
 				<h2>{s.title}</h2>
-				<Reset_steps handleSubmit={handleSubmits} step={data.step} language={language} loading={loading} buttonRef={buttonRef} />
+				<ResetSteps handleSubmit={handleSubmits} step={data.step} language={language} loading={loading} buttonRef={buttonRef} />
 			</ResetMain>
 		</>
 	)
