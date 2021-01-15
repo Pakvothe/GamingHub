@@ -12,92 +12,205 @@ mercadopago.configure({
 	access_token: MP_KEY
 });
 
+paypal.configure({
+	'mode': 'sandbox', //sandbox or live
+	'client_id': 'AVeYMMLna52Rv9-1uIw3TGzGlNPco4klRBayFg_LG3dTpuWX8LfvIz6tJz3WBXDkh-xy47kjX2wjYm7i',
+	'client_secret': 'EFydCj0OOb5RA11v372v4L6t0XLYr9qDDYHi4PyG79uodbS-cjfZt6_bubU836mCuyX2jZg8AKQivpXh'
+});
+
+var webhooks = {
+	"url": NGROK_LINK + '/orders/paypalNotification',
+	"event_types": [{
+		"name": "PAYMENT.SALE.COMPLETED"
+	}]
+};
+
+paypal.notification.webhook.create(webhooks, function (err, webhook) {
+	if (err) {
+		console.log(err.response);
+	} else {
+		console.log("Created webhook");
+		console.log(webhook);
+	}
+});
+
 //----------"/orders"--------------
-server.get('/paypalRedirect', (req, res) => {
-
-	// paypal.configure({
-	// 	'mode': 'sandbox', //sandbox or live
-	// 	'client_id': 'AVeYMMLna52Rv9-1uIw3TGzGlNPco4klRBayFg_LG3dTpuWX8LfvIz6tJz3WBXDkh-xy47kjX2wjYm7i',
-	// 	'client_secret': 'EFydCj0OOb5RA11v372v4L6t0XLYr9qDDYHi4PyG79uodbS-cjfZt6_bubU836mCuyX2jZg8AKQivpXh'
-	// });
-	// const payer_id = req.query.PayerID;
-	// const paymentId = req.query.paymentId;
-	// const executePaymentJson = JSON.stringify({
-	// 	payer_id,
-	// 	transactions: [{
-	// 		amount: {
-	// 			currency: 'USD',
-	// 			total: '8.00'
-	// 		}
-	// 	}]
-	// })
-	// paypal.payment.execute(paymentId, executePaymentJson, function (error, payment) {
-	// 	if (error) {
-	// 		console.log(error.response.details.map(el => console.log(el)))
-	// 	} else {
-	// 		console.log(payment)
-	// 	}
-	// })
-	res.redirect('http://localhost:3000')
-})
-
 
 server.post('/paypal', async (req, res) => {
-	res.json('ok')
-	paypal.configure({
-		'mode': 'sandbox', //sandbox or live
-		'client_id': 'AVeYMMLna52Rv9-1uIw3TGzGlNPco4klRBayFg_LG3dTpuWX8LfvIz6tJz3WBXDkh-xy47kjX2wjYm7i',
-		'client_secret': 'EFydCj0OOb5RA11v372v4L6t0XLYr9qDDYHi4PyG79uodbS-cjfZt6_bubU836mCuyX2jZg8AKQivpXh'
-	});
+	const order = req.body;
+	const { products } = order;
+	delete order.products;
 
-	const order = JSON.stringify({
-		intent: "sale",
-		payer: {
-			payment_method: "paypal"
-		},
-		redirect_urls: {
-			return_url: "http://localhost:4000/orders/paypalRedirect",
-			cancel_url: "http://localhost:3000/"
-		},
-		transactions: [{
-			item_list: {
-				items: [{
-					name: "Diablo 2",
-					sku: "item",
-					price: 2,
-					currency: "USD",
-					quantity: 3
-				}, {
-					name: "WOW",
-					sku: "item",
-					price: 2,
-					currency: "USD",
-					quantity: 1
+	let idOrder;
+	Order.create(order)
+		.then(createdOrder => {
+			idOrder = createdOrder.id;
+			let formattedProducts = products.map(prod => {
+				return {
+					productId: prod.id,
+					orderId: idOrder,
+					unit_price: prod.price,
+					quantity: prod.quantity
+				}
+			});
+			return Orders_products.bulkCreate(formattedProducts, { individualHooks: true })
+		})
+		.then(() => Order.findOne({
+			where: { id: idOrder },
+			include: [
+				Product
+			]
+		}))
+		.then(async updatedOrder => {
+			const items = products.map(item => ({
+				name: item.name,
+				price: item.price.toFixed(2),
+				quantity: item.quantity,
+				currency: 'USD'
+			}))
+			const order = JSON.stringify({
+				intent: "sale",
+				payer: { payment_method: "paypal" },
+				redirect_urls: {
+					return_url: "http://localhost:4000/orders/paypalRedirect",
+					cancel_url: "http://localhost:3000/"
+				},
+				transactions: [{
+					item_list: { items },
+					amount: {
+						currency: "USD",
+						total: req.body.total_amount.toFixed(2)
+					},
+					description: "Gaminghub"
 				}]
-			},
-			amount: {
-				currency: "USD",
-				total: 8
-			},
-			description: "This is the payment description."
-		}]
-	})
+			})
 
-	paypal.payment.create(order, function (error, payment) {
-		if (error) {
-			throw error;
-		} else {
-			console.log("Create Payment Response");
-			console.log(payment);
-		}
-	})
+			paypal.payment.create(order, async function (error, payment) {
+				if (error) {
+					console.log(error)
+					return res.status(500).json({ message: "Internal server error" })
+				} else {
+					console.log("Create Payment Response");
+					console.log(payment)
+					await updatedOrder.update({ paypal_id: payment.id, payment_link: payment.links[1].href });
+					mailOrderInProcess(updatedOrder);
+					return res.json(payment.links[1].href);
+				}
+			})
+		})
+		.catch((err) => {
+			console.log(err);
+			return res.status(500).json({ message: "Internal server error" })
+		})
 });
-server.post('/paypalNotification', (req, res) => {
-	res.sendStatus(200)
-	console.log(req.body)
-})
 
-server.get('/paypalNotification', (req, res) => { console.log('si get'); res.send('ok') })
+server.get('/paypalRedirect', async (req, res) => {
+	const payer_id = req.query.PayerID;
+	const paymentId = req.query.paymentId;
+	const order = await Order.findOne({ where: { paypal_id: paymentId }, include: [Product] });
+	const executePaymentJson = JSON.stringify({
+		payer_id,
+		transactions: [{
+			amount: {
+				currency: 'USD',
+				total: order.get().total_amount.toFixed(2)
+			}
+		}]
+	});
+	const fourDaysAgo = new Date(new Date() - 96 * 60 * 60 * 1000);
+	if (fourDaysAgo > order.createdAt) {
+		res.redirect('http://localhost:3000');
+	} else {
+		paypal.payment.execute(paymentId, executePaymentJson, async function (error, payment) {
+			if (error) {
+				return res.redirect('http://localhost:3000');
+			} else {
+				if (payment.state === 'approved') {
+					const updatedOrder = await order.update({ state: 'completed', payment_link: null })
+					let serialsArray = [];
+					for (let prod of order.products) {
+						prod = prod.get();
+						serialsArray.push(await Serial.findAll({
+							where: { productId: prod.id },
+							limit: prod.orders_products.quantity,
+							raw: true
+						}))
+					}
+					let serialsToInactive = serialsArray.reduce((acc, ser) => {
+						ser.map(s => acc.push(s.serial))
+						return acc;
+					}, []);
+
+					await Serial.update({ is_active: false }, {
+						where: { serial: serialsToInactive },
+						individualHooks: true
+					});
+
+					const productSerial = serialsArray.reduce((acc, ser) => {
+						ser.map(s => acc.push({ serial: s.serial, productId: s.productId }))
+						return acc;
+					}, [])
+
+					mailOrderCompleted(updatedOrder, productSerial);
+					return res.redirect(`http://localhost:3000/order/detail?status=${order.state}&order=${order.id}`)
+				} else return res.redirect('http://localhost:3000');
+			}
+		})
+	}
+});
+
+server.post('/paypalNotification', async (req, res) => {
+	res.sendStatus(200);
+	console.log(req.query)
+	console.log(req.body)
+	paypal.payment.get(req.body.resource.parent_payment, async (error, payment) => {
+		if (error) return console.log(error);
+		if (payment === 'approved') {
+			const order = await Order.findOne({ where: { paypal_id: payment.id }, include: [Product] })
+			if (order.state === 'completed') return;
+			else {
+				const fourDaysAgo = new Date(new Date() - 96 * 60 * 60 * 1000);
+				if (fourDaysAgo > order.createdAt) {
+					paypal.payment.execute(paymentId, executePaymentJson, async function (error, payment) {
+						if (error) {
+							return res.redirect('http://localhost:3000');
+						} else {
+							if (payment.state === 'approved') {
+								const updatedOrder = await order.update({ state: 'completed', payment_link: null })
+								let serialsArray = [];
+								for (let prod of order.products) {
+									prod = prod.get();
+									serialsArray.push(await Serial.findAll({
+										where: { productId: prod.id },
+										limit: prod.orders_products.quantity,
+										raw: true
+									}))
+								}
+								let serialsToInactive = serialsArray.reduce((acc, ser) => {
+									ser.map(s => acc.push(s.serial))
+									return acc;
+								}, []);
+
+								await Serial.update({ is_active: false }, {
+									where: { serial: serialsToInactive },
+									individualHooks: true
+								});
+
+								const productSerial = serialsArray.reduce((acc, ser) => {
+									ser.map(s => acc.push({ serial: s.serial, productId: s.productId }))
+									return acc;
+								}, [])
+
+								mailOrderCompleted(updatedOrder, productSerial);
+								return res.redirect(`http://localhost:3000/order/detail?status=${order.state}&order=${order.id}`)
+							}
+						}
+					})
+				}
+			}
+		}
+	});
+});
 
 server.post('/', async (req, res) => {
 	const order = req.body;
