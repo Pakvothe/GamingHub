@@ -1,21 +1,22 @@
 const { sendMail } = require('../functions.js');
 const pug = require('pug');
 const path = require('path');
+const { FRONT } = process.env;
 
-const mailOrderCompleted = async (data) => {
+const mailOrderCompleted = async (data, serials) => {
 	const language = data.language;
 	const strings = {
 		en: {
 			subject: 'Successful purchase - Order number',
 			appreciate: 'Thanks for your purchase',
-			text: 'Your payment has been processed successfully. Here are the details of your order:',
+			text: 'Your payment has been processed successfully. Below we attach the serials of each game you bought. Don\'t lose them',
 			reviewText: 'Give us a review',
 			slogan: 'Press start and you have fun!'
 		},
 		es: {
 			subject: 'Compra realizada con exito - Nº de orden',
 			appreciate: 'Gracias por tu compra',
-			text: 'Se ha procesado tu pago exitosamente. A continuación adjuntamos los detalles de tu orden:',
+			text: 'Se ha procesado tu pago exitosamente. A continuación adjuntamos los serials de cada juego que compraste. No los pierdas',
 			reviewText: 'Dejar una reseña',
 			slogan: 'Presiona start y a divertirse!'
 		}
@@ -23,8 +24,8 @@ const mailOrderCompleted = async (data) => {
 
 	let mailOptions = {
 		from: '"Gaming Hub" <soygaminghub@gmail.com>',
-		to: data.email, // list of receivers
-		subject: `${strings[language].subject} ${data.id}`, // Subject line
+		to: data.email,
+		subject: `${strings[language].subject} ${data.id}`,
 		attachments: [{
 			filename: 'logo-dual.png',
 			path: __dirname + '/../../src/assets/img/logo-dual.png',
@@ -32,7 +33,10 @@ const mailOrderCompleted = async (data) => {
 		}],
 		html: pug.renderFile(path.join((__dirname), 'mailOrdersCompleted.pug'), {
 			strings: strings[language],
-			games: data.products
+			games: data.products,
+			linkReview: `${FRONT}orders/${data.id}`,
+			userId: data.userId,
+			serials: serials
 		}),
 	}
 

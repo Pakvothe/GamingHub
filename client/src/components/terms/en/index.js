@@ -6,7 +6,7 @@ const TermsEN = () => {
 		<>
 			<section>
 				<h3>Introduction</h3>
-				<p>These Website Standard Terms and Conditions written on this webpage shall manage your use of our website, GamingHUB accessible at http://soygaminghub.heroku.com.</p>
+				<p>These Website Standard Terms and Conditions written on this webpage shall manage your use of our website, GamingHUB accessible at https://ecommerce-ft07-g07.vercel.app/</p>
 				<p>These Terms will be applied fully and affect to your use of this Website. By using this Website, you agreed to accept all terms and conditions written in here. You must not use this Website if you disagree with any of these Website Standard Terms and Conditions. These Terms and Conditions have been generated with the help of the Terms And Conditiions Sample and the Privacy Policy Generator.</p>
 				<p>Minors or people below 18 years old are not allowed to use this Website.</p>
 			</section>
@@ -57,7 +57,7 @@ const TermsEN = () => {
 			</section>
 
 			<footer>
-				<p>This Terms and Conditions page was created by using <a href="https://www.termsandcondiitionssample.com/" target='_blank' rel='noreferrer'>Terms And Conditions Sample</a>.</p>
+				<p>This Terms and Conditions page was created by using <a href="https://www.termsandcondiitionssample.com/" target='_blank' rel='noopener noreferrer'>Terms And Conditions Sample</a>.</p>
 			</footer>
 		</>
 

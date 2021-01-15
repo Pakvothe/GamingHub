@@ -22,6 +22,10 @@ const delayedDays = function (date, num) {
 	return new Date(date.getTime() + (86400000 * num));
 }
 
+const previousDays = function (date, num) {
+	return new Date(date.getTime() - (86400000 * num));
+}
+
 const sendMail = (options) => {
 	let transporter = nodemailer.createTransport(smtpTransport({
 		service: 'gmail',
@@ -41,4 +45,4 @@ const sendMail = (options) => {
 	});
 }
 
-module.exports = { toIsoStringOffset, delayedDays, sendMail }
+module.exports = { toIsoStringOffset, delayedDays, previousDays, sendMail }

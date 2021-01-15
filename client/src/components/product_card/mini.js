@@ -44,7 +44,7 @@ const Mini = ({ productDetail }) => {
 		<Fade duration={300} when={effect}>
 			<MiniCard key={productDetail.id}>
 				<div className='article__img'>
-					<img src={productDetail.images[0].url} />
+					<img src={productDetail.images[0].url} alt={productDetail.name} />
 				</div>
 				<div className='article__info'>
 					<Link to={`/products/${productDetail.id}`} onClick={() => dispatch(toggleCart())}>

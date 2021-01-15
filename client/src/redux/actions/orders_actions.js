@@ -11,13 +11,13 @@ import {
 	QUERY_FUNCTION
 } from '../constants';
 
-const { REACT_APP_API_URL } = process.env;
+const { REACT_APP_API } = process.env;
 
 export const getOrders = (payload = {}) => {
 
 	return function (dispatch) {
 		dispatch({ type: LOADING_ORDERS });
-		return axios.get(`${REACT_APP_API_URL}/orders${QUERY_FUNCTION(payload)}`, BEARER())
+		return axios.get(`${REACT_APP_API}/orders${QUERY_FUNCTION(payload)}`, BEARER())
 			.then(product => {
 				dispatch({
 					type: GET_ORDERS,
@@ -34,7 +34,7 @@ export const getOrders = (payload = {}) => {
 export const getOrder = (payload, queries = '') => {
 	return function (dispatch) {
 		dispatch({ type: LOADING_ORDER });
-		return axios.get(`${REACT_APP_API_URL}/orders/${payload}${queries}`, BEARER())
+		return axios.get(`${REACT_APP_API}/orders/${payload}${queries}`, BEARER())
 			.then(product => {
 				dispatch({
 					type: GET_ORDER,
@@ -51,13 +51,22 @@ export const getOrder = (payload, queries = '') => {
 
 export const addOrder = (payload) => {
 	return function (dispatch) {
-		return axios.post(`${REACT_APP_API_URL}/orders`, payload, BEARER())
+		return axios.post(`${REACT_APP_API}/orders/${payload.payment_method}`, payload, BEARER())
 			.then(response => {
 				dispatch({
 					type: ADD_ORDER,
 					payload: response.data
 				})
 				window.location = response.data;
+			})
+	}
+}
+
+export const changeStatusOrder = (payload) => {
+	return function (dispatch) {
+		return axios.put(`${REACT_APP_API}/orders/${payload.id}`, payload.body, BEARER())
+			.then(() => {
+				dispatch(getOrders({ all: true }));
 			})
 	}
 }

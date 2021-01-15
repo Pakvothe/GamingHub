@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Route, useHistory, Redirect } from 'react-router-dom';
+import { Route, useHistory } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { getProducts, getDiscounts } from '../redux/actions/products_actions';
@@ -21,6 +21,7 @@ import AdminUserList from './../components/admin_page/admin_user_list';
 import AdminOrderDetail from './../components/admin_page/admin_order_detail/index';
 import AdminProductOfferList from './../components/admin_page/admin_product_offers/list';
 import AdminProductOfferForm from './../components/admin_page/admin_product_offers/form/';
+import AdminCharts from '../components/admin_page/admin_charts';
 
 
 function AdminRoutes() {
@@ -38,7 +39,7 @@ function AdminRoutes() {
 
 	useEffect(() => {
 		if (!JSON.parse(localStorage.getItem('jwt'))) history.push('/');
-	}, []);
+	}, [history]);
 
 	useEffect(() => {
 		if (user.is_admin === false) return history.push('/');
@@ -49,7 +50,7 @@ function AdminRoutes() {
 			dispatch(getOrders({ all: true }));
 			dispatch(getUsers());
 		}
-	}, [user]);
+	}, [user, dispatch, history]);
 
 
 	if (userLoading) return <StyledLoader
@@ -64,7 +65,8 @@ function AdminRoutes() {
 		<>
 			<AdminSideBar />
 			<main className="admin-main-container">
-				<Route exact path='/admin' render={() => <AdminProductList products={products} />} />
+				<Route exact path='/admin' render={() => <AdminCharts />} />
+				<Route exact path='/admin/products' render={() => <AdminProductList products={products} />} />
 				<Route exact path='/admin/product' render={() => <AdminProductForm categories={categories} />} />
 				<Route exact path='/admin/product/:id' render={() => <AdminProductForm categories={categories} />} />
 				<Route exact path='/admin/product/:id/stock' render={() => <AdminProductStockList categories={categories} />} />

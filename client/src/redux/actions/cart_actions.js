@@ -1,8 +1,6 @@
 import axios from 'axios';
 import {
 	SET_CART,
-	ADD_UNIT_ITEM_CART,
-	REMOVE_UNIT_ITEM_CART,
 	ADD_ITEM_CART,
 	DELETE_ITEM_CART,
 	CLEAR_CART,
@@ -17,7 +15,7 @@ import { firestore } from '../../firebase/';
 // import firebase from 'firebase/app';
 import 'firebase/firestore';
 import jwt_decode from "jwt-decode";
-const { REACT_APP_API_URL } = process.env;
+const { REACT_APP_API } = process.env;
 
 export const setCart = () => {
 	const cart = JSON.parse(localStorage.getItem('cart'));
@@ -32,7 +30,7 @@ export const setCart = () => {
 
 	return function (dispatch) {
 		dispatch({ type: LOADING_CART })
-		return axios.post(`${REACT_APP_API_URL}/products/cart`, {
+		return axios.post(`${REACT_APP_API}/products/cart`, {
 			arrayProducts: keys
 		})
 			.then((products) => {

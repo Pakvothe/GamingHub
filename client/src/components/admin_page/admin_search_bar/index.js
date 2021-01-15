@@ -29,7 +29,7 @@ const SearchBar = () => {
 		<FormSearchBar onSubmit={handleSubmit}>
 			<input onChange={handleChange} type="text" placeholder={strings["es"].placeholder} />
 			<button>
-				<img src={loupe} />
+				<img alt='loupe' src={loupe} />
 			</button>
 		</FormSearchBar>
 	)

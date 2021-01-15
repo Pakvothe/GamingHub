@@ -26,13 +26,17 @@ module.exports = (sequelize) => {
 		},
 		state: {
 			type: D.ENUM('created', 'processing', 'completed', 'canceled'),
+			defaultValue: 'created',
 			allowNull: false
 		},
 		payment_method: {
-			type: D.ENUM('mp'),
+			type: D.ENUM('mp', 'paypal'),
 			allowNull: false
 		},
 		mp_id: {
+			type: D.STRING,
+		},
+		paypal_id: {
 			type: D.STRING,
 		},
 		payment_link: {

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 /* --- Components --- */
@@ -6,7 +6,6 @@ import Catalog from '../catalog'
 
 /* --- Actions --- */
 import { getFilterProducts, getProducts, emptyFilter } from '../../redux/actions/products_actions'
-import { getCategories } from '../../redux/actions/categories_actions'
 
 /* --- Utils --- */
 import strings from './strings';
@@ -16,7 +15,7 @@ import arrowUp from '../../assets/img/arrow-up.svg';
 /* --- Styles --- */
 import { StyledSVG } from '../styles/styled_global';
 import { changeCurrentPage, resetCurrentPage } from '../../redux/actions/global_actions';
-import { animateScroll, Element } from 'react-scroll';
+import { animateScroll } from 'react-scroll';
 
 
 export const getProductsPayload = { name: 'stock', order: 'DESC', limit: 8 };

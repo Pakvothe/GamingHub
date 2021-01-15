@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, Redirect, useHistory } from 'react-router-dom';
-import CreditCard from '../step_2/CreditCard';
-import { addCreditCard, openLogin } from '../../../redux/actions/global_actions';
+import { Link } from 'react-router-dom';
+import { openLogin } from '../../../redux/actions/global_actions';
 import strings from './strings';
 //------>Styles
 import { StyledSVG, StepTwo } from '../../styles/styled_order_detail';
@@ -24,6 +23,8 @@ const Step2 = ({ language }) => {
 
 	const [total, setTotal] = useState(0);
 
+	const [loading, setLoading] = useState(false);
+
 	const [inputEmail, setInputEmail] = useState('');
 
 	const handleChange = (ev) => {
@@ -35,7 +36,7 @@ const Step2 = ({ language }) => {
 			acc = acc + (product.price * product.quantity)
 			return acc;
 		}, 0.00));
-	}, [])
+	}, [cart])
 
 	const openLoginModal = () => {
 		dispatch(openLogin(true))
@@ -53,7 +54,8 @@ const Step2 = ({ language }) => {
 			products: cart,
 			language
 		}
-		dispatch(addOrder(order));
+		setLoading(true);
+		dispatch(addOrder(order))
 		dispatch(clearCart());
 	}
 
@@ -74,7 +76,7 @@ const Step2 = ({ language }) => {
 								<span>{s.email}:</span>
 								<input type="email" onChange={handleChange} />
 							</label>
-							<Btn className="btn btn-ppal mb-1" onClick={(ev) => handleClick(ev, true)}>{s.next}</Btn>
+							<Btn className="btn btn-ppal mb-1" onClick={(ev) => handleClick(ev, true)}>{loading ? <i className="fas fa-circle-notch fa-spin"></i> : s.next}</Btn>
 						</FormStyled>
 
 						<Flex direction="column" justify="space-evenly">
@@ -89,7 +91,7 @@ const Step2 = ({ language }) => {
 					<Flex direction="column">
 						<p>{s.emailParagraph}</p>
 						<h4 className="mb-1">{user.email}</h4>
-						<Btn className="btn btn-ppal mb-1" onClick={handleClick}>{s.next}</Btn>
+						<Btn className="btn btn-ppal mb-1" onClick={handleClick}>{loading ? <i className="fas fa-circle-notch fa-spin"></i> : s.next}</Btn>
 						<p className="text-center">{s.warning}</p>
 					</Flex>
 				)

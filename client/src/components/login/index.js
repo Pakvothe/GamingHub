@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Modal from 'react-modal';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,7 +12,7 @@ import { useToasts } from 'react-toast-notifications';
 
 const Login = () => {
 
-	const { REACT_APP_API_URL } = process.env;
+	const { REACT_APP_API } = process.env;
 
 	const dispatch = useDispatch();
 	const loginIsOpen = useSelector(state => state.globalReducer.loginIsOpen);
@@ -101,11 +101,11 @@ const Login = () => {
 	}
 
 	const signGoogle = () => {
-		window.location.href = `${REACT_APP_API_URL}/auth/google`
+		window.location.href = `${REACT_APP_API}/auth/google`
 	}
 
 	const signFacebook = () => {
-		window.location.href = `${REACT_APP_API_URL}/auth/facebook`
+		window.location.href = `${REACT_APP_API}/auth/facebook`
 	}
 
 	return (

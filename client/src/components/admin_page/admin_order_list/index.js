@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { Btn, DataTable, FormStyled, Flex } from '../../styles/styled_global';
+import { Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import { useHistory } from 'react-router-dom';
-import { getOrders } from '../../../redux/actions/orders_actions';
+import { changeStatusOrder, getOrders } from '../../../redux/actions/orders_actions';
 import { SelectStyled } from '../../styles/styled_catalog';
 import strings from './strings';
 import { useEffect } from 'react';
@@ -72,8 +74,13 @@ const AdminProductList = ({ orders }) => {
 		}
 	}
 
+	const handleStatus = (ev, id) => {
+		if (ev.target.value) {
+			dispatch(changeStatusOrder({ id, body: { state: ev.target.value } }));
+		}
+	}
 
-	console.log(orders)
+
 	return (
 		<>
 			<h1 className='admin-h1'>{s.title}</h1>
@@ -97,34 +104,39 @@ const AdminProductList = ({ orders }) => {
 				</FormStyled>
 				<Btn className='btn btn-ppal' form='form' type='submit'>{s.button}</Btn>
 			</Flex>
-			<DataTable>
-				<thead>
-					<tr onClick={handleSort}>
-						<th id="id" className="cell-small icon active down">{s.tableOrderNumber}</th>
-						<th>Email</th>
-						<th className="cell-small">{s.tableTotal}</th>
-						<th className="cell-small">{s.tableDate}</th>
-						<th id="state" className="icon down">{s.tableStatus}</th>
-						<th id="payment_method" className="icon down">{s.tablePayment}</th>
-					</tr>
-				</thead>
-				<tbody>
+			<DataTable className="responsiveTable">
+				<Thead>
+					<Tr onClick={handleSort}>
+						<Th id="id" className="cell-small icon active down">{s.tableOrderNumber}</Th>
+						<Th>Email</Th>
+						<Th className="cell-small">{s.tableTotal}</Th>
+						<Th id="state" className="icon down">{s.tableStatus}</Th>
+						<Th id="payment_meThod" className="icon down">{s.tablePayment}</Th>
+					</Tr>
+				</Thead>
+				<Tbody>
 					{
-						(all ? orders : filtered).map(order => (
-							<tr className='row-link' key={order.id} onClick={(ev) => handleClick(order.id)}>
-								<td>{order.id}</td>
-								<td>{order.email}</td>
-								<td>${order.total_amount}</td>
-								<td>{order.createdAt.slice(0, 10)}</td>
-								<td>{s[order.state]}</td>
-								<td>{order.payment_method}</td>
-							</tr>
+						(!all ? filtered : orders).map(order => (
+							<Tr className='row-link' key={order.id} onClick={(ev) => handleClick(order.id)}>
+								<Td>{order.id}</Td>
+								<Td>{order.email}</Td>
+								<Td>${order.total_amount}</Td>
+								<Td>{order.createdAt.slice(0, 10)}</Td>
+								<Td>
+									<SelectStyled className="select__order-admin" value={order.state} onClick={(ev) => ev.stopPropagation()} onChange={(ev, id) => handleStatus(ev, order.id)}>
+										<option value="completed" >{s.completed}</option>
+										<option value="created" >{s.created}</option>
+										<option value="processing" >{s.processing}</option>
+										<option value="canceled" >{s.canceled}</option>
+									</SelectStyled></Td>
+								<Td>{order.payment_method}</Td>
+							</Tr>
 						))
 					}
 					{
 						(all ? orders : filtered).length === 0 && <p>No Matches</p>
 					}
-				</tbody>
+				</Tbody>
 			</DataTable>
 		</>
 	);

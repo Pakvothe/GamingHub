@@ -22,19 +22,19 @@ const TermsES = () => {
 			<section>
 				<h3>Licencia</h3>
 				<p>A menos que se indique lo contrario, GamingHUB y/o sus licenciatarios les pertenecen los derechos de propiedad intelectual de todo el material en GamingHUB.</p>
-				<p>Todos los derechos de propiedad intelectual están reservados. Puedes ver y/o imprimir páginas desde http://gaminghub.heroku.com para tu uso personal sujeto a las restricciones establecidas en estos términos y condiciones.</p>
+				<p>Todos los derechos de propiedad intelectual están reservados. Puedes ver y/o imprimir páginas desde https://ecommerce-ft07-g07.vercel.app/ para tu uso personal sujeto a las restricciones establecidas en estos términos y condiciones.</p>
 				<p>No debes:</p>
 
 				<ul>
-					<li>Volver a publicar material desde http://gaminghub.heroku.com.</li>
-					<li>Vender, alquilar u otorgar una sub-licencia de material desde http://gaminghub.heroku.com.</li>
-					<li>Reproducir, duplicar o copiar material desde http://gaminghub.heroku.com.</li>
+					<li>Volver a publicar material desde https://ecommerce-ft07-g07.vercel.app/.</li>
+					<li>Vender, alquilar u otorgar una sub-licencia de material desde https://ecommerce-ft07-g07.vercel.app/.</li>
+					<li>Reproducir, duplicar o copiar material desde https://ecommerce-ft07-g07.vercel.app/.</li>
 					<li>Redistribuir contenido de GamingHUB, a menos de que el contenido se haga específicamente para la redistribución.</li>
 				</ul>
 			</section>
 
 			<footer>
-				<p>Esta página de Términos y Condiciones fue creada como un ejemplo por <a href="https://es.jumpseller.com/learn/sample-terms-and-conditions/" target='_blank' rel='noreferrer'>Jumpseller</a>.</p>
+				<p>Esta página de Términos y Condiciones fue creada como un ejemplo por <a href="https://es.jumpseller.com/learn/sample-terms-and-conditions/" target='_blank' rel='noopener noreferrer'>Jumpseller</a>.</p>
 			</footer>
 
 

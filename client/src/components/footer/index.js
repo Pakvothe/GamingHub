@@ -33,7 +33,7 @@ const Footer = ({ language }) => {
 			</nav>
 
 			<p>
-				{s.footerText1} <a href="https://soyhenry.com/" target='_blank' rel='noreferrer'>{s.footerLink}</a>. {s.footerText2}
+				{s.footerText1} <a href="https://soyhenry.com/" target='_blank' rel='noopener noreferrer'>{s.footerLink}</a>. {s.footerText2}
 			</p>
 		</StyledFooter>
 	)

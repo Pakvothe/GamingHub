@@ -4,6 +4,8 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { deleteCategory } from '../../../redux/actions/categories_actions';
 import { Btn, DataTable } from '../../styles/styled_global';
+import { Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import Swal from 'sweetalert2';
 import swals from '../../../utils/swals';
 import strings from './strings';
@@ -30,28 +32,28 @@ const AdminCategoryList = ({ categories, language }) => {
 		<>
 			<h1 className='admin-h1'>{s.title}</h1>
 			<Link to="/admin/category"><Btn className="btn-ppal">{s.addCategory}</Btn></Link>
-			<DataTable>
-				<thead>
-					<tr>
-						<th className="cell-small">ID</th>
-						<th>{s.tableName}</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
+			<DataTable className="responsiveTable">
+				<Thead>
+					<Tr>
+						<Th className="cell-small">ID</Th>
+						<Th>{s.tableName}</Th>
+						<Th></Th>
+					</Tr>
+				</Thead>
+				<Tbody>
 					{categories && categories.map(category => (
-						<tr key={category.id}>
-							<td>{category.id}</td>
-							<td>{category[`name_${language}`]}</td>
-							<td>
+						<Tr key={category.id}>
+							<Td>{category.id}</Td>
+							<Td>{category[`name_${language}`]}</Td>
+							<Td>
 								<ul>
 									<li><Link to={`/admin/category/${category.id}`}><button>{s.buttonEdit}</button></Link></li>
 									<li><button onClick={() => handleDelete(category.id)}>{s.buttonDelete}</button></li>
 								</ul>
-							</td>
-						</tr>
+							</Td>
+						</Tr>
 					))}
-				</tbody>
+				</Tbody>
 			</DataTable>
 		</>
 	);

@@ -6,6 +6,7 @@
 	--clr-secondary-3: #5a50f0;
 	--clr-white: #F5F4F8;
 	--clr-middle: #7E7E7E;
+	--clr-middle-2: #EEE;
 	--clr-dark: #1B1A1F;
 	--clr-dark-1: #2C2F31;
 	--clr-dark-2: #35383a;
@@ -87,6 +88,10 @@ body {
 	position: relative;
 }
 
+.skinny-title {
+	font-weight: 500;
+	text-transform: uppercase;
+}
 .w-100 { width: 100% }
 .d-none { display: none }
 .d-block { display: block }
@@ -311,7 +316,7 @@ ser más específicos con los selectores.
 	overflow: visible !important;
 }
 
-.css-h0gpo1-ToastElement {
+.react-toast-notifications__container > div {
 	width: 100%;
 	height: 100% !important;
 }
@@ -322,8 +327,7 @@ ser más específicos con los selectores.
 	box-shadow: 0 5px 15px -10px rgba(0,0,0,0.7) !important;
 }
 
-
-.css-18gu508-Content {
+.react-toast-notifications__toast__content {
 	font-family: Poppins, Raleway, Arial, Helvetica, sans-serif;
 	font-weight: 700;
 	font-size: 1em !important;
@@ -340,16 +344,16 @@ ser más específicos con los selectores.
 	top: 0.5em;
 }
 
+
 /* ----- COLORES SUCCESS ----- */
 .react-toast-notifications__toast--success {
 	color: var(--clr-dark) !important;
 	background-color: var(--clr-success) !important;
 }
 
-.css-3mfg68-Icon { 
+.react-toast-notifications__toast--success .react-toast-notifications__toast__icon-wrapper {
 	background-color: var(--clr-success-2) !important;
 }
-
 
 
 /* ----- COLORES ERROR ----- */
@@ -358,7 +362,7 @@ ser más específicos con los selectores.
 	background-color: var(--clr-error) !important;
 }
 
-.css-1cbc3rp-Icon {
+.react-toast-notifications__toast--error .react-toast-notifications__toast__icon-wrapper {
 	background-color: var(--clr-error-2) !important;
 }
 
@@ -369,7 +373,7 @@ ser más específicos con los selectores.
 	background-color: var(--clr-warning) !important;
 }
 
-.css-1wh70f9-Icon {
+.react-toast-notifications__toast--warning .react-toast-notifications__toast__icon-wrapper {
 	background-color: var(--clr-warning-2) !important;
 }
 
@@ -380,6 +384,6 @@ ser más específicos con los selectores.
 	background-color: var(--clr-secondary) !important;
 }
 
-.css-1rjh2i2-Icon {
+.react-toast-notifications__toast--info .react-toast-notifications__toast__icon-wrapper {
 	background-color: var(--clr-secondary-2) !important;
 }
