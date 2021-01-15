@@ -13,6 +13,7 @@ const strings = {
 		offers: 'Offers',
 		offer: 'Offer',
 		err: 'Error, try again later',
+		productSearch: 'Search product by name'
 	},
 
 	es: {
@@ -29,6 +30,7 @@ const strings = {
 		offers: 'Ofertas',
 		offer: 'Oferta',
 		err: 'Error, intentalo nuevamente más tarde',
+		productSearch: 'Busca el nombre del producto'
 	}
 };
 

@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteProduct, toggleActiveProduct, getProducts } from '../../../redux/actions/products_actions';
-import { Btn, DataTable } from '../../styles/styled_global';
+import { Btn, DataTable, FormStyled } from '../../styles/styled_global';
 import { Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import { Link } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
 import swals from '../../../utils/swals';
 import strings from './strings';
-import SearchBar from './../admin_search_bar/index';
+import { useEffect } from 'react';
 
 const AdminProductList = ({ products }) => {
 	const dispatch = useDispatch();
@@ -21,6 +21,9 @@ const AdminProductList = ({ products }) => {
 		name: 'ASC',
 		stock: 'ASC'
 	})
+	const [searchInput, setSearchInput] = useState('');
+	const [filtered, setFiltered] = useState([]);
+	const [all, setAll] = useState(true);
 
 	const handleDelete = (prod) => {
 		swals.FIRE('warning', s.swDeleteTitle, s.swDeleteText, s.swDeleteButtonConfirm, true, s.swDeleteButtonCancel, () => {
@@ -57,6 +60,22 @@ const AdminProductList = ({ products }) => {
 		}
 	}
 
+	useEffect(() => {
+		if (!searchInput) {
+			setAll(true);
+			setFiltered([])
+		} else {
+			setAll(false);
+			setFiltered(products.filter(product => product.name.toLowerCase().includes(searchInput)));
+		}
+	}, [searchInput, products])
+
+	const handleSearch = (ev) => {
+		let input = '';
+		if (ev.target.value) input = ev.target.value.toLowerCase();
+		setSearchInput(input);
+	}
+
 	return (
 		<>
 			<h1 className='admin-h1'>{s.title}</h1>
@@ -65,7 +84,9 @@ const AdminProductList = ({ products }) => {
 					<Link to="/admin/product"><Btn className="btn-ppal mr-1">{s.addProduct}</Btn></Link>
 					<Link to="/admin/product/offer/list"><Btn className="btn-ppal">{s.offers}</Btn></Link>
 				</div>
-				<SearchBar propFunction={() => alert('hi')} />
+				<FormStyled onSubmit={(ev) => { ev.preventDefault() }}>
+					<input value={searchInput} onChange={handleSearch} placeholder={s.productSearch} />
+				</FormStyled>
 			</div>
 			<DataTable className="responsiveTable">
 				<Thead>
@@ -78,7 +99,7 @@ const AdminProductList = ({ products }) => {
 					</Tr>
 				</Thead>
 				<Tbody>
-					{products && products.map(prod => (
+					{(!all ? filtered : products).map(prod => (
 						<Tr key={prod.id}>
 							<Td>{prod.id}</Td>
 							<Td>{prod.name}</Td>
