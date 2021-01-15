@@ -61,3 +61,12 @@ export const addOrder = (payload) => {
 			})
 	}
 }
+
+export const changeStatusOrder = (payload) => {
+	return function (dispatch) {
+		return axios.put(`${REACT_APP_API}/orders/${payload.id}`, payload.body, BEARER())
+			.then(() => {
+				dispatch(getOrders({ all: true }));
+			})
+	}
+}

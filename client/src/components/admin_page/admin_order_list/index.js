@@ -4,7 +4,7 @@ import { DataTable } from '../../styles/styled_global';
 import { Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import { useHistory } from 'react-router-dom';
-import { getOrders } from '../../../redux/actions/orders_actions';
+import { changeStatusOrder, getOrders } from '../../../redux/actions/orders_actions';
 import { SelectStyled } from '../../styles/styled_catalog';
 import strings from './strings';
 
@@ -56,6 +56,12 @@ const AdminProductList = ({ orders }) => {
 		}
 	}
 
+	const handleStatus = (ev, id) => {
+		if (ev.target.value) {
+			dispatch(changeStatusOrder({ id, body: { state: ev.target.value } }));
+		}
+	}
+
 	return (
 		<>
 			<h1 className='admin-h1'>{s.title}</h1>
@@ -86,7 +92,13 @@ const AdminProductList = ({ orders }) => {
 								<Td>{order.id}</Td>
 								<Td>{order.email}</Td>
 								<Td>${order.total_amount}</Td>
-								<Td>{s[order.state]}</Td>
+								<Td>
+									<SelectStyled className="select__order-admin" value={order.state} onClick={(ev) => ev.stopPropagation()} onChange={(ev, id) => handleStatus(ev, order.id)}>
+										<option value="completed" >{s.completed}</option>
+										<option value="created" >{s.created}</option>
+										<option value="processing" >{s.processing}</option>
+										<option value="canceled" >{s.canceled}</option>
+									</SelectStyled></Td>
 								<Td>{order.payment_method}</Td>
 							</Tr>
 						))

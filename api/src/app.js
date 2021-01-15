@@ -30,7 +30,7 @@ server.use(passport.initialize());
 
 server.all("*", function (req, res, next) {
 	passport.authenticate("bearer", function (err, user) {
-		if (err) return next(err);
+		if (err) return res.status(400).json({ message: 'malformed JSON' });
 		if (user) {
 			req.user = user;
 		}
