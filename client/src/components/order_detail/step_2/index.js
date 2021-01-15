@@ -42,7 +42,7 @@ const Step2 = ({ language }) => {
 		ev.preventDefault();
 		const order = {
 			email: guest ? inputEmail : user.email,
-			total_amount: total,
+			total_amount: total * (1 - (discount / 100)),
 			discount,
 			state: "created",
 			payment_method: payment,

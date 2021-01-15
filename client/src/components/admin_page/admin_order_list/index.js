@@ -23,13 +23,17 @@ const AdminProductList = ({ orders }) => {
 	const [orderSort, setOrderSort] = useState({
 		id: 'ASC',
 		state: 'ASC',
-		payment_method: 'ASC'
+		payment_method: 'ASC',
+		createdAt: 'ASC'
 	})
 
 	useEffect(() => {
 		if (filter === 'none') setAll(true);
 	}, [filter])
 
+	useEffect(() => {
+		handleSearch();
+	}, [orders])
 
 	const handleClick = (id) => {
 		history.push(`/admin/order/${id}`)
@@ -54,7 +58,7 @@ const AdminProductList = ({ orders }) => {
 	}
 
 	const handleSearch = (ev) => {
-		ev.preventDefault();
+		ev && ev.preventDefault();
 		if (filter !== 'none') {
 			switch (filter) {
 				case 'id':
@@ -110,8 +114,9 @@ const AdminProductList = ({ orders }) => {
 						<Th id="id" className="cell-small icon active down">{s.tableOrderNumber}</Th>
 						<Th>Email</Th>
 						<Th className="cell-small">{s.tableTotal}</Th>
+						<Th id="createdAt" className="icon down">{s.tableDate}</Th>
 						<Th id="state" className="icon down">{s.tableStatus}</Th>
-						<Th id="payment_meThod" className="icon down">{s.tablePayment}</Th>
+						<Th id="payment_method" className="icon down">{s.tablePayment}</Th>
 					</Tr>
 				</Thead>
 				<Tbody>
