@@ -89,8 +89,8 @@ server.post('/paypal', async (req, res) => {
 					console.log(error)
 					return res.status(500).json({ message: "Internal server error" })
 				} else {
-					await updatedOrder.update({ paypal_id: payment.id, payment_link: payment.links[1].href });
-					mailOrderInProcess(updatedOrder);
+					const updatedTwo = await updatedOrder.update({ paypal_id: payment.id, payment_link: payment.links[1].href });
+					mailOrderInProcess(updatedTwo);
 					return res.json(payment.links[1].href);
 				}
 			})
@@ -122,7 +122,7 @@ server.get('/paypalRedirect', async (req, res) => {
 			if (error) return res.redirect(FRONT);
 			else {
 				if (payment.state === 'approved') {
-					order.update({ state: 'completed', payment_link: null })
+					const updatedOrder = order.update({ state: 'completed', payment_link: null })
 					let serialsArray = [];
 					for (let prod of order.products) {
 						prod = prod.get();
@@ -147,7 +147,7 @@ server.get('/paypalRedirect', async (req, res) => {
 						return acc;
 					}, [])
 
-					mailOrderCompleted(updatedOrder, productSerial);
+					mailOrderCompleted(order, productSerial);
 					return res.redirect(`${FRONT}/order/detail?status=${order.state}&order=${order.id}`)
 				} else return res.redirect(FRONT);
 			}
@@ -169,7 +169,7 @@ server.post('/paypalNotification', async (req, res) => {
 						if (error) return console.log(error);
 						else {
 							if (payment.state === 'approved') {
-								order.update({ state: 'completed', payment_link: null })
+								const updatedOrder = await order.update({ state: 'completed', payment_link: null })
 								let serialsArray = [];
 								for (let prod of order.products) {
 									prod = prod.get();

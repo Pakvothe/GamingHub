@@ -32,10 +32,8 @@ import Legal from '../components/legal';
 function HomeRoutes() {
 
 	const dispatch = useDispatch();
-	const products = useSelector(state => state.productsReducer.products.productList);
 	const discounts = useSelector(state => state.productsReducer.productsDiscount.list);
 	const cart = useSelector(state => state.cartReducer.cart.list);
-	const categories = useSelector(state => state.categoriesReducer.categories.list);
 	const showCart = useSelector(state => state.globalReducer.showCart);
 	const language = useSelector(state => state.globalReducer.language);
 
@@ -46,14 +44,10 @@ function HomeRoutes() {
 	// <-
 
 	useEffect(() => {
-		if (!products.length) {
-			dispatch(getProducts({ name: 'stock', order: 'DESC', limit: 8 }));
-			dispatch(getDiscounts());
-		}
-		if (!categories.length) {
-			dispatch(getCategories());
-		}
-	}, [dispatch, categories.length, products.length])
+		dispatch(getProducts({ name: 'stock', order: 'DESC', limit: 8 }));
+		dispatch(getDiscounts());
+		dispatch(getCategories());
+	}, [dispatch])
 
 	return (
 		<>
