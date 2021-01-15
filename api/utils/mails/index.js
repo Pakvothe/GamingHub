@@ -34,7 +34,7 @@ const mailOrderCompleted = async (data, serials) => {
 		html: pug.renderFile(path.join((__dirname), 'mailOrdersCompleted.pug'), {
 			strings: strings[language],
 			games: data.products,
-			linkReview: `${FRONT}orders/${data.id}`,
+			linkReview: `${FRONT}/orders/${data.id}`,
 			userId: data.userId,
 			serials: serials
 		}),

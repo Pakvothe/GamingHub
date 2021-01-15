@@ -63,10 +63,14 @@ server.post('/paypal', async (req, res) => {
 		.then(async updatedOrder => {
 			const items = products.map(item => ({
 				name: item.name,
-				price: item.price.toFixed(2),
+				price: updatedOrder.discount ?
+					(item.price * (1 - (updatedOrder.discount / 100))).toFixed(2)
+					:
+					item.price.toFixed(2),
 				quantity: item.quantity,
 				currency: 'USD'
 			}))
+			console.log(items[0]);
 			const order = JSON.stringify({
 				intent: "sale",
 				payer: { payment_method: "paypal" },
@@ -86,7 +90,7 @@ server.post('/paypal', async (req, res) => {
 
 			paypal.payment.create(order, async function (error, payment) {
 				if (error) {
-					console.log(error)
+					console.log('SOY UN ERROR DE PAYPAL', error.response.details)
 					return res.status(500).json({ message: "Internal server error" })
 				} else {
 					const updatedTwo = await updatedOrder.update({ paypal_id: payment.id, payment_link: payment.links[1].href });
