@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom';
 import { getOrders } from '../../../redux/actions/orders_actions';
 import { DataTable, Btn, Flex } from '../../styles/styled_global';
+import { Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import strings from './strings';
 import Fade from 'react-reveal/Fade';
 
@@ -52,36 +54,36 @@ const UserOrders = () => {
 					?
 					<>
 						<h2>{s.title}</h2>
-						<DataTable>
-							<thead>
-								<tr onClick={handleSort}>
-									<th id="id" className="cell-small icon active down">{s.id}</th>
-									<th>{s.mail}</th>
-									<th className="cell-small">{s.total}</th>
-									<th id="state" className="icon down">{s.state}</th>
-									<th id="payment_method" className="icon down">{s.payment}</th>
-									<th id="payment_method" className="icon down">{s.payment_link}</th>
-								</tr>
-							</thead>
-							<tbody>
+						<DataTable className="responsiveTable">
+							<Thead>
+								<Tr onClick={handleSort}>
+									<Th id="id" className="cell-small icon active down">{s.id}</Th>
+									<Th>{s.mail}</Th>
+									<Th className="cell-small">{s.total}</Th>
+									<Th id="state" className="icon down">{s.state}</Th>
+									<Th id="payment_method" className="icon down">{s.payment}</Th>
+									<Th id="payment_method" className="icon down">{s.payment_link}</Th>
+								</Tr>
+							</Thead>
+							<Tbody>
 								{orders && orders.map(order => (
-									<tr className='row-link' key={order.id} onClick={(ev) => handleClick(order.id)}>
-										<td>{order.id}</td>
-										<td>{order.email}</td>
-										<td>{order.total_amount}</td>
-										<td>{order.state}</td>
-										<td>{order.payment_method}</td>
+									<Tr className='row-link' key={order.id} onClick={(ev) => handleClick(order.id)}>
+										<Td>{order.id}</Td>
+										<Td>{order.email}</Td>
+										<Td>{order.total_amount}</Td>
+										<Td>{order.state}</Td>
+										<Td>{order.payment_method}</Td>
 										{order.payment_link ?
-											<td>
+											<Td>
 												<a onClick={(ev) => ev.stopPropagation()} href={order.payment_link}>
 													<Btn className="btn btn-ppal">Link</Btn>
 												</a>
-											</td>
+											</Td>
 											:
-											<td></td>}
-									</tr>
+											<Td></Td>}
+									</Tr>
 								))}
-							</tbody>
+							</Tbody>
 						</DataTable>
 					</>
 					:

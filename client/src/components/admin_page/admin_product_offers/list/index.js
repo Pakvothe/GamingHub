@@ -1,6 +1,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DataTable } from '../../../styles/styled_global';
+import { Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import { Link } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
 import strings from './strings';
@@ -52,34 +54,34 @@ const AdminProductOfferList = ({ products }) => {
 	return (
 		<>
 			<h1 className='admin-h1'>{s.title}</h1>
-			<DataTable>
-				<thead>
-					<tr /*onClick={handleSort}*/>
-						<th id="id" className="cell-small icon down active">ID</th>
-						<th id="name" className="icon down">{s.tableTitle}</th>
-						<th id="stock" className="cell-small icon down">{s.original}</th>
-						<th className="cell-small">{s.discountPrice}</th>
-						<th className="cell-small">{s.discount}</th>
-						<td></td>
-					</tr>
-				</thead>
-				<tbody>
+			<DataTable className="responsiveTable">
+				<Thead>
+					<Tr /*onClick={handleSort}*/>
+						<Th id="id" className="cell-small icon down active">ID</Th>
+						<Th id="name" className="icon down">{s.tableTitle}</Th>
+						<Th id="stock" className="cell-small icon down">{s.original}</Th>
+						<Th className="cell-small">{s.discountPrice}</Th>
+						<Th className="cell-small">{s.discount}</Th>
+						<Th></Th>
+					</Tr>
+				</Thead>
+				<Tbody>
 					{products && products.map(prod => (
-						<tr key={prod.id}>
-							<td>{prod.id}</td>
-							<td>{prod.name}</td>
-							<td>${prod.real_price}</td>
-							<td>${prod.price}</td>
-							<td>{100 - Math.round(((prod.price / prod.real_price) * 100))}%</td>
-							<td>
+						<Tr key={prod.id}>
+							<Td>{prod.id}</Td>
+							<Td>{prod.name}</Td>
+							<Td>${prod.real_price}</Td>
+							<Td>${prod.price}</Td>
+							<Td>{100 - Math.round(((prod.price / prod.real_price) * 100))}%</Td>
+							<Td>
 								<ul>
 									<li><Link to={`/admin/product/${prod.id}/offer/new`}><button>{s.tableEditButton}</button></Link></li>
 									<li><button onClick={() => handleDelete(prod)}>{s.tableDeleteButton}</button></li>
 								</ul>
-							</td>
-						</tr>
+							</Td>
+						</Tr>
 					))}
-				</tbody>
+				</Tbody>
 			</DataTable>
 		</>
 	);
