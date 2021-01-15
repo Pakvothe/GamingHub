@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteProduct, toggleActiveProduct, getProducts } from '../../../redux/actions/products_actions';
 import { Btn, DataTable } from '../../styles/styled_global';
+import { Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import { Link } from 'react-router-dom';
 import SearchBar from '../../search_bar';
 import { useToasts } from 'react-toast-notifications';
@@ -65,34 +67,34 @@ const AdminProductList = ({ products }) => {
 				</div>
 				<SearchBar />
 			</div>
-			<DataTable>
-				<thead>
-					<tr onClick={handleSort}>
-						<th id="id" className="cell-small icon down active">ID</th>
-						<th id="name" className="icon down">{s.tableTitle}</th>
-						<th id="stock" className="cell-small icon down">Stock</th>
-						<th className="cell-small">Visible</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
+			<DataTable className="responsiveTable">
+				<Thead>
+					<Tr onClick={handleSort}>
+						<Th id="id" className="cell-small icon down active">ID</Th>
+						<Th id="name" className="icon down">{s.tableTitle}</Th>
+						<Th id="stock" className="cell-small icon down">Stock</Th>
+						<Th className="cell-small">Visible</Th>
+						<Th></Th>
+					</Tr>
+				</Thead>
+				<Tbody>
 					{products && products.map(prod => (
-						<tr key={prod.id}>
-							<td>{prod.id}</td>
-							<td>{prod.name}</td>
-							<td>{prod.stock}</td>
-							<td><input type="checkbox" checked={prod.is_active} onChange={handleInput} name={prod.id} /></td>
-							<td>
+						<Tr key={prod.id}>
+							<Td>{prod.id}</Td>
+							<Td>{prod.name}</Td>
+							<Td>{prod.stock}</Td>
+							<Td><input type="checkbox" checked={prod.is_active} onChange={handleInput} name={prod.id} /></Td>
+							<Td>
 								<ul>
 									<li><Link to={`/admin/product/${prod.id}/offer/new`}><button>{s.offer}</button></Link></li>
 									<li><Link to={`/admin/product/${prod.id}/stock`}><button>Stock</button></Link></li>
 									<li><Link to={`/admin/product/${prod.id}`}><button>{s.tableEditButton}</button></Link></li>
 									<li><button onClick={() => handleDelete(prod)}>{s.tableDeleteButton}</button></li>
 								</ul>
-							</td>
-						</tr>
+							</Td>
+						</Tr>
 					))}
-				</tbody>
+				</Tbody>
 			</DataTable>
 		</>
 	);

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Btn, DataTable } from './../../../styles/styled_global';
+import { Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSerials, deleteSerial, editSerial, clearErrorSerial } from './../../../../redux/actions/products_actions';
@@ -107,19 +109,19 @@ const AdminProductStockList = () => {
 				</Link>
 				<SearchBar />
 			</div>
-			<DataTable>
-				<thead>
-					<tr>
-						<th className="cell-small">ID</th>
-						<th>{s.tableSerial}</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
+			<DataTable className="responsiveTable">
+				<Thead>
+					<Tr>
+						<Th className="cell-small">ID</Th>
+						<Th>{s.tableSerial}</Th>
+						<Th></Th>
+					</Tr>
+				</Thead>
+				<Tbody>
 					{!!serials.length && serials.map(serial => (
-						<tr key={serial.id}>
-							<td>{serial.id}</td>
-							<td>
+						<Tr key={serial.id}>
+							<Td>{serial.id}</Td>
+							<Td>
 								<form className="serial-form" onSubmit={(ev) => handleSubmit(ev, serial.id, serial.productId)}>
 									<input type="text"
 										id={serial.id}
@@ -130,16 +132,16 @@ const AdminProductStockList = () => {
 										value={input[serial.id] || ''}
 									/>
 								</form>
-							</td>
-							<td>
+							</Td>
+							<Td>
 								<ul>
 									<li><button onClick={() => handleEdit(serial.id)}>{s.tableEditButton}</button></li>
 									<li><button onClick={() => handleDelete(serial.id)}>{s.tableDeleteButton}</button></li>
 								</ul>
-							</td>
-						</tr>
+							</Td>
+						</Tr>
 					))}
-				</tbody>
+				</Tbody>
 			</DataTable>
 		</>
 	)

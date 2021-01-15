@@ -2,6 +2,8 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteUser, toggleAdmin } from '../../../redux/actions/users_actions';
 import { DataTable } from '../../styles/styled_global';
+import { Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import Swal from 'sweetalert2';
 import swals from '../../../utils/swals';
 import strings from './strings'
@@ -50,29 +52,29 @@ const AdminUserList = ({ users }) => {
 	return (
 		<>
 			<h1 className='admin-h1'>{s.title}</h1>
-			<DataTable>
-				<thead>
-					<tr>
-						<th className="cell-small">ID</th>
-						<th>{s.tableFirstName}</th>
-						<th>{s.tableLastName}</th>
-						<th className="cell-small">Admin</th>
-						<th>Email</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
+			<DataTable className="responsiveTable">
+				<Thead>
+					<Tr>
+						<Th className="cell-small">ID</Th>
+						<Th>{s.tableFirstName}</Th>
+						<Th>{s.tableLastName}</Th>
+						<Th className="cell-small">Admin</Th>
+						<Th className="cell-medium">Email</Th>
+						<Th></Th>
+					</Tr>
+				</Thead>
+				<Tbody>
 					{users && users.map(user => (
-						<tr key={user.id}>
-							<td>{user.id}</td>
-							<td>{user.first_name}</td>
-							<td>{user.last_name}</td>
-							<td><input type="checkbox" checked={user.is_admin} onChange={() => handleInput(user.id, !user.is_admin)} /></td>
-							<td>{user.email}</td>
-							<td><button onClick={() => handleDelete(user.id)}>{s.tableDeleteButton}</button></td>
-						</tr>
+						<Tr key={user.id}>
+							<Td>{user.id}</Td>
+							<Td>{user.first_name}</Td>
+							<Td>{user.last_name}</Td>
+							<Td><input type="checkbox" checked={user.is_admin} onChange={() => handleInput(user.id, !user.is_admin)} /></Td>
+							<Td>{user.email}</Td>
+							<Td><button onClick={() => handleDelete(user.id)}>{s.tableDeleteButton}</button></Td>
+						</Tr>
 					))}
-				</tbody>
+				</Tbody>
 			</DataTable>
 
 		</>

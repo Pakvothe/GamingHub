@@ -5,9 +5,22 @@ export const StyledOrderDetail = styled.div`
 	.tables-container {
 		display: flex;
 
+		h2, h3 {
+			margin-bottom: -1em;
+		}
+
 		& > div:first-child {
 			flex: 1 0 30%;
 			margin-right: 2em;
+		}
+
+		@media (max-width: 500px) {
+			flex-direction: column;
+
+			& > div:first-child {
+				margin-right: 0;
+				margin-bottom: 2em;
+			}
 		}
 	}
 

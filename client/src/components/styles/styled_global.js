@@ -265,6 +265,11 @@ export const DataTable = styled.table`
 	width: 100%;
 	transition: box-shadow .25s ease;
 
+	&.responsiveTable tbody tr {
+    border: none;
+	padding: 0;
+	border-bottom: 1px solid #CCC;
+  }
 
 	&:hover {
 		box-shadow: 9px 9px 0px rgba(0,0,0,.07);
@@ -279,6 +284,22 @@ export const DataTable = styled.table`
 			font-size: .85em;
 			letter-spacing: .05em;
 			/* border-right: 1px solid #CCC;  OPCIONAL, Lo saqué porque no me gustó */
+		}
+
+		@media (max-width: 800px) {
+			tr {
+				display: flex;
+				flex-direction: column;
+
+				td:last-child {
+					padding-bottom: 1em;
+				}
+				td:first-child {
+					border-bottom: none;
+					padding-top: 1em;
+					padding-bottom: 0;
+				}
+			}
 		}
 	}
 
@@ -300,6 +321,10 @@ export const DataTable = styled.table`
 	thead .cell-small {
 		width: 90px;
 	}
+
+	thead .cell-medium {
+			width: 150px;
+		}
 
 	td {
 		position: relative;
@@ -383,6 +408,7 @@ export const DataTable = styled.table`
 			&:focus {
 				outline: none;
 				border: 1px solid var(--clr-primary);
+				color: inherit;
 			}
 
 			&[disabled] {

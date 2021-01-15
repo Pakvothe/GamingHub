@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrder } from '../../../redux/actions/orders_actions';
 import { Btn, DataTable } from '../../styles/styled_global';
+import { Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import { StyledOrderDetail } from '../../styles/styled_order_detail';
 import { useParams, useHistory, Link } from 'react-router-dom';
 import strings from './strings';
@@ -58,38 +60,38 @@ const UserOrderDetail = () => {
 				</div>
 				<div>
 					<h3>{s.subtitleProducts}</h3>
-					<DataTable>
-						<thead>
-							<tr>
-								<th>{s.tableTitle}</th>
-								<th>{s.tableQuantity}</th>
-								<th>{s.tableUnitPrice}</th>
-								<th>{s.tableTotalPrice}</th>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody>
+					<DataTable className="responsiveTable">
+						<Thead>
+							<Tr>
+								<Th>{s.tableTitle}</Th>
+								<Th>{s.tableQuantity}</Th>
+								<Th>{s.tableUnitPrice}</Th>
+								<Th>{s.tableTotalPrice}</Th>
+								<Th></Th>
+							</Tr>
+						</Thead>
+						<Tbody>
 							{products && products.map(prod => {
 								const found = prod.reviews.length > 0
 								return (
-									<tr key={prod.id}>
-										<td>{prod.name}</td>
-										<td>{prod.orders_products.quantity}</td>
-										<td>${prod.orders_products.unit_price}</td>
-										<td>${prod.orders_products.quantity * prod.orders_products.unit_price}</td>
-										<td>{!found && orderInfo.state === 'completed' && (<Link to={`/review/${prod.id}?game=${prod.name}`}><button>{s.review}</button></Link>)}</td>
-									</tr>
+									<Tr key={prod.id}>
+										<Td>{prod.name}</Td>
+										<Td>{prod.orders_products.quantity}</Td>
+										<Td>${prod.orders_products.unit_price}</Td>
+										<Td>${prod.orders_products.quantity * prod.orders_products.unit_price}</Td>
+										<Td>{!found && orderInfo.state === 'completed' && (<Link to={`/review/${prod.id}?game=${prod.name}`}><button>{s.review}</button></Link>)}</Td>
+									</Tr>
 								)
 							})}
-						</tbody>
+						</Tbody>
 						<tfoot>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td>Total: ${orderInfo?.total_amount}</td>
-								<td></td>
-							</tr>
+							<Tr>
+								<Td></Td>
+								<Td></Td>
+								<Td></Td>
+								<Td>Total: ${orderInfo?.total_amount}</Td>
+								<Td></Td>
+							</Tr>
 						</tfoot>
 					</DataTable>
 				</div>

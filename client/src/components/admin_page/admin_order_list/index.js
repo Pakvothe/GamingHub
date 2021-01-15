@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { DataTable } from '../../styles/styled_global';
+import { Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import { useHistory } from 'react-router-dom';
 import { getOrders } from '../../../redux/actions/orders_actions';
 import { SelectStyled } from '../../styles/styled_catalog';
@@ -67,29 +69,29 @@ const AdminProductList = ({ orders }) => {
 					<option value="canceled" >{s.canceled}</option>
 				</SelectStyled>
 			</label>
-			<DataTable>
-				<thead>
-					<tr onClick={handleSort}>
-						<th id="id" className="cell-small icon active down">{s.tableOrderNumber}</th>
-						<th>Email</th>
-						<th className="cell-small">{s.tableTotal}</th>
-						<th id="state" className="icon down">{s.tableStatus}</th>
-						<th id="payment_method" className="icon down">{s.tablePayment}</th>
-					</tr>
-				</thead>
-				<tbody>
+			<DataTable className="responsiveTable">
+				<Thead>
+					<Tr onClick={handleSort}>
+						<Th id="id" className="cell-small icon active down">{s.tableOrderNumber}</Th>
+						<Th>Email</Th>
+						<Th className="cell-small">{s.tableTotal}</Th>
+						<Th id="state" className="icon down">{s.tableStatus}</Th>
+						<Th id="payment_meThod" className="icon down">{s.tablePayment}</Th>
+					</Tr>
+				</Thead>
+				<Tbody>
 					{
 						(!all ? filtered : orders).map(order => (
-							<tr className='row-link' key={order.id} onClick={(ev) => handleClick(order.id)}>
-								<td>{order.id}</td>
-								<td>{order.email}</td>
-								<td>${order.total_amount}</td>
-								<td>{s[order.state]}</td>
-								<td>{order.payment_method}</td>
-							</tr>
+							<Tr className='row-link' key={order.id} onClick={(ev) => handleClick(order.id)}>
+								<Td>{order.id}</Td>
+								<Td>{order.email}</Td>
+								<Td>${order.total_amount}</Td>
+								<Td>{s[order.state]}</Td>
+								<Td>{order.payment_method}</Td>
+							</Tr>
 						))
 					}
-				</tbody>
+				</Tbody>
 			</DataTable>
 		</>
 	);

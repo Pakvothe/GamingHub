@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrder } from '../../../redux/actions/orders_actions';
 import { DataTable } from '../../styles/styled_global';
+import { Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import { StyledOrderDetail } from '../../styles/styled_order_detail';
 import { useParams } from 'react-router-dom';
 import strings from './strings';
@@ -55,32 +57,32 @@ const AdminOrderDetail = () => {
 				</div>
 				<div>
 					<h2>{s.subtitleProducts}</h2>
-					<DataTable>
-						<thead>
-							<tr>
-								<th>{s.tableTitle}</th>
-								<th>{s.tableQuantity}</th>
-								<th>{s.tableUnitPrice}</th>
-								<th>{s.tableTotalPrice}</th>
-							</tr>
-						</thead>
-						<tbody>
+					<DataTable className="responsiveTable">
+						<Thead>
+							<Tr>
+								<Th>{s.tableTitle}</Th>
+								<Th>{s.tableQuantity}</Th>
+								<Th>{s.tableUnitPrice}</Th>
+								<Th>{s.tableTotalPrice}</Th>
+							</Tr>
+						</Thead>
+						<Tbody>
 							{products && products.map(prod => (
-								<tr key={prod.id}>
-									<td>{prod.name}</td>
-									<td>{prod.orders_products.quantity}</td>
-									<td>${prod.orders_products.unit_price}</td>
-									<td>${prod.orders_products.quantity * prod.orders_products.unit_price}</td>
-								</tr>
+								<Tr key={prod.id}>
+									<Td>{prod.name}</Td>
+									<Td>{prod.orders_products.quantity}</Td>
+									<Td>${prod.orders_products.unit_price}</Td>
+									<Td>${prod.orders_products.quantity * prod.orders_products.unit_price}</Td>
+								</Tr>
 							))}
-						</tbody>
+						</Tbody>
 						<tfoot>
-							<tr>
-								<td>-</td>
-								<td>-</td>
-								<td>-</td>
-								<td>Total: ${orderInfo?.total_amount}</td>
-							</tr>
+							<Tr>
+								<Td></Td>
+								<Td></Td>
+								<Td></Td>
+								<Td>Total: ${orderInfo?.total_amount}</Td>
+							</Tr>
 						</tfoot>
 					</DataTable>
 				</div>
