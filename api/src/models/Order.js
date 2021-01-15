@@ -48,6 +48,10 @@ module.exports = (sequelize) => {
 		language: {
 			type: D.STRING,
 			defaultValue: 'es'
+		},
+		exchange: {
+			type: D.REAL,
+			defaultValue: null
 		}
 	})
 }
