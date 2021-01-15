@@ -404,7 +404,7 @@ server.get('/:orderId', isAuthenticated, (req, res) => {
 		})
 })
 
-server.put('/:id', isAuthenticated, (req, res) => {
+server.put('/:id', isAdmin, (req, res) => {
 	const { id } = req.params;
 	const orderToUpdate = req.body;
 	if (!+id) return res.status(400).json({ message: "Bad Request" });
