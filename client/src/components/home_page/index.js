@@ -25,12 +25,9 @@ const HomePage = () => {
 	const dispatch = useDispatch();
 	const language = useSelector(state => state.globalReducer.language);
 	const s = strings[language];
-	const products = useSelector(state => state.productsReducer.products.productList);
-	const productsFilter = useSelector(state => state.productsReducer.productsFilter.productList);
-	const filter = useSelector(state => state.productsReducer.productsFilter.filter)
+	const { productList: products, isLoading: loadingProducts, error: errorProducts } = useSelector(state => state.productsReducer.products);
+	const { productList: productsFilter, isLoading: loadingProductsFilter, filter } = useSelector(state => state.productsReducer.productsFilter);
 	const categories = useSelector(state => state.categoriesReducer.categories.list);
-	const loadingProducts = useSelector(state => state.productsReducer.products.isLoading);
-	const errorProducts = useSelector(state => state.productsReducer.products.error);
 
 	const scrollButton = useRef();
 	const mainHeader = useRef();
@@ -74,14 +71,13 @@ const HomePage = () => {
 		}
 		mainHeader.current.scrollIntoView({ block: 'start', behavior: 'smooth' })
 	}
-
 	return (
 		<div ref={mainHeader}>
 			<h1 className="main-title">{s.main_header}</h1>
 			<SelectCategories language={language} categories={categories} handleSelect={handleSelect} />
-			<Catalog products={productsFilter.length ? productsFilter : products}
+			<Catalog products={productsFilter ? productsFilter : products}
 				language={language}
-				isLoading={loadingProducts}
+				isLoading={loadingProductsFilter || loadingProducts}
 				error={errorProducts}
 				handlePageChange={handlePageChange}
 			/>

@@ -25,6 +25,7 @@ server.get('/:catName', (req, res) => {
 	catName = catName.toLowerCase();
 	let count = 0;
 	Product.count({
+		where: { is_active: true },
 		include: [
 			{
 				model: Category,
@@ -44,6 +45,7 @@ server.get('/:catName', (req, res) => {
 		order: [
 			[Image, 'id', 'ASC']
 		],
+		where: { is_active: true },
 		limit: limit ? limit : null,
 		offset: offset ? offset : null,
 		include: [
