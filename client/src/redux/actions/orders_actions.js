@@ -31,10 +31,10 @@ export const getOrders = (payload = {}) => {
 			})
 	}
 }
-export const getOrder = (payload) => {
+export const getOrder = (payload, queries = '') => {
 	return function (dispatch) {
 		dispatch({ type: LOADING_ORDER });
-		return axios.get(`${REACT_APP_API}/orders/${payload}`, BEARER())
+		return axios.get(`${REACT_APP_API}/orders/${payload}${queries}`, BEARER())
 			.then(product => {
 				dispatch({
 					type: GET_ORDER,

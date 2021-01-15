@@ -3,7 +3,7 @@ import strings from './strings';
 import { FormSearchBar } from '../../styles/styled_search_bar';
 import loupe from '../../../assets/img/loupe.svg';
 
-const SearchBar = ({ propFunction }) => {
+const SearchBar = () => {
 	const [inputText, setInputText] = useState('');
 
 	const handleChange = (evt) => {
@@ -13,7 +13,15 @@ const SearchBar = ({ propFunction }) => {
 	const handleSubmit = (evt) => {
 		evt.preventDefault();
 		if (inputText) {
-			propFunction(inputText);
+			if (/:/.test(inputText)) {
+				//value = inputText.match(/(?<=:)\w*/)[0].trim();
+				//inputText = inputText.match(/\w*(?=:)/)[0];
+				//if (/id/.test(inputText)) {
+
+				//}
+			} else {
+
+			}
 		}
 	};
 
@@ -25,12 +33,6 @@ const SearchBar = ({ propFunction }) => {
 			</button>
 		</FormSearchBar>
 	)
-};
-
-SearchBar.defaultProps = {
-	propFunction: function (text) {
-		alert(`Escribiste: ${text}`)
-	}
 };
 
 export default SearchBar;

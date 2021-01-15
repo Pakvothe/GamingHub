@@ -273,6 +273,8 @@ server.get('/mercadoPagoRedirect', async (req, res) => {
 				mp_id: req.query['preference_id']
 			}
 		})
+
+
 		switch (order.state) {
 			case 'completed': {
 				return res.redirect(`${FRONT}/order/detail?status=${order.state}&order=${order.id}`)
@@ -367,13 +369,15 @@ server.get('/', isAuthenticated, (req, res) => {
 });
 
 server.get('/:orderId', isAuthenticated, (req, res) => {
-	const { orderId } = req.params
+	const { orderId } = req.params;
+	const panelMode = req.user.is_admin && req.query.panel;
 
 	Order.findOne({
-		where: {
+		where: !panelMode ? {
 			id: orderId,
 			userId: req.user.id
-		},
+		}
+			: { id: orderId },
 		include: [
 			{
 				model: Product,
@@ -382,13 +386,15 @@ server.get('/:orderId', isAuthenticated, (req, res) => {
 						'unit_price', 'quantity'
 					]
 				},
-				include: [
-					{
-						model: Review,
-						required: false,
-						where: { userId: req.user.id }
-					}
-				]
+				include:
+					!panelMode ? [
+						{
+							model: Review,
+							required: false,
+							where: { userId: req.user.id }
+						}
+					]
+						: []
 			}
 		]
 	})

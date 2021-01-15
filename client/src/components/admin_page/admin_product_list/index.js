@@ -5,10 +5,10 @@ import { Btn, DataTable } from '../../styles/styled_global';
 import { Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import { Link } from 'react-router-dom';
-import SearchBar from '../../search_bar';
 import { useToasts } from 'react-toast-notifications';
 import swals from '../../../utils/swals';
 import strings from './strings';
+import SearchBar from './../admin_search_bar/index';
 
 const AdminProductList = ({ products }) => {
 	const dispatch = useDispatch();
@@ -25,10 +25,10 @@ const AdminProductList = ({ products }) => {
 	const handleDelete = (prod) => {
 		swals.FIRE('warning', s.swDeleteTitle, s.swDeleteText, s.swDeleteButtonConfirm, true, s.swDeleteButtonCancel, () => {
 			dispatch(deleteProduct(prod.id))
-				.then((result) => {
+				.then(() => {
 					addToast(s.toastProductDeleted, { appearance: 'success' })
 				})
-				.catch((err) => {
+				.catch(() => {
 					addToast(s.err, { appearance: 'error' })
 				})
 		})
@@ -65,7 +65,7 @@ const AdminProductList = ({ products }) => {
 					<Link to="/admin/product"><Btn className="btn-ppal mr-1">{s.addProduct}</Btn></Link>
 					<Link to="/admin/product/offer/list"><Btn className="btn-ppal">{s.offers}</Btn></Link>
 				</div>
-				<SearchBar />
+				<SearchBar propFunction={() => alert('hi')} />
 			</div>
 			<DataTable className="responsiveTable">
 				<Thead>
