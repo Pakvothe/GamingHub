@@ -18,7 +18,7 @@ paypal.configure({
 });
 
 var webhooks = {
-	"url": NGROK_LINK + '/orders/paypalNotification',
+	"url": NGROK_LINK + '/orders/paypalNotifications',
 	"event_types": [{
 		"name": "PAYMENT.SALE.COMPLETED"
 	}]
@@ -122,7 +122,7 @@ server.get('/paypalRedirect', async (req, res) => {
 			if (error) return res.redirect(FRONT);
 			else {
 				if (payment.state === 'approved') {
-					const updatedOrder = order.update({ state: 'completed', payment_link: null })
+					await order.update({ state: 'completed', payment_link: null })
 					let serialsArray = [];
 					for (let prod of order.products) {
 						prod = prod.get();
@@ -155,7 +155,7 @@ server.get('/paypalRedirect', async (req, res) => {
 	}
 });
 
-server.post('/paypalNotification', async (req, res) => {
+server.post('/paypalNotifications', async (req, res) => {
 	res.sendStatus(200);
 	paypal.payment.get(req.body.resource.parent_payment, async (error, payment) => {
 		if (error) return console.log(error);
@@ -204,7 +204,7 @@ server.post('/paypalNotification', async (req, res) => {
 	});
 });
 
-server.post('/', async (req, res) => {
+server.post('/mp', async (req, res) => {
 	const order = req.body;
 	const { products } = order;
 	delete order.products;
@@ -239,12 +239,12 @@ server.post('/', async (req, res) => {
 						:
 						(product.orders_products.unit_price),
 					quantity: product.orders_products.quantity,
-					currency_id: 'USD'
+					currency_id: 'ARS'
 				})),
 				back_urls: {
-					success: `${BACK}/orders/mercadoPago`,
-					failure: `${BACK}/orders/mercadoPago`,
-					pending: `${BACK}/orders/mercadoPago`
+					success: `${BACK}/orders/mercadoPagoRedirect`,
+					failure: `${BACK}/orders/mercadoPagoRedirect`,
+					pending: `${BACK}/orders/mercadoPagoRedirect`
 				},
 				auto_return: "approved",
 				notification_url: `${NGROK_LINK}/orders/mercadoPagoNotifications`,
@@ -265,7 +265,7 @@ server.post('/', async (req, res) => {
 		})
 });
 
-server.get('/mercadoPago', async (req, res) => {
+server.get('/mercadoPagoRedirect', async (req, res) => {
 
 	try {
 		const order = await Order.findOne({
