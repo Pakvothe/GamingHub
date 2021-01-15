@@ -16,7 +16,7 @@ const strings = {
 		terms: 'Términos y condiciones',
 		privacy: 'Privacidad',
 		legal: 'Legal',
-		contact: 'Contáctanos',
+		contact: 'Contactanos',
 		footerText1: '© GamingHub ~ es un proyecto ficticio de el bootcamp de programación',
 		footerText2: 'Todos los derechos reservados. Todas las marcas comerciales y marcas registradas son propiedad de sus respectivos dueños.',
 		footerLink: 'soyHenry',
