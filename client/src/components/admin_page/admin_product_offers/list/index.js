@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteProduct, toggleActiveProduct, getProductsByName, getProducts } from '../../../../redux/actions/products_actions';
-import { Btn, DataTable } from '../../../styles/styled_global';
+import { DataTable } from '../../../styles/styled_global';
 import { Link } from 'react-router-dom';
-import SearchBar from '../../../search_bar';
 import { useToasts } from 'react-toast-notifications';
 import strings from './strings';
 import { deleteDiscount } from './../../../../redux/actions/products_actions';
@@ -14,12 +12,6 @@ const AdminProductOfferList = ({ products }) => {
 	const language = useSelector(state => state.globalReducer.language);
 	const s = strings[language];
 	const { addToast } = useToasts();
-
-	const [orderSort, setOrderSort] = useState({
-		id: 'ASC',
-		name: 'ASC',
-		stock: 'ASC'
-	})
 
 	const handleDelete = (prod) => {
 		if (window.confirm(`${s.swDeleteTitle} ${prod.name}?`)) {

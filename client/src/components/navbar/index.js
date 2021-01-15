@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 import { NavbarStyled, StyledSVG } from '../styles/styled_navbar';
 import { Dropdown } from '../styles/styled_global';
 import SearchBar from '../search_bar';
-import Swal from 'sweetalert2';
 
 /* --- Actions --- */
 import { emptyFilter, getFilterProducts, getProducts } from '../../redux/actions/products_actions';

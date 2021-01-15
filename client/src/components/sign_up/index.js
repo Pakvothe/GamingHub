@@ -1,12 +1,12 @@
 import React, { useState, useRef } from 'react';
 import { useHistory, useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
-import { addUser, editUser } from '../../redux/actions/users_actions';
+import { addUser } from '../../redux/actions/users_actions';
 import { FormStyled, Btn } from '../styles/styled_global';
 import strings from './strings';
 import { storage } from '../../firebase/';
 import Swal from 'sweetalert2';
-import { uuidv4 } from '../../utils/constants';
+import { uuidv4 } from 'uuidv4';
 import queryString from 'query-string';
 
 const SignUp = () => {

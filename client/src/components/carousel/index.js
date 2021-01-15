@@ -70,7 +70,7 @@ const Carousel = ({ products, product = null }) => {
 		if (!product) {
 			play();
 		}
-	}, [play]);
+	}, [play, product]);
 
 	const handleClick = (product) => {
 		if (!stock[product.id] && stock[product.id] !== 0) {

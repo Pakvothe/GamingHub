@@ -8,7 +8,7 @@ import { useToasts } from 'react-toast-notifications';
 import { getProduct, addDiscount } from './../../../../redux/actions/products_actions';
 import Swal from 'sweetalert2';
 import { storage } from '../../../../firebase';
-import { uuidv4 } from '../../../../utils/constants';
+import { uuidv4 } from 'uuidv4';
 
 const AdminProductOfferForm = () => {
 	const { id } = useParams();
@@ -22,7 +22,7 @@ const AdminProductOfferForm = () => {
 
 	useEffect(() => {
 		dispatch(getProduct(id))
-	}, [])
+	}, [dispatch, id])
 
 	const [input, setInput] = useState({
 		price: '',
@@ -133,18 +133,6 @@ const AdminProductOfferForm = () => {
 		}
 	}
 
-	const swalDeleteImg = {
-		heightAuto: false,
-		title: s.swDeleteTitle,
-		text: s.swDeleteText,
-		icon: 'warning',
-		showCancelButton: true,
-		confirmButtonColor: '#3085d6',
-		cancelButtonColor: '#d33',
-		confirmButtonText: s.swDeleteConfirmButton,
-		cancelButtonText: s.swDeleteCancelButton
-	};
-
 	if (toAdmin) return <Redirect to="/admin/product/offer/list" />
 	return (
 		<>
@@ -166,7 +154,7 @@ const AdminProductOfferForm = () => {
 					<p className="thumbnail__preview">{s.preview}</p>
 					{product.banner_image &&
 						<div className='image_thumbnail thumbnail__banner'>
-							<img src={product.banner_image} width='100px' key={product.id} />
+							<img alt='banner' src={product.banner_image} width='100px' key={product.id} />
 						</div>
 					}
 				</div>

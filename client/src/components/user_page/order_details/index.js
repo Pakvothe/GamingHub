@@ -20,7 +20,7 @@ const UserOrderDetail = () => {
 
 	useEffect(() => {
 		dispatch(getOrder(id))
-	}, []);
+	}, [dispatch, id]);
 
 	if (orderError) return <h2>{s.orderNotFound}</h2>;
 	if (orderLoading) return <h2>{s.loading}</h2>;

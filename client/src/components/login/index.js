@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Modal from 'react-modal';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';

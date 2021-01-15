@@ -6,7 +6,6 @@ import { addCategory, editCategory, getCategory } from '../../../redux/actions/c
 import { Btn } from '../../styles/styled_global'
 import { useParams, Redirect } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
-import { ADD_PRODUCT } from '../../../redux/constants';
 
 const AdminCategoryForm = () => {
 	const { id } = useParams();
@@ -20,7 +19,7 @@ const AdminCategoryForm = () => {
 
 	useEffect(() => {
 		if (id) dispatch(getCategory(id))
-	}, [])
+	}, [dispatch, id])
 
 	const [input, setInput] = useState({
 		name_es: '',
@@ -31,7 +30,7 @@ const AdminCategoryForm = () => {
 		if (id && Object.keys(category).length > 0) {
 			setInput(category);
 		}
-	}, [category])
+	}, [category, dispatch, id])
 
 	const handleChange = (e) => {
 		setInput({

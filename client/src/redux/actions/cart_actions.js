@@ -1,8 +1,6 @@
 import axios from 'axios';
 import {
 	SET_CART,
-	ADD_UNIT_ITEM_CART,
-	REMOVE_UNIT_ITEM_CART,
 	ADD_ITEM_CART,
 	DELETE_ITEM_CART,
 	CLEAR_CART,

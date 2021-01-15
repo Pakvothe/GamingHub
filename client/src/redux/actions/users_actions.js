@@ -1,7 +1,6 @@
 import axios from 'axios';
 import {
 	ADD_USER,
-	EDIT_USER,
 	GET_USER,
 	GET_USERS,
 	DELETE_USER,

@@ -16,7 +16,7 @@ const AdminOrderDetail = () => {
 
 	useEffect(() => {
 		dispatch(getOrder(id));
-	}, [])
+	}, [dispatch, id])
 
 	return (
 		<StyledOrderDetail>
