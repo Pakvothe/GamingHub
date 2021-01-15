@@ -8,7 +8,6 @@ import { getSearchProducts } from '../../redux/actions/products_actions';
 import { resetCurrentPage } from '../../redux/actions/global_actions';
 import commands from './commands';
 import { useToasts } from 'react-toast-notifications';
-import Modal from 'react-modal';
 import Surprise from './Surprise';
 
 const SearchBar = () => {

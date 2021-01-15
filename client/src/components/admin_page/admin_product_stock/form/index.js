@@ -36,7 +36,7 @@ const AdminProductStockForm = () => {
 
 	useEffect(() => {
 		if (success) history.push(`/admin/product/${id}/stock`)
-	}, [serials])
+	}, [serials, id, history, success])
 
 	useEffect(() => {
 		error && Swal.fire({
@@ -50,7 +50,7 @@ const AdminProductStockForm = () => {
 		}).then(() => {
 			dispatch(clearErrorSerial())
 		})
-	}, [error])
+	}, [error, dispatch, s.alertButton, s.alertTitle])
 
 	return (
 		<>

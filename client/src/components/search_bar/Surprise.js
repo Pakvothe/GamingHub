@@ -2,7 +2,7 @@ import React from 'react'
 import Modal from 'react-modal';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { Btn, StyledSVG } from '../styles/styled_global';
+import { StyledSVG } from '../styles/styled_global';
 import closeCross from '../../assets/img/close-filled-purple.svg';
 import YouTube from 'react-youtube'
 

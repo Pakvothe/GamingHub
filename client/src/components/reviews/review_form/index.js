@@ -13,7 +13,6 @@ const { REACT_APP_API } = process.env;
 
 const ReviewForm = () => {
 	const theme = useSelector(state => state.globalReducer.theme);
-	const user = useSelector(state => state.usersReducer.user.info);
 	const language = useSelector(state => state.globalReducer.language);
 	const s = strings[language];
 

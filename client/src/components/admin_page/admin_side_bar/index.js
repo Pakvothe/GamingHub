@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
 import { SideBarContainer, SideBarButton, StyledSVG } from '../../styles/styled_admin_sidebar';

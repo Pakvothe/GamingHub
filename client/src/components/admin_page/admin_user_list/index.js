@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteUser, toggleAdmin } from '../../../redux/actions/users_actions';
-import { Btn, DataTable } from '../../styles/styled_global';
+import { DataTable } from '../../styles/styled_global';
 import Swal from 'sweetalert2';
 import swals from '../../../utils/swals';
 import strings from './strings'

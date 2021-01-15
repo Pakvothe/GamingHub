@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, Redirect, useHistory } from 'react-router-dom';
-import CreditCard from '../step_2/CreditCard';
-import { addCreditCard, openLogin } from '../../../redux/actions/global_actions';
+import { Link } from 'react-router-dom';
+import { openLogin } from '../../../redux/actions/global_actions';
 import strings from './strings';
 //------>Styles
 import { StyledSVG, StepTwo } from '../../styles/styled_order_detail';
@@ -37,7 +36,7 @@ const Step2 = ({ language }) => {
 			acc = acc + (product.price * product.quantity)
 			return acc;
 		}, 0.00));
-	}, [])
+	}, [cart])
 
 	const openLoginModal = () => {
 		dispatch(openLogin(true))

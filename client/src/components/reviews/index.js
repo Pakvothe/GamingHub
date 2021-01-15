@@ -5,7 +5,7 @@ import ShowMoreText from 'react-show-more-text';
 import { Btn, StyledTitle } from '../styles/styled_global';
 import { StyledReviews } from '../styles/styled_reviews';
 import strings from './strings'
-import { getProduct, getReviews } from '../../redux/actions/products_actions';
+import { getReviews } from '../../redux/actions/products_actions';
 
 function Reviews({ id }) {
 
@@ -13,7 +13,7 @@ function Reviews({ id }) {
 
 	useEffect(() => {
 		dispatch(getReviews(id))
-	}, [])
+	}, [dispatch, id])
 
 	const theme = useSelector(state => state.globalReducer.theme)
 	const language = useSelector(state => state.globalReducer.language);
@@ -41,7 +41,7 @@ function Reviews({ id }) {
 
 	const handleClick = () => {
 		setLoading(true);
-		const delay = new Promise(resolve => {
+		new Promise(resolve => {
 			setTimeout(() => resolve('finish'), 500);
 		})
 			.then(() => {

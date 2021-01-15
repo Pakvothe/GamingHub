@@ -20,7 +20,7 @@ const AdminProductStockList = () => {
 
 	useEffect(() => {
 		dispatch(getSerials(id));
-	}, []);
+	}, [dispatch, id]);
 
 	useEffect(() => {
 		setInput(serials.reduce((acc, val) => {
@@ -41,7 +41,7 @@ const AdminProductStockList = () => {
 		}).then(() => {
 			dispatch(clearErrorSerial())
 		})
-	}, [error])
+	}, [error, dispatch, s.alertButton, s.alertText, s.alertTitle])
 
 	const handleDelete = (serialId) => {
 		Swal.fire({

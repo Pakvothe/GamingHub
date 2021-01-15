@@ -5,11 +5,9 @@ import StarRatings from "react-star-ratings";
 import Reviews from '../../reviews';
 import { Btn, Badge, QuantityButton } from '../../styles/styled_global';
 import { GameDetail, StyledSVG } from '../../styles/styled_product';
-import Fade from 'react-reveal/Fade';
 
 import cart from '../../../assets/img/cart.svg'
 import joystick from '../../../assets/img/joystick.svg'
-import { IMAGE_NOT_FOUND } from '../../../utils/constants';
 
 import strings from './strings.js';
 import { addItemCart, editStock } from '../../../redux/actions/cart_actions';

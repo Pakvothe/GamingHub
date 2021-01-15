@@ -15,7 +15,7 @@ const UserOrders = () => {
 
 	useEffect(() => {
 		dispatch(getOrders())
-	}, [])
+	}, [dispatch])
 
 	const [orderSort, setOrderSort] = useState({
 		id: 'ASC',
