@@ -6,7 +6,6 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSerials, deleteSerial, editSerial, clearErrorSerial } from './../../../../redux/actions/products_actions';
 import { Link } from 'react-router-dom';
-import SearchBar from './../../admin_search_bar/index';
 import Swal from 'sweetalert2';
 import strings from './strings';
 
@@ -107,7 +106,6 @@ const AdminProductStockList = () => {
 				<Link to={`/admin/product/${id}/stock/new`}>
 					<Btn className="btn-ppal">{s.addButton}</Btn>
 				</Link>
-				<SearchBar />
 			</div>
 			<DataTable className="responsiveTable">
 				<Thead>
