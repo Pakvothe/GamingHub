@@ -6,7 +6,7 @@ const mercadopago = require('mercadopago');
 const paypal = require('paypal-rest-sdk');
 const { toIsoStringOffset, delayedDays, sendMail } = require('../../utils/functions.js');
 const { mailOrderCompleted, mailOrderInProcess } = require('../../utils/mails');
-const { NGROK_LINK, MP_KEY, FRONT, BACK, PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET } = process.env;
+const { NGROK_LINK, MP_KEY, FRONT, BACK, PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET, EXCHANGE_APP_ID } = process.env;
 const axios = require('axios');
 mercadopago.configure({
 	access_token: MP_KEY
@@ -62,7 +62,7 @@ server.post('/paypal', async (req, res) => {
 			]
 		}))
 		.then(async updatedOrder => {
-			const pesosExchange = (await axios.get('https://openexchangerates.org/api/latest.json?app_id=084d57674e6e4ed0a4495ceb78e816b6')).data.rates.ARS
+			const pesosExchange = (await axios.get(`https://openexchangerates.org/api/latest.json?app_id=${EXCHANGE_APP_ID}`)).data.rates.ARS
 			const items = products.map(item => ({
 				name: item.name,
 				price: updatedOrder.discount ?
