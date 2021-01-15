@@ -31,10 +31,6 @@ const AdminProductList = ({ orders }) => {
 		if (filter === 'none') setAll(true);
 	}, [filter])
 
-	useEffect(() => {
-		handleSearch();
-	}, [orders])
-
 	const handleClick = (id) => {
 		history.push(`/admin/order/${id}`)
 	}
@@ -78,12 +74,13 @@ const AdminProductList = ({ orders }) => {
 		}
 	}
 
+	useEffect(handleSearch, [orders]);
+
 	const handleStatus = (ev, id) => {
 		if (ev.target.value) {
 			dispatch(changeStatusOrder({ id, body: { state: ev.target.value } }));
 		}
 	}
-
 
 	return (
 		<>
