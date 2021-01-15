@@ -139,7 +139,7 @@ const AdminProductList = ({ orders }) => {
 						))
 					}
 					{
-						(all ? orders : filtered).length === 0 && <p>No Matches</p>
+						(all ? orders : filtered).length === 0 && <Tr><Td>No Matches</Td></Tr>
 					}
 				</Tbody>
 			</DataTable>

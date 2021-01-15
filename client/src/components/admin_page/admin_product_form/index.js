@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 
 import { addProduct, getProduct, editProduct, deleteImage } from '../../../redux/actions/products_actions'
 
@@ -138,12 +139,13 @@ const AdminProductForm = ({ categories }) => {
 			if (imageAsFile === '') {
 				console.error(`Not an image. That file is a ${typeof (imageAsFile)}`)
 			}
-			const uploadTask = storage.ref(`/images/${imageAsFile.name}`).put(imageAsFile)
+			let randomID = uuidv4();
+			const uploadTask = storage.ref(`/images/${randomID}`).put(imageAsFile)
 			uploadTask.on('state_changed',
 				(snapShot) => { },
 				(err) => { },
 				() => {
-					storage.ref('images').child(imageAsFile.name).getDownloadURL()
+					storage.ref('images').child(randomID).getDownloadURL()
 						.then(fireBaseUrl => {
 							setInput(prev => ({
 								...prev,
@@ -169,7 +171,7 @@ const AdminProductForm = ({ categories }) => {
 		cancelButtonText: s.swDeleteCancelButton
 	};
 
-	if (isLoading) return <h1 className="admin-h1"><i class="fas fa-circle-notch fa-spin"></i> {s.loading}</h1>;
+	if (isLoading) return <h1 className="admin-h1"><i className="fas fa-circle-notch fa-spin"></i> {s.loading}</h1>;
 	if (toAdmin) return <Redirect to='/admin' />
 
 	return (
@@ -206,7 +208,7 @@ const AdminProductForm = ({ categories }) => {
 						<div className='image__container'>
 							{id && product.images?.length > 0 &&
 								product.images.map(image =>
-									<div className='image_thumbnail'>
+									<div key={image.id} className='image_thumbnail'>
 										<span className='delete__image'>{s.inputDeleteImage}</span>
 										<img src={image.url} width='100px' alt={product.name} key={image.id} onClick={() => {
 											Swal.fire(swalDeleteImg).then((result) => {
