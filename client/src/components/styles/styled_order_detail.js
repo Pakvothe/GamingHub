@@ -109,6 +109,30 @@ export const StepTwo = styled.div`
 			display: block;
 		}
 	}
+
+	.payment__container {
+		min-height: 50px;
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		margin: 1em 0;
+
+		.select__container { 
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+
+			select {
+				margin-right: 2em;
+				margin-left: 0;
+			}
+
+			h5 {
+				align-self: flex-start;
+				margin-bottom: 1em;
+			}
+		}
+	}
 	
 	aside {
 		border: 3px solid var(--clr-primary);
