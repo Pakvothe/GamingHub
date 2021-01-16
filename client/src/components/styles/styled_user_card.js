@@ -24,4 +24,15 @@ export const UserCard = styled.div`
 			}
 		}
 	}
+
+	@media (max-width: 800px) {
+		flex-direction:column;
+
+		  ul {
+			  display: flex;
+			  flex-direction: column;		
+			  align-items: center;
+			  flex-basis: 200px;
+		    }
+	  }
 `
