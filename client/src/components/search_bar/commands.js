@@ -1,5 +1,6 @@
 import Axios from "axios";
 import Swal from 'sweetalert2';
+import { rickys, powerRangers } from './utils';
 
 export default (input, addToast, setOpen) => {
 	if (input.length <= 1) return;
@@ -16,9 +17,11 @@ export default (input, addToast, setOpen) => {
 			break;
 		case 'color': color(value);
 			break;
-		case 'ricky': ricky();
+		case 'ricky': displayImgs(rickys);
 			break;
 		case 'surprise': surprise(setOpen);
+			break;
+		case 'powerRanger': displayImgs(powerRangers);
 			break;
 		default:
 			command = '';
@@ -94,17 +97,11 @@ const color = (value) => {
 	document.querySelector('html').style.setProperty('--clr-secondary-2', colors[2]);
 }
 
-const ricky = () => {
+const displayImgs = (array) => {
 	let imgs = document.querySelectorAll('.about_coders_container img');
-	let rickys = [
-		'https://www.parati.com.ar/wp-content/uploads/2020/10/RICARDO-FORT-DESTACADA.jpg',
-		'https://artear-tn-prod.cdn.arcpublishing.com/resizer/ra8C-tEtzI1-sj6MWf8A2zH-reU=/767x0/smart/arc-anglerfish-arc2-prod-artear.s3.amazonaws.com/public/5PE42LAXDTHIRIFOCFEJDHM7UA.jpg',
-		'https://pbs.twimg.com/profile_images/914670966713847808/GOBh8OYt_400x400.jpg',
-		'https://cdnvos.lavoz.com.ar/sites/default/files/styles/width_1072/public/nota_periodistica/RF1.jpg',
-		'https://media.canalnet.tv/2020/12/Ricky-Fort.jpg'
-	]
+	let copyArray = [...array];
 	imgs.forEach(each => {
-		each.src = rickys.splice(Math.floor(Math.random() * rickys.length), 1)
+		each.src = copyArray.splice(Math.floor(Math.random() * copyArray.length), 1)
 	});
 }
 
