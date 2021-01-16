@@ -7,8 +7,14 @@ export const useRecursiveTimeout = (callback, delay) => {
 	const savedCallback = useRef(callback);
 
 	useEffect(() => {
-		window.onfocus = () => setIsRunning(true);
-		window.onblur = () => setIsRunning(false);
+		let setTrue = () => setIsRunning(true);
+		let setFalse = () => setIsRunning(false);
+		window.addEventListener('focus', setTrue);
+		window.addEventListener('blur', setFalse);
+		return () => {
+			window.removeEventListener('focus', setTrue);
+			window.removeEventListener('blur', setFalse);
+		}
 	}, []);
 
 	useEffect(() => {
