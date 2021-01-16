@@ -60,4 +60,33 @@ export const StyledAbout = styled.div`
 			}
 		}
 	}
+
+	@media (max-width: 900px) {
+		.about_coders_container {
+			flex-direction: column;
+			margin: 1em 0;
+
+			.about_coder {
+				margin: 2em 0;
+
+				h4 {
+					font-size: 1.5em;
+				}
+
+				img {
+					width: 14em;
+					height: 14em;
+				
+				}
+
+				.about_social{ 
+					i {
+						font-size: 3em;
+					}	
+				}
+			}
+
+		}
+	}
+
 `
