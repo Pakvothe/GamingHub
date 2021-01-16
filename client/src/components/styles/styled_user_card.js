@@ -32,7 +32,7 @@ export const UserCard = styled.div`
 			  display: flex;
 			  flex-direction: column;		
 			  align-items: center;
-		flex-basis: 200px;
+			  flex-basis: 200px;
 		    }
 	  }
 `
