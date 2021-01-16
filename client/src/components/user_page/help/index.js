@@ -61,7 +61,7 @@ const HelpUser = () => {
 						<textarea type="text" value={input.message} name="message" onChange={handleChange} required />
 					</label>
 					<div className="text-center">
-						<Btn type="submit" className="btn-ppal mr-1">{
+						<Btn type="submit" className="btn-ppal mr-1 mt-1">{
 							isLoading ?
 								<span><i className='fas fa-circle-notch fa-spin mr-1'></i>{s.loading}</span>
 								: <span>{s.send}</span>
