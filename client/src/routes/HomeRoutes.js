@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Route } from 'react-router-dom';
+import { Route, useLocation } from 'react-router-dom';
 import Product from '../components/product';
 import Navbar from '../components/navbar';
 import AboutUs from '../components/about_us';
@@ -28,6 +28,8 @@ import { getDiscounts } from './../redux/actions/products_actions';
 import Terms from '../components/terms';
 import Privacy from '../components/privacy';
 import Legal from '../components/legal';
+import Confetti from 'react-confetti'
+import queryString from 'query-string';
 
 function HomeRoutes() {
 
@@ -36,7 +38,8 @@ function HomeRoutes() {
 	const cart = useSelector(state => state.cartReducer.cart.list);
 	const showCart = useSelector(state => state.globalReducer.showCart);
 	const language = useSelector(state => state.globalReducer.language);
-
+	const location = useLocation();
+	const parsed = queryString.parse(location.search);
 	//cart modal ->
 	const toggleModal = () => {
 		dispatch(toggleCart());
@@ -47,10 +50,16 @@ function HomeRoutes() {
 		dispatch(getProducts({ name: 'stock', order: 'DESC', limit: 8 }));
 		dispatch(getDiscounts());
 		dispatch(getCategories());
+
 	}, [dispatch])
 
 	return (
 		<>
+			{parsed.status && <Confetti
+				width={window.innerWidth - 16}
+				height={window.innerHeight}
+
+			/>}
 			<Login />
 			<Navbar toggleModal={toggleModal} cartNumber={cart} />
 			<CartSideBar language={language} closeCallback={toggleModal} show={showCart} cart={cart} />
