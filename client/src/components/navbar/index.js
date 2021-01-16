@@ -52,7 +52,8 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 			dispatch(getProducts(getProductsPayload))
 			return dispatch(emptyFilter())
 		}
-		dispatch(getFilterProducts(ev.target.id));
+		if (ev.target.id)
+			dispatch(getFilterProducts(ev.target.id));
 	}
 
 	const handleTheme = () => {

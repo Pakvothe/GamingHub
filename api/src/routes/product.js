@@ -125,27 +125,28 @@ server.get('/search', (req, res) => {
 	const { query, limit, offset } = req.query;
 
 	Product.count({
-		where: query !== '' && {
+		where: query !== '' ? {
+			is_active: true,
 			[Op.or]: query !== '' && [
 				{ name: { [Op.iLike]: `%${query}%` } },
 				{ description_es: { [Op.iLike]: `%${query}%` } },
 				{ description_en: { [Op.iLike]: `%${query}%` } }
 			]
-		}
+		} : { is_active: true }
 	})
 		.then(count => {
 			Product.findAll({
-				where: query !== '' && {
+				where: query !== '' ? {
 					[Op.or]: [
 						{ name: { [Op.iLike]: `%${query}%` } },
 						{ description_es: { [Op.iLike]: `%${query}%` } },
 						{ description_en: { [Op.iLike]: `%${query}%` } }
-					]
-				},
+					], is_active: true
+				} : { is_active: true },
 				include: [{
 					model: Image,
 				}],
-				order: [['stock', 'DESC']],
+				order: [['stock', 'DESC'], [Image, 'id']],
 				limit: limit ? limit : null,
 				offset: offset ? offset : null
 			})

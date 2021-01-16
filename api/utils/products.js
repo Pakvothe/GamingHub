@@ -40,7 +40,7 @@ const products = [
 		price: 2879.20,
 		is_active: true,
 		real_price: 3599.00,
-		banner_image: 'https://firebasestorage.googleapis.com/v0/b/ecommerce-456e0.appspot.com/o/bannerImages%2F91b8fc2f-d555-4d0d-a5d2-6c57445f5a87?alt=media&token=cab75f23-9150-45d7-b37a-a8a325355d9b',
+		banner_image: 'https://firebasestorage.googleapis.com/v0/b/ecommerce-456e0.appspot.com/o/bannerImages%2F0c30453a-e6f1-481e-af2c-680952da7ecb?alt=media&token=69373d43-b1c2-4f65-b6f7-04f36d1393be',
 		images: [
 			{
 				url: 'https://i.imgur.com/RKCvcWJ.jpg'
