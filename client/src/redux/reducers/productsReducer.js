@@ -35,7 +35,7 @@ const initialState = {
 	},
 	productsFilter: {
 		isLoading: false,
-		productList: [],
+		productList: null,
 		error: false,
 		filter: 'todos'
 	},
@@ -164,6 +164,10 @@ const productsReducer = (state = initialState, action) => {
 					productList: action.payload.results,
 					error: false,
 				},
+				productsFilter: {
+					...state.productsFilter,
+					productList: null,
+				},
 				count: action.payload.count
 			}
 		case LOADING_FILTER_PRODUCTS:
@@ -180,7 +184,7 @@ const productsReducer = (state = initialState, action) => {
 				...state,
 				productsFilter: {
 					isLoading: false,
-					productList: [],
+					productList: null,
 					error: true
 				}
 			}

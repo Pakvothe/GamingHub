@@ -16,7 +16,6 @@ const Catalog = ({ products, isLoading, error, language, handlePageChange }) => 
 	const s = strings[language];
 
 	if (error) return <h1 className="main-title">ERROR</h1>
-
 	if (!isLoading && !products.length) return <h1 className="main-title">{s.no_products}</h1>
 	return (
 		<>

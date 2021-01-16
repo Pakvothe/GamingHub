@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Line, Doughnut } from 'react-chartjs-2';
 import { Flex, StyledChart } from '../../styles/styled_global';
 import strings from './strings';
-import { BEARER } from '../../../redux/constants';
+import { BEARER, QUERY_FUNCTION } from '../../../redux/constants';
 const { REACT_APP_API } = process.env;
 
 
@@ -25,9 +25,9 @@ const AdminCharts = () => {
 	useEffect(() => {
 		let isMounted = true;
 
-		const promiseSales = axios.get(`${REACT_APP_API}/charts/sales`, BEARER())
-		const promiseUser = axios.get(`${REACT_APP_API}/charts/user`, BEARER())
-		const promiseEarnings = axios.get(`${REACT_APP_API}/charts/earnings`, BEARER())
+		const promiseSales = axios.get(`${REACT_APP_API}/charts/sales${QUERY_FUNCTION({ date: new Date().toISOString() })}`, BEARER())
+		const promiseUser = axios.get(`${REACT_APP_API}/charts/user${QUERY_FUNCTION({ date: new Date() })}`, BEARER())
+		const promiseEarnings = axios.get(`${REACT_APP_API}/charts/earnings${QUERY_FUNCTION({ date: new Date() })}`, BEARER())
 
 		Promise.all([promiseSales, promiseUser, promiseEarnings])
 			.then(dataArray => {
@@ -42,26 +42,33 @@ const AdminCharts = () => {
 		return () => { isMounted = false };
 	}, []);
 
+	const previousDays = function (num) {
+		const today = new Date();
+		let array = [];
+		for (let i = 0; i < num; i++) {
+			array.push(new Date(today.getTime() - (86400000 * i)));
+		}
+		return array;
+	}
+
 	useEffect(() => {
 		if (sales.length > 0) {
-			const previousDays = function (date, num) {
-				for (let i = 1; i < num; i++) {
-					lastSevenDays.push(new Date(date.getTime() - (86400000 * i)));
-				}
-			}
-			const lastSevenDays = [new Date()];
-			previousDays(lastSevenDays[0], 7);
 
-			lastSevenDays.forEach(day => {
+			const lastSevenDays = previousDays(7);
+			lastSevenDays.forEach((day, i) => {
 				const fullDayOne = `${day.getDate()}/${day.getMonth() + 1}`;
-				const found = sales.find(sale => new Date(sale.date).toDateString() === new Date(day).toDateString())
-				if (found === undefined) setSalesCount(prev => [...prev, '0']);
-				else setSalesCount(prev => [...prev, found.count]);
-				setSalesDays(prev => [...prev, fullDayOne]);
+				const found = sales.find(sale => {
+					let saleDate = sale.date.slice(0, 10).split('-')
+					return new Date(saleDate[0], saleDate[1] - 1, saleDate[2]).toDateString() === new Date(day).toDateString()
+				})
+				if (found === undefined) setSalesCount(prev => ['0', ...prev]);
+				else setSalesCount(prev => [found.count, ...prev]);
+				setSalesDays(prev => [fullDayOne, ...prev]);
 			});
+
+
 		}
 	}, [sales])
-
 	return (
 		<>
 			<h1 className="admin-h1">{s.title}</h1>
@@ -99,10 +106,10 @@ const AdminCharts = () => {
 					<h2 className="skinny-title">{s.weeklySales}</h2>
 					<Line
 						data={{
-							labels: salesDays.reverse(),
+							labels: salesDays,
 							datasets: [{
 								label: s.dailySales,
-								data: salesCount.reverse(),
+								data: salesCount,
 								backgroundColor: 'transparent',
 								borderColor: '#9b5df7',
 								borderWidth: 2,

@@ -5,7 +5,7 @@ const orders = [
 		state: 'completed',
 		payment_method: 'mp',
 		userId: 2,
-		updatedAt: '2020-12-13 01:31:15'
+		updatedAt: '2021-01-13 01:31:15'
 	},
 	{
 		email: 'cosme@mail.com',
@@ -13,7 +13,7 @@ const orders = [
 		state: 'completed',
 		payment_method: 'mp',
 		userId: 3,
-		updatedAt: '2021-02-12 01:31:15'
+		updatedAt: '2021-01-12 01:31:15'
 	},
 	{
 		email: 'emi@mail.com',

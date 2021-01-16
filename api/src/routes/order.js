@@ -91,7 +91,6 @@ server.post('/paypal', async (req, res) => {
 
 			paypal.payment.create(order, async function (error, payment) {
 				if (error) {
-					console.log('SOY UN ERROR DE PAYPAL', error.response.details)
 					return res.status(500).json({ message: "Internal server error" })
 				} else {
 					const updatedTwo = await updatedOrder.update({ paypal_id: payment.id, payment_link: payment.links[1].href, exchange: pesosExchange });
