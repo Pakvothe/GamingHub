@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import { v4 as uuidv4 } from 'uuid';
 import queryString from 'query-string';
 import passwordValidator from '../../utils/passwordValidator';
+import { StyledLoader } from './../styles/styled_global';
 
 const SignUp = () => {
 	const dispatch = useDispatch()
@@ -26,8 +27,9 @@ const SignUp = () => {
 		is_admin: false,
 	});
 
-	const [error, setError] = useState([]);
 
+	const [error, setError] = useState([]);
+	const [loadingUpload, setLoadingUpload] = useState(false);
 	let [emailMessage, setEmailMessage] = useState(false);
 	const [imageAsFile, setImageAsFile] = useState(false);
 	const fileInput = useRef(null);
@@ -72,6 +74,7 @@ const SignUp = () => {
 	const handleSubmit = (ev) => {
 		ev.preventDefault();
 		if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$/.test(input.password)) {
+			setLoadingUpload(true);
 			let randomID = uuidv4();
 			const uploadTask = storage.ref(`/profilePics/${randomID}`).put(imageAsFile)
 			uploadTask.on('state_changed',
@@ -81,8 +84,12 @@ const SignUp = () => {
 					storage.ref('profilePics').child(randomID).getDownloadURL()
 						.then(fireBaseUrl => {
 							dispatch(addUser({ ...input, profile_pic: fireBaseUrl }))
-								.then(() => order ? history.push('/order/payment') : history.push('/'))
+								.then(() => {
+									setLoadingUpload(false);
+									order ? history.push('/order/payment') : history.push('/')
+								})
 								.catch((err) => {
+									setLoadingUpload(false);
 									storage.ref('profilePics').child(randomID).delete();
 									if (err.message === 'email must be unique') setEmailMessage(true);
 								});
@@ -92,6 +99,14 @@ const SignUp = () => {
 			setEmailMessage(false);
 		};
 	};
+
+	if (loadingUpload) return <StyledLoader
+		active={true}
+		spinner
+		text={s.loading}
+		className='loading__overlay'
+		classNamePrefix='loading__'
+	/>
 
 	return (
 		<Flex>

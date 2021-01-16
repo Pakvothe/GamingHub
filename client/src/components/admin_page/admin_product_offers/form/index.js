@@ -9,6 +9,7 @@ import { getProduct, addDiscount } from './../../../../redux/actions/products_ac
 import Swal from 'sweetalert2';
 import { storage } from '../../../../firebase';
 import { v4 as uuidv4 } from 'uuid';
+import { StyledLoader } from './../../../styles/styled_global';
 
 const AdminProductOfferForm = () => {
 	const { id } = useParams();
@@ -18,6 +19,7 @@ const AdminProductOfferForm = () => {
 	const dispatch = useDispatch();
 	const { addToast } = useToasts();
 
+	const [loadingUpload, setLoadingUpload] = useState(false);
 	const [toAdmin, setToAdmin] = useState(false);
 
 	useEffect(() => {
@@ -78,6 +80,7 @@ const AdminProductOfferForm = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		setLoadingUpload(true);
 		let randomID = uuidv4();
 		let bannerImage = product.banner_image;
 		if (imageAsFile) {
@@ -96,6 +99,7 @@ const AdminProductOfferForm = () => {
 								id
 							}))
 								.then(status => {
+									setLoadingUpload(false);
 									switch (status) {
 										case 200:
 											if (bannerImage) storage.refFromURL(bannerImage).delete();
@@ -133,7 +137,16 @@ const AdminProductOfferForm = () => {
 		}
 	}
 
+	if (loadingUpload) return <StyledLoader
+		active={true}
+		spinner
+		text={s.uploading}
+		className='loading__overlay'
+		classNamePrefix='loading__'
+	/>
+
 	if (toAdmin) return <Redirect to="/admin/product/offer/list" />
+
 	return (
 		<>
 			<h1 className="admin-h1">{product.real_price ? s.buttonEdit : s.buttonAdd}</h1>

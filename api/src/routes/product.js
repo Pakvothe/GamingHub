@@ -8,7 +8,7 @@ server.get('/', (req, res, next) => {
 	const { name, order, limit, offset, isActive } = req.query;
 
 	let count = 0;
-	Product.count()
+	Product.count({ where: !isActive && { is_active: true } })
 		.then(data => {
 			count = data;
 			return Product.findAll({
@@ -125,23 +125,24 @@ server.get('/search', (req, res) => {
 	const { query, limit, offset } = req.query;
 
 	Product.count({
-		where: query !== '' && {
+		where: query !== '' ? {
+			is_active: true,
 			[Op.or]: query !== '' && [
 				{ name: { [Op.iLike]: `%${query}%` } },
 				{ description_es: { [Op.iLike]: `%${query}%` } },
 				{ description_en: { [Op.iLike]: `%${query}%` } }
 			]
-		}
+		} : { is_active: true }
 	})
 		.then(count => {
 			Product.findAll({
-				where: query !== '' && {
+				where: query !== '' ? {
 					[Op.or]: [
 						{ name: { [Op.iLike]: `%${query}%` } },
 						{ description_es: { [Op.iLike]: `%${query}%` } },
 						{ description_en: { [Op.iLike]: `%${query}%` } }
-					]
-				},
+					], is_active: true
+				} : { is_active: true },
 				include: [{
 					model: Image,
 				}],
