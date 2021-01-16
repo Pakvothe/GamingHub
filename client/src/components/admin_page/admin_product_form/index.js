@@ -12,6 +12,7 @@ import { useToasts } from 'react-toast-notifications';
 import Swal from 'sweetalert2';
 import swals from '../../../utils/swals';
 import strings from './strings';
+import { StyledLoader } from './../../styles/styled_global';
 
 const AdminProductForm = ({ categories }) => {
 	const { id } = useParams();
@@ -29,7 +30,7 @@ const AdminProductForm = ({ categories }) => {
 
 	const fileInput = useRef(null);
 
-
+	const [loadingUpload, setLoadingUpload] = useState(false);
 
 	let [input, setInput] = useState({
 		name: '',
@@ -43,7 +44,8 @@ const AdminProductForm = ({ categories }) => {
 	useEffect(() => {
 		if (input.img.length === imagesAsFile.length && input.img.length > 0) {
 			id ? dispatch(editProduct(input)) : dispatch(addProduct(input));
-			addToast(id ? s.toastProductEdited : s.toastProductAdded, { appearance: 'success' })
+			addToast(id ? s.toastProductEdited : s.toastProductAdded, { appearance: 'success' });
+			setLoadingUpload(false);
 			setToAdmin(true);
 		}
 	}, [
@@ -125,7 +127,7 @@ const AdminProductForm = ({ categories }) => {
 	}
 	const handleSubmit = (ev) => {
 		ev.preventDefault();
-
+		setLoadingUpload(true);
 		if (id && !imagesAsFile.length) {
 			dispatch(editProduct(input))
 				.then((result) => {
@@ -171,7 +173,14 @@ const AdminProductForm = ({ categories }) => {
 		cancelButtonText: s.swDeleteCancelButton
 	};
 
-	if (isLoading) return <h1 className="admin-h1"><i className="fas fa-circle-notch fa-spin"></i> {s.loading}</h1>;
+	if (loadingUpload) return <StyledLoader
+		active={true}
+		spinner
+		text={s.uploading}
+		className='loading__overlay'
+		classNamePrefix='loading__'
+	/>
+
 	if (toAdmin) return <Redirect to='/admin' />
 
 	return (
