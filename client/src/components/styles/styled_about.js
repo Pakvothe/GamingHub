@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const StyledAbout = styled.div`
 	min-height: 60vh;
+	line-height: 1.5;
 
 	h2 {
 		text-align: center;
@@ -14,19 +15,21 @@ export const StyledAbout = styled.div`
 		margin-bottom: 1em;
 		font-weight: 700;
 		text-transform: uppercase;
+		text-align: center;
 	}
 	
 	.about_coders_container {
 		display: flex;
 		justify-content: space-around;
 		align-items: center;
-		margin-top: 2em;
+		margin-top: 3em;
 
 		.about_coder{
 			display: flex;
 			justify-content: space-around;
 			align-items: center;
-			flex-direction:column;
+			flex-direction: column;
+			flex: 1 0 20%;
 
 			h4{
 				margin-bottom: 1em;

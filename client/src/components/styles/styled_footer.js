@@ -35,10 +35,24 @@ const StyledFooter = styled.footer`
 
 	p {
 		max-width: 600px;
-		margin: 0 auto;
+		margin: 2.5em auto 0;
+		padding-top: 2em;
 		font-size: 0.8em;
 		line-height: 2;
 		color: var(--clr-middle);
+		position: relative;
+
+		&::before {
+			content: '';
+			width: 150px;
+			display: block;
+			margin: 0 auto;
+			border-top: 1px solid #333;
+			position: absolute;
+			top: 0;
+			left: 50%;
+			transform: translateX(-50%);
+		}
 	}
 
 	svg { fill: var(--clr-white) }
