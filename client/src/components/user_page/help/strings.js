@@ -1,6 +1,6 @@
 const strings = {
 	en: {
-		title: 'Help',
+		title: 'Contact',
 		text: 'If you need help contact to: ',
 		volver: 'Go back',
 		mail: 'Mail',
@@ -13,7 +13,7 @@ const strings = {
 
 	},
 	es: {
-		title: 'Ayuda',
+		title: 'Help',
 		text: 'En caso de ncesitar ayuda contactar a:',
 		volver: 'Volver',
 		mail: 'Correo',
