@@ -62,7 +62,7 @@ const HomePage = () => {
 	}
 
 	const handlePageChange = (ev) => {
-		const offset = limitPerPage * ev.selected
+		const offset = ev.selected !== 0 ? limitPerPage * ev.selected : 0;
 		dispatch(changeCurrentPage(ev.selected));
 		if (productsFilter) {
 			dispatch(getFilterProducts(filter, { limit: limitPerPage, offset }))
