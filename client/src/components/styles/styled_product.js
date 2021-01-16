@@ -53,6 +53,7 @@ export const GameDetail = styled.section`
       display: flex;
 	  list-style: none;
 	  flex-flow: row wrap;
+	  cursor: default;
       
 		li {
 			font-size: .6em;

@@ -12,8 +12,10 @@ const strings = {
 		imageError: 'Upload image error',
 		inUse: '* That email is already in use.',
 		passwordMessage: '* The password must contain a number, a lowercase letter, an uppercase letter and a special character.',
+		missing: 'Your password:',
 		loading: 'Loading...'
 	},
+  
 	es: {
 		signUp: 'Registrarse',
 		password: 'Contraseña:',
@@ -27,6 +29,7 @@ const strings = {
 		imageError: 'Upload image error',
 		inUse: '* El correo electrónico ya está en uso.',
 		passwordMessage: '* La contraseña debe incluir un número, una letra minúscula, una mayúscula y un caracter especial.',
+		missing: 'A tu contraseña le falta:',
 		loading: 'Cargando...'
 	}
 };

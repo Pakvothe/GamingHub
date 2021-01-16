@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 //styles
 import { StyledAbout } from '../styles/styled_about';
-import Pulse from 'react-reveal/Pulse';
+import Fade from 'react-reveal/Fade';
 
 //assets
 import strings from './strings';
@@ -14,15 +14,13 @@ const AboutUs = () => {
 	const s = strings[language];
 
 	return (
-		<Pulse>
+		<Fade big>
 			<StyledAbout theme={theme}>
 				<h2>{s.title}</h2>
-				<div className='about_text'>
-					<p>{s.text}</p>
-				</div>
+				<p>{s.text}</p>
 				<div className='about_coders_container'>
 					<div className='about_coder'>
-						<h4>Ignacio Contreras</h4>
+						<h3>Ignacio Contreras</h3>
 						<div>
 							<img alt='profile' src='https://img.unocero.com/2020/07/Super-Mario-Bros-verdadera-nacionalidad.jpg' />
 						</div>
@@ -32,7 +30,7 @@ const AboutUs = () => {
 						</div>
 					</div>
 					<div className='about_coder'>
-						<h4>Emiliano Alfonso</h4>
+						<h3>Emiliano Alfonso</h3>
 						<div>
 							<img alt='profile' src='https://img.unocero.com/2020/07/Super-Mario-Bros-verdadera-nacionalidad.jpg' />
 						</div>
@@ -42,7 +40,7 @@ const AboutUs = () => {
 						</div>
 					</div>
 					<div className='about_coder'>
-						<h4>Franco Ortiz</h4>
+						<h3>Franco Ortiz</h3>
 						<div>
 							<img alt='profile' src='https://img.unocero.com/2020/07/Super-Mario-Bros-verdadera-nacionalidad.jpg' />
 						</div>
@@ -52,7 +50,7 @@ const AboutUs = () => {
 						</div>
 					</div>
 					<div className='about_coder'>
-						<h4>Franco Fiori</h4>
+						<h3>Franco Fiori</h3>
 						<div>
 							<img alt='profile' src='https://img.unocero.com/2020/07/Super-Mario-Bros-verdadera-nacionalidad.jpg' />
 						</div>
@@ -62,7 +60,7 @@ const AboutUs = () => {
 						</div>
 					</div>
 					<div className='about_coder'>
-						<h4>Martin Sanchez</h4>
+						<h3>Martín Sánchez</h3>
 						<div>
 							<img alt='profile' src='https://img.unocero.com/2020/07/Super-Mario-Bros-verdadera-nacionalidad.jpg' />
 						</div>
@@ -73,7 +71,7 @@ const AboutUs = () => {
 					</div>
 				</div>
 			</StyledAbout>
-		</Pulse>
+		</Fade>
 	)
 }
 

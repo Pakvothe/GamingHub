@@ -1,5 +1,5 @@
 import React from 'react'
-import { Btn, FormStyled } from '../../styles/styled_global'
+import { Btn, FormStyled, ErrorBubble } from '../../styles/styled_global'
 import { useState } from 'react';
 import strings from './strings';
 import { ResetStep } from '../../styles/styled_reset';
@@ -37,17 +37,24 @@ const Reset_steps = ({ handleSubmit, step, language, loading, buttonRef }) => {
 		<ResetStep>
 			<p className='reset__description'>{s.description[step]}</p>
 			<FormStyled onSubmit={formSubmit}>
-				<label>
-					<span>{s.label[step]}</span>
-					<input type={handleInputType()} value={input} onChange={(ev) => handleInputChange(ev)} />
-				</label>
-				{
-					error.length > 0 &&
-					<div className='error-bubble'>
-						<h4>{s.missing}</h4>
-						{error.map((e, i) => <p key={i}>{'- ' + e}</p>)}
-					</div>
-				}
+				<div className="relative mt-2">
+					<label>
+						<span>{s.label[step]}</span>
+						<input type={handleInputType()} value={input} onChange={(ev) => handleInputChange(ev)} />
+					</label>
+					{
+						error.length > 0 &&
+						<ErrorBubble>
+							<h4>{s.missing}</h4>
+							<ul>
+								{
+									error.map((err, i) => <li key={i}>{err}</li>)
+								}
+
+							</ul>
+						</ErrorBubble>
+					}
+				</div>
 				<Btn ref={buttonRef} className='btn btn-ppal' type='submit'>
 					{
 						loading ? <i className='fas fa-circle-notch fa-spin'></i> :

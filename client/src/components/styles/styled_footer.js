@@ -43,10 +43,12 @@ const StyledFooter = styled.footer`
 
 	svg { fill: var(--clr-white) }
 
-	@media (max-width: 1000px){
+	@media (max-width: 1000px) {
+		padding: 3em;
+
 		.about__us {
-		display: inline;
-	}
+			display: inline;
+		}
 		ul {
 			flex-direction: column;
 			&>li + li{

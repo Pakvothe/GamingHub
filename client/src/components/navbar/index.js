@@ -194,7 +194,7 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 								<Link to='/about'>{s.about}</Link>
 							</li>
 							<li>
-								<Link to='/help'>{s.help}</Link>
+								<Link to='/contact'>{s.help}</Link>
 							</li>
 						</ul>
 					</div>

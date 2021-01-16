@@ -947,14 +947,28 @@ export const StyledLoader = styled(LoadingOverlay)`
 `
 
 export const StyledTitle = styled.h2`
-		text-align: center;
 		text-transform: uppercase;
 		font-size: 1.75em;
 		margin-bottom: 1.5em;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		&::before {
+			content: '';
+			flex: 1 1 auto;
+			border-top: 1px solid #9997;
+		}
+		&::after {
+			content: '';
+			flex: 1 1 auto;
+			border-top: 1px solid #9997;
+		}
 
 		span {
-			position: relative;
-			display: inline-block;
+			padding: 0 1em;
+			flex: 0 0 auto;
+
 		}
 `
 
@@ -1069,6 +1083,38 @@ export const StyledTerms = styled.div`
 		font-size: 0.8em;
 		padding-bottom: 0;
 	}
+`
+
+export const ErrorBubble = styled.div`
+		position: absolute;
+		bottom: 0;
+		left: calc(100% + 2em);
+		padding: 1em 1em 1em 4em;
+		border: 3px solid var(--clr-error);
+		border-radius: 0.4em;
+		font-size: 0.8em;
+		
+		h4 {
+			text-transform: uppercase;
+			font-weight: 700;
+			margin-bottom: 5px;
+			position: relative;
+
+			&::before {
+				content: '\f06a';
+				position: absolute;
+				left: -2em;
+				color: var(--clr-error);
+				font-family: 'Font Awesome 5 Pro';
+				font-size: 1.5em;
+			}
+		}
+
+		ul {
+			text-transform: none;
+			columns: 1;
+			list-style: disc;
+		}
 `
 
 export const StyledSVG = styled(SVG)`
