@@ -11,7 +11,8 @@ const strings = {
 		imageSize: 'Image size must be lower than 2MB',
 		imageError: 'Upload image error',
 		inUse: '* That email is already in use.',
-		passwordMessage: '* The password must contain a number, a lowercase letter, an uppercase letter and a special character.'
+		passwordMessage: '* The password must contain a number, a lowercase letter, an uppercase letter and a special character.',
+		missing: 'Your password:'
 	},
 	es: {
 		signUp: 'Registrarse',
@@ -25,7 +26,8 @@ const strings = {
 		imageSize: 'La imagen debe ser menor a 2MB',
 		imageError: 'Upload image error',
 		inUse: '* El correo electrónico ya está en uso.',
-		passwordMessage: '* La contraseña debe incluir un número, una letra minúscula, una mayúscula y un caracter especial.'
+		passwordMessage: '* La contraseña debe incluir un número, una letra minúscula, una mayúscula y un caracter especial.',
+		missing: 'A tu contraseña le falta:'
 	}
 };
 

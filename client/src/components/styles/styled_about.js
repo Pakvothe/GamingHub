@@ -1,21 +1,26 @@
 import styled from 'styled-components';
 
 export const StyledAbout = styled.div`
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
-	flex-direction:column;
 	min-height: 60vh;
 
-	.about_text {
+	h2 {
 		text-align: center;
+		margin-bottom: 1em;
+		text-transform: uppercase;
+		font-size: 2em;
+	}
+
+	h3 {
+		margin-bottom: 1em;
+		font-weight: 700;
+		text-transform: uppercase;
 	}
 	
 	.about_coders_container {
-		width: 100%;
 		display: flex;
 		justify-content: space-around;
 		align-items: center;
+		margin-top: 2em;
 
 		.about_coder{
 			display: flex;

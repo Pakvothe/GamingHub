@@ -51,19 +51,17 @@ function Reviews({ id }) {
 	}
 
 	const handleFilter = (ev) => {
-		let eventoId = ev.target.id // Porque dio problemas, lo guardamos en un closure
+		if (!ev.target.id) return;
 		for (const key in filters) {
 			let element = document.getElementById(key);
-			if (eventoId === key) {
+			if (ev.target.id === key) {
 				element.classList.toggle('filter__selected', true)
 			} else {
 				element.classList.remove('filter__selected');
 			}
 		}
-		dispatch(getReviews(id, { name: filters[eventoId].name, order: filters[eventoId].order }))
+		dispatch(getReviews(id, { name: filters[ev.target.id].name, order: filters[ev.target.id].order }))
 	}
-
-	// if (reviews.length === 0) return <></>;
 
 	return (
 		<StyledReviews>

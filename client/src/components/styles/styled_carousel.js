@@ -40,7 +40,13 @@ export const StyledCarousel = styled.div`
 	position: relative;
 	overflow: hidden;
 	height: 60vh;
+	min-height: ${props => props.full ? '600px' : 'auto'};
 	border-radius: ${props => props.full ? '0' : '1em'};
+	
+	@media (max-width: 1000px) {
+		min-height: auto;
+		height: 50vh;
+	}
 
 	.embla__slide__detail {
 		color: var(--clr-white);
@@ -191,11 +197,12 @@ export const StyledCarousel = styled.div`
 }
 
 .embla__button--prev {
-	left: 15%;
+	left: ${props => props.full ? '5%' : '15%'};
+	
 }
 
 .embla__button--next {
-	right: 15%;
+	right: ${props => props.full ? '5%' : '15%'};
 }
 
 `

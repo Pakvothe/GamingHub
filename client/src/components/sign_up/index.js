@@ -2,12 +2,13 @@ import React, { useState, useRef } from 'react';
 import { useHistory, useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
 import { addUser } from '../../redux/actions/users_actions';
-import { FormStyled, Btn } from '../styles/styled_global';
+import { FormStyled, Btn, ErrorBubble, Flex } from '../styles/styled_global';
 import strings from './strings';
 import { storage } from '../../firebase/';
 import Swal from 'sweetalert2';
 import { v4 as uuidv4 } from 'uuid';
 import queryString from 'query-string';
+import passwordValidator from '../../utils/passwordValidator';
 
 const SignUp = () => {
 	const dispatch = useDispatch()
@@ -25,7 +26,8 @@ const SignUp = () => {
 		is_admin: false,
 	});
 
-	let [passwordMessage, setPasswordMessage] = useState(false);
+	const [error, setError] = useState([]);
+
 	let [emailMessage, setEmailMessage] = useState(false);
 	const [imageAsFile, setImageAsFile] = useState(false);
 	const fileInput = useRef(null);
@@ -36,6 +38,8 @@ const SignUp = () => {
 			...prevState,
 			[ev.target.name]: ev.target.value
 		}))
+		console.log(input)
+		setError(passwordValidator(ev.target.value, language))
 	}
 
 	const handleImageAsFile = (e) => {
@@ -80,19 +84,17 @@ const SignUp = () => {
 								.then(() => order ? history.push('/order/payment') : history.push('/'))
 								.catch((err) => {
 									storage.ref('profilePics').child(randomID).delete();
-									setPasswordMessage(false);
 									if (err.message === 'email must be unique') setEmailMessage(true);
 								});
 						});
 				});
 		} else {
-			setPasswordMessage(true);
 			setEmailMessage(false);
 		};
 	};
 
 	return (
-		<>
+		<Flex>
 			<FormStyled onSubmit={handleSubmit} autoComplete="off">
 				<h1 className='form__title'>{s.signUp}</h1>
 				<label>
@@ -112,14 +114,27 @@ const SignUp = () => {
 					<input type="email" value={input.email} name="email" onChange={handleChange} required />
 				</label>
 				{emailMessage && s.inUse}
-				<label>
-					<span>{s.password}</span>
-					<input type="password" value={input.password} name="password" onChange={handleChange} required />
-				</label>
-				{passwordMessage && <p>{s.passwordMessage}</p>}
+				<div className="relative mt-2">
+					<label>
+						<span>{s.password}</span>
+						<input type="password" value={input.password} name="password" onChange={handleChange} required />
+					</label>
+					{
+						error.length > 0 &&
+						<ErrorBubble>
+							<h4>{s.missing}</h4>
+							<ul>
+								{
+									error.map((err, i) => <li key={i}>{err}</li>)
+								}
+
+							</ul>
+						</ErrorBubble>
+					}
+				</div>
 				<Btn type="submit" className="btn-ppal">{s.signUp}</Btn>
 			</FormStyled>
-		</>
+		</Flex>
 	)
 }
 

@@ -100,7 +100,7 @@ const PrivacyES = () => {
 				<p>You may at any time review or change the information in your account or terminate your account by:</p>
 				<ul>
 					<li>Logging into your account settings and updating your account</li>
-					<li>Contacting us using the <Link to="/help">contact form</Link></li>
+					<li>Contacting us using the <Link to="/contact">contact form</Link></li>
 				</ul>
 
 				<p>Upon your request to terminate your account, we will deactivate or delete your account and information from our active databases. However, some information may be retained in our files to prevent fraud, troubleshoot problems, assist with any investigations, enforce our Terms of Use and/or comply with legal requirements.</p>

@@ -26,7 +26,7 @@ const Footer = ({ language }) => {
 					<li><Link onClick={handleClick} to="/terms">{s.terms}</Link></li>
 					<li><Link onClick={handleClick} to="/privacy">{s.privacy}</Link></li>
 					<li><Link onClick={handleClick} to="/legal">{s.legal}</Link></li>
-					<li><Link onClick={handleClick} to="/help">{s.contact}</Link></li>
+					<li><Link onClick={handleClick} to="/contact">{s.contact}</Link></li>
 				</ul>
 			</nav>
 
