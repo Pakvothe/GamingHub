@@ -67,8 +67,23 @@ const AdminProductList = ({ orders }) => {
 					setFiltered(orders.filter(order => order.total_amount < searchInput));
 					break;
 				default:
-					setFiltered(orders.filter(order => order[filter]?.toString().includes(searchInput)))
-					break;
+					switch (searchInput.toLowerCase()) {
+						case 'creada':
+							setFiltered(orders.filter(order => order[filter]?.toString().includes('created')))
+							break;
+						case 'en proceso':
+							setFiltered(orders.filter(order => order[filter]?.toString().includes('processing')))
+							break;
+						case 'completada':
+							setFiltered(orders.filter(order => order[filter]?.toString().includes('completed')))
+							break;
+						case 'cancelada':
+							setFiltered(orders.filter(order => order[filter]?.toString().includes('canceled')))
+							break;
+						default:
+							setFiltered(orders.filter(order => order[filter]?.toString().includes(searchInput)))
+							break;
+					}
 			}
 			setAll(false);
 		}
@@ -101,7 +116,10 @@ const AdminProductList = ({ orders }) => {
 					</SelectStyled>
 				</label>
 				<FormStyled onSubmit={handleSearch} id='form' className='mr-1'>
-					<input value={searchInput} type={filter === 'createdAt' ? 'date' : 'text'} onChange={(ev) => { setsearchInput(ev.target.value) }} />
+					<input
+						value={searchInput} type={filter === 'createdAt' ? 'date' : 'text'}
+						onChange={(ev) => { setsearchInput(ev.target.value) }}
+					/>
 				</FormStyled>
 				<Btn className='btn btn-ppal' form='form' type='submit'>{s.button}</Btn>
 			</Flex>

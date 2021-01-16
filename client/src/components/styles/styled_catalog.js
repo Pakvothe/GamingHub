@@ -37,5 +37,6 @@ export const SelectStyled = styled.select`
 		width: 100%;
 		max-width: 200px;
 		margin: 0 auto;
+		font-size: 1em;
 	}
 `;

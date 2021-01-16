@@ -899,7 +899,7 @@ export const Badge = styled.span`
 `
 
 export const StyledLoader = styled(LoadingOverlay)`
-
+	min-height: ${props => props.active ? '500px' : ''};
 	.loading__spinner {
 		width: 100px;
 		& svg circle { stroke: var(--clr-primary)}
