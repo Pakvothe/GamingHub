@@ -76,6 +76,7 @@ export const StepOne = styled.div`
 		}
 
 		.aside__subtotal {
+			margin-top: 2em;
 			margin-bottom: 0.5em;
 		}
 
@@ -95,6 +96,16 @@ export const StepOne = styled.div`
 			display: block;
 			margin: 0 auto;
 		}
+	}
+
+	@media (max-width: 1200px) {
+		max-width: 800px;
+		margin: 0 auto;
+		flex-direction: column;
+
+		& > div:first-child { margin-right: 0 }
+		& > div:last-child { margin: 0 }
+		aside { position: static }
 	}
 `
 

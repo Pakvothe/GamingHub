@@ -51,6 +51,7 @@ const utilsProd = require("./utils/products");
 const utilsOrder = require("./utils/orders");
 const utilsUser = require("./utils/users");
 const utilsReview = require("./utils/reviews");
+const ordersProducts = require("./utils/ordersProducts");
 const orders = require('./utils/orders');
 
 // Syncing all the models at once.
@@ -80,40 +81,11 @@ conn.sync({ force: true }).then(() => {
 			return Order.bulkCreate(utilsOrder)
 		})
 		.then(() => {
-			Orders_products.create({
-				productId: 1,
-				orderId: 1,
-				unit_price: 52.38,
-				quantity: 2
-			})
-			Orders_products.create({
-				productId: 5,
-				orderId: 1,
-				unit_price: 3.19,
-				quantity: 2
-			})
-			Orders_products.create({
-				productId: 1,
-				orderId: 2,
-				unit_price: 52.38,
-				quantity: 2
-			})
-			Orders_products.create({
-				productId: 2,
-				orderId: 2,
-				unit_price: 40.72,
-				quantity: 1
-			})
-			Orders_products.create({
-				productId: 4,
-				orderId: 2,
-				unit_price: 40.72,
-				quantity: 1
-			})
 			console.log('Ordenes cargadas exitosamente')
-			return;
+			return Orders_products.bulkCreate(ordersProducts, { hooks: true })
 		})
 		.then(() => {
+			console.log('Order_Products cargados exitosamente')
 			return Review.bulkCreate(utilsReview, { hooks: true })
 		})
 		.then(() => {

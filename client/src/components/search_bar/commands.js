@@ -23,6 +23,8 @@ export default (input, addToast, setOpen) => {
 			break;
 		case 'powerRanger': displayImgs(powerRangers);
 			break;
+		case 'party': party()
+			break;
 		default:
 			command = '';
 			break;
@@ -107,4 +109,8 @@ const displayImgs = (array) => {
 
 const surprise = (setOpen) => {
 	setOpen(true);
+}
+
+const party = () => {
+	document.querySelector('.partyBar-container').classList.toggle('showBar');
 }

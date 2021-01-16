@@ -117,6 +117,7 @@ const AdminProductList = ({ orders }) => {
 				</label>
 				<FormStyled onSubmit={handleSearch} id='form' className='mr-1'>
 					<input
+						placeholder={s.inputPlaceholder} className="adminInput"
 						value={searchInput} type={filter === 'createdAt' ? 'date' : 'text'}
 						onChange={(ev) => { setsearchInput(ev.target.value) }}
 					/>
@@ -154,7 +155,7 @@ const AdminProductList = ({ orders }) => {
 						))
 					}
 					{
-						(all ? orders : filtered).length === 0 && <Tr><Td>No Matches</Td></Tr>
+						(all ? orders : filtered).length === 0 && <Tr><Td colspan="6">No Matches</Td></Tr>
 					}
 				</Tbody>
 			</DataTable>
