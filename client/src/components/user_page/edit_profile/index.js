@@ -129,8 +129,8 @@ const EditUser = () => {
 							<span>{s.email}</span>
 							<input type="email" value={input.email} name="email" onChange={handleChange} required />
 						</label>
-						<div className="text-center">
-							<Btn type="submit" className="btn-ppal mr-1">{s.confirmButtonText}</Btn>
+						<div className="buttons">
+							<Btn type="submit" className="btn-ppal">{s.confirmButtonText}</Btn>
 							<Btn onClick={() => history.push('/user')} className="btn-sec">{s.cancelButtonText}</Btn >
 						</div>
 					</FormStyled>

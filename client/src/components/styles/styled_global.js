@@ -658,6 +658,23 @@ export const FormStyled = styled.form`
 			}
 		}
 
+		.buttons{
+				display: flex;
+				align-items: center;
+				justify-content: space-around;
+				margin-top: 2em;
+
+				button:last-child { margin-top: 0; }
+
+		@media (max-width: 600px) {
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				margin-top: 2em;
+
+				button:last-child { margin-top: 1em; }
+			}
+		}
 `
 
 export const CheckboxLabel = styled.label`

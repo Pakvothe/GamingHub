@@ -16,13 +16,6 @@ const Footer = ({ language }) => {
 	return (
 		<StyledFooter>
 			<StyledSVG src={logo} />
-			<nav className="navbar__top">
-				<ul>
-					<li><Link to="/categories">{s.categories}</Link></li>
-					<li><Link to="">{s.offers}</Link></li>
-				</ul>
-			</nav>
-
 			<nav className="navbar__bottom">
 				<ul>
 					<li><Link onClick={handleClick} to="/terms">{s.terms}</Link></li>
