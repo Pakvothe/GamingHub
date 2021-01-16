@@ -13,7 +13,7 @@ const strings = {
 
 	},
 	es: {
-		title: 'Help',
+		title: 'Contacto',
 		text: 'En caso de ncesitar ayuda contactar a:',
 		volver: 'Volver',
 		mail: 'Correo',
