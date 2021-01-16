@@ -769,23 +769,33 @@ const products = [
 			}
 		]
 	},
-	{	// 1
-		name: 'Test sin stock 2',
+	{	// 21
+		name: 'Ori and the Will of the Wisps',
 		stock: 0,
-		description_es: 'El mundo ha caído bajo el control de Shinra Electric Power Company, una oscura corporación que controla la fuerza vital del planeta como energía mako. En la extensa ciudad de Midgar, una organización anti-Shinra que se hace llamar Avalanche ha intensificado su resistencia. Cloud Strife, un ex miembro de la unidad SOLDADO de élite de Shinra ahora convertido en mercenario, presta su ayuda al grupo, sin darse cuenta de las consecuencias épicas que le esperan',
-		description_en: 'The world has fallen under the control of the Shinra Electric Power Company, a shadowy corporation controlling the planet very life force as mako energy. In the sprawling city of Midgar, an anti-Shinra organization calling themselves Avalanche have stepped up their resistance. Cloud Strife, a former member of Shinra is elite SOLDIER unit now turned mercenary, lends his aid to the group, unaware of the epic consequences that await him.',
-		price: 99999.30,
+		description_es: 'Sumérgete en una nueva aventura a través de un gran y exótico mundo en el que encontrarás imponentes enemigos y desafiantes acertijos a lo largo de tu aventura mientras revelas el destino de Ori.',
+		description_en: 'Dive into a new adventure through a vast and exotic world where you will encounter mighty enemies and challenging puzzles throughout your adventure as you reveal Ori\'s fate.',
+		price: 1999.90,
 		is_active: true,
 		images: [
 			{
-				url: 'https://mlpnk72yciwc.i.optimole.com/w:auto/h:auto/q:auto/https://www.bleedingcool.com/wp-content/uploads/2019/11/917qd6zjz9l._sl1500.jpg'
+				url: 'https://firebasestorage.googleapis.com/v0/b/ecommerce-456e0.appspot.com/o/images%2Fa2b7eb94-ed57-4f57-b623-c9c00c1c383a?alt=media&token=19aaae63-ad21-414a-a2f3-8c13e497e26b'
+			},
+			{
+				url: 'https://firebasestorage.googleapis.com/v0/b/ecommerce-456e0.appspot.com/o/images%2F824f86d5-505f-46ce-a6c0-c160dd71cd63?alt=media&token=d598b10e-87f5-43f2-9f15-91cbabbeed37%C3%A7'
+			},
+			{
+				url: 'https://firebasestorage.googleapis.com/v0/b/ecommerce-456e0.appspot.com/o/images%2F01ca6273-880f-48d6-a40a-d2ceec64ebd4?alt=media&token=5f408993-82f4-4179-80d2-deb33ffa1c3e'
 			},
 		],
 		serials: [],
 		catArray: [
 			{
-				name_en: 'rpg',
-				name_es: 'rpg',
+				name_en: 'platformer',
+				name_es: 'plataforma'
+			},
+			{
+				name_en: 'adventure',
+				name_es: 'aventura',
 			}
 		]
 	},
