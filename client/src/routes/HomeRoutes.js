@@ -55,7 +55,7 @@ function HomeRoutes() {
 
 	return (
 		<>
-			{parsed.status && <Confetti
+			{parsed.status === 'completed' && <Confetti
 				width={window.innerWidth - 16}
 				height={window.innerHeight}
 

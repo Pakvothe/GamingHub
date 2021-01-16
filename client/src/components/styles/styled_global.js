@@ -955,26 +955,6 @@ export const StyledTitle = styled.h2`
 		span {
 			position: relative;
 			display: inline-block;
-
-			&::before {
-				content: '';
-				height: 1px;
-				background: #555;
-				position: absolute;
-				left: -100%;
-				top: 50%;
-				width: 95%;
-			}
-
-			&::after {
-				content: '';
-				height: 1px;
-				background: #555;
-				position: absolute;
-				right: -100%;
-				top: 50%;
-				width: 95%;
-			}
 		}
 `
 

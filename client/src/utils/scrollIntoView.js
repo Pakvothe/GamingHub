@@ -1,0 +1,1 @@
+export const scrollToMain = () => document.querySelector('.main-container').scrollIntoView({ block: 'start', behavior: 'smooth' })

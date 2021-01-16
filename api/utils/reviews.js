@@ -35,7 +35,7 @@ const reviews = [
 	{
 		description: `La gestión del guardado en la nube y los saves es horrorosa. Literalmente he perdido en varios años, tres partidas a final del disco dos, por cargarme partidas anteriores del guardado en la nube. Un 0 para esta penosa versión. Me he bajado black chocobo para tener que recomponerme un save parecido al que tenia por donde iba. UN CERO PARA SQUARE.`,
 		score: 1,
-		userId: 3,
+		userId: 5,
 		productId: 3
 	},
 	{
