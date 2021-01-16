@@ -778,13 +778,13 @@ const products = [
 		is_active: true,
 		images: [
 			{
-				url: 'https://firebasestorage.googleapis.com/v0/b/ecommerce-456e0.appspot.com/o/images%2Fa2b7eb94-ed57-4f57-b623-c9c00c1c383a?alt=media&token=19aaae63-ad21-414a-a2f3-8c13e497e26b'
+				url: 'https://firebasestorage.googleapis.com/v0/b/ecommerce-456e0.appspot.com/o/images%2Faa94e318-e6e1-453a-9e38-f2dcfded6054?alt=media&token=3bcddeec-1e50-4c22-9ae0-3244fdb521ea'
 			},
 			{
-				url: 'https://firebasestorage.googleapis.com/v0/b/ecommerce-456e0.appspot.com/o/images%2F824f86d5-505f-46ce-a6c0-c160dd71cd63?alt=media&token=d598b10e-87f5-43f2-9f15-91cbabbeed37%C3%A7'
+				url: 'https://firebasestorage.googleapis.com/v0/b/ecommerce-456e0.appspot.com/o/images%2F8c7e097c-babb-4ee1-9037-4765fa841ea0?alt=media&token=bc28ce1c-fc09-4c8e-bad0-ea4e518aac92'
 			},
 			{
-				url: 'https://firebasestorage.googleapis.com/v0/b/ecommerce-456e0.appspot.com/o/images%2F01ca6273-880f-48d6-a40a-d2ceec64ebd4?alt=media&token=5f408993-82f4-4179-80d2-deb33ffa1c3e'
+				url: 'https://firebasestorage.googleapis.com/v0/b/ecommerce-456e0.appspot.com/o/images%2F53c67953-4280-4cd0-830f-9da7f0cd96bf?alt=media&token=384b7bd4-fd55-4f62-b106-2c28e33701bf'
 			},
 		],
 		serials: [],

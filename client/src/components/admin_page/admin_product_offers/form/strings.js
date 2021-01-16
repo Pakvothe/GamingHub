@@ -14,6 +14,7 @@ const strings = {
 		toastServerError: 'Internal Server Error',
 		toastOfferEdited: 'Offer edited successfully',
 		toastOfferAdded: 'Offer added successfully',
+		uploading: 'Uploading...'
 	},
 	es: {
 		price: "Precio de descuento",
@@ -30,6 +31,7 @@ const strings = {
 		toastServerError: 'Error del servidor',
 		toastOfferEdited: 'Oferta editada correctamente',
 		toastOfferAdded: 'Oferta agregada correctamente',
+		uploading: 'Subiendo...'
 	}
 };
 
