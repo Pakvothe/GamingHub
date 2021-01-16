@@ -10,7 +10,7 @@ import { Btn, Flex, FormStyled } from '../../styles/styled_global';
 import { SelectStyled } from '../../styles/styled_catalog';
 import { addOrder } from '../../../redux/actions/orders_actions';
 import { clearCart } from '../../../redux/actions/cart_actions';
-
+import { scrollToMain } from '../../../utils/scrollIntoView';
 
 const Step2 = ({ language }) => {
 
@@ -26,6 +26,8 @@ const Step2 = ({ language }) => {
 	const handleChange = (ev) => {
 		setInputEmail(ev.target.value)
 	}
+
+	useEffect(scrollToMain, [])
 
 	useEffect(() => {
 		setTotal(cart.reduce((acc, product) => {

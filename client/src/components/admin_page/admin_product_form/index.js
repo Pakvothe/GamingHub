@@ -205,7 +205,7 @@ const AdminProductForm = ({ categories }) => {
 							<span>{s.inputImage}</span>
 							<input ref={fileInput} type='file' name='img' onChange={handleImagesAsFile} multiple required={id ? false : true} />
 						</label>
-						<div className='image__container'>
+						<div className='image__container mt-1'>
 							{id && product.images?.length > 0 &&
 								product.images.map(image =>
 									<div key={image.id} className='image_thumbnail'>
