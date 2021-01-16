@@ -23,7 +23,7 @@ const UserPage = () => {
 				<ul>
 					<li><Link to="/edit">{s.edit} </Link></li>
 					<li><Link to="/orders">{s.orders} </Link></li>
-					<li><Link to="/help">{s.help} </Link></li>
+					<li><Link className='last_link' to="/help">{s.help} </Link></li>
 				</ul>
 				<Profile />
 			</UserCard>

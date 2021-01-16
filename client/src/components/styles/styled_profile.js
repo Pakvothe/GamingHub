@@ -24,4 +24,16 @@ export const ProfileStyled = styled.div`
 	p{
 		text-align: center;
 	}
+
+
+	@media (max-width: 450px) {
+		 .img-container {
+			
+		width: 150px;
+		height: 150px;
+		 }
+	h2{
+		font-size: 2em;
+	}
+	  }
 `
