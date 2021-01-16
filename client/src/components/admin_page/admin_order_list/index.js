@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { Btn, DataTable, FormStyled, Flex } from '../../styles/styled_global';
+import { Btn, DataTable, FormStyled } from '../../styles/styled_global';
+import { StyledAdminOrderList } from '../../styles/styled_admin_order_list';
 import { Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import { useHistory } from 'react-router-dom';
@@ -98,24 +99,26 @@ const AdminProductList = ({ orders }) => {
 	}
 
 	return (
-		<>
+		<StyledAdminOrderList>
 			<h1 className='admin-h1'>{s.title}</h1>
-			<Flex align='center'>
+			<div className='options__container'>
 				<label className='mr-2'>
-					<span>{s.searchBy}</span>
-					<SelectStyled onChange={(e) => setFilter(e.target.value)}>
-						<option value="none" >{s.searchNone}</option>
-						<option value="state" >{s.searchState}</option>
-						<option value="id" >id</option>
-						<option value="email" >email</option>
-						<option value="min_amount" >{s.searchMin}</option>
-						<option value="max_amount" >{s.searchMax}</option>
-						<option value="payment_method" >{s.searchPayment}</option>
-						<option value="userId" >{s.searchUserId}</option>
-						<option value="createdAt" >{s.searchCreatedAt}</option>
-					</SelectStyled>
+					<div className='select'>
+						<span>{s.searchBy}</span>
+						<SelectStyled onChange={(e) => setFilter(e.target.value)}>
+							<option value="none" >{s.searchNone}</option>
+							<option value="state" >{s.searchState}</option>
+							<option value="id" >id</option>
+							<option value="email" >email</option>
+							<option value="min_amount" >{s.searchMin}</option>
+							<option value="max_amount" >{s.searchMax}</option>
+							<option value="payment_method" >{s.searchPayment}</option>
+							<option value="userId" >{s.searchUserId}</option>
+							<option value="createdAt" >{s.searchCreatedAt}</option>
+						</SelectStyled>
+					</div>
 				</label>
-				<FormStyled onSubmit={handleSearch} id='form' className='mr-1'>
+				<FormStyled onSubmit={handleSearch} id='form' >
 					<input
 						placeholder={s.inputPlaceholder} className="adminInput"
 						value={searchInput} type={filter === 'createdAt' ? 'date' : 'text'}
@@ -123,7 +126,7 @@ const AdminProductList = ({ orders }) => {
 					/>
 				</FormStyled>
 				<Btn className='btn btn-ppal' form='form' type='submit'>{s.button}</Btn>
-			</Flex>
+			</div>
 			<DataTable className="responsiveTable">
 				<Thead>
 					<Tr onClick={handleSort}>
@@ -155,11 +158,11 @@ const AdminProductList = ({ orders }) => {
 						))
 					}
 					{
-						(all ? orders : filtered).length === 0 && <Tr><Td colspan="6">No Matches</Td></Tr>
+						(all ? orders : filtered).length === 0 && <Tr><Td colSpan="6">No Matches</Td></Tr>
 					}
 				</Tbody>
 			</DataTable>
-		</>
+		</StyledAdminOrderList>
 	);
 };
 

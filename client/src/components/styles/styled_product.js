@@ -114,6 +114,7 @@ export const GameDetail = styled.section`
 		justify-content: space-between;
 
 		button{
+			min-width: 210px;
 			margin-bottom: 0.5em;
 		}
 		

@@ -116,6 +116,7 @@ export const ProductCardStyled = styled.article`
 		margin-top: auto;
 		margin-bottom: .5em;
 		z-index: 10;
+		min-width: 200px;
 	}
 	
 	.card__noStock {

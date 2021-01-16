@@ -778,17 +778,24 @@ export const MiniCard = styled.article`
 			cursor: pointer;
 		}
 
-	&:hover svg {
-		fill: var(--clr-primary-2);
-	}
+		&:hover svg {
+			fill: var(--clr-primary-2);
+		}
 
-	&:focus {
-		outline: none;
+		&:focus {
+			outline: none;
+		}
+		&:active{
+			transform: translateY(1px);
+		}
+	}	
+
+	@media (max-width: 450px) {
+		.article__img{
+			height: 75px;
+			flex: 0 0 75px;
+		}
 	}
-	&:active{
-		transform: translateY(1px);
-	}
-}	
 `
 
 export const Dropdown = styled.li`

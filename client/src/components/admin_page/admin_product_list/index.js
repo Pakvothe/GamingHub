@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteProduct, toggleActiveProduct, getProducts } from '../../../redux/actions/products_actions';
 import { Btn, DataTable, FormStyled } from '../../styles/styled_global';
+import { StyledAdminProductList } from '../../styles/styled_admin_product_list';
 import { Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import { Link } from 'react-router-dom';
@@ -77,9 +78,9 @@ const AdminProductList = ({ products }) => {
 	}
 
 	return (
-		<>
+		<StyledAdminProductList>
 			<h1 className='admin-h1'>{s.title}</h1>
-			<div style={{ display: 'flex', justifyContent: 'space-between' }}>
+			<div className='header__container'>
 				<div>
 					<Link to="/admin/product"><Btn className="btn-ppal mr-1">{s.addProduct}</Btn></Link>
 					<Link to="/admin/product/offer/list"><Btn className="btn-ppal">{s.offers}</Btn></Link>
@@ -117,7 +118,7 @@ const AdminProductList = ({ products }) => {
 					))}
 				</Tbody>
 			</DataTable>
-		</>
+		</StyledAdminProductList>
 	);
 };
 
