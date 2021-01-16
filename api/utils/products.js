@@ -790,8 +790,12 @@ const products = [
 		serials: [],
 		catArray: [
 			{
-				name_en: 'rpg',
-				name_es: 'rpg',
+				name_en: 'platformer',
+				name_es: 'plataforma'
+			},
+			{
+				name_en: 'adventure',
+				name_es: 'aventura',
 			}
 		]
 	},
