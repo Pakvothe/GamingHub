@@ -6,7 +6,8 @@ const { isAdmin } = require('../../utils/customMiddlewares');
 const { previousDays } = require('../../utils/functions');
 
 server.get('/sales', isAdmin, (req, res) => {
-	const today = new Date();
+	const { date } = req.query
+	const today = new Date(date);
 	const lastWeek = previousDays(today, 7);
 
 	Order.findAll({
@@ -51,7 +52,8 @@ server.get('/user', isAdmin, async (req, res) => {
 })
 
 server.get('/earnings', isAdmin, (req, res) => {
-	const today = new Date().toISOString();
+	const { date } = req.query
+	const today = new Date(date).toISOString();
 	let arrayFecha = today.split("T");
 	const startDate = arrayFecha[0].slice(0, -2) + "01T"
 	arrayFecha[0] = startDate;
