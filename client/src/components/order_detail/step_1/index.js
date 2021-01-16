@@ -11,6 +11,7 @@ import closeCross from '../../../assets/img/close-filled-purple.svg';
 import { setDiscount } from '../../../redux/actions/cart_actions';
 import Fade from 'react-reveal/Fade';
 import strings from './strings';
+import { scrollToMain } from '../../../utils/scrollIntoView';
 
 const Step1 = ({ cart, language }) => {
 	const s = strings[language];
@@ -51,6 +52,8 @@ const Step1 = ({ cart, language }) => {
 		},
 	};
 
+	useEffect(scrollToMain, [])
+
 	useEffect(() => {
 		if (cart) {
 			setSubtotal(cart.reduce((acc, product) => {
@@ -66,7 +69,8 @@ const Step1 = ({ cart, language }) => {
 
 	const handleClick = () => {
 		dispatch(setDiscount(coupon));
-		history.push('/order/payment')
+		history.push('/order/payment');
+		document.querySelector('.main-container').scrollIntoView({ block: 'start', behavior: 'smooth' });
 	}
 
 	const [memory, setMemory] = useState(false);
