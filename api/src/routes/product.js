@@ -8,7 +8,7 @@ server.get('/', (req, res, next) => {
 	const { name, order, limit, offset, isActive } = req.query;
 
 	let count = 0;
-	Product.count()
+	Product.count({ where: !isActive && { is_active: true } })
 		.then(data => {
 			count = data;
 			return Product.findAll({
@@ -145,7 +145,7 @@ server.get('/search', (req, res) => {
 				include: [{
 					model: Image,
 				}],
-				order: [['stock', 'DESC'], [Image, 'id']],
+				order: [['stock', 'DESC']],
 				limit: limit ? limit : null,
 				offset: offset ? offset : null
 			})
