@@ -332,6 +332,7 @@ export const DataTable = styled.table`
 		border-bottom: 1px solid #CCC;
 		user-select: none;
 		cursor: default;
+		word-wrap: break-word;
 	}
 
 	.icon {
@@ -434,7 +435,13 @@ export const DataTable = styled.table`
 
 export const FormStyled = styled.form`
 
-	input.checked{
+	.adminInput {
+		font-size: 0.8em;
+		border-radius: 99em;
+		padding: 0.75em 2em;
+	}
+		
+	input.checked {
 		background: url(${checkMark}) no-repeat;
 		background-position: top 50% right 10px;
 		background-size: 25px;

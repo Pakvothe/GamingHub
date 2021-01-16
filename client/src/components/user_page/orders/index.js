@@ -90,10 +90,10 @@ const UserOrders = () => {
 					<Flex>
 						<div className='text-center'>
 							<h2 className='mb-1'>{s.empty}</h2>
-							<Btn className='btn-sec' onClick={() => history.push('/user')}>Volver</Btn>
 						</div>
 					</Flex>
 			}
+			<Btn className='btn-sec mt-2' onClick={() => history.push('/user')}>Volver</Btn>
 		</Fade>
 	)
 }

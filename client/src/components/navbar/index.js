@@ -198,6 +198,9 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 						</ul>
 					</div>
 				</div>
+				<div className="partyBar-container">
+					<div className="partyBar"></div>
+				</div>
 			</NavbarStyled>
 		</>
 	)

@@ -21,6 +21,7 @@ const strings = {
 		canceled: 'canceled',
 		button: 'Search',
 		noMatch: 'No Matches',
+		inputPlaceholder: 'Search...'
 	},
 
 	es: {
@@ -45,6 +46,7 @@ const strings = {
 		canceled: 'cancelada',
 		button: 'Buscar',
 		noMatch: 'Sin coincidencias',
+		inputPlaceholder: 'Buscar...'
 	}
 };
 

@@ -6,6 +6,7 @@ export const NavbarStyled = styled.nav`
 	background: var(--clr-dark);
 	padding: 2em 0;
 	color: var(--clr-white);
+	position: relative;
 
 	a {
 		text-decoration: none;

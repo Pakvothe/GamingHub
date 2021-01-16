@@ -85,7 +85,7 @@ const AdminProductList = ({ products }) => {
 					<Link to="/admin/product/offer/list"><Btn className="btn-ppal">{s.offers}</Btn></Link>
 				</div>
 				<FormStyled onSubmit={(ev) => { ev.preventDefault() }}>
-					<input value={searchInput} onChange={handleSearch} placeholder={s.productSearch} />
+					<input className="adminInput" value={searchInput} onChange={handleSearch} placeholder={s.productSearch} />
 				</FormStyled>
 			</div>
 			<DataTable className="responsiveTable">

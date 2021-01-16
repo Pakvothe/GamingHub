@@ -75,7 +75,7 @@ const AdminCharts = () => {
 
 
 			<section className="mb-2">
-				<h2 className="skinny-title">{s.monthlyEarning} ${monthlyEarning}</h2>
+				<h2 className="skinny-title">{s.monthlyEarning} ${monthlyEarning.toFixed(2)}</h2>
 			</section>
 			<Flex justify='space-between'>
 				<StyledChart className="chart-container">
