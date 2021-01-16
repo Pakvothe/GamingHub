@@ -7,6 +7,10 @@ const StyledFooter = styled.footer`
 	color: var(--clr-white);
 	margin-top: auto;
 
+	.about__us {
+		display: none;
+	}
+
 	a {
 		color: var(--clr-primary);
 		text-decoration: none;
@@ -17,7 +21,7 @@ const StyledFooter = styled.footer`
 	ul {
 		display: flex;
 		justify-content: center;
-		margin: 2em 0;
+		margin: 1em 0;
 		list-style: none;
 
 		li { margin: 0 2em }
@@ -40,6 +44,9 @@ const StyledFooter = styled.footer`
 	svg { fill: var(--clr-white) }
 
 	@media (max-width: 1000px){
+		.about__us {
+		display: inline;
+	}
 		ul {
 			flex-direction: column;
 			&>li + li{

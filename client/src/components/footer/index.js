@@ -16,6 +16,11 @@ const Footer = ({ language }) => {
 	return (
 		<StyledFooter>
 			<StyledSVG src={logo} />
+			<ul>
+				<li>
+					<Link onClick={handleClick} className='about__us' to="/about">{s.us}</Link>
+				</li>
+			</ul>
 			<nav className="navbar__bottom">
 				<ul>
 					<li><Link onClick={handleClick} to="/terms">{s.terms}</Link></li>

@@ -1,7 +1,6 @@
 const strings = {
 	en: {
-		categories: 'Categories',
-		offers: 'Offers',
+		us: 'About us',
 		terms: 'Terms of service',
 		privacy: 'Privacy',
 		legal: 'Legal',
@@ -11,8 +10,7 @@ const strings = {
 		footerLink: 'soyHenry',
 	},
 	es: {
-		categories: 'Categorías',
-		offers: 'Ofertas',
+		us: 'Sobre nosotros',
 		terms: 'Términos y condiciones',
 		privacy: 'Privacidad',
 		legal: 'Legal',
