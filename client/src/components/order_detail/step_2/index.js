@@ -6,7 +6,7 @@ import strings from './strings';
 //------>Styles
 import { StyledSVG, StepTwo } from '../../styles/styled_order_detail';
 import PurchaseStep2 from '../../../assets/img/purchase-steps-2.svg';
-import { Btn, Flex, FormStyled } from '../../styles/styled_global';
+import { Btn, FormStyled } from '../../styles/styled_global';
 import { SelectStyled } from '../../styles/styled_catalog';
 import { addOrder } from '../../../redux/actions/orders_actions';
 import { clearCart } from '../../../redux/actions/cart_actions';
@@ -62,61 +62,59 @@ const Step2 = ({ language }) => {
 		setPayment(ev.target.value);
 	}
 
-	// if (cart.length < 1) {
-	// 	return <Redirect to='/' />
-	// }
 	return (
 		<>
 			<h2>{s.details}</h2>
 			<StyledSVG src={PurchaseStep2} />
 			{!user?.first_name ? (
-				<>
-					<p className="text-center mb-1">{s.info}</p>
-					<StepTwo>
+				<StepTwo>
+					<div>
 						<FormStyled>
-							<label>
+							<p className="mb-1">{s.info}</p>
+							<label className="mb-2">
 								<span>{s.email}:</span>
 								<input type="email" onChange={handleChange} />
 							</label>
 							<div className='payment__container'>
+								<p className="payment__text mb-1">{s.paymentTitle}</p>
 								<div className='select__container'>
-									<h5 >{s.paymentTitle}</h5>
 									<SelectStyled onChange={(ev) => handlePayment(ev)}>
 										<option value="select" >{s.paymentTitle}</option>
 										<option value='mp'>MercadoPago</option>
 										<option value='paypal'>Paypal</option>
 									</SelectStyled>
+									<Btn className={`btn btn-ppal${payment && ' btn-visible'}`} onClick={(ev) => handleClick(ev, true)}>{loading ? <i className="fas fa-circle-notch fa-spin"></i> : s.next}</Btn>
 								</div>
-								{
-									payment &&
-									<Btn className="btn btn-ppal mb-1" onClick={(ev) => handleClick(ev, true)}>{loading ? <i className="fas fa-circle-notch fa-spin"></i> : s.next}</Btn>
-								}
 							</div>
+							<footer className="small-text">{s.warning}</footer>
 						</FormStyled>
-						<Flex direction="column" justify="space-evenly">
+					</div>
+					<aside>
+						<h3 className="skinny-title"><span>{s.orLoginHere}</span></h3>
+						<div className="button__container">
 							<Btn className="btn btn-sec" onClick={openLoginModal}>{s.login}</Btn>
 							<Btn className="btn btn-sec"><Link to="/signup?order=true">{s.signUp}</Link></Btn>
-						</Flex>
-					</StepTwo>
-					<p className="text-center">{s.warning}</p>
-
-				</>
+						</div>
+					</aside>
+				</StepTwo>
 			) : (
-					<Flex direction="column">
-						<p>{s.emailParagraph}</p>
-						<h4 className="mb-1">{user.email}</h4>
-						<h5>{s.paymentTitle}</h5>
-						<SelectStyled className='mt-1 mb-1' onChange={(ev) => handlePayment(ev)}>
-							<option value="select" >{s.paymentTitle}</option>
-							<option value='mp'>MercadoPago</option>
-							<option value='paypal'>Paypal</option>
-						</SelectStyled>
-						{
-							payment &&
-							<Btn className="btn btn-ppal mb-1" onClick={handleClick}>{loading ? <i className="fas fa-circle-notch fa-spin"></i> : s.next}</Btn>
-						}
-						<p className="text-center">{s.warning}</p>
-					</Flex>
+					<StepTwo>
+						<div>
+							<p className="stepTwo__paragraph">{s.emailParagraph} <span>{user.email}</span></p>
+							<div className='payment__container'>
+								<p className="payment__text mb-1">{s.paymentTitle}</p>
+								<div className='select__container'>
+									<SelectStyled onChange={(ev) => handlePayment(ev)}>
+										<option value="select" >{s.paymentTitle}</option>
+										<option value='mp'>MercadoPago</option>
+										<option value='paypal'>Paypal</option>
+									</SelectStyled>
+									<Btn className={`btn btn-ppal${payment && ' btn-visible'}`} onClick={(ev) => handleClick(ev, true)}>{loading ? <i className="fas fa-circle-notch fa-spin"></i> : s.next}</Btn>
+								</div>
+							</div>
+							<footer className="small-text">{s.warning}</footer>
+						</div>
+					</StepTwo>
 				)
 			}
 		</>

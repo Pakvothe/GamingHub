@@ -46,7 +46,7 @@ const SearchBar = () => {
 			history.push(`/search?query=${inputText.trim().toLowerCase()}`);
 		}
 	};
-	console.log("open", open);
+
 	return (
 		<>
 			<VideoPlayer open={open} videoCode={videoCode} />
