@@ -64,6 +64,7 @@ server.post('/', isAdmin, (req, res) => {
 		price,
 		img,
 		categories,
+		trailer,
 		is_active
 	} = req.body
 	if (name && description_en && description_es && price && is_active) {
@@ -84,6 +85,7 @@ server.post('/', isAdmin, (req, res) => {
 			description_es,
 			description_en,
 			price,
+			trailer,
 			is_active,
 			stock: 0, //may be subject to change
 			sales: 0,  //may be subject to change
