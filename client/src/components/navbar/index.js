@@ -49,11 +49,11 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 	const handleCategories = (ev) => {
 		dispatch(resetCurrentPage())
 		if (ev.target.id === 'todos') {
-			dispatch(getProducts(getProductsPayload))
-			return dispatch(emptyFilter())
+			dispatch(emptyFilter())
+			return dispatch(getProducts(getProductsPayload))
 		}
 		if (ev.target.id)
-			dispatch(getFilterProducts(ev.target.id));
+			dispatch(getFilterProducts(ev.target.id, { limit: 8 }));
 	}
 
 	const handleTheme = () => {
