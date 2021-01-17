@@ -23,6 +23,7 @@ const AdminProductForm = ({ categories }) => {
 	const [imagesAsFile, setImagesAsFile] = useState([]);
 
 	const product = useSelector((state) => state.productsReducer.productDetail.product);
+	const isLoading = useSelector((state) => state.productsReducer.productDetail.isLoading);
 
 	const [toAdmin, setToAdmin] = useState(false);
 	const { addToast } = useToasts();
