@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import StarRatings from "react-star-ratings";
 
@@ -18,6 +18,8 @@ import mercadoPagoImg from '../../../assets/img/mercadopago.webp'
 import { useHistory } from 'react-router-dom';
 import { openVideo } from '../../../redux/actions/global_actions';
 
+import { scrollToMain } from '../../../utils/scrollIntoView';
+
 export const ProductDetail = ({ product }) => {
 	const dispatch = useDispatch();
 	const history = useHistory();
@@ -28,6 +30,8 @@ export const ProductDetail = ({ product }) => {
 	const stock = useSelector(state => state.cartReducer.cart.stock);
 	const theme = useSelector(state => state.globalReducer.theme);
 	const { addToast } = useToasts();
+
+	useEffect(scrollToMain, []);
 
 	function handleQuantityChange(amount) {
 		// Amount equals +1 or -1 

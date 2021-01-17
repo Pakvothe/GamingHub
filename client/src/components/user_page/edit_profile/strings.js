@@ -11,12 +11,18 @@ const strings = {
 		confirmText: 'User has been edited successfully',
 		editq: 'Are you sure?',
 		editText: 'This action will edit your user data.',
+		inUse: '* That email is already in use.',
 		deleteAccount: 'Delete my account',
 		deleteAlertTitle: 'Are you sure you want to delete your account?',
 		deleteAlertText: 'This action cannot be undone.',
 		confirmDeletedUserTitle: 'Your account was deleted.',
 		confirmDeletedUserText: 'We are going to miss you 😥',
 		deleteUserErrorText: 'There was an error trying to perform the action. Try again later.',
+		onlyImages: 'Only images are allowed',
+		imageSize: 'Image size must be lower than 2MB',
+		imageError: 'Upload image error',
+		toastNotFound: 'User not found',
+		toastServerError: 'Internal Server Error'
 	},
 	es: {
 		title: 'Editar usuario',
@@ -30,12 +36,18 @@ const strings = {
 		confirmText: 'El usuario ha sido editado correctamente.',
 		editq: '¿Estás seguro?',
 		editText: 'Esta accion editará los datos de tu usuario.',
+		inUse: '* Este correo electrónico ya está en uso.',
 		deleteAccount: 'Eliminar mi cuenta',
 		deleteAlertTitle: '¿Estás seguro de querer eliminar tu cuenta?',
 		deleteAlertText: 'Esta acción es irreversible.',
 		confirmDeletedUserTitle: 'Tu cuenta fue eliminada.',
 		confirmDeletedUserText: 'Te vamos a extrañar 😥',
 		deleteUserErrorText: 'Hubo un error al ejecutar la acción. Intentalo de nuevo más tarde.',
+		onlyImages: 'Sólo se permiten imágenes',
+		imageSize: 'La imagen no puede ser mayor a 2MB',
+		imageError: 'Error en la subida de la imagen',
+		toastNotFound: 'Usuario no encontrado',
+		toastServerError: 'Error del servidor'
 	}
 };
 

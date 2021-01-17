@@ -173,10 +173,10 @@ const AdminProductForm = ({ categories }) => {
 		cancelButtonText: s.swDeleteCancelButton
 	};
 
-	if (loadingUpload) return <StyledLoader
+	if (loadingUpload || isLoading) return <StyledLoader
 		active={true}
 		spinner
-		text={s.uploading}
+		text={loadingUpload ? s.uploading : s.loading}
 		className='loading__overlay'
 		classNamePrefix='loading__'
 	/>
