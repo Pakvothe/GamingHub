@@ -978,7 +978,7 @@ export const StyledTitle = styled.h2`
 		display: flex;
 		align-items: center;
 		justify-content: center;
-
+		
 		&::before {
 			content: '';
 			flex: 1 1 auto;
@@ -989,11 +989,11 @@ export const StyledTitle = styled.h2`
 			flex: 1 1 auto;
 			border-top: 1px solid #9997;
 		}
-
+		
 		span {
+			text-align: center;
 			padding: 0 1em;
-			flex: 0 0 auto;
-
+			flex: 1;
 		}
 `
 

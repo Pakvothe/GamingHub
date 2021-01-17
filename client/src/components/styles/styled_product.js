@@ -132,7 +132,7 @@ export const GameDetail = styled.section`
       display: flex;
 	  justify-content: space-between;
 	  align-items: center;
-	  @media (max-width: 500px) {
+	  @media (max-width: 700px) {
 		  flex-direction: column;
 		  align-items: center;
 	  }
@@ -141,7 +141,7 @@ export const GameDetail = styled.section`
 	.game__payment-methods-icons {
 		max-width:300px;
 		
-		@media(max-width: 500px) {
+		@media(max-width: 700px) {
 			margin-top: 2em;
 		}
 	}
