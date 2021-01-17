@@ -20,6 +20,7 @@ server.get('/', (req, res, next) => {
 				],
 				order: [
 					(name && [name, order || 'ASC']) || ['id', 'ASC'],
+					['name', 'ASC'],
 					[Image, 'id', 'ASC']
 				],
 				limit: limit ? limit : null,
@@ -148,7 +149,7 @@ server.get('/search', (req, res) => {
 				include: [{
 					model: Image,
 				}],
-				order: [['stock', 'DESC'], [Image, 'id']],
+				order: [['stock', 'DESC'], ['name', 'ASC'], [Image, 'id']],
 				limit: limit ? limit : null,
 				offset: offset ? offset : null
 			})
