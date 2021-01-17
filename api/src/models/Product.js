@@ -48,6 +48,9 @@ module.exports = (sequelize) => {
 			validate: {
 				isUrl: true
 			}
+		},
+		trailer: {
+			type: D.STRING
 		}
 	});
 };

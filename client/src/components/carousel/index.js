@@ -102,7 +102,7 @@ const Carousel = ({ products, product = null }) => {
 			slide.timerOn = true;
 			setTimeout(() => {
 				slide.timerOn = false;
-			}, 60);
+			}, 90);
 		}
 	}
 	if ((products && !products.length) || (product && Object.keys(product).length === 0)) return (

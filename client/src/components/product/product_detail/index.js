@@ -16,6 +16,7 @@ import Carousel from '../../carousel';
 
 import mercadoPagoImg from '../../../assets/img/mercadopago.webp'
 import { useHistory } from 'react-router-dom';
+import { openVideo } from '../../../redux/actions/global_actions';
 
 export const ProductDetail = ({ product }) => {
 	const dispatch = useDispatch();
@@ -64,6 +65,10 @@ export const ProductDetail = ({ product }) => {
 		history.push('/order')
 	}
 
+	const handleYoutube = () => {
+		dispatch(openVideo(product.trailer));
+	}
+
 	return (
 		<>
 			<GameDetail>
@@ -90,6 +95,7 @@ export const ProductDetail = ({ product }) => {
 						</span>
 					</div>
 					<p className="game__description">{product[`description_${language}`]}</p>
+					{product.trailer && <Btn className='btn-youtube' onClick={handleYoutube}><i className='fab fa-youtube'></i>Ver trailer</Btn>}
 					{!!product.stock && stock[product.id] !== 0 &&
 						<>
 							<div className="game__quantity">

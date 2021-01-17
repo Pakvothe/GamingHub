@@ -1,8 +1,9 @@
 import Axios from "axios";
 import Swal from 'sweetalert2';
+import { openVideo } from "../../redux/actions/global_actions";
 import { rickys, powerRangers } from './utils';
 
-export default (input, addToast, setOpen) => {
+export default (input, addToast, dispatch) => {
 	if (input.length <= 1) return;
 	let command = input.slice(1);
 	let value;
@@ -19,7 +20,7 @@ export default (input, addToast, setOpen) => {
 			break;
 		case 'ricky': displayImgs(rickys);
 			break;
-		case 'surprise': surprise(setOpen);
+		case 'surprise': surprise(dispatch);
 			break;
 		case 'powerRanger': displayImgs(powerRangers);
 			break;
@@ -107,8 +108,8 @@ const displayImgs = (array) => {
 	});
 }
 
-const surprise = (setOpen) => {
-	setOpen(true);
+const surprise = (dispatch) => {
+	dispatch(openVideo('dQw4w9WgXcQ'));
 }
 
 const party = () => {
