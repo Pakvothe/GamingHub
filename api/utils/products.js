@@ -569,7 +569,6 @@ const products = [
 	},
 	{// 16 
 		name: "Assassin's Creed: Unity",
-		stock: 6,
 		description_es: 'Assassin’s Creed® Unity es un juego de acción/aventura con el que te sumerges en un París lleno de vida durante su época más oscura: la Revolución Francesa. Tendrás control total sobre Arno, ya que podrás personalizar su equipo tanto visual como técnicamente. Además de contar contar con una gran campaña individual, Assassin’s Creed Unity te da la oportunidad de jugar junto con 3 amigos en misiones concretas de una campaña cooperativa online. Durante el juego, formarás parte de momentos clave de la historia francesa que dieron lugar al enorme París que hoy todos conocemos.',
 		description_en: "Assassin’s Creed® Unity is an action/adventure game set in the city of Paris during one of its darkest hours, the French Revolution. Take ownership of the story by customising Arno's equipement to make the experience unique to you, both visually and mechanically. In addition to an epic single-player experience, Assassin’s Creed Unity delivers the excitement of playing with up to three friends through online cooperative gameplay in specific missions. Throughout the game, take part in one of the most pivotal moments of French history in a compelling storyline and a breath-taking playground that brought you the city of lights of today.",
 		price: 1499.00,
@@ -587,7 +586,6 @@ const products = [
 			}
 		],
 		serials: [
-			{ serial: 'HSIWUKRQQQY870KYI6QQ' },
 			{ serial: 'HF0I6AYL1OBHDI7DG9LW' },
 			{ serial: 'LC3OG66OU338BTXSX20M' },
 			{ serial: '52OGIAKRTGMT6YUYZ7OU' },
