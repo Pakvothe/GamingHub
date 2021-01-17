@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import StarRatings from "react-star-ratings";
 import ShowMoreText from 'react-show-more-text';
+// Actions
+import { getReviews } from '../../redux/actions/products_actions';
+// Styles
 import { Btn, StyledTitle } from '../styles/styled_global';
 import { StyledReviews } from '../styles/styled_reviews';
 import strings from './strings'
-import { getReviews } from '../../redux/actions/products_actions';
 
 function Reviews({ id }) {
-
 	const dispatch = useDispatch()
 
 	useEffect(() => {
@@ -16,9 +17,9 @@ function Reviews({ id }) {
 	}, [dispatch, id])
 
 	const theme = useSelector(state => state.globalReducer.theme)
+	const reviews = useSelector(state => state.productsReducer.reviews.list)
 	const language = useSelector(state => state.globalReducer.language);
 	const s = strings[language];
-	const reviews = useSelector(state => state.productsReducer.reviews.list)
 
 	const [showMore, setShowMore] = useState(false);
 	const [loading, setLoading] = useState(false);

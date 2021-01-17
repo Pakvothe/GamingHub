@@ -110,38 +110,47 @@ export const StepOne = styled.div`
 `
 
 export const StepTwo = styled.div`
-
 	display: flex;
 	justify-content: space-evenly;
-
-	.button__container {
-		button {
-			margin: 2em auto 0;
-			display: block;
-		}
-	}
-
+	
 	.payment__container {
-		min-height: 50px;
-		display: flex;
-		align-items: center;
-		justify-content: flex-start;
 		margin: 1em 0;
-
+		
 		.select__container { 
 			display: flex;
 			align-items: center;
-			flex-direction: column;
+			
+			button {
+				margin: 0;
+				visibility: hidden;
 
+				&.btn-visible {
+					visibility: visible;
+				}
+			}
+			
 			select {
 				margin-right: 2em;
 				margin-left: 0;
 			}
-
+			
 			h5 {
 				align-self: flex-start;
 				margin-bottom: 1em;
 			}
+		}
+	}
+
+	.stepTwo__paragraph {
+		text-align: center;
+		span {
+			display: block;
+			text-align: center;
+			font-weight: 700;
+			font-size: 1.5em;
+			margin: 0.5em 0 1em;
+			color: var(--clr-primary);
+			word-wrap: break-word;
 		}
 	}
 	
@@ -149,13 +158,15 @@ export const StepTwo = styled.div`
 		border: 3px solid var(--clr-primary);
 		border-radius: 0.5em;
 		padding: 2em;
-		position: sticky;
-		top: 3em;
-		right: 0;
+		margin-left: 3em;
+		
+		button {
+			display: block;
+			margin: 0 auto;
+		}
 
-		label {
-			width: 100%;
-			margin-bottom: 1.5em;
+		button:first-child {
+			margin-bottom: 1em;
 		}
 
 		h3 {
@@ -163,36 +174,63 @@ export const StepTwo = styled.div`
 			text-align: center;
 		}
 
-		.aside__total,
-		.aside__subtotal,
-		.aside__discount {
-			display: flex;
-			justify-content: space-between;
+	}
 
-			p:last-child {
-				font-weight: 900;
+	@media (max-width: 800px) {
+		flex-direction: column;
+		text-align: center;
+
+		label {
+			max-width: 400px;
+			width: auto;
+			margin: 0 auto;
+		}
+
+		.payment__container {
+			.select__container {
+				flex-direction: column;
+
+				select {
+					margin-right: 0;
+				}
+	
+				.btn {
+					margin-top: 1em;
+				}
+			}
+		} 
+
+		aside {
+			margin: 3em 0 0;
+			border: 0;
+			padding: 0;
+
+			h3 {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+
+				&::before {
+					content: '';
+					border-top: 1px solid rgba(0,0,0,0.2);
+					flex: 1 1 auto;
+				}
+
+				&::after {
+					content: '';
+					border-top: 1px solid rgba(0,0,0,0.2);
+					flex: 1 1 auto;
+				}
+
+				span {
+					flex: 1;
+					padding: 0 1em;
+				}
 			}
 		}
 
-		.aside__subtotal {
-			margin-bottom: 0.5em;
-		}
-
-		.aside__total {
-			font-size: 1.5em;
-			margin-bottom: 1em;
-		}
-
-		hr {
-			margin: 2em 0;
-			height: 1px;
-			border: none;
-			background: #CCC;
-		}
-
-		button {
-			display: block;
-			margin: 0 auto;
+		footer {
+			border-top: 3px solid rgba(0,0,0,0.1);
 		}
 	}
 `
