@@ -38,7 +38,8 @@ const AdminProductForm = ({ categories }) => {
 		price: 1,
 		img: [],
 		is_active: true,
-		categories: {}
+		categories: {},
+		trailer: ''
 	});
 	useEffect(() => {
 		if (input.img.length === imagesAsFile.length && input.img.length > 0) {
@@ -202,12 +203,16 @@ const AdminProductForm = ({ categories }) => {
 							<textarea type='text' name='description_en' value={input.description_en} onChange={handleInput} required>
 							</textarea>
 						</label>
+						<label>
+							<span>{s.inputPrice}</span>
+							<input type='number' step='0.01' name='price' value={input.price} onChange={handleInput} required />
+						</label>
 					</div>
 
 					<div>
 						<label>
-							<span>{s.inputPrice}</span>
-							<input type='number' step='0.01' name='price' value={input.price} onChange={handleInput} required />
+							<span>Trailer</span>
+							<input type='text' name='trailer' placeholder='YoutubeId' value={input.trailer} onChange={handleInput} />
 						</label>
 						<label>
 							<span>{s.inputImage}</span>

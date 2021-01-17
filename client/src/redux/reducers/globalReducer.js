@@ -1,4 +1,6 @@
 import {
+	CLOSE_VIDEO,
+	OPEN_VIDEO,
 	CHANGE_LANGUAGE,
 	TOGGLE_CART,
 	TOGGLE_THEME,
@@ -20,6 +22,7 @@ const initialState = {
 	credCard: {},
 	currentPage: 0,
 	loginIsOpen: false,
+	videoCode: '',
 };
 
 const productsReducer = (state = initialState, action) => {
@@ -62,6 +65,16 @@ const productsReducer = (state = initialState, action) => {
 			return {
 				...state,
 				loginIsOpen: action.payload
+			}
+		case OPEN_VIDEO:
+			return {
+				...state,
+				videoCode: action.payload
+			}
+		case CLOSE_VIDEO:
+			return {
+				...state,
+				videoCode: ''
 			}
 		default: return state;
 	}

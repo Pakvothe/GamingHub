@@ -22,6 +22,13 @@ export const GlobalStyle = createGlobalStyle`
 				border: ${({ theme }) => theme.btnSecHoverBorder};
 			}
 		}
+
+		.btn-youtube{
+			color: ${({ theme }) => theme.btnYoutubeColor};
+			&:hover {
+				color: ${({ theme }) => theme.btnYoutubeColorInv};
+			}
+		}
 		
 		label > span:not(.no-shadow) {
 			background: ${({ theme }) => theme.body};
@@ -195,6 +202,24 @@ export const Btn = styled.button`
 	a {
 		text-decoration: none;
 		color: currentColor;
+	}
+
+	&.btn-youtube {
+		background-color: transparent;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-top: 1em;
+
+		.fa-youtube {
+			font-size: 1.5em;
+			font-weight: 400;
+			margin-right: 0.4em;
+		}
+
+		&:hover {
+			background-color: #C00;
+		}
 	}
 
 	&.btn-tick {

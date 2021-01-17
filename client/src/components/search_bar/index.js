@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import strings from './strings';
 import { FormSearchBar } from '../styles/styled_search_bar';
 import loupe from '../../assets/img/loupe.svg';
@@ -8,7 +8,7 @@ import { getSearchProducts } from '../../redux/actions/products_actions';
 import { resetCurrentPage } from '../../redux/actions/global_actions';
 import commands from './commands';
 import { useToasts } from 'react-toast-notifications';
-import Surprise from './Surprise';
+import VideoPlayer from './VideoPlayer';
 
 const SearchBar = () => {
 
@@ -17,10 +17,19 @@ const SearchBar = () => {
 	const history = useHistory()
 	const dispatch = useDispatch()
 	const language = useSelector(state => state.globalReducer.language);
+	const videoCode = useSelector(state => state.globalReducer.videoCode);
 	const s = strings[language];
 	const { addToast } = useToasts();
 
 	const limitPerPage = 8;
+
+	useEffect(() => {
+		if (videoCode) {
+			setOpen(true);
+		} else {
+			setOpen(false);
+		}
+	}, [videoCode])
 
 	const handleChange = (ev) => {
 		setInputText(ev.target.value);
@@ -30,16 +39,17 @@ const SearchBar = () => {
 		ev.preventDefault();
 		setInputText('');
 		if (inputText.trim()[0] === '!') {
-			commands(inputText, addToast, setOpen);
+			commands(inputText, addToast, dispatch);
 		} else {
 			dispatch(getSearchProducts(inputText.trim(), { limit: limitPerPage }));
 			dispatch(resetCurrentPage())
 			history.push(`/search?query=${inputText.trim().toLowerCase()}`);
 		}
 	};
+	console.log("open", open);
 	return (
 		<>
-			<Surprise open={open} setOpen={setOpen} />
+			<VideoPlayer open={open} videoCode={videoCode} />
 			<FormSearchBar onSubmit={handleSubmit}>
 				<input onChange={handleChange} type="text" placeholder={s.placeholder} value={inputText} />
 				<button type="submit">

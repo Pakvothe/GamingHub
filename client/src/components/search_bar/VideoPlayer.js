@@ -5,10 +5,13 @@ import styled from 'styled-components';
 import { StyledSVG } from '../styles/styled_global';
 import closeCross from '../../assets/img/close-filled-purple.svg';
 import YouTube from 'react-youtube'
+import { useDispatch } from 'react-redux';
+import { closeVideo } from './../../redux/actions/global_actions';
 
-const Surprise = ({ open, setOpen }) => {
+const VideoPlayer = ({ open, videoCode }) => {
 
 	const theme = useSelector(state => state.globalReducer.theme);
+	const dispatch = useDispatch();
 	const CloseButton = styled.button`
 		position: absolute;
 		cursor: pointer;
@@ -69,24 +72,28 @@ const Surprise = ({ open, setOpen }) => {
 	};
 
 	const handlePause = (ev) => {
-		ev.target.playVideo();
+		if (videoCode === 'dQw4w9WgXcQ') ev.target.playVideo();
+	}
+
+	const handleClose = () => {
+		dispatch(closeVideo());
 	}
 
 
 	return (
-		<>
+		<div>
 			<Modal
 				isOpen={open}
 				style={customStyles}
-				contentLabel='Login'
+				contentLabel='Video'
 				portalClassName='ReactModalPortal'
 				ariaHideApp={false}
 			>
-				<CloseButton className='mb-1' onClick={() => setOpen(false)}><StyledSVG src={closeCross} /></CloseButton>
-				<YouTube videoId='dQw4w9WgXcQ' opts={opts} onPause={handlePause} />
+				<CloseButton className='mb-1' onClick={handleClose} ><StyledSVG src={closeCross} /></CloseButton>
+				<YouTube videoId={videoCode} opts={opts} onPause={handlePause} />
 			</Modal>
-		</>
+		</div>
 	)
 }
 
-export default Surprise;
+export default VideoPlayer;
