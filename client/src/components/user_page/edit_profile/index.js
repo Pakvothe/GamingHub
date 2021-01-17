@@ -214,7 +214,7 @@ const EditUser = () => {
 							<span>{s.profilePic}</span>
 							<input ref={fileInput} type='file' name='banner_img' onChange={handleImageAsFile} />
 						</label>
-						<div className="relative mt-1 mb-2">
+						<div className="relative mt-2 mb-2">
 							<label>
 								<span>{s.password}</span>
 								<input type="password" value={input.password} name="password" onChange={handleChange} autoComplete="new-password" />

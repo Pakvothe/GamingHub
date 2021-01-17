@@ -25,7 +25,7 @@ const AdminProductList = ({ orders }) => {
 		id: 'ASC',
 		state: 'ASC',
 		payment_method: 'ASC',
-		createdAt: 'ASC'
+		updatedAt: 'ASC'
 	})
 
 	useEffect(() => {
@@ -114,14 +114,14 @@ const AdminProductList = ({ orders }) => {
 							<option value="max_amount" >{s.searchMax}</option>
 							<option value="payment_method" >{s.searchPayment}</option>
 							<option value="userId" >{s.searchUserId}</option>
-							<option value="createdAt" >{s.searchCreatedAt}</option>
+							<option value="updatedAt" >{s.searchUpdatedAt}</option>
 						</SelectStyled>
 					</div>
 				</label>
 				<FormStyled onSubmit={handleSearch} id='form' >
 					<input
 						placeholder={s.inputPlaceholder} className="adminInput"
-						value={searchInput} type={filter === 'createdAt' ? 'date' : 'text'}
+						value={searchInput} type={filter === 'updatedAt' ? 'date' : 'text'}
 						onChange={(ev) => { setsearchInput(ev.target.value) }}
 					/>
 				</FormStyled>
@@ -133,7 +133,7 @@ const AdminProductList = ({ orders }) => {
 						<Th id="id" className="cell-small icon active down">{s.tableOrderNumber}</Th>
 						<Th>Email</Th>
 						<Th className="cell-small">{s.tableTotal}</Th>
-						<Th id="createdAt" className="icon down">{s.tableDate}</Th>
+						<Th id="updatedAt" className="icon down">{s.tableDate}</Th>
 						<Th id="state" className="icon down">{s.tableStatus}</Th>
 						<Th id="payment_method" className="icon down">{s.tablePayment}</Th>
 					</Tr>
@@ -145,7 +145,7 @@ const AdminProductList = ({ orders }) => {
 								<Td>{order.id}</Td>
 								<Td>{order.email}</Td>
 								<Td>${order.total_amount}</Td>
-								<Td>{order.createdAt.slice(0, 10)}</Td>
+								<Td>{order.updatedAt.slice(0, 10)}</Td>
 								<Td>
 									<SelectStyled className="select__order-admin" value={order.state} onClick={(ev) => ev.stopPropagation()} onChange={(ev, id) => handleStatus(ev, order.id)}>
 										<option value="completed" >{s.completed}</option>
