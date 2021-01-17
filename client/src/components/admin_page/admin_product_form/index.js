@@ -79,7 +79,8 @@ const AdminProductForm = ({ categories }) => {
 				price: product.price,
 				img: [],
 				is_active: product.is_active,
-				categories: newCategories
+				categories: newCategories,
+				trailer: product.trailer
 			})
 		}
 	}, [product, id]);
@@ -134,6 +135,7 @@ const AdminProductForm = ({ categories }) => {
 				.then((result) => {
 					addToast(s.toastProductEdited, { appearance: 'success' })
 				})
+			setLoadingUpload(false);
 			return setToAdmin(true);
 		};
 
@@ -174,6 +176,8 @@ const AdminProductForm = ({ categories }) => {
 		cancelButtonText: s.swDeleteCancelButton
 	};
 
+	if (toAdmin) return <Redirect to='/admin' />
+
 	if (loadingUpload || isLoading) return <StyledLoader
 		active={true}
 		spinner
@@ -182,7 +186,6 @@ const AdminProductForm = ({ categories }) => {
 		classNamePrefix='loading__'
 	/>
 
-	if (toAdmin) return <Redirect to='/admin' />
 
 	return (
 		<>

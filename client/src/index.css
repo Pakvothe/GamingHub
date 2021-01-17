@@ -220,13 +220,32 @@ body {
 
 
 .small-text {
-	font-size: 0.8em;
 	text-align: center;
+	font-size: 0.8em;
 	margin-top: 2em;
 	padding-top: 2em;
 	border-top: 1px solid rgba(0,0,0,0.2);
 }
 
+.small-text.small-spacing {
+	margin-top: 1em;
+	padding-top: 1em;
+}
+
+.small-text.small-warning {
+	position: relative;
+	padding-left: 3em;
+	text-align: left;
+	border-color: var(--clr-error-2);
+}
+
+.small-text.small-warning::before {
+	content: '\f06a';
+	font-family: 'Font Awesome 5 Pro';
+	color: var(--clr-error);
+	position: absolute;
+	left: 1em;
+}
 
 /*
 

@@ -278,7 +278,8 @@ server.put('/:id', isAdmin, (req, res) => {
 		price,
 		img,
 		categories,
-		is_active
+		is_active,
+		trailer
 	} = req.body;
 
 	let newCategories = [];
@@ -297,7 +298,8 @@ server.put('/:id', isAdmin, (req, res) => {
 		description_es,
 		description_en,
 		price,
-		is_active
+		is_active,
+		trailer
 	}, {
 		where: { id },
 		returning: true

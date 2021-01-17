@@ -22,7 +22,11 @@ const strings = {
 		imageSize: 'Image size must be lower than 2MB',
 		imageError: 'Upload image error',
 		toastNotFound: 'User not found',
-		toastServerError: 'Internal Server Error'
+		toastServerError: 'Internal Server Error',
+		missing: "Your password:",
+		profilePic: 'Profile picture:',
+		passWarning1: 'Edit this field only if you want to change your password.',
+		passWarning2: 'Otherwise, leave it blank.',
 	},
 	es: {
 		title: 'Editar usuario',
@@ -47,7 +51,11 @@ const strings = {
 		imageSize: 'La imagen no puede ser mayor a 2MB',
 		imageError: 'Error en la subida de la imagen',
 		toastNotFound: 'Usuario no encontrado',
-		toastServerError: 'Error del servidor'
+		toastServerError: 'Error del servidor',
+		missing: "A tu contraseña le falta:",
+		profilePic: 'Foto de perfil:',
+		passWarning1: 'Solo edita este campo si vas a cambiar tu contraseña.',
+		passWarning2: 'De lo contrario, dejalo en blanco.',
 	}
 };
 

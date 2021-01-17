@@ -881,7 +881,7 @@ export const Dropdown = styled.li`
 			width: 100%;
 			cursor: pointer;
 			
-			&:last-of-type a {
+			&:last-of-type a, &:last-of-type button {
 				border-radius: 0 0 .3em .3em;
 			}
 		}
