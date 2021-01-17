@@ -149,7 +149,7 @@ server.get('/search', (req, res) => {
 				include: [{
 					model: Image,
 				}],
-				order: [['stock', 'DESC'], [Image, 'id']],
+				order: [['stock', 'DESC'], ['name', 'ASC'], [Image, 'id']],
 				limit: limit ? limit : null,
 				offset: offset ? offset : null
 			})
