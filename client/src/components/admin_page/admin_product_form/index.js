@@ -79,7 +79,8 @@ const AdminProductForm = ({ categories }) => {
 				price: product.price,
 				img: [],
 				is_active: product.is_active,
-				categories: newCategories
+				categories: newCategories,
+				trailer: product.trailer
 			})
 		}
 	}, [product, id]);
