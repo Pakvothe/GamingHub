@@ -11,7 +11,7 @@ export const StyledMemory = styled.div`
 		height: 100%;
 
 		h1 {
-			margin-bottom: 3em;
+			margin-bottom: 2em;
 		}
 	}
 	
@@ -19,6 +19,7 @@ export const StyledMemory = styled.div`
 		align-self: center;
 		position: relative;
 		padding: 0;
+		margin: 0 auto;
 	}
 	.tile {
 		position: absolute;
