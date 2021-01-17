@@ -40,8 +40,8 @@ const SignUp = () => {
 			...prevState,
 			[ev.target.name]: ev.target.value
 		}))
-		console.log(input)
-		setError(passwordValidator(ev.target.value, language))
+		if (ev.target.name === 'password')
+			setError(passwordValidator(ev.target.value, language))
 	}
 
 	const handleImageAsFile = (e) => {

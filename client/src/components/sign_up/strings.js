@@ -15,7 +15,7 @@ const strings = {
 		missing: 'Your password:',
 		loading: 'Loading...'
 	},
-  
+
 	es: {
 		signUp: 'Registrarse',
 		password: 'Contraseña:',
@@ -27,7 +27,7 @@ const strings = {
 		onlyImages: 'Solo se aceptan imágenes',
 		imageSize: 'La imagen debe ser menor a 2MB',
 		imageError: 'Upload image error',
-		inUse: '* El correo electrónico ya está en uso.',
+		inUse: '* Este correo electrónico ya está en uso.',
 		passwordMessage: '* La contraseña debe incluir un número, una letra minúscula, una mayúscula y un caracter especial.',
 		missing: 'A tu contraseña le falta:',
 		loading: 'Cargando...'
