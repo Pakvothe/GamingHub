@@ -7,7 +7,7 @@ const store = createStore(
 	compose
 		(
 			applyMiddleware(thunk),
-			window.devToolsExtension ? window.devToolsExtension() : f => f
+			// window.devToolsExtension ? window.devToolsExtension() : f => f
 		)
 );
 
