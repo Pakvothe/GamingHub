@@ -572,6 +572,7 @@ const products = [
 		],
 		serials: [
 			{ serial: 'HF0I6AYL1OBHDI7DG9LW' },
+			{ serial: 'HF0I6AYL1OBHDI7DG9KW' },
 			{ serial: 'LC3OG66OU338BTXSX20M' },
 			{ serial: '52OGIAKRTGMT6YUYZ7OU' },
 			{ serial: 'WNJ39J1JN0JKNVSBZSCB' }
