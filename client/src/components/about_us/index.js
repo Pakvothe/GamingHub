@@ -52,8 +52,8 @@ const AboutUs = () => {
 							<img alt='profile' src={paco} />
 						</div>
 						<div className='about_social'>
-							<a href='https://github.com/Pakvothe' target='_blank' rel='noopener noreferrer'><i className="fab fa-linkedin-in"></i></a>
-							<a href='https://www.linkedin.com/in/franco-david-ortiz/' target='_blank' rel='noopener noreferrer'><i className="fab fa-github"></i></a>
+							<a href='https://www.linkedin.com/in/franco-david-ortiz/' target='_blank' rel='noopener noreferrer'><i className="fab fa-linkedin-in"></i></a>
+							<a href='https://github.com/Pakvothe' target='_blank' rel='noopener noreferrer'><i className="fab fa-github"></i></a>
 						</div>
 					</div>
 					<div className='about_coder'>
