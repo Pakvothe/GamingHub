@@ -205,11 +205,24 @@ const EditUser = () => {
 							<span>{s.lastName}</span>
 							<input type="text" value={input.last_name} name="last_name" onChange={handleChange} required />
 						</label>
-						<div className="relative mt-2 mb-2">
+						<label>
+							<span>{s.email}</span>
+							<input type="email" value={input.email} name="email" onChange={handleChange} required />
+						</label>
+						{emailMessage && s.inUse}
+						<label>
+							<span>{s.profilePic}</span>
+							<input ref={fileInput} type='file' name='banner_img' onChange={handleImageAsFile} />
+						</label>
+						<div className="relative mt-1 mb-2">
 							<label>
 								<span>{s.password}</span>
 								<input type="password" value={input.password} name="password" onChange={handleChange} autoComplete="new-password" />
 							</label>
+							<div className="small-text small-spacing small-warning">
+								<p>{s.passWarning1}</p>
+								<p>{s.passWarning2}</p>
+							</div>
 							{
 								error.length > 0 &&
 								<ErrorBubble>
@@ -223,15 +236,6 @@ const EditUser = () => {
 								</ErrorBubble>
 							}
 						</div>
-						<label>
-							<span>{s.email}</span>
-							<input type="email" value={input.email} name="email" onChange={handleChange} required />
-						</label>
-						{emailMessage && s.inUse}
-						<label>
-							<span>Foto de perfil</span>
-							<input ref={fileInput} type='file' name='banner_img' onChange={handleImageAsFile} />
-						</label>
 						<div className="buttons">
 							<Btn type="submit" className="btn-ppal">{s.confirmButtonText}</Btn>
 							<Btn onClick={() => history.push('/user')} className="btn-sec">{s.cancelButtonText}</Btn >

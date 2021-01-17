@@ -27,7 +27,7 @@ const AdminProductList = ({ products }) => {
 	const [all, setAll] = useState(true);
 
 	const handleDelete = (prod) => {
-		swals.FIRE('warning', s.swDeleteTitle, s.swDeleteText, s.swDeleteButtonConfirm, true, s.swDeleteButtonCancel, () => {
+		swals.FIRE('warning', `${s.swDeleteTitle} ${prod.name}?`, s.swDeleteText, s.swDeleteButtonConfirm, true, s.swDeleteButtonCancel, () => {
 			dispatch(deleteProduct(prod.id))
 				.then(() => {
 					addToast(s.toastProductDeleted, { appearance: 'success' })
