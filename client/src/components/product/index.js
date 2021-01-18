@@ -20,13 +20,13 @@ const Product = () => {
 	return (
 		<>
 			{(error || !product.is_active) && !isLoading && <h1 style={{ margin: "20px", textAlign: "center" }}>{s.exist}</h1>}
-			{isLoading && <StyledLoader
+			<StyledLoader
 				active={isLoading}
 				spinner
 				text={s.loading}
 				className='loading__overlay'
 				classNamePrefix='loading__'
-			/>}
+			/>
 			{!isLoading && product.is_active && <ProductDetail product={product} />}
 		</>
 	);

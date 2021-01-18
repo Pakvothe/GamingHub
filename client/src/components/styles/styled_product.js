@@ -11,10 +11,10 @@ export const GameDetail = styled.section`
   .game__img {
 	flex: 1;
     margin-right: 1.5em;
+	border: 3px solid var(--clr-primary);
 	border-radius: 1em;
 	overflow: hidden;
-	border: 3px solid var(--clr-primary);
-	max-height: 600px;
+	height: 100%;
 	cursor: pointer;
 
 	@media (max-width: 1000px) {
@@ -53,6 +53,7 @@ export const GameDetail = styled.section`
       display: flex;
 	  list-style: none;
 	  flex-flow: row wrap;
+	  cursor: default;
       
 		li {
 			font-size: .6em;
@@ -114,6 +115,7 @@ export const GameDetail = styled.section`
 		justify-content: space-between;
 
 		button{
+			min-width: 210px;
 			margin-bottom: 0.5em;
 		}
 		
@@ -130,16 +132,16 @@ export const GameDetail = styled.section`
       display: flex;
 	  justify-content: space-between;
 	  align-items: center;
-	  @media (max-width: 500px) {
+	  @media (max-width: 700px) {
 		  flex-direction: column;
 		  align-items: center;
 	  }
     }
 
 	.game__payment-methods-icons {
-		max-width:200px;
+		max-width:300px;
 		
-		@media(max-width: 500px) {
+		@media(max-width: 700px) {
 			margin-top: 2em;
 		}
 	}

@@ -6,6 +6,8 @@ import {
 	RESET_CURRENT_PAGE,
 	CHANGE_CURRENT_PAGE,
 	OPEN_LOGIN,
+	OPEN_VIDEO,
+	CLOSE_VIDEO,
 } from './../constants';
 
 export const changeLanguage = (payload) => {
@@ -51,5 +53,18 @@ export const openLogin = (payload) => {
 	return {
 		type: OPEN_LOGIN,
 		payload
+	}
+}
+
+export const openVideo = (payload) => {
+	return {
+		type: OPEN_VIDEO,
+		payload
+	}
+}
+
+export const closeVideo = () => {
+	return {
+		type: CLOSE_VIDEO
 	}
 }

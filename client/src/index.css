@@ -6,6 +6,7 @@
 	--clr-secondary-3: #5a50f0;
 	--clr-white: #F5F4F8;
 	--clr-middle: #7E7E7E;
+	--clr-middle-2: #EEE;
 	--clr-dark: #1B1A1F;
 	--clr-dark-1: #2C2F31;
 	--clr-dark-2: #35383a;
@@ -16,6 +17,27 @@
 	--clr-success: #97DA3F;
 	--clr-success-2: #79b139;
 	--clr-success-3: #a9e45d;
+}
+
+/* width */
+::-webkit-scrollbar {
+	width: 14px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: var(--clr-primary);
+	border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: var(--clr-primary-2);
 }
 
 ::selection {
@@ -66,6 +88,10 @@ body {
 	position: relative;
 }
 
+.skinny-title {
+	font-weight: 500;
+	text-transform: uppercase;
+}
 .w-100 { width: 100% }
 .d-none { display: none }
 .d-block { display: block }
@@ -77,6 +103,7 @@ body {
 .mb-2 { margin-bottom: 2em }
 .pointer { cursor: pointer }
 .text-center { text-align: center }
+.relative { position: relative }
 
 .main-container {
 	width: 80%;
@@ -158,8 +185,67 @@ body {
 	stroke-width: 2px;
 }
 
+.partyBar-container {
+	overflow: hidden;
+	width: 100%;
+	height: 7px;
+	position: absolute;
+	bottom: 0;
+	transform: scaleY(0);
+	transform-origin: bottom;
+	transition: transform .6s ease;
+}
+
+.partyBar-container.showBar {
+	transform: scaleY(1);
+}
+
+.partyBar {
+	height: 100%;
+	background-color: transparent;
+	background: linear-gradient(90deg, rgba(209,13,13,1) 0%, rgba(209,180,46,1) 13%, rgba(33,157,193,1) 50%, rgba(194,63,186,1) 87%, rgba(209,13,13,1) 100%); 	width: 4000%;
+	animation: party 6s infinite;
+}
 
 
+@keyframes party {
+	0% {
+		transform: translateX(0)
+	}
+
+	100% {
+		transform: translateX(-97.5%)
+	}
+}
+
+
+.small-text {
+	text-align: center;
+	font-size: 0.8em;
+	margin-top: 2em;
+	padding-top: 2em;
+	border-top: 1px solid rgba(0,0,0,0.2);
+}
+
+.small-text.small-spacing {
+	margin-top: 1em;
+	padding-top: 1em;
+}
+
+.small-text.small-warning {
+	position: relative;
+	padding-left: 3em;
+	text-align: left;
+	border-color: var(--clr-error-2);
+}
+
+.small-text.small-warning::before {
+	content: '\f06a';
+	font-family: 'Font Awesome 5 Pro';
+	color: var(--clr-error);
+	position: absolute;
+	left: 1em;
+}
 
 /*
 
@@ -290,7 +376,7 @@ ser más específicos con los selectores.
 	overflow: visible !important;
 }
 
-.css-h0gpo1-ToastElement {
+.react-toast-notifications__container > div {
 	width: 100%;
 	height: 100% !important;
 }
@@ -301,8 +387,7 @@ ser más específicos con los selectores.
 	box-shadow: 0 5px 15px -10px rgba(0,0,0,0.7) !important;
 }
 
-
-.css-18gu508-Content {
+.react-toast-notifications__toast__content {
 	font-family: Poppins, Raleway, Arial, Helvetica, sans-serif;
 	font-weight: 700;
 	font-size: 1em !important;
@@ -319,16 +404,16 @@ ser más específicos con los selectores.
 	top: 0.5em;
 }
 
+
 /* ----- COLORES SUCCESS ----- */
 .react-toast-notifications__toast--success {
 	color: var(--clr-dark) !important;
 	background-color: var(--clr-success) !important;
 }
 
-.css-3mfg68-Icon { 
+.react-toast-notifications__toast--success .react-toast-notifications__toast__icon-wrapper {
 	background-color: var(--clr-success-2) !important;
 }
-
 
 
 /* ----- COLORES ERROR ----- */
@@ -337,7 +422,7 @@ ser más específicos con los selectores.
 	background-color: var(--clr-error) !important;
 }
 
-.css-1cbc3rp-Icon {
+.react-toast-notifications__toast--error .react-toast-notifications__toast__icon-wrapper {
 	background-color: var(--clr-error-2) !important;
 }
 
@@ -348,7 +433,7 @@ ser más específicos con los selectores.
 	background-color: var(--clr-warning) !important;
 }
 
-.css-1wh70f9-Icon {
+.react-toast-notifications__toast--warning .react-toast-notifications__toast__icon-wrapper {
 	background-color: var(--clr-warning-2) !important;
 }
 
@@ -359,6 +444,6 @@ ser más específicos con los selectores.
 	background-color: var(--clr-secondary) !important;
 }
 
-.css-1rjh2i2-Icon {
+.react-toast-notifications__toast--info .react-toast-notifications__toast__icon-wrapper {
 	background-color: var(--clr-secondary-2) !important;
 }

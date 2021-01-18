@@ -72,7 +72,7 @@ export const ProductCardStyled = styled.article`
 
 	.card__price::before {
 		content: '';
-		background: #9b5df7;
+		background: var(--clr-primary);
 		display: block;
 		width: 20%;
 		height: 5px;
@@ -116,6 +116,7 @@ export const ProductCardStyled = styled.article`
 		margin-top: auto;
 		margin-bottom: .5em;
 		z-index: 10;
+		min-width: 200px;
 	}
 	
 	.card__noStock {

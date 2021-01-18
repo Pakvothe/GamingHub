@@ -24,7 +24,6 @@ export const SelectStyled = styled.select`
 	margin-left: 1em;
 	text-transform: uppercase;
 
-
 	&::-ms-expand {
 		display: none;
 	}
@@ -33,5 +32,11 @@ export const SelectStyled = styled.select`
 		outline: 0;
 		border-color: var(--clr-primary-2);
 		box-shadow: 0 0 10px rgba(0,0,0,.15);
+	}
+	&.select__order-admin{
+		width: 100%;
+		max-width: 200px;
+		margin: 0 auto;
+		font-size: 1em;
 	}
 `;

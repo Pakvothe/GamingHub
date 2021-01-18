@@ -4,7 +4,7 @@ export const StyledCarousel = styled.div`
 
 .embla {
 	position: relative;
-	margin-top: 10px;
+	margin-top: ${props => props.full ? '0' : '10px'};
 }
 
 .embla__viewport {
@@ -32,15 +32,21 @@ export const StyledCarousel = styled.div`
 
 .embla__slide {
 	position: relative;
-	min-width: 80%;
-	padding-left: 30px;
+	min-width: ${props => props.full ? '100%' : '80%'};
+	padding-left: ${props => props.full ? '0' : '30px'};
 }
 
 .embla__slide__inner {
 	position: relative;
 	overflow: hidden;
 	height: 60vh;
-	border-radius: 1em;
+	min-height: ${props => props.full ? '600px' : 'auto'};
+	border-radius: ${props => props.full ? '0' : '1em'};
+	
+	@media (max-width: 1000px) {
+		min-height: auto;
+		height: 50vh;
+	}
 
 	.embla__slide__detail {
 		color: var(--clr-white);
@@ -52,6 +58,8 @@ export const StyledCarousel = styled.div`
 		justify-content: space-between;
 		align-items: center;
 		padding: 2em 3em;
+		background: transparent;
+		background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.5) 100%);
 
 		.slide__details__left {
 			text-align: center;
@@ -189,11 +197,12 @@ export const StyledCarousel = styled.div`
 }
 
 .embla__button--prev {
-	left: 15%;
+	left: ${props => props.full ? '5%' : '15%'};
+	
 }
 
 .embla__button--next {
-	right: 15%;
+	right: ${props => props.full ? '5%' : '15%'};
 }
 
 `

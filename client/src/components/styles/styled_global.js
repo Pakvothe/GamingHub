@@ -1,6 +1,7 @@
 import styled, { createGlobalStyle } from 'styled-components';
 import SVG from 'react-inlinesvg';
 import arrow from '../../assets/img/arrow-down.svg';
+import checkMark from '../../assets/img/checkMark.svg';
 import checkboxUnchecked from '../../assets/img/checkbox-unchecked-purple.svg'
 import checkboxChecked from '../../assets/img/checkbox-checked-purple.svg'
 import LoadingOverlay from 'react-loading-overlay';
@@ -19,6 +20,13 @@ export const GlobalStyle = createGlobalStyle`
 			border: ${({ theme }) => theme.btnSecBorder};
 			&:hover {
 				border: ${({ theme }) => theme.btnSecHoverBorder};
+			}
+		}
+
+		.btn-youtube{
+			color: ${({ theme }) => theme.btnYoutubeColor};
+			&:hover {
+				color: ${({ theme }) => theme.btnYoutubeColorInv};
 			}
 		}
 		
@@ -81,6 +89,11 @@ export const GlobalStyle = createGlobalStyle`
 		 {
 			color: ${({ theme }) => theme.reviewColor};
 		}
+
+		.chart-container {
+			color: ${({ theme }) => theme.chartTextColor};
+			background-color: ${({ theme }) => theme.chartBgColor};
+		}
 	}
 `
 
@@ -89,6 +102,33 @@ export const Flex = styled.div`
 	display: flex;
 	justify-content: ${props => props.justify || 'center'};
 	align-items: ${props => props.align || 'center'};
+	flex-direction: ${props => props.direction || 'row'};
+
+	@media (max-width: 1000px) {
+		flex-direction: column;
+	}
+`
+
+export const StyledChart = styled.section`
+	flex-basis: 48%;
+	flex-shrink: 1;
+	border: 1px solid var(--clr-primary);
+	border-radius: 1em;
+	padding: 2em;
+
+	@media (max-width: 1000px) {
+		margin-bottom: 2em;
+	}
+
+	h2 {
+		text-align: center;
+		margin-bottom: 1.5em;
+	}
+
+	canvas {
+		width: 100% !important;
+		height: 100% !important;
+	}
 `
 
 export const Hr = styled.hr`
@@ -158,6 +198,30 @@ export const Btn = styled.button`
 		fill: currentColor;
 	}
 
+
+	a {
+		text-decoration: none;
+		color: currentColor;
+	}
+
+	&.btn-youtube {
+		background-color: transparent;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-top: 1em;
+
+		.fa-youtube {
+			font-size: 1.5em;
+			font-weight: 400;
+			margin-right: 0.4em;
+		}
+
+		&:hover {
+			background-color: #C00;
+		}
+	}
+
 	&.btn-tick {
 		position: relative;
 		&::after {
@@ -191,6 +255,28 @@ export const Btn = styled.button`
 		}
 	}
 `
+export const AlertStyled = styled.div`
+	background-color: var(--clr-error);
+	max-width: ${props => props.maxWidth || '100%'};
+	position: relative;
+	margin: 0 auto;
+	padding: 1em;
+	border-radius: 1em;
+	margin-bottom: 2em;
+	font-weight: 700;
+	button {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		background-color: transparent;
+		border: none;
+
+		svg {
+			width: 20px;
+			height: 20px;
+		}
+	}
+`
 
 export const DataTable = styled.table`
 	margin-top: 3em;
@@ -204,19 +290,54 @@ export const DataTable = styled.table`
 	width: 100%;
 	transition: box-shadow .25s ease;
 
+	&.responsiveTable tbody tr {
+    border: none;
+	padding: 0;
+	border-bottom: 1px solid #CCC;
+  }
+
 	&:hover {
 		box-shadow: 9px 9px 0px rgba(0,0,0,.07);
 	}
 
 	&.table-small {
 		max-width: 400px;
+
+		& td:first-child {
+			font-weight: 700;
+			text-transform: uppercase;
+			font-size: .85em;
+			letter-spacing: .05em;
+			/* border-right: 1px solid #CCC;  OPCIONAL, Lo saqué porque no me gustó */
+		}
+
+		@media (max-width: 800px) {
+			tr {
+				display: flex;
+				flex-direction: column;
+
+				td:last-child {
+					padding-bottom: 1em;
+				}
+				td:first-child {
+					border-bottom: none;
+					padding-top: 1em;
+					padding-bottom: 0;
+				}
+			}
+		}
 	}
 
 	thead {
-		font-weight: 900;
+		font-weight: 700;
 		text-transform: uppercase;
 		font-size: .85em;
 		letter-spacing: .05em;
+	}
+
+	th {
+		padding: .75em 1em;
+		border-bottom: 1px solid #CCC;
 	}
 
 	/* Seteamos el ancho de las columnas desde el thead porque en el tbody no puedo:
@@ -226,12 +347,17 @@ export const DataTable = styled.table`
 		width: 90px;
 	}
 
+	thead .cell-medium {
+			width: 150px;
+		}
+
 	td {
 		position: relative;
 		padding: .75em 1em;
 		border-bottom: 1px solid #CCC;
 		user-select: none;
 		cursor: default;
+		word-wrap: break-word;
 	}
 
 	.icon {
@@ -255,7 +381,7 @@ export const DataTable = styled.table`
 	}
 
 	tbody tr:last-of-type td { border-bottom: 0; }
-
+	
 	td ul {
 		list-style: none;
 		display: flex;
@@ -282,10 +408,14 @@ export const DataTable = styled.table`
 	}
 
 	.row-link {
-		cursor: pointer;
-		
+		outline: 3px solid transparent;
+		transition: outline-color .2s ease;
+
 		&:hover {
-			outline: 1px solid var(--clr-primary);
+			outline-color: var(--clr-primary);
+		}
+		td {
+			cursor: pointer;
 		}
 	}
 	.serial-form {
@@ -304,6 +434,7 @@ export const DataTable = styled.table`
 			&:focus {
 				outline: none;
 				border: 1px solid var(--clr-primary);
+				color: inherit;
 			}
 
 			&[disabled] {
@@ -313,6 +444,10 @@ export const DataTable = styled.table`
 		}
 	}
 
+	@media (max-width: 1300px) {
+		td ul { flex-direction: column; }
+		td button { margin: .5em 0; }
+	}
 
 	@media (max-width: 1000px) {
 		font-size: .7em;
@@ -320,14 +455,24 @@ export const DataTable = styled.table`
 		thead .cell-small {
 			width: 50px;
 		}
-
-		td ul { flex-direction: column; }
-
-		td button { margin: .5em 0; }
 	}
 `
 
 export const FormStyled = styled.form`
+
+	.adminInput {
+		font-size: 0.8em;
+		border-radius: 99em;
+		padding: 0.75em 2em;
+	}
+		
+	input.checked {
+		background: url(${checkMark}) no-repeat;
+		background-position: top 50% right 10px;
+		background-size: 25px;
+		background-color: ${props => props.theme === 'dark' ? 'var(--clr-dark)' : 'var(--clr-white)'};
+		color: ${props => props.theme === 'dark' ? 'var(--clr-white)' : 'var(--clr-dark)'};
+	}
 
 	.image__container {
 		width: 400px;
@@ -545,6 +690,23 @@ export const FormStyled = styled.form`
 			}
 		}
 
+		.buttons{
+				display: flex;
+				align-items: center;
+				justify-content: space-around;
+				margin-top: 2em;
+
+				button:last-child { margin-top: 0; }
+
+		@media (max-width: 600px) {
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				margin-top: 2em;
+
+				button:last-child { margin-top: 1em; }
+			}
+		}
 `
 
 export const CheckboxLabel = styled.label`
@@ -641,17 +803,24 @@ export const MiniCard = styled.article`
 			cursor: pointer;
 		}
 
-	&:hover svg {
-		fill: var(--clr-primary-2);
-	}
+		&:hover svg {
+			fill: var(--clr-primary-2);
+		}
 
-	&:focus {
-		outline: none;
+		&:focus {
+			outline: none;
+		}
+		&:active{
+			transform: translateY(1px);
+		}
+	}	
+
+	@media (max-width: 450px) {
+		.article__img{
+			height: 75px;
+			flex: 0 0 75px;
+		}
 	}
-	&:active{
-		transform: translateY(1px);
-	}
-}	
 `
 
 export const Dropdown = styled.li`
@@ -712,25 +881,28 @@ export const Dropdown = styled.li`
 			width: 100%;
 			cursor: pointer;
 			
-			&:last-of-type a {
+			&:last-of-type a, &:last-of-type button {
 				border-radius: 0 0 .3em .3em;
 			}
 		}
 
 
-		a {
+		a, .dropdown__button {
 			text-align: center;
 			display: block;
 			width: 100%;
 			padding: 1em 2em;
 			text-decoration: none;
 			color: currentColor;
-
 			&:hover {
-				background-color: var(--clr-primary-2);
-				color: var(--clr-white)
+				background-color: var(--clr-primary-2) !important;
+				color: var(--clr-white)!important;
 			}
 		}
+			/* .dropdown__button:hover {
+				background-color: var(--clr-primary-2);
+				color: var(--clr-white);
+			} */
 
 		.dropdown__first-name {
 			color: var(--clr-primary);
@@ -783,7 +955,7 @@ export const Badge = styled.span`
 `
 
 export const StyledLoader = styled(LoadingOverlay)`
-
+	min-height: ${props => props.active ? '500px' : ''};
 	.loading__spinner {
 		width: 100px;
 		& svg circle { stroke: var(--clr-primary)}
@@ -800,34 +972,28 @@ export const StyledLoader = styled(LoadingOverlay)`
 `
 
 export const StyledTitle = styled.h2`
-		text-align: center;
 		text-transform: uppercase;
 		font-size: 1.75em;
 		margin-bottom: 1.5em;
-
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		
+		&::before {
+			content: '';
+			flex: 1 1 auto;
+			border-top: 1px solid #9997;
+		}
+		&::after {
+			content: '';
+			flex: 1 1 auto;
+			border-top: 1px solid #9997;
+		}
+		
 		span {
-			position: relative;
-			display: inline-block;
-
-			&::before {
-				content: '';
-				height: 1px;
-				background: #555;
-				position: absolute;
-				left: -100%;
-				top: 50%;
-				width: 95%;
-			}
-
-			&::after {
-				content: '';
-				height: 1px;
-				background: #555;
-				position: absolute;
-				right: -100%;
-				top: 50%;
-				width: 95%;
-			}
+			text-align: center;
+			padding: 0 1em;
+			flex: 1;
 		}
 `
 
@@ -892,7 +1058,88 @@ export const SocialLogin = styled.div`
 		background-position: left 1em top 50%;
 		background-color: var(--clr-white);
 	}
+`
 
+export const StyledTerms = styled.div`
+	h2 {
+		text-align: center;
+		margin-bottom: 1em;
+		text-transform: uppercase;
+		font-size: 2em;
+	}
+
+	h3 {
+		margin-bottom: 1em;
+		font-weight: 700;
+		text-transform: uppercase;
+	}
+
+	h4 {
+		font-weight: 700;
+		font-size: 1.1em;
+		margin-bottom: .5em;
+	}
+
+	p + h4 { margin-top: 1em }
+
+	a {
+		color: var(--clr-primary);
+		font-weight: 700;
+		text-decoration: none;
+	}
+
+	p { line-height: 1.6 }
+
+	ul {
+		margin: 1em 0 2em 3em;
+	}
+
+	li {
+		margin-top: 0.5em;
+		line-height: 1.6;
+	}
+
+	section, footer { padding: 2rem }
+
+	section > p + p { margin-top: 1em }
+
+	footer {
+		border-top: 3px solid rgba(0, 0, 0, 0.1);
+		font-size: 0.8em;
+		padding-bottom: 0;
+	}
+`
+
+export const ErrorBubble = styled.div`
+		position: absolute;
+		bottom: 0;
+		left: calc(100% + 2em);
+		padding: 1em 1em 1em 4em;
+		border: 3px solid var(--clr-error);
+		border-radius: 0.4em;
+		font-size: 0.8em;
+		
+		h4 {
+			text-transform: uppercase;
+			font-weight: 700;
+			margin-bottom: 5px;
+			position: relative;
+
+			&::before {
+				content: '\f06a';
+				position: absolute;
+				left: -2em;
+				color: var(--clr-error);
+				font-family: 'Font Awesome 5 Pro';
+				font-size: 1.5em;
+			}
+		}
+
+		ul {
+			text-transform: none;
+			columns: 1;
+			list-style: disc;
+		}
 `
 
 export const StyledSVG = styled(SVG)`

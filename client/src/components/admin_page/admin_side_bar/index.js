@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
 import { SideBarContainer, SideBarButton, StyledSVG } from '../../styles/styled_admin_sidebar';
@@ -16,7 +16,9 @@ const AdminSideBar = () => {
 	const s = strings[language];
 
 	const toggleMenu = () => {
-		setButtonToggle((prev) => !prev)
+		if (window.innerWidth <= 800) {
+			setButtonToggle((prev) => !prev)
+		}
 	};
 
 	return (
@@ -30,11 +32,12 @@ const AdminSideBar = () => {
 						<StyledSVG src={logo} />
 					</Link>
 				</div>
-				<SideBarButton onClick={() => toggleMenu()} className={buttonToggle && 'toggle'}>
+				<SideBarButton onClick={toggleMenu} className={buttonToggle && 'toggle'}>
 					<StyledSVG src={arrowLeft} />
 				</SideBarButton>
-				<ul>
-					<li><NavLink exact activeClassName="active" to="/admin">{s.products}</NavLink></li>
+				<ul onClick={toggleMenu}>
+					<li><NavLink exact activeClassName="active" to="/admin/">{s.charts}</NavLink></li>
+					<li><NavLink exact activeClassName="active" to="/admin/products">{s.products}</NavLink></li>
 					<li><NavLink activeClassName="active" to="/admin/categories">{s.categories}</NavLink></li>
 					<li><NavLink activeClassName="active" to="/admin/orders">{s.orders}</NavLink></li>
 					<li><NavLink activeClassName="active" to="/admin/users">{s.users}</NavLink></li>

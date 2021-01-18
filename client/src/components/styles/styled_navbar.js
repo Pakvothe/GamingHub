@@ -6,6 +6,7 @@ export const NavbarStyled = styled.nav`
 	background: var(--clr-dark);
 	padding: 2em 0;
 	color: var(--clr-white);
+	position: relative;
 
 	a {
 		text-decoration: none;
@@ -31,6 +32,7 @@ export const NavbarStyled = styled.nav`
 		}
 		
 		form {
+			margin: 0 2em;
 			flex-basis: 400px;
 		}
 
@@ -130,6 +132,11 @@ export const NavbarStyled = styled.nav`
 			.navbar__options{
 				flex-basis: 0;
 				margin: 2em 0 0;
+				font-size: .9em;
+				li svg{
+					width: 35px;
+				}
+				& > li + li { margin-left: 1.5em; }
 			}
 		}
 		.navbar__bottom{

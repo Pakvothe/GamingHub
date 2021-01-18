@@ -7,6 +7,8 @@ export const lightTheme = {
 	btnSecShadow: '2px 2px 0px var(--clr-primary)',
 	btnSecBorder: '2px solid var(--clr-primary)',
 	btnSecHoverBorder: '2px solid var(--clr-primary)',
+	btnYoutubeColor: 'var(--clr-dark)',
+	btnYoutubeColorInv: 'var(--clr-white)',
 
 	cardBg: 'var(--clr-white)',
 	cardText: 'linear-gradient(-90deg, #5630e4, #9b5df7)',
@@ -18,7 +20,10 @@ export const lightTheme = {
 	loadingBg: 'rgba(245, 244, 248, .8)',
 	loadingColor: 'var(--clr-dark)',
 
-	reviewColor: 'var(--clr-dark)'
+	reviewColor: 'var(--clr-dark)',
+
+	chartTextColor: 'var(--clr-dark)',
+	chartBgColor: 'var(--clr-middle-2)'
 }
 
 export const darkTheme = {
@@ -30,6 +35,8 @@ export const darkTheme = {
 	btnSecShadow: '2px 3px 0px rgba(0,0,0,.5)',
 	btnSecBorder: '2px solid var(--clr-white)',
 	btnSecHoverBorder: '2px solid var(--clr-primary)',
+	btnYoutubeColor: 'var(--clr-white)',
+	btnYoutubeColorInv: 'var(--clr-dark-1)',
 
 	cardBg: 'var(--clr-dark-1)',
 	cardText: 'var(--clr-white)',
@@ -41,5 +48,8 @@ export const darkTheme = {
 	loadingBg: 'rgba(44, 47, 49, .8)',
 	loadingColor: 'var(--clr-white)',
 
-	reviewColor: 'var(--clr-white)'
+	reviewColor: 'var(--clr-white)',
+
+	chartTextColor: 'var(--clr-white)',
+	chartBgColor: 'var(--clr-dark-2)'
 }

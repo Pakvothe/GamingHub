@@ -8,7 +8,8 @@ import { useToasts } from 'react-toast-notifications';
 import { getProduct, addDiscount } from './../../../../redux/actions/products_actions';
 import Swal from 'sweetalert2';
 import { storage } from '../../../../firebase';
-import { uuidv4 } from '../../../../utils/constants';
+import { v4 as uuidv4 } from 'uuid';
+import { StyledLoader } from './../../../styles/styled_global';
 
 const AdminProductOfferForm = () => {
 	const { id } = useParams();
@@ -18,11 +19,12 @@ const AdminProductOfferForm = () => {
 	const dispatch = useDispatch();
 	const { addToast } = useToasts();
 
+	const [loadingUpload, setLoadingUpload] = useState(false);
 	const [toAdmin, setToAdmin] = useState(false);
 
 	useEffect(() => {
 		dispatch(getProduct(id))
-	}, [])
+	}, [dispatch, id])
 
 	const [input, setInput] = useState({
 		price: '',
@@ -78,6 +80,7 @@ const AdminProductOfferForm = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		setLoadingUpload(true);
 		let randomID = uuidv4();
 		let bannerImage = product.banner_image;
 		if (imageAsFile) {
@@ -96,6 +99,7 @@ const AdminProductOfferForm = () => {
 								id
 							}))
 								.then(status => {
+									setLoadingUpload(false);
 									switch (status) {
 										case 200:
 											if (bannerImage) storage.refFromURL(bannerImage).delete();
@@ -133,19 +137,16 @@ const AdminProductOfferForm = () => {
 		}
 	}
 
-	const swalDeleteImg = {
-		heightAuto: false,
-		title: s.swDeleteTitle,
-		text: s.swDeleteText,
-		icon: 'warning',
-		showCancelButton: true,
-		confirmButtonColor: '#3085d6',
-		cancelButtonColor: '#d33',
-		confirmButtonText: s.swDeleteConfirmButton,
-		cancelButtonText: s.swDeleteCancelButton
-	};
+	if (loadingUpload) return <StyledLoader
+		active={true}
+		spinner
+		text={s.uploading}
+		className='loading__overlay'
+		classNamePrefix='loading__'
+	/>
 
 	if (toAdmin) return <Redirect to="/admin/product/offer/list" />
+
 	return (
 		<>
 			<h1 className="admin-h1">{product.real_price ? s.buttonEdit : s.buttonAdd}</h1>
@@ -166,7 +167,7 @@ const AdminProductOfferForm = () => {
 					<p className="thumbnail__preview">{s.preview}</p>
 					{product.banner_image &&
 						<div className='image_thumbnail thumbnail__banner'>
-							<img src={product.banner_image} width='100px' key={product.id} />
+							<img alt='banner' src={product.banner_image} width='100px' key={product.id} />
 						</div>
 					}
 				</div>

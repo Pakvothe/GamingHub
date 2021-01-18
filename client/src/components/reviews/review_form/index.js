@@ -9,11 +9,10 @@ import { BEARER } from '../../../redux/constants';
 import { useToasts } from 'react-toast-notifications'
 import strings from './strings';
 
-const { REACT_APP_API_URL } = process.env;
+const { REACT_APP_API } = process.env;
 
 const ReviewForm = () => {
 	const theme = useSelector(state => state.globalReducer.theme);
-	const user = useSelector(state => state.usersReducer.user.info);
 	const language = useSelector(state => state.globalReducer.language);
 	const s = strings[language];
 
@@ -42,7 +41,7 @@ const ReviewForm = () => {
 
 	const handleSubmit = (ev) => {
 		ev.preventDefault();
-		axios.post(`${REACT_APP_API_URL}/products/${id}/review`, review, BEARER())
+		axios.post(`${REACT_APP_API}/products/${id}/review`, review, BEARER())
 			.then(() => {
 				addToast(s.toastSuccess, {
 					appearance: 'success'

@@ -1,9 +1,11 @@
 export function BEARER() {
-	return {
-		headers: {
-			"Authorization": `Bearer ${JSON.parse(localStorage.getItem('jwt'))}`
+	if (JSON.parse(localStorage.getItem('jwt'))) {
+		return {
+			headers: {
+				"Authorization": `Bearer ${JSON.parse(localStorage.getItem('jwt'))}`
+			}
 		}
-	}
+	} else return null;
 }
 
 export function QUERY_FUNCTION(payload) {
@@ -29,6 +31,8 @@ export const ADD_CREDIT_CARD = 'ADD_CREDIT_CARD';
 export const RESET_CURRENT_PAGE = 'RESET_CURRENT_PAGE';
 export const CHANGE_CURRENT_PAGE = 'CHANGE_CURRENT_PAGE';
 export const OPEN_LOGIN = 'OPEN_LOGIN';
+export const OPEN_VIDEO = 'OPEN_VIDEO';
+export const CLOSE_VIDEO = 'CLOSE_VIDEO';
 
 //Product actions =>
 export const GET_PRODUCTS = 'GET_PRODUCTS';
@@ -109,3 +113,4 @@ export const LOADING_CART = 'LOADING_CART';
 export const SET_STOCK = 'SET_STOCK';
 export const EDIT_STOCK = 'EDIT_STOCK';
 export const DELETE_ITEM_STOCK = 'DELETE_ITEM_STOCK';
+export const SET_DISCOUNT = 'SET_DISCOUNT';

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Route, useHistory, Redirect } from 'react-router-dom';
+import { Route, useHistory } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { getProducts, getDiscounts } from '../redux/actions/products_actions';
@@ -21,6 +21,7 @@ import AdminUserList from './../components/admin_page/admin_user_list';
 import AdminOrderDetail from './../components/admin_page/admin_order_detail/index';
 import AdminProductOfferList from './../components/admin_page/admin_product_offers/list';
 import AdminProductOfferForm from './../components/admin_page/admin_product_offers/form/';
+import AdminCharts from '../components/admin_page/admin_charts';
 
 
 function AdminRoutes() {
@@ -38,7 +39,7 @@ function AdminRoutes() {
 
 	useEffect(() => {
 		if (!JSON.parse(localStorage.getItem('jwt'))) history.push('/');
-	}, []);
+	}, [history]);
 
 	useEffect(() => {
 		if (user.is_admin === false) return history.push('/');
@@ -49,7 +50,7 @@ function AdminRoutes() {
 			dispatch(getOrders({ all: true }));
 			dispatch(getUsers());
 		}
-	}, [user]);
+	}, [user, dispatch, history]);
 
 
 	if (userLoading) return <StyledLoader
@@ -64,53 +65,20 @@ function AdminRoutes() {
 		<>
 			<AdminSideBar />
 			<main className="admin-main-container">
-				<Route exact path='/admin'>
-					<AdminProductList products={products} />
-				</Route>
-
-				<Route exact path='/admin/product'>
-					<AdminProductForm categories={categories} />
-				</Route>
-
-				<Route exact path='/admin/product/:id'>
-					<AdminProductForm categories={categories} />
-				</Route>
-
-				<Route exact path='/admin/product/:id/stock'>
-					<AdminProductStockList categories={categories} />
-				</Route>
-
-				<Route exact path='/admin/product/:id/stock/new'>
-					<AdminProductStockForm />
-				</Route>
-
-				<Route exact path='/admin/product/offer/list'>
-					<AdminProductOfferList products={discounts} />
-				</Route>
-
-				<Route exact path='/admin/product/:id/offer/new'>
-					<AdminProductOfferForm />
-				</Route>
-
-				<Route exact path='/admin/categories'>
-					<AdminCategoryList categories={categories} language={language} />
-				</Route>
-
+				<Route exact path='/admin' render={() => <AdminCharts />} />
+				<Route exact path='/admin/products' render={() => <AdminProductList products={products} />} />
+				<Route exact path='/admin/product' render={() => <AdminProductForm categories={categories} />} />
+				<Route exact path='/admin/product/:id' render={() => <AdminProductForm categories={categories} />} />
+				<Route exact path='/admin/product/:id/stock' render={() => <AdminProductStockList categories={categories} />} />
+				<Route exact path='/admin/product/:id/stock/new' component={AdminProductStockForm} />
+				<Route exact path='/admin/product/offer/list' render={() => <AdminProductOfferList products={discounts} />} />
+				<Route exact path='/admin/product/:id/offer/new' component={AdminProductOfferForm} />
+				<Route exact path='/admin/categories' render={() => <AdminCategoryList categories={categories} language={language} />} />
 				<Route exact path='/admin/category' component={AdminCategoryForm} />
-
 				<Route exact path='/admin/category/:id' component={AdminCategoryForm} />
-
-				<Route exact path='/admin/users'>
-					<AdminUserList users={users} />
-				</Route>
-
-				<Route exact path='/admin/orders'>
-					<AdminOrderList orders={orders} />
-				</Route>
-
-				<Route exact path='/admin/order/:id'>
-					<AdminOrderDetail />
-				</Route>
+				<Route exact path='/admin/users' render={() => <AdminUserList users={users} />} />
+				<Route exact path='/admin/orders' render={() => <AdminOrderList orders={orders} />} />
+				<Route exact path='/admin/order/:id' component={AdminOrderDetail} />
 			</main>
 		</>
 	);

@@ -8,7 +8,7 @@ server.get('/', (req, res, next) => {
 	const { name, order, limit, offset, isActive } = req.query;
 
 	let count = 0;
-	Product.count()
+	Product.count({ where: !isActive && { is_active: true } })
 		.then(data => {
 			count = data;
 			return Product.findAll({
@@ -20,6 +20,7 @@ server.get('/', (req, res, next) => {
 				],
 				order: [
 					(name && [name, order || 'ASC']) || ['id', 'ASC'],
+					['name', 'ASC'],
 					[Image, 'id', 'ASC']
 				],
 				limit: limit ? limit : null,
@@ -64,6 +65,7 @@ server.post('/', isAdmin, (req, res) => {
 		price,
 		img,
 		categories,
+		trailer,
 		is_active
 	} = req.body
 	if (name && description_en && description_es && price && is_active) {
@@ -84,6 +86,7 @@ server.post('/', isAdmin, (req, res) => {
 			description_es,
 			description_en,
 			price,
+			trailer,
 			is_active,
 			stock: 0, //may be subject to change
 			sales: 0,  //may be subject to change
@@ -125,26 +128,28 @@ server.get('/search', (req, res) => {
 	const { query, limit, offset } = req.query;
 
 	Product.count({
-		where: query !== '' && {
+		where: query !== '' ? {
+			is_active: true,
 			[Op.or]: query !== '' && [
 				{ name: { [Op.iLike]: `%${query}%` } },
 				{ description_es: { [Op.iLike]: `%${query}%` } },
 				{ description_en: { [Op.iLike]: `%${query}%` } }
 			]
-		}
+		} : { is_active: true }
 	})
 		.then(count => {
 			Product.findAll({
-				where: query !== '' && {
+				where: query !== '' ? {
 					[Op.or]: [
 						{ name: { [Op.iLike]: `%${query}%` } },
 						{ description_es: { [Op.iLike]: `%${query}%` } },
 						{ description_en: { [Op.iLike]: `%${query}%` } }
-					]
-				},
+					], is_active: true
+				} : { is_active: true },
 				include: [{
 					model: Image,
 				}],
+				order: [['stock', 'DESC'], ['name', 'ASC'], [Image, 'id']],
 				limit: limit ? limit : null,
 				offset: offset ? offset : null
 			})
@@ -273,7 +278,8 @@ server.put('/:id', isAdmin, (req, res) => {
 		price,
 		img,
 		categories,
-		is_active
+		is_active,
+		trailer
 	} = req.body;
 
 	let newCategories = [];
@@ -292,7 +298,8 @@ server.put('/:id', isAdmin, (req, res) => {
 		description_es,
 		description_en,
 		price,
-		is_active
+		is_active,
+		trailer
 	}, {
 		where: { id },
 		returning: true

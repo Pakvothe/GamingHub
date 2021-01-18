@@ -41,14 +41,18 @@
 //             `/syhs/.                                                      
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~             
 require('dotenv').config();
+const cron = require('node-cron');
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 const { PORT } = process.env;
 const { Product, Category, Image, Serial, User, Order, Orders_products, Review } = require('./src/db.js');
+const { Op } = require('sequelize');
 const utilsProd = require("./utils/products");
 const utilsOrder = require("./utils/orders");
 const utilsUser = require("./utils/users");
 const utilsReview = require("./utils/reviews");
+const ordersProducts = require("./utils/ordersProducts");
+const orders = require('./utils/orders');
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
@@ -77,34 +81,11 @@ conn.sync({ force: true }).then(() => {
 			return Order.bulkCreate(utilsOrder)
 		})
 		.then(() => {
-			Orders_products.create({
-				productId: 1,
-				orderId: 1,
-				unit_price: 52.38,
-				quantity: 2
-			})
-			Orders_products.create({
-				productId: 1,
-				orderId: 2,
-				unit_price: 52.38,
-				quantity: 2
-			})
-			Orders_products.create({
-				productId: 2,
-				orderId: 2,
-				unit_price: 40.72,
-				quantity: 1
-			})
-			Orders_products.create({
-				productId: 4,
-				orderId: 2,
-				unit_price: 40.72,
-				quantity: 1
-			})
 			console.log('Ordenes cargadas exitosamente')
-			return;
+			return Orders_products.bulkCreate(ordersProducts, { hooks: true })
 		})
 		.then(() => {
+			console.log('Order_Products cargados exitosamente')
 			return Review.bulkCreate(utilsReview, { hooks: true })
 		})
 		.then(() => {
@@ -113,4 +94,14 @@ conn.sync({ force: true }).then(() => {
 		.catch(err => {
 			console.log(err);
 		})
+});
+
+cron.schedule('00 00 * * *', () => {
+	var currentTimeMinus24Hours = new Date() - 96 * 60 * 60 * 1000;
+	Order.update({ state: 'canceled', payment_link: null }, {
+		where: {
+			createdAt: { [Op.lt]: currentTimeMinus24Hours },
+			[Op.or]: [{ state: 'created' }, { state: 'processing' }]
+		}
+	}).catch(err => console.log('CRONJOBS', err));
 });

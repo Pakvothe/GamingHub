@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Btn, DataTable } from './../../../styles/styled_global';
+import { Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSerials, deleteSerial, editSerial, clearErrorSerial } from './../../../../redux/actions/products_actions';
 import { Link } from 'react-router-dom';
-import SearchBar from './../../admin_search_bar/index';
 import Swal from 'sweetalert2';
 import strings from './strings';
 
@@ -20,7 +21,7 @@ const AdminProductStockList = () => {
 
 	useEffect(() => {
 		dispatch(getSerials(id));
-	}, []);
+	}, [dispatch, id]);
 
 	useEffect(() => {
 		setInput(serials.reduce((acc, val) => {
@@ -41,7 +42,7 @@ const AdminProductStockList = () => {
 		}).then(() => {
 			dispatch(clearErrorSerial())
 		})
-	}, [error])
+	}, [error, dispatch, s.alertButton, s.alertText, s.alertTitle])
 
 	const handleDelete = (serialId) => {
 		Swal.fire({
@@ -105,21 +106,20 @@ const AdminProductStockList = () => {
 				<Link to={`/admin/product/${id}/stock/new`}>
 					<Btn className="btn-ppal">{s.addButton}</Btn>
 				</Link>
-				<SearchBar />
 			</div>
-			<DataTable>
-				<thead>
-					<tr>
-						<td className="cell-small">ID</td>
-						<td>{s.tableSerial}</td>
-						<td></td>
-					</tr>
-				</thead>
-				<tbody>
+			<DataTable className="responsiveTable">
+				<Thead>
+					<Tr>
+						<Th className="cell-small">ID</Th>
+						<Th>{s.tableSerial}</Th>
+						<Th></Th>
+					</Tr>
+				</Thead>
+				<Tbody>
 					{!!serials.length && serials.map(serial => (
-						<tr key={serial.id}>
-							<td>{serial.id}</td>
-							<td>
+						<Tr key={serial.id}>
+							<Td>{serial.id}</Td>
+							<Td>
 								<form className="serial-form" onSubmit={(ev) => handleSubmit(ev, serial.id, serial.productId)}>
 									<input type="text"
 										id={serial.id}
@@ -130,16 +130,16 @@ const AdminProductStockList = () => {
 										value={input[serial.id] || ''}
 									/>
 								</form>
-							</td>
-							<td>
+							</Td>
+							<Td>
 								<ul>
 									<li><button onClick={() => handleEdit(serial.id)}>{s.tableEditButton}</button></li>
 									<li><button onClick={() => handleDelete(serial.id)}>{s.tableDeleteButton}</button></li>
 								</ul>
-							</td>
-						</tr>
+							</Td>
+						</Tr>
 					))}
-				</tbody>
+				</Tbody>
 			</DataTable>
 		</>
 	)

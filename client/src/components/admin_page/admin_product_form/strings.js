@@ -11,6 +11,7 @@ const strings = {
 		inputDeleteImage: 'DELETE',
 		inputActive: 'Active',
 		categories: 'Categories:',
+		uploading: 'Uploading...',
 
 		toastProductEdited: `Product edited successfully`,
 		toastProductAdded: `Product added successfully`,
@@ -39,6 +40,7 @@ const strings = {
 		inputDeleteImage: 'ELIMINAR',
 		inputActive: 'Activo',
 		categories: 'Categorías',
+		uploading: 'Subiendo...',
 
 		toastProductEdited: `Producto editado correctamente`,
 		toastProductAdded: `Producto añadido correctamente`,

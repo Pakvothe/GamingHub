@@ -8,7 +8,8 @@ module.exports = (sequelize) => {
 			include: [{
 				model: sequelize.models.Serial,
 				where: {
-					productId: serial.productId
+					productId: serial.productId,
+					is_active: true
 				}
 			}]
 		}).then(count => {
@@ -17,7 +18,7 @@ module.exports = (sequelize) => {
 					id: serial.productId
 				}
 			})
-		});
+		}).catch(err => console.log(err))
 	};
 
 	sequelize.define('serial', {
@@ -29,11 +30,17 @@ module.exports = (sequelize) => {
 				isAlphanumeric: true,
 				len: [20]
 			}
+		},
+		is_active: {
+			type: D.BOOLEAN,
+			allowNull: false,
+			defaultValue: true
 		}
 	}, {
 		hooks: {
 			afterCreate: updateStock,
 			afterDestroy: updateStock,
+			afterUpdate: updateStock,
 			//Esta solo sirve para el bulkCreate, mientras todo lo hardcodeado
 			//esté bien no hará falta en un futuro
 			afterBulkCreate: (serials) => {
@@ -42,12 +49,3 @@ module.exports = (sequelize) => {
 		}
 	})
 };
-// beforeCreate: () => console.log('before create'),
-// beforeDestroy: () => console.log('before destroy'),
-// beforeUpdate: () => console.log('before update'),
-// afterCreate: () => console.log('after create'),
-// afterDestroy: () => console.log('after destroy'),
-// afterUpdate: () => console.log('after update'),
-// afterBulkDestroy: () => console.log('after bulkdestroy'),
-// afterBulkCreate: () => console.log('after bulkcreate'),
-// afterBulkUpdate: () => console.log('after bulkupdate'),

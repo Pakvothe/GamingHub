@@ -8,7 +8,7 @@ import { useToasts } from 'react-toast-notifications';
 import Fade from 'react-reveal/Fade';
 
 const HelpUser = () => {
-	const { REACT_APP_API_URL } = process.env;
+	const { REACT_APP_API } = process.env;
 	const history = useHistory();
 	const language = useSelector((state) => state.globalReducer.language);
 	const s = strings[language];
@@ -32,7 +32,7 @@ const HelpUser = () => {
 	const handleSubmit = (ev) => {
 		ev.preventDefault();
 		setIsLoading(true);
-		return axios.post(`${REACT_APP_API_URL}/users/mail/send`, input)
+		return axios.post(`${REACT_APP_API}/users/mail/send`, input)
 			.then((data) => {
 				addToast(s.mailSend, { appearance: 'success' })
 				history.push('/');
@@ -61,7 +61,7 @@ const HelpUser = () => {
 						<textarea type="text" value={input.message} name="message" onChange={handleChange} required />
 					</label>
 					<div className="text-center">
-						<Btn type="submit" className="btn-ppal mr-1">{
+						<Btn type="submit" className="btn-ppal mr-1 mt-1">{
 							isLoading ?
 								<span><i className='fas fa-circle-notch fa-spin mr-1'></i>{s.loading}</span>
 								: <span>{s.send}</span>

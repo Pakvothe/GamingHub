@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 import { NavbarStyled, StyledSVG } from '../styles/styled_navbar';
 import { Dropdown } from '../styles/styled_global';
 import SearchBar from '../search_bar';
-import Swal from 'sweetalert2';
 
 /* --- Actions --- */
 import { emptyFilter, getFilterProducts, getProducts } from '../../redux/actions/products_actions';
@@ -25,9 +24,10 @@ import strings from './strings'
 
 /* --- Products Payload --- */
 import { getProductsPayload } from './../home_page/index';
+import swals from '../../utils/swals';
 
 const Navbar = ({ toggleModal, cartNumber }) => {
-
+	const history = useHistory();
 	const dispatch = useDispatch();
 	const language = useSelector(state => state.globalReducer.language);
 	const s = strings[language];
@@ -49,10 +49,11 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 	const handleCategories = (ev) => {
 		dispatch(resetCurrentPage())
 		if (ev.target.id === 'todos') {
-			dispatch(getProducts(getProductsPayload))
-			return dispatch(emptyFilter())
+			dispatch(emptyFilter())
+			return dispatch(getProducts(getProductsPayload))
 		}
-		dispatch(getFilterProducts(ev.target.id));
+		if (ev.target.id)
+			dispatch(getFilterProducts(ev.target.id, { limit: 8 }));
 	}
 
 	const handleTheme = () => {
@@ -64,26 +65,24 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 	}
 
 	const handleLogout = () => {
+		swals.FIRE('warning',
+			s.logout_confirm,
+			s.logout_confirm_text,
+			s.logout_button,
+			true,
+			s.logout_cancel_button_text)
+			.then((result) => {
+				if (result.isConfirmed) {
+					swals.CONFIRMOK(
+						s.logout_confirm_text_2,
+						'',
+						'success',
+						dispatch(logout())
+					)
+					history.push('/');
+				}
 
-		Swal.fire({
-			heightAuto: false,
-			title: s.logout_confirm,
-			text: s.logout_confirm_text,
-			icon: 'warning',
-			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
-			confirmButtonText: s.logout_button,
-		}).then((result) => {
-			if (result.isConfirmed) {
-				Swal.fire(
-					s.logout_confirm,
-					s.logout_confirm_text2,
-					'success',
-					dispatch(logout())
-				)
-			}
-		})
+			})
 	}
 
 	return (
@@ -108,13 +107,13 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 								<span>{s.language}</span>
 								<ul onClick={(e) => handleClick(e)}>
 									<li>
-										<a id='en' className={language === 'en' ? 'selected' : null}>
+										<button id='en' className="dropdown__button">
 											English
-										</a> </li>
+										</button> </li>
 									<li>
-										<a id='es' className={language === 'es' ? 'selected' : null}>
+										<button id='es' className="dropdown__button">
 											Español
-										</a>
+										</button>
 									</li>
 								</ul>
 							</Dropdown>
@@ -132,12 +131,23 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 												<li className='dropdown__first-name'><p>{user.first_name}</p></li>
 												<li><Link to='/user'>{s.profile}</Link></li>
 												{user.is_admin && <li><Link to='/admin'>{s.admin}</Link></li>}
-												<li><Link to="/" onClick={handleLogout}>{s.logout}</Link></li>
+												<li><button className="dropdown__button" onClick={handleLogout}>{s.logout}</button></li>
 											</>
 										) : (
 												<>
-													<li><Link to="/#" onClick={openLoginModal}>{s.login}</Link></li>
-													<li><Link to="/signup" >{s.signup}</Link></li>
+													<li>
+														<button
+															className="dropdown__button"
+															onClick={openLoginModal}>
+															{s.login}
+														</button>
+													</li>
+													<li><Link
+														to="/signup"
+														className="dropdown__button">
+														{s.signup}
+													</Link>
+													</li>
 												</>
 											)
 									}
@@ -181,13 +191,16 @@ const Navbar = ({ toggleModal, cartNumber }) => {
 								</ul>
 							</Dropdown>
 							<li>
-								<Link to='/'>{s.offer}</Link>
+								<Link to='/about'>{s.about}</Link>
 							</li>
 							<li>
-								<Link to='/'>{s.about}</Link>
+								<Link to='/contact'>{s.help}</Link>
 							</li>
 						</ul>
 					</div>
+				</div>
+				<div className="partyBar-container">
+					<div className="partyBar"></div>
 				</div>
 			</NavbarStyled>
 		</>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 
 import { addProduct, getProduct, editProduct, deleteImage } from '../../../redux/actions/products_actions'
 
@@ -9,7 +10,9 @@ import { Redirect, useParams } from 'react-router-dom';
 import { storage } from '../../../firebase/';
 import { useToasts } from 'react-toast-notifications';
 import Swal from 'sweetalert2';
+import swals from '../../../utils/swals';
 import strings from './strings';
+import { StyledLoader } from './../../styles/styled_global';
 
 const AdminProductForm = ({ categories }) => {
 	const { id } = useParams();
@@ -27,7 +30,7 @@ const AdminProductForm = ({ categories }) => {
 
 	const fileInput = useRef(null);
 
-
+	const [loadingUpload, setLoadingUpload] = useState(false);
 
 	let [input, setInput] = useState({
 		name: '',
@@ -36,20 +39,30 @@ const AdminProductForm = ({ categories }) => {
 		price: 1,
 		img: [],
 		is_active: true,
-		categories: {}
+		categories: {},
+		trailer: ''
 	});
-
 	useEffect(() => {
 		if (input.img.length === imagesAsFile.length && input.img.length > 0) {
 			id ? dispatch(editProduct(input)) : dispatch(addProduct(input));
-			addToast(id ? s.toastProductEdited : s.toastProductAdded, { appearance: 'success' })
+			addToast(id ? s.toastProductEdited : s.toastProductAdded, { appearance: 'success' });
+			setLoadingUpload(false);
 			setToAdmin(true);
 		}
-	}, [input.img]);
+	}, [
+		input.img,
+		addToast,
+		dispatch,
+		id,
+		imagesAsFile.length,
+		input,
+		s.toastProductAdded,
+		s.toastProductEdited
+	]);
 
 	useEffect(() => {
 		if (id) dispatch(getProduct(id));
-	}, []);
+	}, [dispatch, id]);
 
 	useEffect(() => {
 		if (id && Object.keys(product).length) {
@@ -66,10 +79,11 @@ const AdminProductForm = ({ categories }) => {
 				price: product.price,
 				img: [],
 				is_active: product.is_active,
-				categories: newCategories
+				categories: newCategories,
+				trailer: product.trailer
 			})
 		}
-	}, [product]);
+	}, [product, id]);
 
 	const handleInput = (ev) => {
 		ev.persist();
@@ -91,24 +105,12 @@ const AdminProductForm = ({ categories }) => {
 		let invalidFile = images.some(img => !img.type.includes('image'));
 		let invalidSize = images.some(img => img.size > 2097152);
 		if (invalidFile) {
-			Swal.fire({
-				heightAuto: false,
-				title: s.invalidImgFile,
-				icon: 'warning',
-				confirmButtonColor: '#3085d6',
-				confirmButtonText: 'Ok',
-			})
+			swals.FIRE('warning', s.invalidImgFile, null, 'Ok', false, null,)
 			fileInput.current.value = '';
 			return;
 		}
 		if (invalidSize) {
-			Swal.fire({
-				heightAuto: false,
-				title: s.invalidImgSize,
-				icon: 'warning',
-				confirmButtonColor: '#3085d6',
-				confirmButtonText: 'Ok',
-			})
+			swals.FIRE('warning', s.invalidImgSize, null, 'Ok', false, null,)
 			fileInput.current.value = '';
 			return;
 		}
@@ -127,10 +129,13 @@ const AdminProductForm = ({ categories }) => {
 	}
 	const handleSubmit = (ev) => {
 		ev.preventDefault();
-
+		setLoadingUpload(true);
 		if (id && !imagesAsFile.length) {
-			dispatch(editProduct(input));
-			addToast(s.toastProductEdited, { appearance: 'success' })
+			dispatch(editProduct(input))
+				.then((result) => {
+					addToast(s.toastProductEdited, { appearance: 'success' })
+				})
+			setLoadingUpload(false);
 			return setToAdmin(true);
 		};
 
@@ -139,12 +144,13 @@ const AdminProductForm = ({ categories }) => {
 			if (imageAsFile === '') {
 				console.error(`Not an image. That file is a ${typeof (imageAsFile)}`)
 			}
-			const uploadTask = storage.ref(`/images/${imageAsFile.name}`).put(imageAsFile)
+			let randomID = uuidv4();
+			const uploadTask = storage.ref(`/images/${randomID}`).put(imageAsFile)
 			uploadTask.on('state_changed',
 				(snapShot) => { },
 				(err) => { },
 				() => {
-					storage.ref('images').child(imageAsFile.name).getDownloadURL()
+					storage.ref('images').child(randomID).getDownloadURL()
 						.then(fireBaseUrl => {
 							setInput(prev => ({
 								...prev,
@@ -152,6 +158,7 @@ const AdminProductForm = ({ categories }) => {
 							}))
 						})
 				})
+			return undefined;
 		})
 	}
 
@@ -169,8 +176,16 @@ const AdminProductForm = ({ categories }) => {
 		cancelButtonText: s.swDeleteCancelButton
 	};
 
-	if (isLoading) return <h1 className="admin-h1"><i class="fas fa-circle-notch fa-spin"></i> {s.loading}</h1>;
 	if (toAdmin) return <Redirect to='/admin' />
+
+	if (loadingUpload || isLoading) return <StyledLoader
+		active={true}
+		spinner
+		text={loadingUpload ? s.uploading : s.loading}
+		className='loading__overlay'
+		classNamePrefix='loading__'
+	/>
+
 
 	return (
 		<>
@@ -192,23 +207,27 @@ const AdminProductForm = ({ categories }) => {
 							<textarea type='text' name='description_en' value={input.description_en} onChange={handleInput} required>
 							</textarea>
 						</label>
+						<label>
+							<span>{s.inputPrice}</span>
+							<input type='number' step='0.01' name='price' value={input.price} onChange={handleInput} required />
+						</label>
 					</div>
 
 					<div>
 						<label>
-							<span>{s.inputPrice}</span>
-							<input type='number' step='0.01' name='price' value={input.price} onChange={handleInput} required />
+							<span>Trailer</span>
+							<input type='text' name='trailer' placeholder='YoutubeId' value={input.trailer} onChange={handleInput} />
 						</label>
 						<label>
 							<span>{s.inputImage}</span>
 							<input ref={fileInput} type='file' name='img' onChange={handleImagesAsFile} multiple required={id ? false : true} />
 						</label>
-						<div className='image__container'>
+						<div className='image__container mt-1'>
 							{id && product.images?.length > 0 &&
 								product.images.map(image =>
-									<div className='image_thumbnail'>
+									<div key={image.id} className='image_thumbnail'>
 										<span className='delete__image'>{s.inputDeleteImage}</span>
-										<img src={image.url} width='100px' key={image.id} onClick={() => {
+										<img src={image.url} width='100px' alt={product.name} key={image.id} onClick={() => {
 											Swal.fire(swalDeleteImg).then((result) => {
 												if (result.isConfirmed) {
 													Swal.fire(

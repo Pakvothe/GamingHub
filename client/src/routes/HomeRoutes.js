@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Route } from 'react-router-dom';
+import { Route, useLocation } from 'react-router-dom';
 import Product from '../components/product';
 import Navbar from '../components/navbar';
+import AboutUs from '../components/about_us';
 import Footer from '../components/footer';
 import CartSideBar from '../components/cart_sidebar';
 import Carousel from '../components/carousel';
@@ -24,17 +25,21 @@ import { toggleCart } from '../redux/actions/global_actions';
 import Reset from './../components/reset/index';
 import ReviewForm from '../components/reviews/review_form';
 import { getDiscounts } from './../redux/actions/products_actions';
+import Terms from '../components/terms';
+import Privacy from '../components/privacy';
+import Legal from '../components/legal';
+import Confetti from 'react-confetti'
+import queryString from 'query-string';
 
 function HomeRoutes() {
 
 	const dispatch = useDispatch();
-	const products = useSelector(state => state.productsReducer.products.productList);
 	const discounts = useSelector(state => state.productsReducer.productsDiscount.list);
 	const cart = useSelector(state => state.cartReducer.cart.list);
-	const categories = useSelector(state => state.categoriesReducer.categories.list);
 	const showCart = useSelector(state => state.globalReducer.showCart);
 	const language = useSelector(state => state.globalReducer.language);
-
+	const location = useLocation();
+	const parsed = queryString.parse(location.search);
 	//cart modal ->
 	const toggleModal = () => {
 		dispatch(toggleCart());
@@ -42,18 +47,19 @@ function HomeRoutes() {
 	// <-
 
 	useEffect(() => {
-		if (!products.length) {
-			dispatch(getProducts({ name: 'stock', order: 'DESC', limit: 8 }));
-			dispatch(getDiscounts());
-		}
-		if (!categories.length) {
-			dispatch(getCategories());
-		}
+		dispatch(getProducts({ name: 'stock', order: 'DESC', limit: 8 }));
+		dispatch(getDiscounts());
+		dispatch(getCategories());
 
-	}, [])
+	}, [dispatch])
 
 	return (
 		<>
+			{parsed.status === 'completed' && <Confetti
+				width={window.innerWidth - 16}
+				height={window.innerHeight}
+
+			/>}
 			<Login />
 			<Navbar toggleModal={toggleModal} cartNumber={cart} />
 			<CartSideBar language={language} closeCallback={toggleModal} show={showCart} cart={cart} />
@@ -68,19 +74,23 @@ function HomeRoutes() {
 					<Step1 language={language} cart={cart} />
 				</Route>
 				<Route exact path='/order/payment'>
-					<Step2 language={language} cart={cart} />
+					<Step2 language={language} />
 				</Route>
 				<Route exact path='/order/detail'>
-					<Step3 language={language} cart={cart} />
+					<Step3 language={language} />
 				</Route>
+				<Route exact path='/about' component={AboutUs} />
 				<Route exact path='/user' component={UserPage} />
 				<Route exact path='/reset' component={Reset} />
 				<Route exact path='/signup' component={SignUp} />
 				<Route exact path='/edit' component={EditUser} />
 				<Route exact path='/orders' component={UserOrders} />
-				<Route exact path='/help' component={HelpUser} />
+				<Route exact path='/contact' component={HelpUser} />
 				<Route exact path='/orders/:id' component={UserOrderDetail} />
 				<Route exact path='/review/:id' component={ReviewForm} />
+				<Route exact path='/terms' component={Terms} />
+				<Route exact path='/privacy' component={Privacy} />
+				<Route exact path='/legal' component={Legal} />
 			</main>
 			<Footer language={language} />
 		</>
