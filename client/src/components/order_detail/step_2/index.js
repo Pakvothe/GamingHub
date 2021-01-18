@@ -109,7 +109,7 @@ const Step2 = ({ language }) => {
 										<option value='mp'>MercadoPago</option>
 										<option value='paypal'>Paypal</option>
 									</SelectStyled>
-									<Btn className={`btn btn-ppal${payment && ' btn-visible'}`} onClick={(ev) => handleClick(ev, true)}>{loading ? <i className="fas fa-circle-notch fa-spin"></i> : s.next}</Btn>
+									<Btn className={`btn btn-ppal${payment && ' btn-visible'}`} onClick={(ev) => handleClick(ev)}>{loading ? <i className="fas fa-circle-notch fa-spin"></i> : s.next}</Btn>
 								</div>
 							</div>
 							<footer className="small-text">{s.warning}</footer>
